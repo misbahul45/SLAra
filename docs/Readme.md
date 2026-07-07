@@ -1,6 +1,6 @@
 # 📚 SLAra — Documentation Hub
 
-> File ini adalah **pintu masuk tunggal** untuk seluruh dokumentasi teknis SLAra: spesifikasi, kontrak antar-microservice, serta tracking progress & planning (termasuk untuk pengembangan AI Agent). Semua anggota tim — baru maupun lama — mulai dari sini.
+> File ini adalah **pintu masuk tunggal** untuk seluruh dokumentasi teknis SLAra: spesifikasi, kontrak antar-microservice, dokumentasi + testing API, serta tracking progress & planning (termasuk untuk pengembangan AI Agent). Semua anggota tim — baru maupun lama — mulai dari sini.
 
 ---
 
@@ -9,7 +9,7 @@
 Dokumentasi ini dibangun di atas 3 prinsip yang umum dipakai tim engineering yang sudah matang (Google design docs, ADR ala Michael Nygard, contract-first API design):
 
 1. **Spec-first** — Fitur/keputusan teknis besar ditulis speknya *sebelum* dikerjakan, bukan didokumentasikan setelah selesai. Ini mencegah rework dan miskomunikasi antara service `agent`, `data`, dan `ai`.
-2. **Contract-first** — Karena SLAra adalah sistem microservice yang saling bicara lewat REST, gRPC, dan Kafka, kontrak (schema, payload, event) didefinisikan eksplisit dan versioned. Service boleh berubah internal-nya, tapi kontrak adalah janji yang tidak boleh dilanggar diam-diam.
+2. **Contract-first** — Karena SLAra adalah sistem microservice yang saling bicara lewat REST dan Kafka, kontrak (schema, payload, event) didefinisikan eksplisit dan versioned. Service boleh berubah internal-nya, tapi kontrak adalah janji yang tidak boleh dilanggar diam-diam.
 3. **Progress dipisah per domain, bukan digabung rata** — Progress `data` (fitur/endpoint selesai), `ml` (akurasi model, status training), dan `agent` (kapabilitas, evaluasi prompt/tool-calling) punya satuan ukur berbeda. Menyamakan semua dalam satu Kanban generik justru menyembunyikan detail yang penting untuk decision-making.
 
 ---
@@ -43,12 +43,17 @@ docs/
 │   ├── ml/                        # progress model & eksperimen
 │   └── agent/                     # progress AI agent
 │
-├── api/                            # dokumentasi API yang sudah di-generate (auto, jangan edit manual)
+├── api/                             # Dokumentasi API + Bruno collection (testing) — lihat section 6
+│   ├── generated/                 # dokumentasi API hasil generate otomatis (auto, jangan edit manual)
+│   └── bruno/                     # Bruno collection buat testing manual/exploratory tiap endpoint
+│
 ├── deployment/                     # panduan deploy, environment, secrets management
 └── runbooks/                       # SOP incident response, rollback, on-call
 ```
 
 **Aturan:** setiap folder di atas punya `Readme.md` sendiri yang isinya index + link ke dokumen-dokumen di dalamnya. Dokumen ini (`docs/Readme.md`) hanya menjelaskan *cara pakai* struktur, bukan menyimpan isi detailnya.
+
+> Catatan: folder `progress/` dan `deployment/` di struktur di atas adalah target struktur (belum tentu semua sudah dibuat fisik). Kalau lagi bikin folder baru sesuai peta ini, ikutin konvensi & template yang ada di section terkait di bawah.
 
 ---
 
@@ -138,6 +143,7 @@ Ini folder paling kritis untuk sistem seperti SLAra karena `gateway`, `agent`, `
 **Aturan versi kontrak:**
 - Breaking change **wajib** ADR + entri di `CHANGELOG.md` + notifikasi ke owner service consumer.
 - Non-breaking change (menambah field opsional) cukup dicatat di `CHANGELOG.md`.
+- Endpoint baru/berubah **wajib** juga tercermin di request Bruno terkait — lihat section 6.2.
 
 **Template entri event (`events/<topic-name>.md`):**
 
@@ -270,15 +276,62 @@ Tracking berbasis **kapabilitas & evaluasi**, karena "selesai" untuk agent AI di
 
 ---
 
-## 6. `api/`, `deployment/`, `runbooks/`
+## 6. `api/` — Dokumentasi API & Testing (Bruno)
 
-- **`api/`** — dokumentasi API hasil generate otomatis (misal dari OpenAPI). Jangan edit manual; kalau ada yang salah, perbaiki di source (`contracts/rest/`) lalu re-generate.
+`api/` sekarang punya dua sub-folder dengan tujuan berbeda: dokumentasi yang di-generate otomatis, dan collection Bruno untuk testing manual/exploratory tiap endpoint.
+
+```
+docs/api/
+├── generated/                     # dokumentasi API hasil generate otomatis (auto, jangan edit manual)
+│   ├── data/
+│   ├── agent/
+│   └── ai/
+└── bruno/                         # Bruno collection — testing manual & exploratory
+    ├── bruno.json                 # config workspace/collection
+    ├── environments/
+    │   ├── local.bru              # base URL ke gateway lokal (docker compose)
+    │   ├── staging.bru
+    │   └── production.bru
+    ├── data-service/
+    │   ├── shipments/
+    │   ├── drivers/
+    │   ├── vehicles/
+    │   └── routes/
+    ├── agent-service/
+    │   └── chat/
+    └── ai-service/
+        ├── eta/
+        ├── delay/
+        ├── carbon/
+        ├── hub-risk/
+        └── route-optimization/
+```
+
+### 6.1 `api/generated/` (tidak berubah)
+
+Dokumentasi API hasil generate otomatis (misal dari OpenAPI). **Jangan edit manual** — kalau ada yang salah, perbaiki di source (`contracts/rest/`) lalu re-generate.
+
+### 6.2 `api/bruno/` — Kenapa Bruno
+
+Bruno dipilih karena collection-nya berupa file teks biasa (`.bru`), jadi **git-friendly** — bisa di-review lewat PR, di-diff, tanpa perlu export/import manual atau akun cloud kayak Postman.
+
+**Aturan:**
+- Satu folder collection per service (`data-service/`, `agent-service/`, `ai-service/`), sub-folder lagi per domain/resource (`shipments/`, `chat/`, `eta/`, dll) — mengikuti struktur `contracts/rest/`.
+- **Endpoint baru atau berubah di `contracts/rest/` WAJIB disertai request Bruno yang sesuai di PR yang sama.** Kontrak dan collection testing harus selalu sinkron, jangan menyusul belakangan.
+- Naming file request: kebab-case verb-noun, contoh `create-shipment.bru`, `get-shipment-by-id.bru`, `list-drivers.bru`.
+- `environments/*.bru` cuma boleh isi base URL & nama variable — **JANGAN PERNAH** commit token/API key/secret asli di sini. Kalau butuh auth, pakai Bruno runtime variable yang di-load dari `.env` lokal (sama prinsipnya kayak `infra/environments/*.env`).
+- Collection ini dipakai buat testing manual/exploratory harian, **bukan pengganti** automated test (unit/integration/contract tetap wajib — lihat Testing Strategy di `AGENTS.md`).
+
+---
+
+## 7. `deployment/`, `runbooks/`
+
 - **`deployment/`** — cara jalankan tiap service, environment variable, dependency antar `infra/` (Kafka, MongoDB, Neo4j, Redis, Qdrant).
 - **`runbooks/`** — SOP saat ada insiden (mis: Kafka consumer lag, model inference timeout, agent loop tak berhenti).
 
 ---
 
-## 7. Konvensi Penamaan
+## 8. Konvensi Penamaan
 
 | Jenis dokumen | Format nama |
 |---|---|
@@ -286,22 +339,24 @@ Tracking berbasis **kapabilitas & evaluasi**, karena "selesai" untuk agent AI di
 | Spec | `SPEC-NNN-judul-fitur.md` (increment per folder domain) |
 | Sprint log | `sprint-YYYY-MM-X.md` |
 | Event contract | `<topic.name.dot.case>.md` |
+| Bruno request | `<verb>-<noun>.bru` (kebab-case, contoh: `create-shipment.bru`) |
 
 Semua nomor (`NNNN`, `NNN`) **tidak boleh dipakai ulang** meski dokumennya di-deprecate — pakai status `Deprecated`/`Superseded`, jangan hapus/rename nomor.
 
 ---
 
-## 8. Alur Kerja Mingguan (disarankan)
+## 9. Alur Kerja Mingguan (disarankan)
 
 1. **Senin** — review `progress/plan/roadmap.md`, buat/update sprint file di `progress/plan/sprints/`.
 2. **Sepanjang sprint** — setiap kali status berubah, update tabel di `progress/data/`, `progress/ml/`, atau `progress/agent/` yang relevan (bukan menunggu akhir sprint).
 3. **Sebelum mulai fitur baru** — cek apakah sudah ada file di `specifications/`; kalau belum, tulis dulu sebelum coding.
-4. **Setiap mengubah interface antar service** — update `contracts/` + `contracts/CHANGELOG.md` sebelum merge, bukan setelahnya.
-5. **Jumat / akhir sprint** — isi bagian retro di sprint file.
+4. **Setiap mengubah interface antar service** — update `contracts/` + `contracts/CHANGELOG.md` + request Bruno terkait di `api/bruno/`, sebelum merge, bukan setelahnya.
+5. **Sebelum merge PR yang menyentuh endpoint** — jalankan request Bruno terkait minimal sekali secara manual buat sanity check, di luar automated test.
+6. **Jumat / akhir sprint** — isi bagian retro di sprint file.
 
 ---
 
-## 9. Ownership Matrix
+## 10. Ownership Matrix
 
 | Folder | Penanggung jawab utama |
 |---|---|
@@ -310,16 +365,19 @@ Semua nomor (`NNNN`, `NNN`) **tidak boleh dipakai ulang** meski dokumennya di-de
 | `specifications/ml` | Pemilik service `ai` (FastAPI/ML) |
 | `specifications/agent` | Pemilik service `agent` (Hono/LangGraph) |
 | `contracts/` | Wajib disetujui semua service yang terdampak |
+| `api/generated/` | Auto-generated, tidak ada owner manual (source-nya `contracts/rest/`) |
+| `api/bruno/` | Masing-masing owner service, untuk sub-folder collection-nya sendiri |
 | `progress/*` | Update oleh masing-masing owner, direview tech lead saat sprint review |
 
 ---
 
-## 10. Referensi Pendekatan
+## 11. Referensi Pendekatan
 
 Struktur ini mengadaptasi (bukan copy mentah) beberapa praktik yang umum dipakai:
 - **ADR** — format Michael Nygard, dipakai luas termasuk di banyak tim platform engineering.
 - **Design doc / spec-first** — pola yang dipakai Google dan banyak perusahaan berbasis engineering-heavy.
 - **Contract-first API design** — standar umum di arsitektur microservice untuk menghindari integration hell.
 - **Model registry & eksperimen tracking** — pola umum di tim MLOps untuk memisahkan progress model dari progress fitur biasa.
+- **Bruno collection sebagai living documentation** — pola umum tim yang mau API testing tetap git-friendly dan versioned, tanpa bergantung ke tool cloud-based.
 
 Dokumen ini sendiri sebaiknya di-review ulang tiap kuartal — kalau strukturnya mulai terasa berat atau ada folder yang tidak pernah dipakai, sederhanakan, jangan dipertahankan demi kerapian di atas kertas.
