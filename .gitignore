@@ -1,0 +1,82 @@
+# ==========================================
+# Environment Variables & Secrets
+# ==========================================
+# Abaikan semua file .env agar rahasia (seperti password DB) aman
+*.env
+*.env.*
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+# Izinkan file example untuk di-commit sebagai template
+!*.env.example
+
+# ==========================================
+# Agent Service & Frontend (Node.js / pnpm)
+# ==========================================
+node_modules/
+dist/
+build/
+.pnpm-store/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.eslintcache
+
+# ==========================================
+# Data Service (Golang)
+# ==========================================
+# Abaikan folder build hasil dari Air hot-reload
+/services/data/tmp/
+/services/data/bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+# vendor/ # Uncomment jika menggunakan go mod vendor
+
+# ==========================================
+# AI Service (Python / uv)
+# ==========================================
+# Abaikan virtual environment dari uv
+.venv/
+venv/
+env/
+# Abaikan cache dan file kompilasi Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# ==========================================
+# Infrastructure & Logs
+# ==========================================
+*.log
+logs/
+.docker/
+# Berjaga-jaga jika ada volume database yang ter-map ke local host secara tidak sengaja
+data/db/
+kafka_data/
+neo4j_data/
+redis_data/
+qdrant_data/
+
+# ==========================================
+# OS & Editor (Linux/Mac/Windows)
+# ==========================================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

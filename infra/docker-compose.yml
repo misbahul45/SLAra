@@ -1,0 +1,171 @@
+version: '3.8'
+
+networks:
+  slara_net:
+    driver: bridge
+
+volumes:
+  mongo_data:
+  neo4j_data:
+  redis_data:
+  qdrant_data:
+  kafka_data:
+
+services:
+  # ==========================================
+  # GATEWAY (Nginx)
+  # ==========================================
+  gateway:
+    image: nginx:alpine
+    container_name: slara_gateway
+    ports:
+      - "80:80"
+    volumes:
+      # Path disesuaikan karena gateway sekarang satu level dengan docker-compose.yml di folder infra
+      - ./gateway/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - agent
+      - data
+      - ai
+    networks:
+      - slara_net
+
+  # ==========================================
+  # APPLICATION SERVICES (with Watch)
+  # ==========================================
+  agent:
+    build:
+      context: ../services/agent
+      dockerfile: Dockerfile.dev
+    container_name: slara_agent
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./environments/agent.env
+    networks:
+      - slara_net
+    develop:
+      watch:
+        - action: sync+restart
+          path: ../services/agent/src
+          target: /app/src
+        - action: rebuild
+          path: ../services/agent/package.json
+        - action: rebuild
+          path: ../services/agent/pnpm-lock.yaml
+
+  data:
+    build:
+      context: ../services/data
+      dockerfile: Dockerfile.dev
+    container_name: slara_data
+    ports:
+      - "8081:8081"
+    env_file:
+      - ./environments/data.env
+    networks:
+      - slara_net
+    develop:
+      watch:
+        - action: sync
+          path: ../services/data
+          target: /app
+          ignore:
+            - tmp/ # Ignore build folder milik air
+        - action: rebuild
+          path: ../services/data/go.mod
+        - action: rebuild
+          path: ../services/data/go.sum
+
+  ai:
+    build:
+      context: ../services/ai
+      dockerfile: Dockerfile.dev
+    container_name: slara_ai
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./environments/ai.env
+    networks:
+      - slara_net
+    develop:
+      watch:
+        - action: sync
+          path: ../services/ai
+          target: /app
+          ignore:
+            - .venv/
+        - action: rebuild
+          path: ../services/ai/pyproject.toml
+        - action: rebuild
+          path: ../services/ai/uv.lock
+
+  # ==========================================
+  # INFRASTRUCTURE DATABASES
+  # ==========================================
+  mongodb:
+    image: mongo:latest
+    container_name: slara_mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - slara_net
+
+  neo4j:
+    image: neo4j:latest
+    container_name: slara_neo4j
+    ports:
+      - "7474:7474" # HTTP Browser
+      - "7687:7687" # Bolt Protocol
+    environment:
+      - NEO4J_AUTH=neo4j/password
+    volumes:
+      - neo4j_data:/data
+    networks:
+      - slara_net
+
+  redis:
+    image: redis:alpine
+    container_name: slara_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - slara_net
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: slara_qdrant
+    ports:
+      - "6333:6333" # REST API
+      - "6334:6334" # gRPC
+    volumes:
+      - qdrant_data:/qdrant/storage
+    networks:
+      - slara_net
+
+  # ==========================================
+  # MESSAGE BROKER (Kafka KRaft Mode)
+  # ==========================================
+  kafka:
+    image: bitnami/kafka:latest
+    container_name: slara_kafka
+    ports:
+      - "9092:9092"
+    environment:
+      - KAFKA_ENABLE_KRAFT=yes
+      - KAFKA_CFG_PROCESS_ROLES=broker,controller
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka:9093
+      - KAFKA_CFG_NODE_ID=1
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    volumes:
+      - kafka_data:/bitnami/kafka
+    networks:
+      - slara_net

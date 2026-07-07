@@ -1,0 +1,62 @@
+data/
+├── cmd/
+│   └── server/
+│       └── main.go
+│
+├── internal/
+│   │
+│   ├── config/
+│   │
+│   ├── middleware/
+│   │
+│   ├── transport/
+│   │   ├── http/
+│   │   │   ├── router.go
+│   │   │   ├── middleware/
+│   │   │   └── handlers/
+│   │   │
+│   │   ├── grpc/
+│   │   │
+│   │   └── kafka/
+│   │       ├── consumer/
+│   │       └── producer/
+│   │
+│   ├── modules/
+│   │
+│   │   ├── shipment/
+│   │   │   ├── handler.go
+│   │   │   ├── service.go
+│   │   │   ├── repository.go
+│   │   │   ├── model.go
+│   │   │   ├── dto.go
+│   │   │   └── routes.go
+│   │   │
+│   │   ├── driver/
+│   │   ├── vehicle/
+│   │   ├── hub/
+│   │   ├── route/
+│   │   ├── weather/
+│   │   ├── traffic/
+│   │   └── analytics/
+│   │
+│   ├── adapters/
+│   │   ├── mongodb/
+│   │   ├── neo4j/
+│   │   ├── redis/
+│   │   ├── kafka/
+│   │   └── grpc/
+│   │
+│   ├── domain/
+│   │   ├── entities/
+│   │   ├── errors/
+│   │   ├── events/
+│   │   └── ports/
+│   │
+│   └── pkg/
+│       ├── logger/
+│       ├── response/
+│       └── validator/
+│
+├── migrations/
+├── go.mod
+└── go.sum

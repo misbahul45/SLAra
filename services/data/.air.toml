@@ -1,0 +1,34 @@
+# Root directory
+root = "."
+tmp_dir = "tmp"
+
+[build]
+  # Build command
+  cmd = "go build -o ./tmp/api/main ./cmd/api"
+
+  # Binary output
+  bin = "tmp/api/main"
+
+  # Run full binary path
+  full_bin = "./tmp/api/main"
+
+  # File extensions to watch
+  include_ext = ["go", "tpl", "tmpl", "html"]
+
+  # Directories to exclude
+  exclude_dir = ["tmp", "vendor", ".git"]
+
+  # Delay before rebuild (ms)
+  delay = 1000
+
+  # Stop running binary on rebuild
+  stop_on_error = true
+
+[log]
+  time = true
+
+[color]
+  main = "cyan"
+  watcher = "yellow"
+  build = "green"
+  runner = "magenta"
