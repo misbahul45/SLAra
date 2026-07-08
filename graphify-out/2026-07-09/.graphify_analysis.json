@@ -1,0 +1,302 @@
+{
+  "communities": {
+    "0": [
+      "apps_app_tsconfig",
+      "apps_app_tsconfig_compileroptions",
+      "apps_app_tsconfig_compileroptions_esmoduleinterop",
+      "apps_app_tsconfig_compileroptions_jsx",
+      "apps_app_tsconfig_compileroptions_lib",
+      "apps_app_tsconfig_compileroptions_module",
+      "apps_app_tsconfig_compileroptions_moduleresolution",
+      "apps_app_tsconfig_compileroptions_noemit",
+      "apps_app_tsconfig_compileroptions_paths",
+      "apps_app_tsconfig_compileroptions_resolvejsonmodule",
+      "apps_app_tsconfig_compileroptions_rootdirs",
+      "apps_app_tsconfig_compileroptions_skiplibcheck",
+      "apps_app_tsconfig_compileroptions_strict",
+      "apps_app_tsconfig_compileroptions_target",
+      "apps_app_tsconfig_compileroptions_types",
+      "apps_app_tsconfig_compileroptions_verbatimmodulesyntax",
+      "apps_app_tsconfig_include",
+      "apps_app_tsconfig_paths"
+    ],
+    "1": [
+      "services_agent_package",
+      "services_agent_package_dependencies",
+      "services_agent_package_dependencies_hono",
+      "services_agent_package_dependencies_hono_node_server",
+      "services_agent_package_devdependencies",
+      "services_agent_package_devdependencies_tsx",
+      "services_agent_package_devdependencies_types_node",
+      "services_agent_package_devdependencies_typescript",
+      "services_agent_package_name",
+      "services_agent_package_scripts",
+      "services_agent_package_scripts_build",
+      "services_agent_package_scripts_dev",
+      "services_agent_package_scripts_start",
+      "services_agent_package_type"
+    ],
+    "2": [
+      "apps_app",
+      "infra_kafka",
+      "infra_mongodb",
+      "infra_neo4j",
+      "infra_qdrant",
+      "infra_redis",
+      "services_agent",
+      "services_ai",
+      "services_data",
+      "services_gateway",
+      "shared_events",
+      "shared_protobuf"
+    ],
+    "3": [
+      "services_agent_tsconfig",
+      "services_agent_tsconfig_compileroptions",
+      "services_agent_tsconfig_compileroptions_jsx",
+      "services_agent_tsconfig_compileroptions_jsximportsource",
+      "services_agent_tsconfig_compileroptions_module",
+      "services_agent_tsconfig_compileroptions_outdir",
+      "services_agent_tsconfig_compileroptions_skiplibcheck",
+      "services_agent_tsconfig_compileroptions_strict",
+      "services_agent_tsconfig_compileroptions_target",
+      "services_agent_tsconfig_compileroptions_types",
+      "services_agent_tsconfig_compileroptions_verbatimmodulesyntax",
+      "services_agent_tsconfig_exclude"
+    ],
+    "4": [
+      "apps_app_package",
+      "apps_app_package_name",
+      "apps_app_package_private",
+      "apps_app_package_scripts",
+      "apps_app_package_scripts_build",
+      "apps_app_package_scripts_dev",
+      "apps_app_package_scripts_start",
+      "apps_app_package_scripts_typecheck",
+      "apps_app_package_type"
+    ],
+    "5": [
+      "apps_app_package_devdependencies",
+      "apps_app_package_devdependencies_react_router_dev",
+      "apps_app_package_devdependencies_tailwindcss",
+      "apps_app_package_devdependencies_tailwindcss_vite",
+      "apps_app_package_devdependencies_types_node",
+      "apps_app_package_devdependencies_types_react",
+      "apps_app_package_devdependencies_types_react_dom",
+      "apps_app_package_devdependencies_typescript",
+      "apps_app_package_devdependencies_vite"
+    ],
+    "6": [
+      "apps_app_package_dependencies",
+      "apps_app_package_dependencies_isbot",
+      "apps_app_package_dependencies_react",
+      "apps_app_package_dependencies_react_dom",
+      "apps_app_package_dependencies_react_router",
+      "apps_app_package_dependencies_react_router_node",
+      "apps_app_package_dependencies_react_router_serve"
+    ],
+    "7": [
+      "apps_app_app_routes_home",
+      "apps_app_app_routes_home_home",
+      "apps_app_app_routes_home_meta",
+      "apps_app_app_welcome_welcome",
+      "apps_app_app_welcome_welcome_resources",
+      "apps_app_app_welcome_welcome_welcome"
+    ],
+    "8": [
+      "apps_app_app_root",
+      "apps_app_app_root_app",
+      "apps_app_app_root_errorboundary",
+      "apps_app_app_root_layout",
+      "apps_app_app_root_links"
+    ],
+    "9": [
+      "opencode_plugins_graphify",
+      "opencode_plugins_graphify_graphifyplugin"
+    ],
+    "10": [
+      "services_agent_src_index",
+      "services_agent_src_index_app"
+    ],
+    "11": [
+      "services_ai_main",
+      "services_ai_main_main"
+    ],
+    "12": [
+      "services_data_cmd_api_main",
+      "services_data_cmd_api_main_main"
+    ],
+    "13": [
+      "agents_md"
+    ],
+    "14": [
+      "apps_app_app_routes"
+    ],
+    "15": [
+      "apps_app_react_router_config"
+    ],
+    "16": [
+      "apps_app_vite_config"
+    ],
+    "17": [
+      "concept_slara_platform"
+    ],
+    "18": [
+      "docs_readme_md"
+    ],
+    "19": [
+      "infra_docker_compose_yml"
+    ],
+    "20": [
+      "pkg_github_com_misbahul45_slara_services_data"
+    ],
+    "21": [
+      "pkg_ml"
+    ],
+    "22": [
+      "readme_md"
+    ],
+    "23": [
+      "services_data_cmd_seed_main"
+    ]
+  },
+  "cohesion": {
+    "0": 0.1111111111111111,
+    "1": 0.14285714285714285,
+    "2": 0.25757575757575757,
+    "3": 0.16666666666666666,
+    "4": 0.2222222222222222,
+    "5": 0.2222222222222222,
+    "6": 0.2857142857142857,
+    "7": 0.4,
+    "8": 0.4,
+    "9": 1.0,
+    "10": 1.0,
+    "11": 1.0,
+    "12": 1.0,
+    "13": 1.0,
+    "14": 1.0,
+    "15": 1.0,
+    "16": 1.0,
+    "17": 1.0,
+    "18": 1.0,
+    "19": 1.0,
+    "20": 1.0,
+    "21": 1.0,
+    "22": 1.0,
+    "23": 1.0
+  },
+  "gods": [
+    {
+      "id": "apps_app_tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 15
+    },
+    {
+      "id": "services_agent_tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 10
+    },
+    {
+      "id": "services_data",
+      "label": "Data Service (Go)",
+      "degree": 7
+    },
+    {
+      "id": "apps_app_package_scripts",
+      "label": "scripts",
+      "degree": 5
+    },
+    {
+      "id": "services_agent",
+      "label": "Agent Service (Hono)",
+      "degree": 5
+    },
+    {
+      "id": "services_agent_package_scripts",
+      "label": "scripts",
+      "degree": 4
+    },
+    {
+      "id": "services_gateway",
+      "label": "Gateway Service (Nginx)",
+      "degree": 4
+    },
+    {
+      "id": "services_ai",
+      "label": "AI Service (FastAPI)",
+      "degree": 4
+    },
+    {
+      "id": "infra_redis",
+      "label": "Redis",
+      "degree": 3
+    },
+    {
+      "id": "infra_kafka",
+      "label": "Kafka KRaft",
+      "degree": 3
+    }
+  ],
+  "surprises": [
+    {
+      "source": "Agent Service (Hono)",
+      "target": "Qdrant",
+      "source_files": [
+        "services/agent/index.ts",
+        "infra/docker-compose.yml"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "crosses file types (code \u2194 doc); connects across different repos/directories; peripheral node `Qdrant` unexpectedly reaches hub `Agent Service (Hono)`"
+    },
+    {
+      "source": "Data Service (Go)",
+      "target": "MongoDB",
+      "source_files": [
+        "services/data/cmd/server/main.go",
+        "infra/docker-compose.yml"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "crosses file types (code \u2194 doc); connects across different repos/directories; peripheral node `MongoDB` unexpectedly reaches hub `Data Service (Go)`"
+    },
+    {
+      "source": "Data Service (Go)",
+      "target": "Neo4j",
+      "source_files": [
+        "services/data/cmd/server/main.go",
+        "infra/docker-compose.yml"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "crosses file types (code \u2194 doc); connects across different repos/directories; peripheral node `Neo4j` unexpectedly reaches hub `Data Service (Go)`"
+    },
+    {
+      "source": "React Dashboard",
+      "target": "Gateway Service (Nginx)",
+      "source_files": [
+        "apps/app/package.json",
+        "services/gateway/nginx.conf"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "crosses file types (doc \u2194 code); connects across different repos/directories"
+    },
+    {
+      "source": "Agent Service (Hono)",
+      "target": "Kafka KRaft",
+      "source_files": [
+        "services/agent/index.ts",
+        "infra/docker-compose.yml"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "crosses file types (code \u2194 doc); connects across different repos/directories"
+    }
+  ],
+  "tokens": {
+    "input": 30290,
+    "output": 1189
+  }
+}

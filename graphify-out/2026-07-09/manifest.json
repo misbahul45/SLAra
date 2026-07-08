@@ -173,35 +173,5 @@
     "mtime": 1783440061.51074,
     "ast_hash": "505e4488113b51d30bc9d12ccc5d3ea0",
     "semantic_hash": ""
-  },
-  "docs/models/M1_ETA_Prediction.md": {
-    "mtime": 1783536537.5495188,
-    "ast_hash": "a4b51ad4f637640ecb8d663d89ee9a84",
-    "semantic_hash": ""
-  },
-  "docs/models/M2_Hub_Congestion.md": {
-    "mtime": 1783536538.8805015,
-    "ast_hash": "2da6012ed622a650b3bc820ccc27dfe6",
-    "semantic_hash": ""
-  },
-  "docs/models/M3_Carbon_Emission.md": {
-    "mtime": 1783536540.7924764,
-    "ast_hash": "3c98543b77182bfa57954f4cef754d39",
-    "semantic_hash": ""
-  },
-  "docs/models/M4_Route_Optimization.md": {
-    "mtime": 1783536543.2984433,
-    "ast_hash": "b949625475d08a27b7e03f5742387ac2",
-    "semantic_hash": ""
-  },
-  "docs/models/M5_Explainability_SHAP.md": {
-    "mtime": 1783536544.9994211,
-    "ast_hash": "6f231270996a1b1fc3a01160ed75ca41",
-    "semantic_hash": ""
-  },
-  "docs/models/M6_MultiAgent_Orchestration.md": {
-    "mtime": 1783536546.4814014,
-    "ast_hash": "f82a4f61607194c942fe2b1327f1e714",
-    "semantic_hash": ""
   }
 }

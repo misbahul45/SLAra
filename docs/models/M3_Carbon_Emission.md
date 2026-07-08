@@ -29,7 +29,7 @@ Dimana:
 - `emission_factor` — lookup tabel per `vehicle_type` dari sumber resmi (§3)
 - `load_factor_adjustment` — koreksi berdasarkan rasio muatan aktual vs kapasitas (§2.3)
 
-### 2.2扩展 — Per Transport Chain Element (GLEC Framework)
+### 2.2 — Per Transport Chain Element (GLEC Framework)
 
 GLEC v3 membagi pengiriman menjadi beberapa **Transport Chain Element** (TCE). M3 menghitung per TCE lalu menjumlahkan:
 
