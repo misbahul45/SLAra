@@ -1,16 +1,16 @@
 # Graph Report - SLAra  (2026-07-09)
 
 ## Corpus Check
-- 38 files · ~24,876 words
+- 39 files · ~28,553 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 400 nodes · 374 edges · 30 communities (25 shown, 5 thin omitted)
+- 428 nodes · 400 edges · 31 communities (26 shown, 5 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `bde6b033`
+- Built from commit: `f699d0e2`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -37,18 +37,19 @@
 - [[_COMMUNITY_M6 — Multi-Agent Orchestration & Confidence Aggregation|M6 — Multi-Agent Orchestration & Confidence Aggregation]]
 - [[_COMMUNITY_3.3 Definisi `model_confidence` per Komponen|3.3 Definisi `model_confidence` per Komponen]]
 - [[_COMMUNITY_4. Operator Genetik|4. Operator Genetik]]
+- [[_COMMUNITY_readme|readme.md]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `compilerOptions` - 15 edges
-2. `AGENTS.md — SLAra Project Instructions` - 13 edges
+2. `SLAra AI — Model Interaction Map (M1–M6)` - 13 edges
 3. `AGENTS.md — SLAra Project Instructions` - 13 edges
-4. `📚 SLAra — Documentation Hub` - 13 edges
-5. `M1 — ETA Prediction & SLA Risk Tier` - 12 edges
-6. `M2 — Hub Congestion / Dwell-Time Forecast` - 12 edges
-7. `M4 — Route Optimization Engine (NSGA-II)` - 12 edges
-8. `M5 — Explainability Layer (SHAP)` - 12 edges
-9. `M6 — Multi-Agent Orchestration & Confidence Aggregation` - 11 edges
-10. `M3 — Carbon Emission Estimator` - 10 edges
+4. `AGENTS.md — SLAra Project Instructions` - 13 edges
+5. `📚 SLAra — Documentation Hub` - 13 edges
+6. `M1 — ETA Prediction & SLA Risk Tier` - 12 edges
+7. `M2 — Hub Congestion / Dwell-Time Forecast` - 12 edges
+8. `M4 — Route Optimization Engine (NSGA-II)` - 12 edges
+9. `M5 — Explainability Layer (SHAP)` - 12 edges
+10. `M6 — Multi-Agent Orchestration & Confidence Aggregation` - 11 edges
 
 ## Surprising Connections (you probably didn't know these)
 - None detected - all connections are within the same source files.
@@ -60,7 +61,7 @@
 - **SLAra Microservices Mesh** — services_agent, services_data, services_ai, infra_kafka [EXTRACTED 1.00]
 - **Infrastructure Layer** — infra_mongodb, infra_neo4j, infra_redis, infra_qdrant, infra_kafka [EXTRACTED 1.00]
 
-## Communities (30 total, 5 thin omitted)
+## Communities (31 total, 5 thin omitted)
 
 ### Community 0 - "compilerOptions"
 Cohesion: 0.11
@@ -107,8 +108,8 @@ Cohesion: 0.06
 Nodes (34): 10. Roadmap (post-MVP), 11. Acceptance Criteria (untuk demo kompetisi), 1. Ringkasan Eksekutif, 2.1 Prediksi ETA, 2.2 Derivasi Risk Tier (deterministic, non-ML), 2.3 Mengapa Bukan Dua Model Terpisah, 2. Formulasi Matematis, 3.1 Pilihan Algoritma (+26 more)
 
 ### Community 22 - "Konvensi Kode"
-Cohesion: 0.06
-Nodes (34): 10. Risiko & Mitigasi, 11. Acceptance Criteria (untuk demo kompetisi), 1. Ringkasan Eksekutif, 2.1 Problem Statement, 2.2 Tiga Objective (Final), 2.3 Constraint (Bukan Objective), 2.4 Mengapa 3 Objective (Bukan 4 atau 5), 2. Formulasi Matematis (+26 more)
+Cohesion: 0.05
+Nodes (40): 10. Risiko & Mitigasi, 11. Acceptance Criteria (untuk demo kompetisi), 1. Ringkasan Eksekutif, 2.1 Problem Statement, 2.2 Tiga Objective (Final), 2.3 Constraint (Bukan Objective), 2.4 Mengapa 3 Objective (Bukan 4 atau 5), 2. Formulasi Matematis (+32 more)
 
 ### Community 25 - "M5 — Explainability Layer (SHAP)"
 Cohesion: 0.06
@@ -116,7 +117,7 @@ Nodes (33): 10. Roadmap (post-MVP), 11. Acceptance Criteria (untuk demo kompetis
 
 ### Community 26 - "M3 — Carbon Emission Estimator"
 Cohesion: 0.07
-Nodes (28): 1. Ringkasan Eksekutif, 2.1 Formula Utama (dari proposal, dipertahankan), 2.2扩展 — Per Transport Chain Element (GLEC Framework), 2.3 Load Factor Adjustment, 2.4 Scope Emissions (Klasifikasi GHG Protocol), 2. Formulasi Matematis, 3.1 IPCC 2019 Refinement to 2006 Guidelines, 3.2 GLEC Framework v3 (Smart Freight Centre) (+20 more)
+Nodes (28): 1. Ringkasan Eksekutif, 2.1 Formula Utama (dari proposal, dipertahankan), 2.2 — Per Transport Chain Element (GLEC Framework), 2.3 Load Factor Adjustment, 2.4 Scope Emissions (Klasifikasi GHG Protocol), 2. Formulasi Matematis, 3.1 IPCC 2019 Refinement to 2006 Guidelines, 3.2 GLEC Framework v3 (Smart Freight Centre) (+20 more)
 
 ### Community 27 - "M6 — Multi-Agent Orchestration & Confidence Aggregation"
 Cohesion: 0.07
@@ -127,23 +128,25 @@ Cohesion: 0.20
 Nodes (10): 3.1 Formula Utama, 3.2 Default Bobot (Kalibrasi Awal), 3.3.1 `model_confidence(M1)` — dari prediction interval, 3.3.2 `model_confidence(M2)` — dari quantile coverage historis, 3.3.3 `constraint_satisfaction(M4)` — dari feasibility Pareto front, 3.3.4 `data_freshness(Traffic)`, 3.3.5 `audit_validity(Carbon)`, 3.3 Definisi `model_confidence` per Komponen (+2 more)
 
 ### Community 29 - "4. Operator Genetik"
-Cohesion: 0.33
-Nodes (6): 4.1 Selection — Tournament Binary, 4.2 Crossover — Order Crossover (OX), 4.3 Mutation — Swap + 2-opt, 4.4 Survival Selection — (μ + λ) with Crowding Distance, 4.5 Repair Operator (untuk constraint), 4. Operator Genetik
+Cohesion: 0.09
+Nodes (22): 10. Failure Cascade — Apa Terjadi Kalau Satu Model Down, 11. Build Order dengan Dependency — Visual Timeline, 12. Quick Reference — Cheat Sheet Tim, 1. Architecture Overview — Semua Komponen Sekaligus, 2. Data Flow Antar-Model — Apa yang Mengalir Kemana, 3. Dependency Graph — Urutan Build Wajib, 4. End-to-End Pipeline untuk Satu Shipment, 5. Latency Budget — Siapa Makan Berapa Milidetik (+14 more)
+
+### Community 30 - "readme.md"
+Cohesion: 0.40
+Nodes (4): Aturan Penting — Jangan Tunggu Mock!, Kritikal Path (yang TIDAK boleh delay), Urutan Berdasarkan Dependency (bukan timeline kalender), Yang Bisa Dikerjakan Paralel Hari 1
 
 ## Knowledge Gaps
-- **291 isolated node(s):** `1. Ringkasan Eksekutif`, `2.1 Prediksi ETA`, `2.2 Derivasi Risk Tier (deterministic, non-ML)`, `2.3 Mengapa Bukan Dua Model Terpisah`, `3.1 Pilihan Algoritma` (+286 more)
+- **307 isolated node(s):** `1. Architecture Overview — Semua Komponen Sekaligus`, `Tabel Interaksi Detail`, `Aturan Dependency`, `4. End-to-End Pipeline untuk Satu Shipment`, `Tabel Budget Detail` (+302 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **5 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `M4 — Route Optimization Engine (NSGA-II)` connect `Konvensi Kode` to `4. Operator Genetik`?**
-  _High betweenness centrality (0.009) - this node is a cross-community bridge._
 - **Why does `M6 — Multi-Agent Orchestration & Confidence Aggregation` connect `M6 — Multi-Agent Orchestration & Confidence Aggregation` to `3.3 Definisi `model_confidence` per Komponen`?**
-  _High betweenness centrality (0.008) - this node is a cross-community bridge._
-- **What connects `1. Ringkasan Eksekutif`, `2.1 Prediksi ETA`, `2.2 Derivasi Risk Tier (deterministic, non-ML)` to the rest of the system?**
-  _291 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _High betweenness centrality (0.007) - this node is a cross-community bridge._
+- **What connects `1. Architecture Overview — Semua Komponen Sekaligus`, `Tabel Interaksi Detail`, `Aturan Dependency` to the rest of the system?**
+  _307 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `compilerOptions` be split into smaller, more focused modules?**
   _Cohesion score 0.1111111111111111 - nodes in this community are weakly interconnected._
 - **Should `package.json` be split into smaller, more focused modules?**
@@ -152,3 +155,5 @@ _Questions this graph is uniquely positioned to answer:_
   _Cohesion score 0.08 - nodes in this community are weakly interconnected._
 - **Should `📚 SLAra — Documentation Hub` be split into smaller, more focused modules?**
   _Cohesion score 0.09523809523809523 - nodes in this community are weakly interconnected._
+- **Should `dependencies` be split into smaller, more focused modules?**
+  _Cohesion score 0.05405405405405406 - nodes in this community are weakly interconnected._

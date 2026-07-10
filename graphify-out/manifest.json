@@ -129,11 +129,6 @@
     "ast_hash": "326d3abf712fa381742d7e7b196af2c2",
     "semantic_hash": ""
   },
-  "claude-setup.md": {
-    "mtime": 1783450678.5702891,
-    "ast_hash": "7998be17c8b690ffc4e80ae73751b710",
-    "semantic_hash": ""
-  },
   "claude.md": {
     "mtime": 1783449552.2368891,
     "ast_hash": "67a1d9b3d1197dd3a1c0fa445b600f6b",
@@ -185,8 +180,8 @@
     "semantic_hash": ""
   },
   "docs/models/M3_Carbon_Emission.md": {
-    "mtime": 1783536540.7924764,
-    "ast_hash": "3c98543b77182bfa57954f4cef754d39",
+    "mtime": 1783549773.2110732,
+    "ast_hash": "9eef24bf73efa6752ae2ce2493c59286",
     "semantic_hash": ""
   },
   "docs/models/M4_Route_Optimization.md": {
@@ -202,6 +197,16 @@
   "docs/models/M6_MultiAgent_Orchestration.md": {
     "mtime": 1783536546.4814014,
     "ast_hash": "f82a4f61607194c942fe2b1327f1e714",
+    "semantic_hash": ""
+  },
+  "docs/models/INTERACTION_MAP.md": {
+    "mtime": 1783549895.9708145,
+    "ast_hash": "0dc3cde3f50508841fc353c7f590beca",
+    "semantic_hash": ""
+  },
+  "docs/models/readme.md": {
+    "mtime": 1783549537.4407208,
+    "ast_hash": "b5ad9299b6af393bd4c89503080b38f1",
     "semantic_hash": ""
   }
 }
