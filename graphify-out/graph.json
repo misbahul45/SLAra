@@ -36,14 +36,1024 @@
   },
   "nodes": [
     {
+      "label": "Next.md",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_models_next",
+      "community": 31,
+      "norm_label": "next.md"
+    },
+    {
+      "label": "\ud83d\uddfa\ufe0f SLAra AI \u2014 Next Training Plan (Post-M1)",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_models_next_slara_ai_next_training_plan_post_m1",
+      "community": 31,
+      "norm_label": "\ud83d\uddfa\ufe0f slara ai \u2014 next training plan (post-m1)"
+    },
+    {
+      "label": "1. Dependency Graph \u2014 Urutan Build Wajib",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "docs_models_next_1_dependency_graph_urutan_build_wajib",
+      "community": 31,
+      "norm_label": "1. dependency graph \u2014 urutan build wajib"
+    },
+    {
+      "label": "Urutan Eksekusi Rekomendasi",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L40",
+      "_origin": "ast",
+      "id": "docs_models_next_urutan_eksekusi_rekomendasi",
+      "community": 31,
+      "norm_label": "urutan eksekusi rekomendasi"
+    },
+    {
+      "label": "Alasan Urutan Ini",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L52",
+      "_origin": "ast",
+      "id": "docs_models_next_alasan_urutan_ini",
+      "community": 31,
+      "norm_label": "alasan urutan ini"
+    },
+    {
+      "label": "2. M3 \u2014 Carbon Emission Estimator (P0, Rule-Based)",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L62",
+      "_origin": "ast",
+      "id": "docs_models_next_2_m3_carbon_emission_estimator_p0_rule_based",
+      "community": 35,
+      "norm_label": "2. m3 \u2014 carbon emission estimator (p0, rule-based)"
+    },
+    {
+      "label": "Kenapa Duluan",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L64",
+      "_origin": "ast",
+      "id": "docs_models_next_kenapa_duluan",
+      "community": 35,
+      "norm_label": "kenapa duluan"
+    },
+    {
+      "label": "Spec Singkat",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L67",
+      "_origin": "ast",
+      "id": "docs_models_next_spec_singkat",
+      "community": 35,
+      "norm_label": "spec singkat"
+    },
+    {
+      "label": "Pipeline Implementation",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L73",
+      "_origin": "ast",
+      "id": "docs_models_next_pipeline_implementation",
+      "community": 35,
+      "norm_label": "pipeline implementation"
+    },
+    {
+      "label": "FASE M3.1 \u2014 Lookup Table Emission Factor",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L75",
+      "_origin": "ast",
+      "id": "docs_models_next_fase_m3_1_lookup_table_emission_factor",
+      "community": 35,
+      "norm_label": "fase m3.1 \u2014 lookup table emission factor"
+    },
+    {
+      "label": "FASE M3.2 \u2014 Load Factor Adjustment",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L86",
+      "_origin": "ast",
+      "id": "docs_models_next_fase_m3_2_load_factor_adjustment",
+      "community": 35,
+      "norm_label": "fase m3.2 \u2014 load factor adjustment"
+    },
+    {
+      "label": "FASE M3.3 \u2014 Per-TCE Calculation",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L94",
+      "_origin": "ast",
+      "id": "docs_models_next_fase_m3_3_per_tce_calculation",
+      "community": 35,
+      "norm_label": "fase m3.3 \u2014 per-tce calculation"
+    },
+    {
+      "label": "FASE M3.4 \u2014 Audit Trail Validation",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L102",
+      "_origin": "ast",
+      "id": "docs_models_next_fase_m3_4_audit_trail_validation",
+      "community": 35,
+      "norm_label": "fase m3.4 \u2014 audit trail validation"
+    },
+    {
+      "label": "Acceptance Criteria M3",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L108",
+      "_origin": "ast",
+      "id": "docs_models_next_acceptance_criteria_m3",
+      "community": 35,
+      "norm_label": "acceptance criteria m3"
+    },
+    {
+      "label": "Output Files M3",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L116",
+      "_origin": "ast",
+      "id": "docs_models_next_output_files_m3",
+      "community": 35,
+      "norm_label": "output files m3"
+    },
+    {
+      "label": "3. M2 \u2014 Hub Dwell Time Forecast (P1, LightGBM Quantile)",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L124",
+      "_origin": "ast",
+      "id": "docs_models_next_3_m2_hub_dwell_time_forecast_p1_lightgbm_quantile",
+      "community": 31,
+      "norm_label": "3. m2 \u2014 hub dwell time forecast (p1, lightgbm quantile)"
+    },
+    {
+      "label": "Spec Singkat",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L126",
+      "_origin": "ast",
+      "id": "docs_models_next_spec_singkat_126",
+      "community": 31,
+      "norm_label": "spec singkat"
+    },
+    {
+      "label": "Data Strategy \u2014 M/M/c Queue Simulator",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L133",
+      "_origin": "ast",
+      "id": "docs_models_next_data_strategy_m_m_c_queue_simulator",
+      "community": 31,
+      "norm_label": "data strategy \u2014 m/m/c queue simulator"
+    },
+    {
+      "label": "Feature Engineering (5 Group)",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L152",
+      "_origin": "ast",
+      "id": "docs_models_next_feature_engineering_5_group",
+      "community": 31,
+      "norm_label": "feature engineering (5 group)"
+    },
+    {
+      "label": "Training Pipeline M2",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L162",
+      "_origin": "ast",
+      "id": "docs_models_next_training_pipeline_m2",
+      "community": 31,
+      "norm_label": "training pipeline m2"
+    },
+    {
+      "label": "Cross-Validation Strategy",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L189",
+      "_origin": "ast",
+      "id": "docs_models_next_cross_validation_strategy",
+      "community": 31,
+      "norm_label": "cross-validation strategy"
+    },
+    {
+      "label": "Acceptance Criteria M2",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L192",
+      "_origin": "ast",
+      "id": "docs_models_next_acceptance_criteria_m2",
+      "community": 31,
+      "norm_label": "acceptance criteria m2"
+    },
+    {
+      "label": "Output Files M2",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L203",
+      "_origin": "ast",
+      "id": "docs_models_next_output_files_m2",
+      "community": 31,
+      "norm_label": "output files m2"
+    },
+    {
+      "label": "Integrasi M2 \u2192 M1 (Setelah M2 Done)",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L211",
+      "_origin": "ast",
+      "id": "docs_models_next_integrasi_m2_m1_setelah_m2_done",
+      "community": 31,
+      "norm_label": "integrasi m2 \u2192 m1 (setelah m2 done)"
+    },
+    {
+      "label": "4. M5 \u2014 SHAP Explainability (P2, On-Demand)",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L219",
+      "_origin": "ast",
+      "id": "docs_models_next_4_m5_shap_explainability_p2_on_demand",
+      "community": 31,
+      "norm_label": "4. m5 \u2014 shap explainability (p2, on-demand)"
+    },
+    {
+      "label": "Kenapa Setelah M1 Final",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L221",
+      "_origin": "ast",
+      "id": "docs_models_next_kenapa_setelah_m1_final",
+      "community": 31,
+      "norm_label": "kenapa setelah m1 final"
+    },
+    {
+      "label": "Spec Singkat",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L224",
+      "_origin": "ast",
+      "id": "docs_models_next_spec_singkat_224",
+      "community": 31,
+      "norm_label": "spec singkat"
+    },
+    {
+      "label": "Pipeline M5",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L230",
+      "_origin": "ast",
+      "id": "docs_models_next_pipeline_m5",
+      "community": 31,
+      "norm_label": "pipeline m5"
+    },
+    {
+      "label": "Integration M1 + M5 Flow",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L252",
+      "_origin": "ast",
+      "id": "docs_models_next_integration_m1_m5_flow",
+      "community": 31,
+      "norm_label": "integration m1 + m5 flow"
+    },
+    {
+      "label": "Acceptance Criteria M5",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L263",
+      "_origin": "ast",
+      "id": "docs_models_next_acceptance_criteria_m5",
+      "community": 31,
+      "norm_label": "acceptance criteria m5"
+    },
+    {
+      "label": "Output Files M5",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L273",
+      "_origin": "ast",
+      "id": "docs_models_next_output_files_m5",
+      "community": 31,
+      "norm_label": "output files m5"
+    },
+    {
+      "label": "5. M4 \u2014 Route Optimization (P0, NSGA-II)",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L280",
+      "_origin": "ast",
+      "id": "docs_models_next_5_m4_route_optimization_p0_nsga_ii",
+      "community": 33,
+      "norm_label": "5. m4 \u2014 route optimization (p0, nsga-ii)"
+    },
+    {
+      "label": "Spec Singkat",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L282",
+      "_origin": "ast",
+      "id": "docs_models_next_spec_singkat_282",
+      "community": 33,
+      "norm_label": "spec singkat"
+    },
+    {
+      "label": "3 Objective Function",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L289",
+      "_origin": "ast",
+      "id": "docs_models_next_3_objective_function",
+      "community": 33,
+      "norm_label": "3 objective function"
+    },
+    {
+      "label": "Constraint (Penalty Function, Bukan Objective)",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L305",
+      "_origin": "ast",
+      "id": "docs_models_next_constraint_penalty_function_bukan_objective",
+      "community": 33,
+      "norm_label": "constraint (penalty function, bukan objective)"
+    },
+    {
+      "label": "Pipeline M4",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L312",
+      "_origin": "ast",
+      "id": "docs_models_next_pipeline_m4",
+      "community": 33,
+      "norm_label": "pipeline m4"
+    },
+    {
+      "label": "FASE M4.1 \u2014 Validasi algoritma di Solomon Benchmark",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L314",
+      "_origin": "ast",
+      "id": "docs_models_next_fase_m4_1_validasi_algoritma_di_solomon_benchmark",
+      "community": 33,
+      "norm_label": "fase m4.1 \u2014 validasi algoritma di solomon benchmark"
+    },
+    {
+      "label": "FASE M4.2 \u2014 Tuning GA parameters (grid search)",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L321",
+      "_origin": "ast",
+      "id": "docs_models_next_fase_m4_2_tuning_ga_parameters_grid_search",
+      "community": 33,
+      "norm_label": "fase m4.2 \u2014 tuning ga parameters (grid search)"
+    },
+    {
+      "label": "FASE M4.3 \u2014 Implementasi Chromosome + Decoder",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L332",
+      "_origin": "ast",
+      "id": "docs_models_next_fase_m4_3_implementasi_chromosome_decoder",
+      "community": 33,
+      "norm_label": "fase m4.3 \u2014 implementasi chromosome + decoder"
+    },
+    {
+      "label": "FASE M4.4 \u2014 Operator Genetik",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L346",
+      "_origin": "ast",
+      "id": "docs_models_next_fase_m4_4_operator_genetik",
+      "community": 33,
+      "norm_label": "fase m4.4 \u2014 operator genetik"
+    },
+    {
+      "label": "FASE M4.5 \u2014 Time-Boxed Execution",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L352",
+      "_origin": "ast",
+      "id": "docs_models_next_fase_m4_5_time_boxed_execution",
+      "community": 33,
+      "norm_label": "fase m4.5 \u2014 time-boxed execution"
+    },
+    {
+      "label": "FASE M4.6 \u2014 Warm-Start (Reuse Previous Solution)",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L363",
+      "_origin": "ast",
+      "id": "docs_models_next_fase_m4_6_warm_start_reuse_previous_solution",
+      "community": 33,
+      "norm_label": "fase m4.6 \u2014 warm-start (reuse previous solution)"
+    },
+    {
+      "label": "Multi-Skenario Validation (Wajib, Bukan Cherry-Picked)",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L368",
+      "_origin": "ast",
+      "id": "docs_models_next_multi_skenario_validation_wajib_bukan_cherry_picked",
+      "community": 33,
+      "norm_label": "multi-skenario validation (wajib, bukan cherry-picked)"
+    },
+    {
+      "label": "Acceptance Criteria M4",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L376",
+      "_origin": "ast",
+      "id": "docs_models_next_acceptance_criteria_m4",
+      "community": 33,
+      "norm_label": "acceptance criteria m4"
+    },
+    {
+      "label": "Output Files M4",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L388",
+      "_origin": "ast",
+      "id": "docs_models_next_output_files_m4",
+      "community": 33,
+      "norm_label": "output files m4"
+    },
+    {
+      "label": "6. M6 \u2014 Multi-Agent Orchestration (P1, LangGraph)",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L398",
+      "_origin": "ast",
+      "id": "docs_models_next_6_m6_multi_agent_orchestration_p1_langgraph",
+      "community": 34,
+      "norm_label": "6. m6 \u2014 multi-agent orchestration (p1, langgraph)"
+    },
+    {
+      "label": "Spec Singkat",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L400",
+      "_origin": "ast",
+      "id": "docs_models_next_spec_singkat_400",
+      "community": 34,
+      "norm_label": "spec singkat"
+    },
+    {
+      "label": "6 Agent Nodes",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L406",
+      "_origin": "ast",
+      "id": "docs_models_next_6_agent_nodes",
+      "community": 34,
+      "norm_label": "6 agent nodes"
+    },
+    {
+      "label": "Confidence Aggregation Formula",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L447",
+      "_origin": "ast",
+      "id": "docs_models_next_confidence_aggregation_formula",
+      "community": 34,
+      "norm_label": "confidence aggregation formula"
+    },
+    {
+      "label": "Sub-component Confidence Definitions",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L466",
+      "_origin": "ast",
+      "id": "docs_models_next_sub_component_confidence_definitions",
+      "community": 34,
+      "norm_label": "sub-component confidence definitions"
+    },
+    {
+      "label": "Pipeline M6",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L490",
+      "_origin": "ast",
+      "id": "docs_models_next_pipeline_m6",
+      "community": 34,
+      "norm_label": "pipeline m6"
+    },
+    {
+      "label": "FASE M6.1 \u2014 Define LangGraph state schema + 6 agent nodes",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L492",
+      "_origin": "ast",
+      "id": "docs_models_next_fase_m6_1_define_langgraph_state_schema_6_agent_nodes",
+      "community": 34,
+      "norm_label": "fase m6.1 \u2014 define langgraph state schema + 6 agent nodes"
+    },
+    {
+      "label": "FASE M6.2 \u2014 Implement confidence aggregation formula",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L493",
+      "_origin": "ast",
+      "id": "docs_models_next_fase_m6_2_implement_confidence_aggregation_formula",
+      "community": 34,
+      "norm_label": "fase m6.2 \u2014 implement confidence aggregation formula"
+    },
+    {
+      "label": "FASE M6.3 \u2014 Manual weight calibration (BA Orwin) + dokumentasi asumsi",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L494",
+      "_origin": "ast",
+      "id": "docs_models_next_fase_m6_3_manual_weight_calibration_ba_orwin_dokumentasi_asumsi",
+      "community": 34,
+      "norm_label": "fase m6.3 \u2014 manual weight calibration (ba orwin) + dokumentasi asumsi"
+    },
+    {
+      "label": "FASE M6.4 \u2014 Sensitivity analysis (variasi bobot \u00b110%, cek perubahan decision)",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L495",
+      "_origin": "ast",
+      "id": "docs_models_next_fase_m6_4_sensitivity_analysis_variasi_bobot_10_cek_perubahan_decision",
+      "community": 34,
+      "norm_label": "fase m6.4 \u2014 sensitivity analysis (variasi bobot \u00b110%, cek perubahan decision)"
+    },
+    {
+      "label": "FASE M6.5 \u2014 Human-in-the-loop escalation message schema",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L496",
+      "_origin": "ast",
+      "id": "docs_models_next_fase_m6_5_human_in_the_loop_escalation_message_schema",
+      "community": 34,
+      "norm_label": "fase m6.5 \u2014 human-in-the-loop escalation message schema"
+    },
+    {
+      "label": "FASE M6.6 \u2014 Audit trail logging (setiap transisi node di-checkpoint)",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L497",
+      "_origin": "ast",
+      "id": "docs_models_next_fase_m6_6_audit_trail_logging_setiap_transisi_node_di_checkpoint",
+      "community": 34,
+      "norm_label": "fase m6.6 \u2014 audit trail logging (setiap transisi node di-checkpoint)"
+    },
+    {
+      "label": "Acceptance Criteria M6",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L499",
+      "_origin": "ast",
+      "id": "docs_models_next_acceptance_criteria_m6",
+      "community": 34,
+      "norm_label": "acceptance criteria m6"
+    },
+    {
+      "label": "Output Files M6",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L510",
+      "_origin": "ast",
+      "id": "docs_models_next_output_files_m6",
+      "community": 34,
+      "norm_label": "output files m6"
+    },
+    {
+      "label": "7. Timeline & Milestone",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L520",
+      "_origin": "ast",
+      "id": "docs_models_next_7_timeline_milestone",
+      "community": 31,
+      "norm_label": "7. timeline & milestone"
+    },
+    {
+      "label": "Milestone Detail",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L544",
+      "_origin": "ast",
+      "id": "docs_models_next_milestone_detail",
+      "community": 31,
+      "norm_label": "milestone detail"
+    },
+    {
+      "label": "8. Resource Requirements",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L555",
+      "_origin": "ast",
+      "id": "docs_models_next_8_resource_requirements",
+      "community": 31,
+      "norm_label": "8. resource requirements"
+    },
+    {
+      "label": "Compute",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L557",
+      "_origin": "ast",
+      "id": "docs_models_next_compute",
+      "community": 31,
+      "norm_label": "compute"
+    },
+    {
+      "label": "Data",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L562",
+      "_origin": "ast",
+      "id": "docs_models_next_data",
+      "community": 31,
+      "norm_label": "data"
+    },
+    {
+      "label": "Dependencies (pip install)",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L568",
+      "_origin": "ast",
+      "id": "docs_models_next_dependencies_pip_install",
+      "community": 31,
+      "norm_label": "dependencies (pip install)"
+    },
+    {
+      "label": "9. Risk & Mitigation",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L595",
+      "_origin": "ast",
+      "id": "docs_models_next_9_risk_mitigation",
+      "community": 31,
+      "norm_label": "9. risk & mitigation"
+    },
+    {
+      "label": "10. Next Action Checklist",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L608",
+      "_origin": "ast",
+      "id": "docs_models_next_10_next_action_checklist",
+      "community": 31,
+      "norm_label": "10. next action checklist"
+    },
+    {
+      "label": "Segera (Minggu 1)",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L610",
+      "_origin": "ast",
+      "id": "docs_models_next_segera_minggu_1",
+      "community": 31,
+      "norm_label": "segera (minggu 1)"
+    },
+    {
+      "label": "Setelah M2 Done (Minggu 2)",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L616",
+      "_origin": "ast",
+      "id": "docs_models_next_setelah_m2_done_minggu_2",
+      "community": 31,
+      "norm_label": "setelah m2 done (minggu 2)"
+    },
+    {
+      "label": "Setelah M4 Tuned (Minggu 3)",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L622",
+      "_origin": "ast",
+      "id": "docs_models_next_setelah_m4_tuned_minggu_3",
+      "community": 31,
+      "norm_label": "setelah m4 tuned (minggu 3)"
+    },
+    {
+      "label": "Final Integration (Minggu 4)",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L627",
+      "_origin": "ast",
+      "id": "docs_models_next_final_integration_minggu_4",
+      "community": 31,
+      "norm_label": "final integration (minggu 4)"
+    },
+    {
+      "label": "11. Success Metrics (Demo ke Juri)",
+      "file_type": "document",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L634",
+      "_origin": "ast",
+      "id": "docs_models_next_11_success_metrics_demo_ke_juri",
+      "community": 31,
+      "norm_label": "11. success metrics (demo ke juri)"
+    },
+    {
+      "label": "plan.md",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_models_plan",
+      "community": 32,
+      "norm_label": "plan.md"
+    },
+    {
+      "label": "SLAra AI \u2014 Training Pipeline Optimization & Agentic System Plan",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_models_plan_slara_ai_training_pipeline_optimization_agentic_system_plan",
+      "community": 32,
+      "norm_label": "slara ai \u2014 training pipeline optimization & agentic system plan"
+    },
+    {
+      "label": "0. Ringkasan Eksekutif (baca ini kalau cuma punya 2 menit)",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "docs_models_plan_0_ringkasan_eksekutif_baca_ini_kalau_cuma_punya_2_menit",
+      "community": 32,
+      "norm_label": "0. ringkasan eksekutif (baca ini kalau cuma punya 2 menit)"
+    },
+    {
+      "label": "1. Baseline Fakta \u2014 Apa yang Benar-Benar Ada Sekarang",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L18",
+      "_origin": "ast",
+      "id": "docs_models_plan_1_baseline_fakta_apa_yang_benar_benar_ada_sekarang",
+      "community": 32,
+      "norm_label": "1. baseline fakta \u2014 apa yang benar-benar ada sekarang"
+    },
+    {
+      "label": "2. Temuan Kritis dari Data (dengan bukti, bukan opini)",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L33",
+      "_origin": "ast",
+      "id": "docs_models_plan_2_temuan_kritis_dari_data_dengan_bukti_bukan_opini",
+      "community": 32,
+      "norm_label": "2. temuan kritis dari data (dengan bukti, bukan opini)"
+    },
+    {
+      "label": "F1 \u2014 Generator data M1 degenerate \u26d4 (blocker tertinggi)",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L35",
+      "_origin": "ast",
+      "id": "docs_models_plan_f1_generator_data_m1_degenerate_blocker_tertinggi",
+      "community": 32,
+      "norm_label": "f1 \u2014 generator data m1 degenerate \u26d4 (blocker tertinggi)"
+    },
+    {
+      "label": "F2 \u2014 conf_m1 di formula M6 tidak computable \u26d4",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L53",
+      "_origin": "ast",
+      "id": "docs_models_plan_f2_conf_m1_di_formula_m6_tidak_computable",
+      "community": 32,
+      "norm_label": "f2 \u2014 conf_m1 di formula m6 tidak computable \u26d4"
+    },
+    {
+      "label": "F3 \u2014 Cross-model feature M2\u2192M1 belum terpasang",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L57",
+      "_origin": "ast",
+      "id": "docs_models_plan_f3_cross_model_feature_m2_m1_belum_terpasang",
+      "community": 32,
+      "norm_label": "f3 \u2014 cross-model feature m2\u2192m1 belum terpasang"
+    },
+    {
+      "label": "F4 \u2014 Threshold drift, tiga versi beredar",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L61",
+      "_origin": "ast",
+      "id": "docs_models_plan_f4_threshold_drift_tiga_versi_beredar",
+      "community": 32,
+      "norm_label": "f4 \u2014 threshold drift, tiga versi beredar"
+    },
+    {
+      "label": "F5 \u2014 Ukuran model M1 92.8 MB",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L65",
+      "_origin": "ast",
+      "id": "docs_models_plan_f5_ukuran_model_m1_92_8_mb",
+      "community": 32,
+      "norm_label": "f5 \u2014 ukuran model m1 92.8 mb"
+    },
+    {
+      "label": "F6 \u2014 Fix terverifikasi (bukan hipotesis)",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L69",
+      "_origin": "ast",
+      "id": "docs_models_plan_f6_fix_terverifikasi_bukan_hipotesis",
+      "community": 32,
+      "norm_label": "f6 \u2014 fix terverifikasi (bukan hipotesis)"
+    },
+    {
+      "label": "3. Revised Pipeline \u2014 Urutan Eksekusi Optimal",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L83",
+      "_origin": "ast",
+      "id": "docs_models_plan_3_revised_pipeline_urutan_eksekusi_optimal",
+      "community": 32,
+      "norm_label": "3. revised pipeline \u2014 urutan eksekusi optimal"
+    },
+    {
+      "label": "Step 0 \u2014 M1 v2 (satu-satunya yang butuh Colab/retrain)",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L96",
+      "_origin": "ast",
+      "id": "docs_models_plan_step_0_m1_v2_satu_satunya_yang_butuh_colab_retrain",
+      "community": 32,
+      "norm_label": "step 0 \u2014 m1 v2 (satu-satunya yang butuh colab/retrain)"
+    },
+    {
+      "label": "Step 1\u20132 \u2014 M4 (data sudah siap lokal)",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L111",
+      "_origin": "ast",
+      "id": "docs_models_plan_step_1_2_m4_data_sudah_siap_lokal",
+      "community": 32,
+      "norm_label": "step 1\u20132 \u2014 m4 (data sudah siap lokal)"
+    },
+    {
+      "label": "Step 3 \u2014 M5 (30 menit kerja)",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L118",
+      "_origin": "ast",
+      "id": "docs_models_plan_step_3_m5_30_menit_kerja",
+      "community": 32,
+      "norm_label": "step 3 \u2014 m5 (30 menit kerja)"
+    },
+    {
+      "label": "Step 4 \u2014 M6 (blueprint lengkap di \u00a75)",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L122",
+      "_origin": "ast",
+      "id": "docs_models_plan_step_4_m6_blueprint_lengkap_di_5",
+      "community": 32,
+      "norm_label": "step 4 \u2014 m6 (blueprint lengkap di \u00a75)"
+    },
+    {
+      "label": "4. Apa yang TIDAK Perlu Dikerjakan (penghematan eksplisit)",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L126",
+      "_origin": "ast",
+      "id": "docs_models_plan_4_apa_yang_tidak_perlu_dikerjakan_penghematan_eksplisit",
+      "community": 32,
+      "norm_label": "4. apa yang tidak perlu dikerjakan (penghematan eksplisit)"
+    },
+    {
+      "label": "5. Blueprint Agentic System (M6) \u2014 Grounded ke Artefak Nyata",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L136",
+      "_origin": "ast",
+      "id": "docs_models_plan_5_blueprint_agentic_system_m6_grounded_ke_artefak_nyata",
+      "community": 32,
+      "norm_label": "5. blueprint agentic system (m6) \u2014 grounded ke artefak nyata"
+    },
+    {
+      "label": "5.1 Prinsip yang dipertahankan (dari keputusan sesi proposal)",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L138",
+      "_origin": "ast",
+      "id": "docs_models_plan_5_1_prinsip_yang_dipertahankan_dari_keputusan_sesi_proposal",
+      "community": 32,
+      "norm_label": "5.1 prinsip yang dipertahankan (dari keputusan sesi proposal)"
+    },
+    {
+      "label": "5.2 State schema \u2014 field names PERSIS dari artefak yang ada",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L142",
+      "_origin": "ast",
+      "id": "docs_models_plan_5_2_state_schema_field_names_persis_dari_artefak_yang_ada",
+      "community": 32,
+      "norm_label": "5.2 state schema \u2014 field names persis dari artefak yang ada"
+    },
+    {
+      "label": "5.3 Status computability formula confidence \u2014 HARI INI",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L168",
+      "_origin": "ast",
+      "id": "docs_models_plan_5_3_status_computability_formula_confidence_hari_ini",
+      "community": 32,
+      "norm_label": "5.3 status computability formula confidence \u2014 hari ini"
+    },
+    {
+      "label": "5.4 Node contract table",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L182",
+      "_origin": "ast",
+      "id": "docs_models_plan_5_4_node_contract_table",
+      "community": 32,
+      "norm_label": "5.4 node contract table"
+    },
+    {
+      "label": "5.4b Urutan build M6 yang optimal (bisa mulai SEBELUM M1 v2 selesai)",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L193",
+      "_origin": "ast",
+      "id": "docs_models_plan_5_4b_urutan_build_m6_yang_optimal_bisa_mulai_sebelum_m1_v2_selesai",
+      "community": 32,
+      "norm_label": "5.4b urutan build m6 yang optimal (bisa mulai sebelum m1 v2 selesai)"
+    },
+    {
+      "label": "5.5 Risiko spesifik M6 yang muncul dari data (bukan generik)",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L201",
+      "_origin": "ast",
+      "id": "docs_models_plan_5_5_risiko_spesifik_m6_yang_muncul_dari_data_bukan_generik",
+      "community": 32,
+      "norm_label": "5.5 risiko spesifik m6 yang muncul dari data (bukan generik)"
+    },
+    {
+      "label": "6. Prompt Eksekusi Siap Pakai",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L209",
+      "_origin": "ast",
+      "id": "docs_models_plan_6_prompt_eksekusi_siap_pakai",
+      "community": 32,
+      "norm_label": "6. prompt eksekusi siap pakai"
+    },
+    {
+      "label": "Prompt A \u2014 Sesi Colab: M1 v2 (jalankan duluan)",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L211",
+      "_origin": "ast",
+      "id": "docs_models_plan_prompt_a_sesi_colab_m1_v2_jalankan_duluan",
+      "community": 32,
+      "norm_label": "prompt a \u2014 sesi colab: m1 v2 (jalankan duluan)"
+    },
+    {
+      "label": "Prompt B \u2014 Sesi M4 (bisa paralel dengan A untuk fase Solomon)",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L242",
+      "_origin": "ast",
+      "id": "docs_models_plan_prompt_b_sesi_m4_bisa_paralel_dengan_a_untuk_fase_solomon",
+      "community": 32,
+      "norm_label": "prompt b \u2014 sesi m4 (bisa paralel dengan a untuk fase solomon)"
+    },
+    {
+      "label": "Prompt C \u2014 Sesi M6 (mulai dengan mock, sesuai \u00a75.4b)",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L261",
+      "_origin": "ast",
+      "id": "docs_models_plan_prompt_c_sesi_m6_mulai_dengan_mock_sesuai_5_4b",
+      "community": 32,
+      "norm_label": "prompt c \u2014 sesi m6 (mulai dengan mock, sesuai \u00a75.4b)"
+    },
+    {
+      "label": "7. Definition of Done per Step",
+      "file_type": "document",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L282",
+      "_origin": "ast",
+      "id": "docs_models_plan_7_definition_of_done_per_step",
+      "community": 32,
+      "norm_label": "7. definition of done per step"
+    },
+    {
       "label": "INTERACTION_MAP.md",
       "file_type": "document",
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "docs_models_interaction_map",
       "community": 29,
-      "norm_label": "interaction_map.md"
+      "norm_label": "interaction_map.md",
+      "id": "docs_models_interaction_map"
     },
     {
       "label": "SLAra AI \u2014 Model Interaction Map (M1\u2013M6)",
@@ -51,9 +1061,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "docs_models_interaction_map_slara_ai_model_interaction_map_m1_m6",
       "community": 29,
-      "norm_label": "slara ai \u2014 model interaction map (m1\u2013m6)"
+      "norm_label": "slara ai \u2014 model interaction map (m1\u2013m6)",
+      "id": "docs_models_interaction_map_slara_ai_model_interaction_map_m1_m6"
     },
     {
       "label": "1. Architecture Overview \u2014 Semua Komponen Sekaligus",
@@ -61,9 +1071,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L9",
       "_origin": "ast",
-      "id": "docs_models_interaction_map_1_architecture_overview_semua_komponen_sekaligus",
       "community": 29,
-      "norm_label": "1. architecture overview \u2014 semua komponen sekaligus"
+      "norm_label": "1. architecture overview \u2014 semua komponen sekaligus",
+      "id": "docs_models_interaction_map_1_architecture_overview_semua_komponen_sekaligus"
     },
     {
       "label": "2. Data Flow Antar-Model \u2014 Apa yang Mengalir Kemana",
@@ -71,9 +1081,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L88",
       "_origin": "ast",
-      "id": "docs_models_interaction_map_2_data_flow_antar_model_apa_yang_mengalir_kemana",
       "community": 29,
-      "norm_label": "2. data flow antar-model \u2014 apa yang mengalir kemana"
+      "norm_label": "2. data flow antar-model \u2014 apa yang mengalir kemana",
+      "id": "docs_models_interaction_map_2_data_flow_antar_model_apa_yang_mengalir_kemana"
     },
     {
       "label": "Tabel Interaksi Detail",
@@ -81,9 +1091,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L139",
       "_origin": "ast",
-      "id": "docs_models_interaction_map_tabel_interaksi_detail",
       "community": 29,
-      "norm_label": "tabel interaksi detail"
+      "norm_label": "tabel interaksi detail",
+      "id": "docs_models_interaction_map_tabel_interaksi_detail"
     },
     {
       "label": "3. Dependency Graph \u2014 Urutan Build Wajib",
@@ -91,9 +1101,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L158",
       "_origin": "ast",
-      "id": "docs_models_interaction_map_3_dependency_graph_urutan_build_wajib",
       "community": 29,
-      "norm_label": "3. dependency graph \u2014 urutan build wajib"
+      "norm_label": "3. dependency graph \u2014 urutan build wajib",
+      "id": "docs_models_interaction_map_3_dependency_graph_urutan_build_wajib"
     },
     {
       "label": "Aturan Dependency",
@@ -101,9 +1111,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L193",
       "_origin": "ast",
-      "id": "docs_models_interaction_map_aturan_dependency",
       "community": 29,
-      "norm_label": "aturan dependency"
+      "norm_label": "aturan dependency",
+      "id": "docs_models_interaction_map_aturan_dependency"
     },
     {
       "label": "4. End-to-End Pipeline untuk Satu Shipment",
@@ -111,9 +1121,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L206",
       "_origin": "ast",
-      "id": "docs_models_interaction_map_4_end_to_end_pipeline_untuk_satu_shipment",
       "community": 29,
-      "norm_label": "4. end-to-end pipeline untuk satu shipment"
+      "norm_label": "4. end-to-end pipeline untuk satu shipment",
+      "id": "docs_models_interaction_map_4_end_to_end_pipeline_untuk_satu_shipment"
     },
     {
       "label": "5. Latency Budget \u2014 Siapa Makan Berapa Milidetik",
@@ -121,9 +1131,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L262",
       "_origin": "ast",
-      "id": "docs_models_interaction_map_5_latency_budget_siapa_makan_berapa_milidetik",
       "community": 29,
-      "norm_label": "5. latency budget \u2014 siapa makan berapa milidetik"
+      "norm_label": "5. latency budget \u2014 siapa makan berapa milidetik",
+      "id": "docs_models_interaction_map_5_latency_budget_siapa_makan_berapa_milidetik"
     },
     {
       "label": "Tabel Budget Detail",
@@ -131,9 +1141,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L285",
       "_origin": "ast",
-      "id": "docs_models_interaction_map_tabel_budget_detail",
       "community": 29,
-      "norm_label": "tabel budget detail"
+      "norm_label": "tabel budget detail",
+      "id": "docs_models_interaction_map_tabel_budget_detail"
     },
     {
       "label": "6. Sync vs Async \u2014 Kapan Tunggu, Kapan Jalan Paralel",
@@ -141,9 +1151,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L302",
       "_origin": "ast",
-      "id": "docs_models_interaction_map_6_sync_vs_async_kapan_tunggu_kapan_jalan_paralel",
       "community": 29,
-      "norm_label": "6. sync vs async \u2014 kapan tunggu, kapan jalan paralel"
+      "norm_label": "6. sync vs async \u2014 kapan tunggu, kapan jalan paralel",
+      "id": "docs_models_interaction_map_6_sync_vs_async_kapan_tunggu_kapan_jalan_paralel"
     },
     {
       "label": "Aturan Sinkron vs Asinkron",
@@ -151,9 +1161,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L337",
       "_origin": "ast",
-      "id": "docs_models_interaction_map_aturan_sinkron_vs_asinkron",
       "community": 29,
-      "norm_label": "aturan sinkron vs asinkron"
+      "norm_label": "aturan sinkron vs asinkron",
+      "id": "docs_models_interaction_map_aturan_sinkron_vs_asinkron"
     },
     {
       "label": "7. Confidence Aggregation Flow \u2014 Cara M6 Menghitung 87%",
@@ -161,9 +1171,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L352",
       "_origin": "ast",
-      "id": "docs_models_interaction_map_7_confidence_aggregation_flow_cara_m6_menghitung_87",
       "community": 29,
-      "norm_label": "7. confidence aggregation flow \u2014 cara m6 menghitung 87%"
+      "norm_label": "7. confidence aggregation flow \u2014 cara m6 menghitung 87%",
+      "id": "docs_models_interaction_map_7_confidence_aggregation_flow_cara_m6_menghitung_87"
     },
     {
       "label": "Bobot & Justifikasi",
@@ -171,9 +1181,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L409",
       "_origin": "ast",
-      "id": "docs_models_interaction_map_bobot_justifikasi",
       "community": 29,
-      "norm_label": "bobot & justifikasi"
+      "norm_label": "bobot & justifikasi",
+      "id": "docs_models_interaction_map_bobot_justifikasi"
     },
     {
       "label": "8. Escalation Flow \u2014 Saat Confidence < 0.70",
@@ -181,9 +1191,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L424",
       "_origin": "ast",
-      "id": "docs_models_interaction_map_8_escalation_flow_saat_confidence_0_70",
       "community": 29,
-      "norm_label": "8. escalation flow \u2014 saat confidence < 0.70"
+      "norm_label": "8. escalation flow \u2014 saat confidence < 0.70",
+      "id": "docs_models_interaction_map_8_escalation_flow_saat_confidence_0_70"
     },
     {
       "label": "Komponen Wajib di Escalation Message",
@@ -191,9 +1201,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L463",
       "_origin": "ast",
-      "id": "docs_models_interaction_map_komponen_wajib_di_escalation_message",
       "community": 29,
-      "norm_label": "komponen wajib di escalation message"
+      "norm_label": "komponen wajib di escalation message",
+      "id": "docs_models_interaction_map_komponen_wajib_di_escalation_message"
     },
     {
       "label": "9. Cross-Model Feature Sharing \u2014 Siapa Pakai Apa dari Siapa",
@@ -201,9 +1211,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L488",
       "_origin": "ast",
-      "id": "docs_models_interaction_map_9_cross_model_feature_sharing_siapa_pakai_apa_dari_siapa",
       "community": 29,
-      "norm_label": "9. cross-model feature sharing \u2014 siapa pakai apa dari siapa"
+      "norm_label": "9. cross-model feature sharing \u2014 siapa pakai apa dari siapa",
+      "id": "docs_models_interaction_map_9_cross_model_feature_sharing_siapa_pakai_apa_dari_siapa"
     },
     {
       "label": "Matriks Konsumsi Feature",
@@ -211,9 +1221,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L523",
       "_origin": "ast",
-      "id": "docs_models_interaction_map_matriks_konsumsi_feature",
       "community": 29,
-      "norm_label": "matriks konsumsi feature"
+      "norm_label": "matriks konsumsi feature",
+      "id": "docs_models_interaction_map_matriks_konsumsi_feature"
     },
     {
       "label": "10. Failure Cascade \u2014 Apa Terjadi Kalau Satu Model Down",
@@ -221,9 +1231,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L542",
       "_origin": "ast",
-      "id": "docs_models_interaction_map_10_failure_cascade_apa_terjadi_kalau_satu_model_down",
       "community": 29,
-      "norm_label": "10. failure cascade \u2014 apa terjadi kalau satu model down"
+      "norm_label": "10. failure cascade \u2014 apa terjadi kalau satu model down",
+      "id": "docs_models_interaction_map_10_failure_cascade_apa_terjadi_kalau_satu_model_down"
     },
     {
       "label": "Severity Tier",
@@ -231,9 +1241,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L575",
       "_origin": "ast",
-      "id": "docs_models_interaction_map_severity_tier",
       "community": 29,
-      "norm_label": "severity tier"
+      "norm_label": "severity tier",
+      "id": "docs_models_interaction_map_severity_tier"
     },
     {
       "label": "11. Build Order dengan Dependency \u2014 Visual Timeline",
@@ -241,9 +1251,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L587",
       "_origin": "ast",
-      "id": "docs_models_interaction_map_11_build_order_dengan_dependency_visual_timeline",
       "community": 29,
-      "norm_label": "11. build order dengan dependency \u2014 visual timeline"
+      "norm_label": "11. build order dengan dependency \u2014 visual timeline",
+      "id": "docs_models_interaction_map_11_build_order_dengan_dependency_visual_timeline"
     },
     {
       "label": "Kritikal Path (yang TIDAK boleh delay)",
@@ -251,9 +1261,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L619",
       "_origin": "ast",
-      "id": "docs_models_interaction_map_kritikal_path_yang_tidak_boleh_delay",
       "community": 29,
-      "norm_label": "kritikal path (yang tidak boleh delay)"
+      "norm_label": "kritikal path (yang tidak boleh delay)",
+      "id": "docs_models_interaction_map_kritikal_path_yang_tidak_boleh_delay"
     },
     {
       "label": "12. Quick Reference \u2014 Cheat Sheet Tim",
@@ -261,9 +1271,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L645",
       "_origin": "ast",
-      "id": "docs_models_interaction_map_12_quick_reference_cheat_sheet_tim",
       "community": 29,
-      "norm_label": "12. quick reference \u2014 cheat sheet tim"
+      "norm_label": "12. quick reference \u2014 cheat sheet tim",
+      "id": "docs_models_interaction_map_12_quick_reference_cheat_sheet_tim"
     },
     {
       "label": "M3_Carbon_Emission.md",
@@ -271,9 +1281,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission",
       "community": 26,
-      "norm_label": "m3_carbon_emission.md"
+      "norm_label": "m3_carbon_emission.md",
+      "id": "docs_models_m3_carbon_emission"
     },
     {
       "label": "M3 \u2014 Carbon Emission Estimator",
@@ -281,9 +1291,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_m3_carbon_emission_estimator",
       "community": 26,
-      "norm_label": "m3 \u2014 carbon emission estimator"
+      "norm_label": "m3 \u2014 carbon emission estimator",
+      "id": "docs_models_m3_carbon_emission_m3_carbon_emission_estimator"
     },
     {
       "label": "1. Ringkasan Eksekutif",
@@ -291,9 +1301,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L11",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_1_ringkasan_eksekutif",
       "community": 26,
-      "norm_label": "1. ringkasan eksekutif"
+      "norm_label": "1. ringkasan eksekutif",
+      "id": "docs_models_m3_carbon_emission_1_ringkasan_eksekutif"
     },
     {
       "label": "2. Formulasi Matematis",
@@ -301,9 +1311,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L19",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_2_formulasi_matematis",
       "community": 26,
-      "norm_label": "2. formulasi matematis"
+      "norm_label": "2. formulasi matematis",
+      "id": "docs_models_m3_carbon_emission_2_formulasi_matematis"
     },
     {
       "label": "2.1 Formula Utama (dari proposal, dipertahankan)",
@@ -311,9 +1321,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L21",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_2_1_formula_utama_dari_proposal_dipertahankan",
       "community": 26,
-      "norm_label": "2.1 formula utama (dari proposal, dipertahankan)"
+      "norm_label": "2.1 formula utama (dari proposal, dipertahankan)",
+      "id": "docs_models_m3_carbon_emission_2_1_formula_utama_dari_proposal_dipertahankan"
     },
     {
       "label": "2.2 \u2014 Per Transport Chain Element (GLEC Framework)",
@@ -321,9 +1331,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L32",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_2_2_per_transport_chain_element_glec_framework",
       "community": 26,
-      "norm_label": "2.2 \u2014 per transport chain element (glec framework)"
+      "norm_label": "2.2 \u2014 per transport chain element (glec framework)",
+      "id": "docs_models_m3_carbon_emission_2_2_per_transport_chain_element_glec_framework"
     },
     {
       "label": "2.3 Load Factor Adjustment",
@@ -331,9 +1341,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L47",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_2_3_load_factor_adjustment",
       "community": 26,
-      "norm_label": "2.3 load factor adjustment"
+      "norm_label": "2.3 load factor adjustment",
+      "id": "docs_models_m3_carbon_emission_2_3_load_factor_adjustment"
     },
     {
       "label": "2.4 Scope Emissions (Klasifikasi GHG Protocol)",
@@ -341,9 +1351,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L63",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_2_4_scope_emissions_klasifikasi_ghg_protocol",
       "community": 26,
-      "norm_label": "2.4 scope emissions (klasifikasi ghg protocol)"
+      "norm_label": "2.4 scope emissions (klasifikasi ghg protocol)",
+      "id": "docs_models_m3_carbon_emission_2_4_scope_emissions_klasifikasi_ghg_protocol"
     },
     {
       "label": "3. Sumber Emission Factor (Wajib Resmi, Bukan Angka Karangan)",
@@ -351,9 +1361,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L73",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_3_sumber_emission_factor_wajib_resmi_bukan_angka_karangan",
       "community": 26,
-      "norm_label": "3. sumber emission factor (wajib resmi, bukan angka karangan)"
+      "norm_label": "3. sumber emission factor (wajib resmi, bukan angka karangan)",
+      "id": "docs_models_m3_carbon_emission_3_sumber_emission_factor_wajib_resmi_bukan_angka_karangan"
     },
     {
       "label": "3.1 IPCC 2019 Refinement to 2006 Guidelines",
@@ -361,9 +1371,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L77",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_3_1_ipcc_2019_refinement_to_2006_guidelines",
       "community": 26,
-      "norm_label": "3.1 ipcc 2019 refinement to 2006 guidelines"
+      "norm_label": "3.1 ipcc 2019 refinement to 2006 guidelines",
+      "id": "docs_models_m3_carbon_emission_3_1_ipcc_2019_refinement_to_2006_guidelines"
     },
     {
       "label": "3.2 GLEC Framework v3 (Smart Freight Centre)",
@@ -371,9 +1381,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L83",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_3_2_glec_framework_v3_smart_freight_centre",
       "community": 26,
-      "norm_label": "3.2 glec framework v3 (smart freight centre)"
+      "norm_label": "3.2 glec framework v3 (smart freight centre)",
+      "id": "docs_models_m3_carbon_emission_3_2_glec_framework_v3_smart_freight_centre"
     },
     {
       "label": "3.3 ISO 14083:2023",
@@ -381,9 +1391,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L92",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_3_3_iso_14083_2023",
       "community": 26,
-      "norm_label": "3.3 iso 14083:2023"
+      "norm_label": "3.3 iso 14083:2023",
+      "id": "docs_models_m3_carbon_emission_3_3_iso_14083_2023"
     },
     {
       "label": "3.4 Lookup Table M3 (Default untuk MVP)",
@@ -391,9 +1401,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L99",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_3_4_lookup_table_m3_default_untuk_mvp",
       "community": 26,
-      "norm_label": "3.4 lookup table m3 (default untuk mvp)"
+      "norm_label": "3.4 lookup table m3 (default untuk mvp)",
+      "id": "docs_models_m3_carbon_emission_3_4_lookup_table_m3_default_untuk_mvp"
     },
     {
       "label": "4. Validasi via Backtesting Numerik (Bukan Train/Test Split)",
@@ -401,9 +1411,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L113",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_4_validasi_via_backtesting_numerik_bukan_train_test_split",
       "community": 26,
-      "norm_label": "4. validasi via backtesting numerik (bukan train/test split)"
+      "norm_label": "4. validasi via backtesting numerik (bukan train/test split)",
+      "id": "docs_models_m3_carbon_emission_4_validasi_via_backtesting_numerik_bukan_train_test_split"
     },
     {
       "label": "4.1 Konsep \"Validation\" untuk Komponen Rule-Based",
@@ -411,9 +1421,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L115",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_4_1_konsep_validation_untuk_komponen_rule_based",
       "community": 26,
-      "norm_label": "4.1 konsep \"validation\" untuk komponen rule-based"
+      "norm_label": "4.1 konsep \"validation\" untuk komponen rule-based",
+      "id": "docs_models_m3_carbon_emission_4_1_konsep_validation_untuk_komponen_rule_based"
     },
     {
       "label": "4.2 Audit Trail Procedure",
@@ -421,9 +1431,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L122",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_4_2_audit_trail_procedure",
       "community": 26,
-      "norm_label": "4.2 audit trail procedure"
+      "norm_label": "4.2 audit trail procedure",
+      "id": "docs_models_m3_carbon_emission_4_2_audit_trail_procedure"
     },
     {
       "label": "4.3 Acceptance Deviation",
@@ -431,9 +1441,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L135",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_4_3_acceptance_deviation",
       "community": 26,
-      "norm_label": "4.3 acceptance deviation"
+      "norm_label": "4.3 acceptance deviation",
+      "id": "docs_models_m3_carbon_emission_4_3_acceptance_deviation"
     },
     {
       "label": "4.4 Output Audit Trail Format",
@@ -441,9 +1451,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L148",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_4_4_output_audit_trail_format",
       "community": 26,
-      "norm_label": "4.4 output audit trail format"
+      "norm_label": "4.4 output audit trail format",
+      "id": "docs_models_m3_carbon_emission_4_4_output_audit_trail_format"
     },
     {
       "label": "5. Integrasi dengan M4 (Route Optimization)",
@@ -451,9 +1461,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L178",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_5_integrasi_dengan_m4_route_optimization",
       "community": 26,
-      "norm_label": "5. integrasi dengan m4 (route optimization)"
+      "norm_label": "5. integrasi dengan m4 (route optimization)",
+      "id": "docs_models_m3_carbon_emission_5_integrasi_dengan_m4_route_optimization"
     },
     {
       "label": "5.1 Peran di Objective Function M4",
@@ -461,9 +1471,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L180",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_5_1_peran_di_objective_function_m4",
       "community": 26,
-      "norm_label": "5.1 peran di objective function m4"
+      "norm_label": "5.1 peran di objective function m4",
+      "id": "docs_models_m3_carbon_emission_5_1_peran_di_objective_function_m4"
     },
     {
       "label": "5.2 Mengapa M3 Bukan Objective Terpisah di M4",
@@ -471,9 +1481,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L191",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_5_2_mengapa_m3_bukan_objective_terpisah_di_m4",
       "community": 26,
-      "norm_label": "5.2 mengapa m3 bukan objective terpisah di m4"
+      "norm_label": "5.2 mengapa m3 bukan objective terpisah di m4",
+      "id": "docs_models_m3_carbon_emission_5_2_mengapa_m3_bukan_objective_terpisah_di_m4"
     },
     {
       "label": "5.3 Performance Budget",
@@ -481,9 +1491,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L195",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_5_3_performance_budget",
       "community": 26,
-      "norm_label": "5.3 performance budget"
+      "norm_label": "5.3 performance budget",
+      "id": "docs_models_m3_carbon_emission_5_3_performance_budget"
     },
     {
       "label": "6. Reporting & Auditability",
@@ -491,9 +1501,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L205",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_6_reporting_auditability",
       "community": 26,
-      "norm_label": "6. reporting & auditability"
+      "norm_label": "6. reporting & auditability",
+      "id": "docs_models_m3_carbon_emission_6_reporting_auditability"
     },
     {
       "label": "6.1 Output Schema per Shipment",
@@ -501,9 +1511,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L207",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_6_1_output_schema_per_shipment",
       "community": 26,
-      "norm_label": "6.1 output schema per shipment"
+      "norm_label": "6.1 output schema per shipment",
+      "id": "docs_models_m3_carbon_emission_6_1_output_schema_per_shipment"
     },
     {
       "label": "6.2 Audit Trail ID",
@@ -511,9 +1521,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L248",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_6_2_audit_trail_id",
       "community": 26,
-      "norm_label": "6.2 audit trail id"
+      "norm_label": "6.2 audit trail id",
+      "id": "docs_models_m3_carbon_emission_6_2_audit_trail_id"
     },
     {
       "label": "6.3 Dashboard Reporting",
@@ -521,9 +1531,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L258",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_6_3_dashboard_reporting",
       "community": 26,
-      "norm_label": "6.3 dashboard reporting"
+      "norm_label": "6.3 dashboard reporting",
+      "id": "docs_models_m3_carbon_emission_6_3_dashboard_reporting"
     },
     {
       "label": "7. Risiko & Mitigasi",
@@ -531,9 +1541,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L268",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_7_risiko_mitigasi",
       "community": 26,
-      "norm_label": "7. risiko & mitigasi"
+      "norm_label": "7. risiko & mitigasi",
+      "id": "docs_models_m3_carbon_emission_7_risiko_mitigasi"
     },
     {
       "label": "8. Roadmap (post-MVP)",
@@ -541,9 +1551,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L280",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_8_roadmap_post_mvp",
       "community": 26,
-      "norm_label": "8. roadmap (post-mvp)"
+      "norm_label": "8. roadmap (post-mvp)",
+      "id": "docs_models_m3_carbon_emission_8_roadmap_post_mvp"
     },
     {
       "label": "9. Acceptance Criteria (untuk demo kompetisi)",
@@ -551,9 +1561,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L291",
       "_origin": "ast",
-      "id": "docs_models_m3_carbon_emission_9_acceptance_criteria_untuk_demo_kompetisi",
       "community": 26,
-      "norm_label": "9. acceptance criteria (untuk demo kompetisi)"
+      "norm_label": "9. acceptance criteria (untuk demo kompetisi)",
+      "id": "docs_models_m3_carbon_emission_9_acceptance_criteria_untuk_demo_kompetisi"
     },
     {
       "label": "readme.md",
@@ -561,9 +1571,9 @@
       "source_file": "docs/models/readme.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "docs_models_readme",
       "community": 30,
-      "norm_label": "readme.md"
+      "norm_label": "readme.md",
+      "id": "docs_models_readme"
     },
     {
       "label": "Urutan Berdasarkan Dependency (bukan timeline kalender)",
@@ -571,9 +1581,9 @@
       "source_file": "docs/models/readme.md",
       "source_location": "L3",
       "_origin": "ast",
-      "id": "docs_models_readme_urutan_berdasarkan_dependency_bukan_timeline_kalender",
       "community": 30,
-      "norm_label": "urutan berdasarkan dependency (bukan timeline kalender)"
+      "norm_label": "urutan berdasarkan dependency (bukan timeline kalender)",
+      "id": "docs_models_readme_urutan_berdasarkan_dependency_bukan_timeline_kalender"
     },
     {
       "label": "Yang Bisa Dikerjakan Paralel Hari 1",
@@ -581,9 +1591,9 @@
       "source_file": "docs/models/readme.md",
       "source_location": "L53",
       "_origin": "ast",
-      "id": "docs_models_readme_yang_bisa_dikerjakan_paralel_hari_1",
       "community": 30,
-      "norm_label": "yang bisa dikerjakan paralel hari 1"
+      "norm_label": "yang bisa dikerjakan paralel hari 1",
+      "id": "docs_models_readme_yang_bisa_dikerjakan_paralel_hari_1"
     },
     {
       "label": "Aturan Penting \u2014 Jangan Tunggu Mock!",
@@ -591,9 +1601,9 @@
       "source_file": "docs/models/readme.md",
       "source_location": "L62",
       "_origin": "ast",
-      "id": "docs_models_readme_aturan_penting_jangan_tunggu_mock",
       "community": 30,
-      "norm_label": "aturan penting \u2014 jangan tunggu mock!"
+      "norm_label": "aturan penting \u2014 jangan tunggu mock!",
+      "id": "docs_models_readme_aturan_penting_jangan_tunggu_mock"
     },
     {
       "label": "Kritikal Path (yang TIDAK boleh delay)",
@@ -601,9 +1611,9 @@
       "source_file": "docs/models/readme.md",
       "source_location": "L70",
       "_origin": "ast",
-      "id": "docs_models_readme_kritikal_path_yang_tidak_boleh_delay",
       "community": 30,
-      "norm_label": "kritikal path (yang tidak boleh delay)"
+      "norm_label": "kritikal path (yang tidak boleh delay)",
+      "id": "docs_models_readme_kritikal_path_yang_tidak_boleh_delay"
     },
     {
       "label": "M1_ETA_Prediction.md",
@@ -4313,12 +5323,1002 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "docs_models_next",
+      "target": "docs_models_next_slara_ai_next_training_plan_post_m1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L608",
+      "weight": 1.0,
+      "source": "docs_models_next_slara_ai_next_training_plan_post_m1",
+      "target": "docs_models_next_10_next_action_checklist",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L634",
+      "weight": 1.0,
+      "source": "docs_models_next_slara_ai_next_training_plan_post_m1",
+      "target": "docs_models_next_11_success_metrics_demo_ke_juri",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "docs_models_next_slara_ai_next_training_plan_post_m1",
+      "target": "docs_models_next_1_dependency_graph_urutan_build_wajib",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L62",
+      "weight": 1.0,
+      "source": "docs_models_next_slara_ai_next_training_plan_post_m1",
+      "target": "docs_models_next_2_m3_carbon_emission_estimator_p0_rule_based",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L124",
+      "weight": 1.0,
+      "source": "docs_models_next_slara_ai_next_training_plan_post_m1",
+      "target": "docs_models_next_3_m2_hub_dwell_time_forecast_p1_lightgbm_quantile",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L219",
+      "weight": 1.0,
+      "source": "docs_models_next_slara_ai_next_training_plan_post_m1",
+      "target": "docs_models_next_4_m5_shap_explainability_p2_on_demand",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L280",
+      "weight": 1.0,
+      "source": "docs_models_next_slara_ai_next_training_plan_post_m1",
+      "target": "docs_models_next_5_m4_route_optimization_p0_nsga_ii",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L398",
+      "weight": 1.0,
+      "source": "docs_models_next_slara_ai_next_training_plan_post_m1",
+      "target": "docs_models_next_6_m6_multi_agent_orchestration_p1_langgraph",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L520",
+      "weight": 1.0,
+      "source": "docs_models_next_slara_ai_next_training_plan_post_m1",
+      "target": "docs_models_next_7_timeline_milestone",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L555",
+      "weight": 1.0,
+      "source": "docs_models_next_slara_ai_next_training_plan_post_m1",
+      "target": "docs_models_next_8_resource_requirements",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L595",
+      "weight": 1.0,
+      "source": "docs_models_next_slara_ai_next_training_plan_post_m1",
+      "target": "docs_models_next_9_risk_mitigation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L52",
+      "weight": 1.0,
+      "source": "docs_models_next_1_dependency_graph_urutan_build_wajib",
+      "target": "docs_models_next_alasan_urutan_ini",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "docs_models_next_1_dependency_graph_urutan_build_wajib",
+      "target": "docs_models_next_urutan_eksekusi_rekomendasi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L108",
+      "weight": 1.0,
+      "source": "docs_models_next_2_m3_carbon_emission_estimator_p0_rule_based",
+      "target": "docs_models_next_acceptance_criteria_m3",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L64",
+      "weight": 1.0,
+      "source": "docs_models_next_2_m3_carbon_emission_estimator_p0_rule_based",
+      "target": "docs_models_next_kenapa_duluan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L116",
+      "weight": 1.0,
+      "source": "docs_models_next_2_m3_carbon_emission_estimator_p0_rule_based",
+      "target": "docs_models_next_output_files_m3",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L73",
+      "weight": 1.0,
+      "source": "docs_models_next_2_m3_carbon_emission_estimator_p0_rule_based",
+      "target": "docs_models_next_pipeline_implementation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L67",
+      "weight": 1.0,
+      "source": "docs_models_next_2_m3_carbon_emission_estimator_p0_rule_based",
+      "target": "docs_models_next_spec_singkat",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L75",
+      "weight": 1.0,
+      "source": "docs_models_next_pipeline_implementation",
+      "target": "docs_models_next_fase_m3_1_lookup_table_emission_factor",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L86",
+      "weight": 1.0,
+      "source": "docs_models_next_pipeline_implementation",
+      "target": "docs_models_next_fase_m3_2_load_factor_adjustment",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L94",
+      "weight": 1.0,
+      "source": "docs_models_next_pipeline_implementation",
+      "target": "docs_models_next_fase_m3_3_per_tce_calculation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L102",
+      "weight": 1.0,
+      "source": "docs_models_next_pipeline_implementation",
+      "target": "docs_models_next_fase_m3_4_audit_trail_validation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L192",
+      "weight": 1.0,
+      "source": "docs_models_next_3_m2_hub_dwell_time_forecast_p1_lightgbm_quantile",
+      "target": "docs_models_next_acceptance_criteria_m2",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L189",
+      "weight": 1.0,
+      "source": "docs_models_next_3_m2_hub_dwell_time_forecast_p1_lightgbm_quantile",
+      "target": "docs_models_next_cross_validation_strategy",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L133",
+      "weight": 1.0,
+      "source": "docs_models_next_3_m2_hub_dwell_time_forecast_p1_lightgbm_quantile",
+      "target": "docs_models_next_data_strategy_m_m_c_queue_simulator",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L152",
+      "weight": 1.0,
+      "source": "docs_models_next_3_m2_hub_dwell_time_forecast_p1_lightgbm_quantile",
+      "target": "docs_models_next_feature_engineering_5_group",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L211",
+      "weight": 1.0,
+      "source": "docs_models_next_3_m2_hub_dwell_time_forecast_p1_lightgbm_quantile",
+      "target": "docs_models_next_integrasi_m2_m1_setelah_m2_done",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L203",
+      "weight": 1.0,
+      "source": "docs_models_next_3_m2_hub_dwell_time_forecast_p1_lightgbm_quantile",
+      "target": "docs_models_next_output_files_m2",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L126",
+      "weight": 1.0,
+      "source": "docs_models_next_3_m2_hub_dwell_time_forecast_p1_lightgbm_quantile",
+      "target": "docs_models_next_spec_singkat_126",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L162",
+      "weight": 1.0,
+      "source": "docs_models_next_3_m2_hub_dwell_time_forecast_p1_lightgbm_quantile",
+      "target": "docs_models_next_training_pipeline_m2",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L263",
+      "weight": 1.0,
+      "source": "docs_models_next_4_m5_shap_explainability_p2_on_demand",
+      "target": "docs_models_next_acceptance_criteria_m5",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L252",
+      "weight": 1.0,
+      "source": "docs_models_next_4_m5_shap_explainability_p2_on_demand",
+      "target": "docs_models_next_integration_m1_m5_flow",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L221",
+      "weight": 1.0,
+      "source": "docs_models_next_4_m5_shap_explainability_p2_on_demand",
+      "target": "docs_models_next_kenapa_setelah_m1_final",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L273",
+      "weight": 1.0,
+      "source": "docs_models_next_4_m5_shap_explainability_p2_on_demand",
+      "target": "docs_models_next_output_files_m5",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L230",
+      "weight": 1.0,
+      "source": "docs_models_next_4_m5_shap_explainability_p2_on_demand",
+      "target": "docs_models_next_pipeline_m5",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L224",
+      "weight": 1.0,
+      "source": "docs_models_next_4_m5_shap_explainability_p2_on_demand",
+      "target": "docs_models_next_spec_singkat_224",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L289",
+      "weight": 1.0,
+      "source": "docs_models_next_5_m4_route_optimization_p0_nsga_ii",
+      "target": "docs_models_next_3_objective_function",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L376",
+      "weight": 1.0,
+      "source": "docs_models_next_5_m4_route_optimization_p0_nsga_ii",
+      "target": "docs_models_next_acceptance_criteria_m4",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L305",
+      "weight": 1.0,
+      "source": "docs_models_next_5_m4_route_optimization_p0_nsga_ii",
+      "target": "docs_models_next_constraint_penalty_function_bukan_objective",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L368",
+      "weight": 1.0,
+      "source": "docs_models_next_5_m4_route_optimization_p0_nsga_ii",
+      "target": "docs_models_next_multi_skenario_validation_wajib_bukan_cherry_picked",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L388",
+      "weight": 1.0,
+      "source": "docs_models_next_5_m4_route_optimization_p0_nsga_ii",
+      "target": "docs_models_next_output_files_m4",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L312",
+      "weight": 1.0,
+      "source": "docs_models_next_5_m4_route_optimization_p0_nsga_ii",
+      "target": "docs_models_next_pipeline_m4",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L282",
+      "weight": 1.0,
+      "source": "docs_models_next_5_m4_route_optimization_p0_nsga_ii",
+      "target": "docs_models_next_spec_singkat_282",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L314",
+      "weight": 1.0,
+      "source": "docs_models_next_pipeline_m4",
+      "target": "docs_models_next_fase_m4_1_validasi_algoritma_di_solomon_benchmark",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L321",
+      "weight": 1.0,
+      "source": "docs_models_next_pipeline_m4",
+      "target": "docs_models_next_fase_m4_2_tuning_ga_parameters_grid_search",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L332",
+      "weight": 1.0,
+      "source": "docs_models_next_pipeline_m4",
+      "target": "docs_models_next_fase_m4_3_implementasi_chromosome_decoder",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L346",
+      "weight": 1.0,
+      "source": "docs_models_next_pipeline_m4",
+      "target": "docs_models_next_fase_m4_4_operator_genetik",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L352",
+      "weight": 1.0,
+      "source": "docs_models_next_pipeline_m4",
+      "target": "docs_models_next_fase_m4_5_time_boxed_execution",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L363",
+      "weight": 1.0,
+      "source": "docs_models_next_pipeline_m4",
+      "target": "docs_models_next_fase_m4_6_warm_start_reuse_previous_solution",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L406",
+      "weight": 1.0,
+      "source": "docs_models_next_6_m6_multi_agent_orchestration_p1_langgraph",
+      "target": "docs_models_next_6_agent_nodes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L499",
+      "weight": 1.0,
+      "source": "docs_models_next_6_m6_multi_agent_orchestration_p1_langgraph",
+      "target": "docs_models_next_acceptance_criteria_m6",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L447",
+      "weight": 1.0,
+      "source": "docs_models_next_6_m6_multi_agent_orchestration_p1_langgraph",
+      "target": "docs_models_next_confidence_aggregation_formula",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L510",
+      "weight": 1.0,
+      "source": "docs_models_next_6_m6_multi_agent_orchestration_p1_langgraph",
+      "target": "docs_models_next_output_files_m6",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L490",
+      "weight": 1.0,
+      "source": "docs_models_next_6_m6_multi_agent_orchestration_p1_langgraph",
+      "target": "docs_models_next_pipeline_m6",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L400",
+      "weight": 1.0,
+      "source": "docs_models_next_6_m6_multi_agent_orchestration_p1_langgraph",
+      "target": "docs_models_next_spec_singkat_400",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L466",
+      "weight": 1.0,
+      "source": "docs_models_next_6_m6_multi_agent_orchestration_p1_langgraph",
+      "target": "docs_models_next_sub_component_confidence_definitions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L492",
+      "weight": 1.0,
+      "source": "docs_models_next_pipeline_m6",
+      "target": "docs_models_next_fase_m6_1_define_langgraph_state_schema_6_agent_nodes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L493",
+      "weight": 1.0,
+      "source": "docs_models_next_pipeline_m6",
+      "target": "docs_models_next_fase_m6_2_implement_confidence_aggregation_formula",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L494",
+      "weight": 1.0,
+      "source": "docs_models_next_pipeline_m6",
+      "target": "docs_models_next_fase_m6_3_manual_weight_calibration_ba_orwin_dokumentasi_asumsi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L495",
+      "weight": 1.0,
+      "source": "docs_models_next_pipeline_m6",
+      "target": "docs_models_next_fase_m6_4_sensitivity_analysis_variasi_bobot_10_cek_perubahan_decision",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L496",
+      "weight": 1.0,
+      "source": "docs_models_next_pipeline_m6",
+      "target": "docs_models_next_fase_m6_5_human_in_the_loop_escalation_message_schema",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L497",
+      "weight": 1.0,
+      "source": "docs_models_next_pipeline_m6",
+      "target": "docs_models_next_fase_m6_6_audit_trail_logging_setiap_transisi_node_di_checkpoint",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L544",
+      "weight": 1.0,
+      "source": "docs_models_next_7_timeline_milestone",
+      "target": "docs_models_next_milestone_detail",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L557",
+      "weight": 1.0,
+      "source": "docs_models_next_8_resource_requirements",
+      "target": "docs_models_next_compute",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L562",
+      "weight": 1.0,
+      "source": "docs_models_next_8_resource_requirements",
+      "target": "docs_models_next_data",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L568",
+      "weight": 1.0,
+      "source": "docs_models_next_8_resource_requirements",
+      "target": "docs_models_next_dependencies_pip_install",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L627",
+      "weight": 1.0,
+      "source": "docs_models_next_10_next_action_checklist",
+      "target": "docs_models_next_final_integration_minggu_4",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L610",
+      "weight": 1.0,
+      "source": "docs_models_next_10_next_action_checklist",
+      "target": "docs_models_next_segera_minggu_1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L616",
+      "weight": 1.0,
+      "source": "docs_models_next_10_next_action_checklist",
+      "target": "docs_models_next_setelah_m2_done_minggu_2",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/Next.md",
+      "source_location": "L622",
+      "weight": 1.0,
+      "source": "docs_models_next_10_next_action_checklist",
+      "target": "docs_models_next_setelah_m4_tuned_minggu_3",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "docs_models_plan",
+      "target": "docs_models_plan_slara_ai_training_pipeline_optimization_agentic_system_plan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "docs_models_plan_slara_ai_training_pipeline_optimization_agentic_system_plan",
+      "target": "docs_models_plan_0_ringkasan_eksekutif_baca_ini_kalau_cuma_punya_2_menit",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "docs_models_plan_slara_ai_training_pipeline_optimization_agentic_system_plan",
+      "target": "docs_models_plan_1_baseline_fakta_apa_yang_benar_benar_ada_sekarang",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L33",
+      "weight": 1.0,
+      "source": "docs_models_plan_slara_ai_training_pipeline_optimization_agentic_system_plan",
+      "target": "docs_models_plan_2_temuan_kritis_dari_data_dengan_bukti_bukan_opini",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L83",
+      "weight": 1.0,
+      "source": "docs_models_plan_slara_ai_training_pipeline_optimization_agentic_system_plan",
+      "target": "docs_models_plan_3_revised_pipeline_urutan_eksekusi_optimal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L126",
+      "weight": 1.0,
+      "source": "docs_models_plan_slara_ai_training_pipeline_optimization_agentic_system_plan",
+      "target": "docs_models_plan_4_apa_yang_tidak_perlu_dikerjakan_penghematan_eksplisit",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L136",
+      "weight": 1.0,
+      "source": "docs_models_plan_slara_ai_training_pipeline_optimization_agentic_system_plan",
+      "target": "docs_models_plan_5_blueprint_agentic_system_m6_grounded_ke_artefak_nyata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L209",
+      "weight": 1.0,
+      "source": "docs_models_plan_slara_ai_training_pipeline_optimization_agentic_system_plan",
+      "target": "docs_models_plan_6_prompt_eksekusi_siap_pakai",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L282",
+      "weight": 1.0,
+      "source": "docs_models_plan_slara_ai_training_pipeline_optimization_agentic_system_plan",
+      "target": "docs_models_plan_7_definition_of_done_per_step",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L35",
+      "weight": 1.0,
+      "source": "docs_models_plan_2_temuan_kritis_dari_data_dengan_bukti_bukan_opini",
+      "target": "docs_models_plan_f1_generator_data_m1_degenerate_blocker_tertinggi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L53",
+      "weight": 1.0,
+      "source": "docs_models_plan_2_temuan_kritis_dari_data_dengan_bukti_bukan_opini",
+      "target": "docs_models_plan_f2_conf_m1_di_formula_m6_tidak_computable",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "docs_models_plan_2_temuan_kritis_dari_data_dengan_bukti_bukan_opini",
+      "target": "docs_models_plan_f3_cross_model_feature_m2_m1_belum_terpasang",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "docs_models_plan_2_temuan_kritis_dari_data_dengan_bukti_bukan_opini",
+      "target": "docs_models_plan_f4_threshold_drift_tiga_versi_beredar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L65",
+      "weight": 1.0,
+      "source": "docs_models_plan_2_temuan_kritis_dari_data_dengan_bukti_bukan_opini",
+      "target": "docs_models_plan_f5_ukuran_model_m1_92_8_mb",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L69",
+      "weight": 1.0,
+      "source": "docs_models_plan_2_temuan_kritis_dari_data_dengan_bukti_bukan_opini",
+      "target": "docs_models_plan_f6_fix_terverifikasi_bukan_hipotesis",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L96",
+      "weight": 1.0,
+      "source": "docs_models_plan_3_revised_pipeline_urutan_eksekusi_optimal",
+      "target": "docs_models_plan_step_0_m1_v2_satu_satunya_yang_butuh_colab_retrain",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L111",
+      "weight": 1.0,
+      "source": "docs_models_plan_3_revised_pipeline_urutan_eksekusi_optimal",
+      "target": "docs_models_plan_step_1_2_m4_data_sudah_siap_lokal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L118",
+      "weight": 1.0,
+      "source": "docs_models_plan_3_revised_pipeline_urutan_eksekusi_optimal",
+      "target": "docs_models_plan_step_3_m5_30_menit_kerja",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L122",
+      "weight": 1.0,
+      "source": "docs_models_plan_3_revised_pipeline_urutan_eksekusi_optimal",
+      "target": "docs_models_plan_step_4_m6_blueprint_lengkap_di_5",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L138",
+      "weight": 1.0,
+      "source": "docs_models_plan_5_blueprint_agentic_system_m6_grounded_ke_artefak_nyata",
+      "target": "docs_models_plan_5_1_prinsip_yang_dipertahankan_dari_keputusan_sesi_proposal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L142",
+      "weight": 1.0,
+      "source": "docs_models_plan_5_blueprint_agentic_system_m6_grounded_ke_artefak_nyata",
+      "target": "docs_models_plan_5_2_state_schema_field_names_persis_dari_artefak_yang_ada",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L168",
+      "weight": 1.0,
+      "source": "docs_models_plan_5_blueprint_agentic_system_m6_grounded_ke_artefak_nyata",
+      "target": "docs_models_plan_5_3_status_computability_formula_confidence_hari_ini",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L182",
+      "weight": 1.0,
+      "source": "docs_models_plan_5_blueprint_agentic_system_m6_grounded_ke_artefak_nyata",
+      "target": "docs_models_plan_5_4_node_contract_table",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L193",
+      "weight": 1.0,
+      "source": "docs_models_plan_5_blueprint_agentic_system_m6_grounded_ke_artefak_nyata",
+      "target": "docs_models_plan_5_4b_urutan_build_m6_yang_optimal_bisa_mulai_sebelum_m1_v2_selesai",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L201",
+      "weight": 1.0,
+      "source": "docs_models_plan_5_blueprint_agentic_system_m6_grounded_ke_artefak_nyata",
+      "target": "docs_models_plan_5_5_risiko_spesifik_m6_yang_muncul_dari_data_bukan_generik",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L211",
+      "weight": 1.0,
+      "source": "docs_models_plan_6_prompt_eksekusi_siap_pakai",
+      "target": "docs_models_plan_prompt_a_sesi_colab_m1_v2_jalankan_duluan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L242",
+      "weight": 1.0,
+      "source": "docs_models_plan_6_prompt_eksekusi_siap_pakai",
+      "target": "docs_models_plan_prompt_b_sesi_m4_bisa_paralel_dengan_a_untuk_fase_solomon",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/models/plan.md",
+      "source_location": "L261",
+      "weight": 1.0,
+      "source": "docs_models_plan_6_prompt_eksekusi_siap_pakai",
+      "target": "docs_models_plan_prompt_c_sesi_m6_mulai_dengan_mock_sesuai_5_4b",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_interaction_map",
-      "target": "docs_models_interaction_map_slara_ai_model_interaction_map_m1_m6",
-      "confidence_score": 1.0
+      "target": "docs_models_interaction_map_slara_ai_model_interaction_map_m1_m6"
     },
     {
       "relation": "contains",
@@ -4326,9 +6326,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L542",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_interaction_map_slara_ai_model_interaction_map_m1_m6",
-      "target": "docs_models_interaction_map_10_failure_cascade_apa_terjadi_kalau_satu_model_down",
-      "confidence_score": 1.0
+      "target": "docs_models_interaction_map_10_failure_cascade_apa_terjadi_kalau_satu_model_down"
     },
     {
       "relation": "contains",
@@ -4336,9 +6336,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L587",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_interaction_map_slara_ai_model_interaction_map_m1_m6",
-      "target": "docs_models_interaction_map_11_build_order_dengan_dependency_visual_timeline",
-      "confidence_score": 1.0
+      "target": "docs_models_interaction_map_11_build_order_dengan_dependency_visual_timeline"
     },
     {
       "relation": "contains",
@@ -4346,9 +6346,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L645",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_interaction_map_slara_ai_model_interaction_map_m1_m6",
-      "target": "docs_models_interaction_map_12_quick_reference_cheat_sheet_tim",
-      "confidence_score": 1.0
+      "target": "docs_models_interaction_map_12_quick_reference_cheat_sheet_tim"
     },
     {
       "relation": "contains",
@@ -4356,9 +6356,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_interaction_map_slara_ai_model_interaction_map_m1_m6",
-      "target": "docs_models_interaction_map_1_architecture_overview_semua_komponen_sekaligus",
-      "confidence_score": 1.0
+      "target": "docs_models_interaction_map_1_architecture_overview_semua_komponen_sekaligus"
     },
     {
       "relation": "contains",
@@ -4366,9 +6366,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L88",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_interaction_map_slara_ai_model_interaction_map_m1_m6",
-      "target": "docs_models_interaction_map_2_data_flow_antar_model_apa_yang_mengalir_kemana",
-      "confidence_score": 1.0
+      "target": "docs_models_interaction_map_2_data_flow_antar_model_apa_yang_mengalir_kemana"
     },
     {
       "relation": "contains",
@@ -4376,9 +6376,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L158",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_interaction_map_slara_ai_model_interaction_map_m1_m6",
-      "target": "docs_models_interaction_map_3_dependency_graph_urutan_build_wajib",
-      "confidence_score": 1.0
+      "target": "docs_models_interaction_map_3_dependency_graph_urutan_build_wajib"
     },
     {
       "relation": "contains",
@@ -4386,9 +6386,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L206",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_interaction_map_slara_ai_model_interaction_map_m1_m6",
-      "target": "docs_models_interaction_map_4_end_to_end_pipeline_untuk_satu_shipment",
-      "confidence_score": 1.0
+      "target": "docs_models_interaction_map_4_end_to_end_pipeline_untuk_satu_shipment"
     },
     {
       "relation": "contains",
@@ -4396,9 +6396,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L262",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_interaction_map_slara_ai_model_interaction_map_m1_m6",
-      "target": "docs_models_interaction_map_5_latency_budget_siapa_makan_berapa_milidetik",
-      "confidence_score": 1.0
+      "target": "docs_models_interaction_map_5_latency_budget_siapa_makan_berapa_milidetik"
     },
     {
       "relation": "contains",
@@ -4406,9 +6406,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L302",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_interaction_map_slara_ai_model_interaction_map_m1_m6",
-      "target": "docs_models_interaction_map_6_sync_vs_async_kapan_tunggu_kapan_jalan_paralel",
-      "confidence_score": 1.0
+      "target": "docs_models_interaction_map_6_sync_vs_async_kapan_tunggu_kapan_jalan_paralel"
     },
     {
       "relation": "contains",
@@ -4416,9 +6416,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L352",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_interaction_map_slara_ai_model_interaction_map_m1_m6",
-      "target": "docs_models_interaction_map_7_confidence_aggregation_flow_cara_m6_menghitung_87",
-      "confidence_score": 1.0
+      "target": "docs_models_interaction_map_7_confidence_aggregation_flow_cara_m6_menghitung_87"
     },
     {
       "relation": "contains",
@@ -4426,9 +6426,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L424",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_interaction_map_slara_ai_model_interaction_map_m1_m6",
-      "target": "docs_models_interaction_map_8_escalation_flow_saat_confidence_0_70",
-      "confidence_score": 1.0
+      "target": "docs_models_interaction_map_8_escalation_flow_saat_confidence_0_70"
     },
     {
       "relation": "contains",
@@ -4436,9 +6436,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L488",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_interaction_map_slara_ai_model_interaction_map_m1_m6",
-      "target": "docs_models_interaction_map_9_cross_model_feature_sharing_siapa_pakai_apa_dari_siapa",
-      "confidence_score": 1.0
+      "target": "docs_models_interaction_map_9_cross_model_feature_sharing_siapa_pakai_apa_dari_siapa"
     },
     {
       "relation": "contains",
@@ -4446,9 +6446,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L139",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_interaction_map_2_data_flow_antar_model_apa_yang_mengalir_kemana",
-      "target": "docs_models_interaction_map_tabel_interaksi_detail",
-      "confidence_score": 1.0
+      "target": "docs_models_interaction_map_tabel_interaksi_detail"
     },
     {
       "relation": "contains",
@@ -4456,9 +6456,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L193",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_interaction_map_3_dependency_graph_urutan_build_wajib",
-      "target": "docs_models_interaction_map_aturan_dependency",
-      "confidence_score": 1.0
+      "target": "docs_models_interaction_map_aturan_dependency"
     },
     {
       "relation": "contains",
@@ -4466,9 +6466,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L285",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_interaction_map_5_latency_budget_siapa_makan_berapa_milidetik",
-      "target": "docs_models_interaction_map_tabel_budget_detail",
-      "confidence_score": 1.0
+      "target": "docs_models_interaction_map_tabel_budget_detail"
     },
     {
       "relation": "contains",
@@ -4476,9 +6476,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L337",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_interaction_map_6_sync_vs_async_kapan_tunggu_kapan_jalan_paralel",
-      "target": "docs_models_interaction_map_aturan_sinkron_vs_asinkron",
-      "confidence_score": 1.0
+      "target": "docs_models_interaction_map_aturan_sinkron_vs_asinkron"
     },
     {
       "relation": "contains",
@@ -4486,9 +6486,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L409",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_interaction_map_7_confidence_aggregation_flow_cara_m6_menghitung_87",
-      "target": "docs_models_interaction_map_bobot_justifikasi",
-      "confidence_score": 1.0
+      "target": "docs_models_interaction_map_bobot_justifikasi"
     },
     {
       "relation": "contains",
@@ -4496,9 +6496,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L463",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_interaction_map_8_escalation_flow_saat_confidence_0_70",
-      "target": "docs_models_interaction_map_komponen_wajib_di_escalation_message",
-      "confidence_score": 1.0
+      "target": "docs_models_interaction_map_komponen_wajib_di_escalation_message"
     },
     {
       "relation": "contains",
@@ -4506,9 +6506,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L523",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_interaction_map_9_cross_model_feature_sharing_siapa_pakai_apa_dari_siapa",
-      "target": "docs_models_interaction_map_matriks_konsumsi_feature",
-      "confidence_score": 1.0
+      "target": "docs_models_interaction_map_matriks_konsumsi_feature"
     },
     {
       "relation": "contains",
@@ -4516,9 +6516,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L575",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_interaction_map_10_failure_cascade_apa_terjadi_kalau_satu_model_down",
-      "target": "docs_models_interaction_map_severity_tier",
-      "confidence_score": 1.0
+      "target": "docs_models_interaction_map_severity_tier"
     },
     {
       "relation": "contains",
@@ -4526,9 +6526,9 @@
       "source_file": "docs/models/INTERACTION_MAP.md",
       "source_location": "L619",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_interaction_map_11_build_order_dengan_dependency_visual_timeline",
-      "target": "docs_models_interaction_map_kritikal_path_yang_tidak_boleh_delay",
-      "confidence_score": 1.0
+      "target": "docs_models_interaction_map_kritikal_path_yang_tidak_boleh_delay"
     },
     {
       "relation": "contains",
@@ -4536,9 +6536,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission",
-      "target": "docs_models_m3_carbon_emission_m3_carbon_emission_estimator",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_m3_carbon_emission_estimator"
     },
     {
       "relation": "contains",
@@ -4546,9 +6546,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_m3_carbon_emission_estimator",
-      "target": "docs_models_m3_carbon_emission_1_ringkasan_eksekutif",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_1_ringkasan_eksekutif"
     },
     {
       "relation": "contains",
@@ -4556,9 +6556,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_m3_carbon_emission_estimator",
-      "target": "docs_models_m3_carbon_emission_2_formulasi_matematis",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_2_formulasi_matematis"
     },
     {
       "relation": "contains",
@@ -4566,9 +6566,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L73",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_m3_carbon_emission_estimator",
-      "target": "docs_models_m3_carbon_emission_3_sumber_emission_factor_wajib_resmi_bukan_angka_karangan",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_3_sumber_emission_factor_wajib_resmi_bukan_angka_karangan"
     },
     {
       "relation": "contains",
@@ -4576,9 +6576,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L113",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_m3_carbon_emission_estimator",
-      "target": "docs_models_m3_carbon_emission_4_validasi_via_backtesting_numerik_bukan_train_test_split",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_4_validasi_via_backtesting_numerik_bukan_train_test_split"
     },
     {
       "relation": "contains",
@@ -4586,9 +6586,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L178",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_m3_carbon_emission_estimator",
-      "target": "docs_models_m3_carbon_emission_5_integrasi_dengan_m4_route_optimization",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_5_integrasi_dengan_m4_route_optimization"
     },
     {
       "relation": "contains",
@@ -4596,9 +6596,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L205",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_m3_carbon_emission_estimator",
-      "target": "docs_models_m3_carbon_emission_6_reporting_auditability",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_6_reporting_auditability"
     },
     {
       "relation": "contains",
@@ -4606,9 +6606,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L268",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_m3_carbon_emission_estimator",
-      "target": "docs_models_m3_carbon_emission_7_risiko_mitigasi",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_7_risiko_mitigasi"
     },
     {
       "relation": "contains",
@@ -4616,9 +6616,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L280",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_m3_carbon_emission_estimator",
-      "target": "docs_models_m3_carbon_emission_8_roadmap_post_mvp",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_8_roadmap_post_mvp"
     },
     {
       "relation": "contains",
@@ -4626,9 +6626,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L291",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_m3_carbon_emission_estimator",
-      "target": "docs_models_m3_carbon_emission_9_acceptance_criteria_untuk_demo_kompetisi",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_9_acceptance_criteria_untuk_demo_kompetisi"
     },
     {
       "relation": "contains",
@@ -4636,9 +6636,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_2_formulasi_matematis",
-      "target": "docs_models_m3_carbon_emission_2_1_formula_utama_dari_proposal_dipertahankan",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_2_1_formula_utama_dari_proposal_dipertahankan"
     },
     {
       "relation": "contains",
@@ -4646,9 +6646,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L32",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_2_formulasi_matematis",
-      "target": "docs_models_m3_carbon_emission_2_2_per_transport_chain_element_glec_framework",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_2_2_per_transport_chain_element_glec_framework"
     },
     {
       "relation": "contains",
@@ -4656,9 +6656,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L47",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_2_formulasi_matematis",
-      "target": "docs_models_m3_carbon_emission_2_3_load_factor_adjustment",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_2_3_load_factor_adjustment"
     },
     {
       "relation": "contains",
@@ -4666,9 +6666,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L63",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_2_formulasi_matematis",
-      "target": "docs_models_m3_carbon_emission_2_4_scope_emissions_klasifikasi_ghg_protocol",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_2_4_scope_emissions_klasifikasi_ghg_protocol"
     },
     {
       "relation": "contains",
@@ -4676,9 +6676,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L77",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_3_sumber_emission_factor_wajib_resmi_bukan_angka_karangan",
-      "target": "docs_models_m3_carbon_emission_3_1_ipcc_2019_refinement_to_2006_guidelines",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_3_1_ipcc_2019_refinement_to_2006_guidelines"
     },
     {
       "relation": "contains",
@@ -4686,9 +6686,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L83",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_3_sumber_emission_factor_wajib_resmi_bukan_angka_karangan",
-      "target": "docs_models_m3_carbon_emission_3_2_glec_framework_v3_smart_freight_centre",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_3_2_glec_framework_v3_smart_freight_centre"
     },
     {
       "relation": "contains",
@@ -4696,9 +6696,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L92",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_3_sumber_emission_factor_wajib_resmi_bukan_angka_karangan",
-      "target": "docs_models_m3_carbon_emission_3_3_iso_14083_2023",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_3_3_iso_14083_2023"
     },
     {
       "relation": "contains",
@@ -4706,9 +6706,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L99",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_3_sumber_emission_factor_wajib_resmi_bukan_angka_karangan",
-      "target": "docs_models_m3_carbon_emission_3_4_lookup_table_m3_default_untuk_mvp",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_3_4_lookup_table_m3_default_untuk_mvp"
     },
     {
       "relation": "contains",
@@ -4716,9 +6716,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L115",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_4_validasi_via_backtesting_numerik_bukan_train_test_split",
-      "target": "docs_models_m3_carbon_emission_4_1_konsep_validation_untuk_komponen_rule_based",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_4_1_konsep_validation_untuk_komponen_rule_based"
     },
     {
       "relation": "contains",
@@ -4726,9 +6726,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L122",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_4_validasi_via_backtesting_numerik_bukan_train_test_split",
-      "target": "docs_models_m3_carbon_emission_4_2_audit_trail_procedure",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_4_2_audit_trail_procedure"
     },
     {
       "relation": "contains",
@@ -4736,9 +6736,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L135",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_4_validasi_via_backtesting_numerik_bukan_train_test_split",
-      "target": "docs_models_m3_carbon_emission_4_3_acceptance_deviation",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_4_3_acceptance_deviation"
     },
     {
       "relation": "contains",
@@ -4746,9 +6746,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L148",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_4_validasi_via_backtesting_numerik_bukan_train_test_split",
-      "target": "docs_models_m3_carbon_emission_4_4_output_audit_trail_format",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_4_4_output_audit_trail_format"
     },
     {
       "relation": "contains",
@@ -4756,9 +6756,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L180",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_5_integrasi_dengan_m4_route_optimization",
-      "target": "docs_models_m3_carbon_emission_5_1_peran_di_objective_function_m4",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_5_1_peran_di_objective_function_m4"
     },
     {
       "relation": "contains",
@@ -4766,9 +6766,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L191",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_5_integrasi_dengan_m4_route_optimization",
-      "target": "docs_models_m3_carbon_emission_5_2_mengapa_m3_bukan_objective_terpisah_di_m4",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_5_2_mengapa_m3_bukan_objective_terpisah_di_m4"
     },
     {
       "relation": "contains",
@@ -4776,9 +6776,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L195",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_5_integrasi_dengan_m4_route_optimization",
-      "target": "docs_models_m3_carbon_emission_5_3_performance_budget",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_5_3_performance_budget"
     },
     {
       "relation": "contains",
@@ -4786,9 +6786,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L207",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_6_reporting_auditability",
-      "target": "docs_models_m3_carbon_emission_6_1_output_schema_per_shipment",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_6_1_output_schema_per_shipment"
     },
     {
       "relation": "contains",
@@ -4796,9 +6796,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L248",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_6_reporting_auditability",
-      "target": "docs_models_m3_carbon_emission_6_2_audit_trail_id",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_6_2_audit_trail_id"
     },
     {
       "relation": "contains",
@@ -4806,9 +6806,9 @@
       "source_file": "docs/models/M3_Carbon_Emission.md",
       "source_location": "L258",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_m3_carbon_emission_6_reporting_auditability",
-      "target": "docs_models_m3_carbon_emission_6_3_dashboard_reporting",
-      "confidence_score": 1.0
+      "target": "docs_models_m3_carbon_emission_6_3_dashboard_reporting"
     },
     {
       "relation": "contains",
@@ -4816,9 +6816,9 @@
       "source_file": "docs/models/readme.md",
       "source_location": "L62",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_readme",
-      "target": "docs_models_readme_aturan_penting_jangan_tunggu_mock",
-      "confidence_score": 1.0
+      "target": "docs_models_readme_aturan_penting_jangan_tunggu_mock"
     },
     {
       "relation": "contains",
@@ -4826,9 +6826,9 @@
       "source_file": "docs/models/readme.md",
       "source_location": "L70",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_readme",
-      "target": "docs_models_readme_kritikal_path_yang_tidak_boleh_delay",
-      "confidence_score": 1.0
+      "target": "docs_models_readme_kritikal_path_yang_tidak_boleh_delay"
     },
     {
       "relation": "contains",
@@ -4836,9 +6836,9 @@
       "source_file": "docs/models/readme.md",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_readme",
-      "target": "docs_models_readme_urutan_berdasarkan_dependency_bukan_timeline_kalender",
-      "confidence_score": 1.0
+      "target": "docs_models_readme_urutan_berdasarkan_dependency_bukan_timeline_kalender"
     },
     {
       "relation": "contains",
@@ -4846,9 +6846,9 @@
       "source_file": "docs/models/readme.md",
       "source_location": "L53",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_models_readme",
-      "target": "docs_models_readme_yang_bisa_dikerjakan_paralel_hari_1",
-      "confidence_score": 1.0
+      "target": "docs_models_readme_yang_bisa_dikerjakan_paralel_hari_1"
     },
     {
       "relation": "contains",
@@ -8337,5 +10337,5 @@
       "source_file": "infra/docker-compose.yml"
     }
   ],
-  "built_at_commit": "f699d0e287a30ab5c5fd233f6b3051578500c38a"
+  "built_at_commit": "c4f121c63882e769162114a3548cd56ff8dbd6eb"
 }

@@ -1,16 +1,16 @@
-# Graph Report - SLAra  (2026-07-12)
+# Graph Report - SLAra  (2026-07-09)
 
 ## Corpus Check
-- 41 files · ~35,346 words
+- 39 files · ~28,553 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 529 nodes · 499 edges · 36 communities (31 shown, 5 thin omitted)
+- 428 nodes · 400 edges · 31 communities (26 shown, 5 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `c4f121c6`
+- Built from commit: `f699d0e2`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -38,11 +38,6 @@
 - [[_COMMUNITY_3.3 Definisi `model_confidence` per Komponen|3.3 Definisi `model_confidence` per Komponen]]
 - [[_COMMUNITY_4. Operator Genetik|4. Operator Genetik]]
 - [[_COMMUNITY_readme|readme.md]]
-- [[_COMMUNITY_🗺️ SLAra AI — Next Training Plan (Post-M1)|🗺️ SLAra AI — Next Training Plan (Post-M1)]]
-- [[_COMMUNITY_SLAra AI — Training Pipeline Optimization & Agentic System Plan|SLAra AI — Training Pipeline Optimization & Agentic System Plan]]
-- [[_COMMUNITY_5. M4 — Route Optimization (P0, NSGA-II)|5. M4 — Route Optimization (P0, NSGA-II)]]
-- [[_COMMUNITY_6. M6 — Multi-Agent Orchestration (P1, LangGraph)|6. M6 — Multi-Agent Orchestration (P1, LangGraph)]]
-- [[_COMMUNITY_2. M3 — Carbon Emission Estimator (P0, Rule-Based)|2. M3 — Carbon Emission Estimator (P0, Rule-Based)]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `compilerOptions` - 15 edges
@@ -50,11 +45,11 @@
 3. `AGENTS.md — SLAra Project Instructions` - 13 edges
 4. `AGENTS.md — SLAra Project Instructions` - 13 edges
 5. `📚 SLAra — Documentation Hub` - 13 edges
-6. `🗺️ SLAra AI — Next Training Plan (Post-M1)` - 12 edges
-7. `M1 — ETA Prediction & SLA Risk Tier` - 12 edges
-8. `M2 — Hub Congestion / Dwell-Time Forecast` - 12 edges
-9. `M4 — Route Optimization Engine (NSGA-II)` - 12 edges
-10. `M5 — Explainability Layer (SHAP)` - 12 edges
+6. `M1 — ETA Prediction & SLA Risk Tier` - 12 edges
+7. `M2 — Hub Congestion / Dwell-Time Forecast` - 12 edges
+8. `M4 — Route Optimization Engine (NSGA-II)` - 12 edges
+9. `M5 — Explainability Layer (SHAP)` - 12 edges
+10. `M6 — Multi-Agent Orchestration & Confidence Aggregation` - 11 edges
 
 ## Surprising Connections (you probably didn't know these)
 - None detected - all connections are within the same source files.
@@ -66,7 +61,7 @@
 - **SLAra Microservices Mesh** — services_agent, services_data, services_ai, infra_kafka [EXTRACTED 1.00]
 - **Infrastructure Layer** — infra_mongodb, infra_neo4j, infra_redis, infra_qdrant, infra_kafka [EXTRACTED 1.00]
 
-## Communities (36 total, 5 thin omitted)
+## Communities (31 total, 5 thin omitted)
 
 ### Community 0 - "compilerOptions"
 Cohesion: 0.11
@@ -140,45 +135,25 @@ Nodes (22): 10. Failure Cascade — Apa Terjadi Kalau Satu Model Down, 11. Build
 Cohesion: 0.40
 Nodes (4): Aturan Penting — Jangan Tunggu Mock!, Kritikal Path (yang TIDAK boleh delay), Urutan Berdasarkan Dependency (bukan timeline kalender), Yang Bisa Dikerjakan Paralel Hari 1
 
-### Community 31 - "🗺️ SLAra AI — Next Training Plan (Post-M1)"
-Cohesion: 0.06
-Nodes (33): 10. Next Action Checklist, 11. Success Metrics (Demo ke Juri), 1. Dependency Graph — Urutan Build Wajib, 3. M2 — Hub Dwell Time Forecast (P1, LightGBM Quantile), 4. M5 — SHAP Explainability (P2, On-Demand), 7. Timeline & Milestone, 8. Resource Requirements, 9. Risk & Mitigation (+25 more)
-
-### Community 32 - "SLAra AI — Training Pipeline Optimization & Agentic System Plan"
-Cohesion: 0.07
-Nodes (28): 0. Ringkasan Eksekutif (baca ini kalau cuma punya 2 menit), 1. Baseline Fakta — Apa yang Benar-Benar Ada Sekarang, 2. Temuan Kritis dari Data (dengan bukti, bukan opini), 3. Revised Pipeline — Urutan Eksekusi Optimal, 4. Apa yang TIDAK Perlu Dikerjakan (penghematan eksplisit), 5.1 Prinsip yang dipertahankan (dari keputusan sesi proposal), 5.2 State schema — field names PERSIS dari artefak yang ada, 5.3 Status computability formula confidence — HARI INI (+20 more)
-
-### Community 33 - "5. M4 — Route Optimization (P0, NSGA-II)"
-Cohesion: 0.14
-Nodes (14): 3 Objective Function, 5. M4 — Route Optimization (P0, NSGA-II), Acceptance Criteria M4, Constraint (Penalty Function, Bukan Objective), FASE M4.1 — Validasi algoritma di Solomon Benchmark, FASE M4.2 — Tuning GA parameters (grid search), FASE M4.3 — Implementasi Chromosome + Decoder, FASE M4.4 — Operator Genetik (+6 more)
-
-### Community 34 - "6. M6 — Multi-Agent Orchestration (P1, LangGraph)"
-Cohesion: 0.14
-Nodes (14): 6 Agent Nodes, 6. M6 — Multi-Agent Orchestration (P1, LangGraph), Acceptance Criteria M6, Confidence Aggregation Formula, FASE M6.1 — Define LangGraph state schema + 6 agent nodes, FASE M6.2 — Implement confidence aggregation formula, FASE M6.3 — Manual weight calibration (BA Orwin) + dokumentasi asumsi, FASE M6.4 — Sensitivity analysis (variasi bobot ±10%, cek perubahan decision) (+6 more)
-
-### Community 35 - "2. M3 — Carbon Emission Estimator (P0, Rule-Based)"
-Cohesion: 0.20
-Nodes (10): 2. M3 — Carbon Emission Estimator (P0, Rule-Based), Acceptance Criteria M3, FASE M3.1 — Lookup Table Emission Factor, FASE M3.2 — Load Factor Adjustment, FASE M3.3 — Per-TCE Calculation, FASE M3.4 — Audit Trail Validation, Kenapa Duluan, Output Files M3 (+2 more)
-
 ## Knowledge Gaps
-- **388 isolated node(s):** `Urutan Eksekusi Rekomendasi`, `Alasan Urutan Ini`, `Kenapa Duluan`, `Spec Singkat`, `FASE M3.1 — Lookup Table Emission Factor` (+383 more)
+- **307 isolated node(s):** `1. Architecture Overview — Semua Komponen Sekaligus`, `Tabel Interaksi Detail`, `Aturan Dependency`, `4. End-to-End Pipeline untuk Satu Shipment`, `Tabel Budget Detail` (+302 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **5 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `🗺️ SLAra AI — Next Training Plan (Post-M1)` connect `🗺️ SLAra AI — Next Training Plan (Post-M1)` to `5. M4 — Route Optimization (P0, NSGA-II)`, `6. M6 — Multi-Agent Orchestration (P1, LangGraph)`, `2. M3 — Carbon Emission Estimator (P0, Rule-Based)`?**
-  _High betweenness centrality (0.016) - this node is a cross-community bridge._
-- **Why does `5. M4 — Route Optimization (P0, NSGA-II)` connect `5. M4 — Route Optimization (P0, NSGA-II)` to `🗺️ SLAra AI — Next Training Plan (Post-M1)`?**
-  _High betweenness centrality (0.006) - this node is a cross-community bridge._
-- **Why does `6. M6 — Multi-Agent Orchestration (P1, LangGraph)` connect `6. M6 — Multi-Agent Orchestration (P1, LangGraph)` to `🗺️ SLAra AI — Next Training Plan (Post-M1)`?**
-  _High betweenness centrality (0.006) - this node is a cross-community bridge._
-- **What connects `Urutan Eksekusi Rekomendasi`, `Alasan Urutan Ini`, `Kenapa Duluan` to the rest of the system?**
-  _388 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Why does `M6 — Multi-Agent Orchestration & Confidence Aggregation` connect `M6 — Multi-Agent Orchestration & Confidence Aggregation` to `3.3 Definisi `model_confidence` per Komponen`?**
+  _High betweenness centrality (0.007) - this node is a cross-community bridge._
+- **What connects `1. Architecture Overview — Semua Komponen Sekaligus`, `Tabel Interaksi Detail`, `Aturan Dependency` to the rest of the system?**
+  _307 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `compilerOptions` be split into smaller, more focused modules?**
   _Cohesion score 0.1111111111111111 - nodes in this community are weakly interconnected._
 - **Should `package.json` be split into smaller, more focused modules?**
   _Cohesion score 0.14285714285714285 - nodes in this community are weakly interconnected._
 - **Should `devDependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.08 - nodes in this community are weakly interconnected._
+- **Should `📚 SLAra — Documentation Hub` be split into smaller, more focused modules?**
+  _Cohesion score 0.09523809523809523 - nodes in this community are weakly interconnected._
+- **Should `dependencies` be split into smaller, more focused modules?**
+  _Cohesion score 0.05405405405405406 - nodes in this community are weakly interconnected._
