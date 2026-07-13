@@ -1,6 +1,18 @@
-import { type RouteConfig, index, route } from "@react-router/dev/routes";
+import {
+  type RouteConfig,
+  index,
+  route,
+  layout,
+} from "@react-router/dev/routes";
 
+// All 6 pages live under the persistent AppShell (sidebar) layout.
 export default [
-  index("routes/home.tsx"),
-  route("decide/:shipmentId", "routes/decide.$shipmentId.tsx"),
+  layout("layouts/app-shell.tsx", [
+    index("routes/dashboard.tsx"),
+    route("fleet", "routes/fleet.tsx"),
+    route("recommendation", "routes/recommendation.tsx"),
+    route("optimization", "routes/optimization.tsx"),
+    route("approvals", "routes/approvals.tsx"),
+    route("impact", "routes/impact.tsx"),
+  ]),
 ] satisfies RouteConfig;

@@ -4,6 +4,7 @@
 
 import type {
   ApiErrorBody,
+  DashboardData,
   DecideResponse,
   KpiSummary,
   ResolveRequest,
@@ -46,6 +47,10 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 
 export function getKpi(): Promise<KpiSummary> {
   return request<KpiSummary>("/kpi/summary");
+}
+
+export function getDashboard(): Promise<DashboardData> {
+  return request<DashboardData>("/dashboard/summary");
 }
 
 export function getShipments(

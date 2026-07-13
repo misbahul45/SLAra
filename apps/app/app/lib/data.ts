@@ -10,6 +10,7 @@ const USE_MOCK = import.meta.env.VITE_USE_MOCK !== "false";
 const adapter = USE_MOCK ? mock : api;
 
 export const getKpi = adapter.getKpi;
+export const getDashboard = adapter.getDashboard;
 export const getShipments = adapter.getShipments;
 export const decide = adapter.decide;
 export const resolve = adapter.resolve;

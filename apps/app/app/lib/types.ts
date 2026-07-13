@@ -157,3 +157,49 @@ export interface ApiErrorBody {
     degraded: boolean;
   };
 }
+
+// ── Dashboard page (view-model; mock-first, NOT in the frozen contract yet) ───────
+
+export type KpiIconKind =
+  | "box"
+  | "warning"
+  | "target"
+  | "leaf"
+  | "latency"
+  | "auto";
+
+export interface DashboardKpi {
+  icon: KpiIconKind;
+  label: string;
+  value: string;
+  delta: string;
+}
+
+export interface EventFeedItem {
+  event_id: string;
+  title: string;
+  affected: number;
+}
+
+export interface RecMetric {
+  label: string;
+  display: string;
+  /** 0–100, drives the progress-bar fill width. */
+  bar_pct: number;
+}
+
+export type Severity = "HIGH" | "MEDIUM" | "CRITICAL";
+
+export interface ActiveRecommendation {
+  event_id: string;
+  severity: Severity;
+  plan_title: string;
+  route_text: string;
+  metrics: RecMetric[];
+}
+
+export interface DashboardData {
+  kpis: DashboardKpi[];
+  events: EventFeedItem[];
+  recommendation: ActiveRecommendation;
+}

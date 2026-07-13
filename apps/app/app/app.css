@@ -1,24 +1,34 @@
 @import "tailwindcss";
 
-/* SLAra control-tower design tokens (SLARA_FRONTEND_PLAN §2). */
+/* SLAra light redesign — tokens extracted from Figma (AngopForever). Poppins type,
+   steel-blue brand, deep-navy ink, maroon accent, translucent glass cards. */
 @theme {
-  --color-base: #0e1420; /* app background — blue-charcoal */
-  --color-surface: #16202e; /* cards, table header */
-  --color-line: #22303f; /* 1px borders */
-  --color-ink: #e6edf3; /* primary text */
-  --color-muted: #8b98a9; /* secondary text */
+  --color-bg: #eef1f6; /* app background */
+  --color-brand: #669bbb; /* steel blue — sidebar, labels, borders, tracks */
+  --color-ink: #01304a; /* deep navy — headings, numbers, body, bar fills */
+  --color-accent: #780001; /* maroon — process steps, primary CTA */
+  --color-danger: #c00000; /* HIGH / critical red */
+  --color-muted: #6f86a0; /* muted gray-blue text */
 
-  --color-safe: #2fbf71;
-  --color-warning: #f5a623;
-  --color-critical: #e5484d;
-  --color-accent: #4cc9f0; /* data / route accent */
+  /* semantic tiers (refined per page as needed) */
+  --color-safe: #2f9e6b;
+  --color-warning: #e0a83a;
+  --color-critical: #c00000;
 
-  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", monospace;
 }
 
 html,
 body {
-  @apply bg-base text-ink font-sans;
-  color-scheme: dark;
+  @apply bg-bg text-ink font-sans;
+  color-scheme: light;
+}
+
+/* Signature surface: translucent white card with brand border + blur. */
+@utility glass-card {
+  background-color: rgb(255 255 255 / 0.5);
+  backdrop-filter: blur(15px);
+  border: 2px solid var(--color-brand);
+  border-radius: 23px;
 }

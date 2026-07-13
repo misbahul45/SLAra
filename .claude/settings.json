@@ -8,7 +8,31 @@
       "Bash(tail -30 /tmp/tc.log)",
       "Bash(curl -s http://localhost:5173/)",
       "Bash(echo \"TYPECHECK EXIT=$?\")",
-      "Bash(echo \"BUILD EXIT=$?\")"
+      "Bash(echo \"BUILD EXIT=$?\")",
+      "Bash(claude mcp *)",
+      "Read(//c//**)",
+      "Read(//c/Users/pbr20/**)",
+      "Read(//c/Users/pbr20/.claude/**)",
+      "Bash(grep -o '\"mcpServers\"[^}]*}[^}]*}' /c/Users/pbr20/.claude.json | head -c 3000)",
+      "Bash(python3 -c ' *)",
+      "Bash(node -e ' *)",
+      "PowerShell(Get-Command claude -ErrorAction SilentlyContinue)",
+      "PowerShell(claude --version 2>$null)",
+      "PowerShell(claude mcp list 2>$null)",
+      "WebSearch",
+      "WebFetch(domain:help.figma.com)",
+      "WebFetch(domain:developers.figma.com)",
+      "mcp__claude_ai_Figma__get_screenshot",
+      "Bash(curl -sL -o fig-2-12.png \"https://www.figma.com/api/mcp/asset/7eda66d5-d0a6-4cdd-b618-c4c4443bf619\")",
+      "Bash(curl -sL -o fig-6-21.png \"https://www.figma.com/api/mcp/asset/0f636b81-2feb-403c-af4e-ab49c7e11eb6\")",
+      "Bash(curl -sL -o fig-6-23.png \"https://www.figma.com/api/mcp/asset/a1009451-cd36-4eb5-bbda-ba7712b0b8f9\")",
+      "Bash(curl -sL -o fig-6-25.png \"https://www.figma.com/api/mcp/asset/6095f341-6c5e-4e65-b834-110fdd175683\")",
+      "Bash(curl -sL -o fig-6-27.png \"https://www.figma.com/api/mcp/asset/86765e14-e2d8-4070-8b96-710d823c9d11\")",
+      "Bash(awk '{print $5\"\\\\t\"$9}')",
+      "mcp__claude_ai_Figma__get_variable_defs",
+      "mcp__claude_ai_Figma__get_metadata",
+      "mcp__claude_ai_Figma__get_design_context",
+      "Bash(cd /c/SLAra/SLAra/apps/app *)"
     ]
   }
 }

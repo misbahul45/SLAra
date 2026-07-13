@@ -3,6 +3,7 @@
 // the real FastAPI backend exists. Selected by VITE_USE_MOCK in data.ts.
 
 import type {
+  DashboardData,
   DecideResponse,
   KpiSummary,
   ResolveRequest,
@@ -16,6 +17,7 @@ import kpiJson from "~/mocks/kpi.json";
 import shipmentsJson from "~/mocks/shipments.json";
 import decide00400 from "~/mocks/decide-00400.json";
 import decide00403 from "~/mocks/decide-00403.json";
+import dashboardJson from "~/mocks/dashboard.json";
 
 // JSON imports widen literal unions (e.g. "SAFE" → string), so re-assert through
 // `unknown` to the contract types. The fixtures are authored to match the contract.
@@ -23,6 +25,7 @@ const KPI = kpiJson as unknown as KpiSummary;
 const SHIPMENTS = shipmentsJson as unknown as ShipmentsResponse;
 const DECIDE_AUTO = decide00400 as unknown as DecideResponse;
 const DECIDE_ESCALATE = decide00403 as unknown as DecideResponse;
+const DASHBOARD = dashboardJson as unknown as DashboardData;
 
 /** Simulated network latency, 800–2000 ms (per SLARA_FRONTEND_PLAN §3). */
 function delay(): Promise<void> {
@@ -38,6 +41,11 @@ function clone<T>(value: T): T {
 export async function getKpi(): Promise<KpiSummary> {
   await delay();
   return clone(KPI);
+}
+
+export async function getDashboard(): Promise<DashboardData> {
+  await delay();
+  return clone(DASHBOARD);
 }
 
 export async function getShipments(

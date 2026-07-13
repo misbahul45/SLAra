@@ -1,0 +1,27 @@
+{
+  "kpis": [
+    { "icon": "box", "label": "Active Shipment", "value": "428", "delta": "+18 today" },
+    { "icon": "warning", "label": "Delayed Shipment Risk", "value": "32", "delta": "7 high priority" },
+    { "icon": "target", "label": "OTD Forecast", "value": "94.2 %", "delta": "+6.8 pp vs baseline" },
+    { "icon": "leaf", "label": "CO₂ Saved Today", "value": "12.4 kg", "delta": "-22% vs non AI route" },
+    { "icon": "latency", "label": "Avg Decision Latency", "value": "2.1s", "delta": "P95 < 3s" },
+    { "icon": "auto", "label": "Auto-Resolution Rate", "value": "76 %", "delta": "target > 78%" }
+  ],
+  "events": [
+    { "event_id": "EVT-1024", "title": "SLA Risk", "affected": 4 },
+    { "event_id": "EVT-1026", "title": "Hub Overload", "affected": 18 },
+    { "event_id": "EVT-1027", "title": "Weather Disruption", "affected": 7 },
+    { "event_id": "EVT-1028", "title": "GPS Anomaly", "affected": 1 }
+  ],
+  "recommendation": {
+    "event_id": "EVT-1024",
+    "severity": "HIGH",
+    "plan_title": "Plan C – Reroute via JORR S",
+    "route_text": "JORR S Toll Road → Tambun → South Arteri",
+    "metrics": [
+      { "label": "Delay Risk", "display": "72% → 21%", "bar_pct": 21 },
+      { "label": "AI Confidence", "display": "86%", "bar_pct": 86 },
+      { "label": "ETA Improvement", "display": "78m → 51m", "bar_pct": 65 }
+    ]
+  }
+}
