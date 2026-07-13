@@ -6,7 +6,9 @@
       "Bash(echo \"EXIT=$?\")",
       "Read(//tmp/**)",
       "Bash(tail -30 /tmp/tc.log)",
-      "Bash(curl -s http://localhost:5173/)"
+      "Bash(curl -s http://localhost:5173/)",
+      "Bash(echo \"TYPECHECK EXIT=$?\")",
+      "Bash(echo \"BUILD EXIT=$?\")"
     ]
   }
 }

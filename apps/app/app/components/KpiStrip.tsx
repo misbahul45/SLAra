@@ -1,18 +1,20 @@
 import type { KpiSummary } from "~/lib/types";
+import { TIER_HEX } from "~/lib/tier";
 
-// Slice 1: functional KPI strip from the loader. Final styling in Slice 2 (§2).
+// KPI strip from the loader. Tier counts are colored to match the semantic palette.
 
 interface KpiItem {
   label: string;
   value: string | number;
+  color?: string;
 }
 
 export function KpiStrip({ kpi }: { kpi: KpiSummary }) {
   const items: KpiItem[] = [
     { label: "Active", value: kpi.active_shipments },
-    { label: "SAFE", value: kpi.tier_counts.SAFE },
-    { label: "WARNING", value: kpi.tier_counts.WARNING },
-    { label: "CRITICAL", value: kpi.tier_counts.CRITICAL },
+    { label: "SAFE", value: kpi.tier_counts.SAFE, color: TIER_HEX.SAFE },
+    { label: "WARNING", value: kpi.tier_counts.WARNING, color: TIER_HEX.WARNING },
+    { label: "CRITICAL", value: kpi.tier_counts.CRITICAL, color: TIER_HEX.CRITICAL },
     { label: "On-time", value: `${kpi.on_time_rate_pct}%` },
     { label: "Auto-exec", value: `${kpi.auto_execute_rate_pct}%` },
     { label: "CO₂ saved", value: `${kpi.co2_saved_today_kg} kg` },
@@ -24,12 +26,15 @@ export function KpiStrip({ kpi }: { kpi: KpiSummary }) {
       {items.map((item) => (
         <div
           key={item.label}
-          className="rounded border border-slate-700 bg-slate-800/40 p-3"
+          className="rounded border border-line bg-surface/40 p-3"
         >
-          <div className="text-xs uppercase tracking-wide text-slate-400">
+          <div className="text-xs uppercase tracking-wide text-muted">
             {item.label}
           </div>
-          <div className="mt-1 font-mono text-xl tabular-nums text-slate-100">
+          <div
+            className="mt-1 font-mono text-xl tabular-nums"
+            style={item.color ? { color: item.color } : undefined}
+          >
             {item.value}
           </div>
         </div>

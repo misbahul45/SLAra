@@ -131,7 +131,7 @@ export default function DecisionView({ loaderData }: Route.ComponentProps) {
             <div className="grid gap-4 lg:grid-cols-2">
               {/* Left column: map + route comparison */}
               <div className="space-y-4">
-                <div className="h-[420px] overflow-hidden rounded border border-line">
+                <div className="h-105 overflow-hidden rounded border border-line">
                   <Suspense fallback={<MapSkeleton />}>
                     <RouteMap
                       routes={result.routes}
@@ -244,7 +244,7 @@ export default function DecisionView({ loaderData }: Route.ComponentProps) {
             type="button"
             onClick={confirmResolve}
             disabled={resolving}
-            className={`rounded px-3 py-1.5 text-sm font-medium text-base disabled:opacity-50 ${
+            className={`rounded px-3 py-1.5 text-sm font-medium text-[#0e1420] disabled:opacity-50 ${
               pendingAction === "APPROVE" ? "bg-safe" : "bg-critical"
             }`}
           >
