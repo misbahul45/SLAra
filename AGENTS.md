@@ -2,6 +2,11 @@
 
 > Project-specific rules for AI agents (OpenCode / Claude Code / Antigravity).
 > File ini WAJIB di-commit ke Git dan di-update ketika ada perubahan arsitektur/konvensi.
+>
+> ⚠️ **STATUS: dokumen ini mendeskripsikan arsitektur TARGET, bukan kondisi codebase saat ini.**
+> Repo masih tahap scaffold — banyak folder/command/service di bawah belum ada. Untuk peta kondisi
+> nyata + run command yang sudah terverifikasi, baca [claude.md](claude.md) lebih dulu. Kalau dokumen
+> ini dan isi filesystem bertentangan, **filesystem yang menang**.
 
 ## Project Overview
 
