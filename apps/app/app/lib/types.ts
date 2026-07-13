@@ -203,3 +203,38 @@ export interface DashboardData {
   events: EventFeedItem[];
   recommendation: ActiveRecommendation;
 }
+
+// ── Live Fleet Map page ──────────────────────────────────────────────────────
+
+export interface MapMarker {
+  lat: number;
+  lng: number;
+  label?: string;
+  color?: string;
+}
+
+export interface TelemetryRow {
+  label: string;
+  value: string;
+  /** Highlight color for the value (e.g. gold SLA tier). */
+  accent?: "gold";
+}
+
+export interface TelemetryBar {
+  label: string;
+  display: string;
+  bar_pct: number;
+}
+
+export interface VehicleTelemetry {
+  shipment_id: string;
+  status: string;
+  rows: TelemetryRow[];
+  bars: TelemetryBar[];
+  map_center: [number, number];
+}
+
+export interface FleetData {
+  selected: VehicleTelemetry;
+  markers: MapMarker[];
+}

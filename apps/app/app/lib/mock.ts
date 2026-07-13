@@ -5,6 +5,7 @@
 import type {
   DashboardData,
   DecideResponse,
+  FleetData,
   KpiSummary,
   ResolveRequest,
   ResolveResponse,
@@ -18,6 +19,7 @@ import shipmentsJson from "~/mocks/shipments.json";
 import decide00400 from "~/mocks/decide-00400.json";
 import decide00403 from "~/mocks/decide-00403.json";
 import dashboardJson from "~/mocks/dashboard.json";
+import fleetJson from "~/mocks/fleet.json";
 
 // JSON imports widen literal unions (e.g. "SAFE" → string), so re-assert through
 // `unknown` to the contract types. The fixtures are authored to match the contract.
@@ -26,6 +28,7 @@ const SHIPMENTS = shipmentsJson as unknown as ShipmentsResponse;
 const DECIDE_AUTO = decide00400 as unknown as DecideResponse;
 const DECIDE_ESCALATE = decide00403 as unknown as DecideResponse;
 const DASHBOARD = dashboardJson as unknown as DashboardData;
+const FLEET = fleetJson as unknown as FleetData;
 
 /** Simulated network latency, 800–2000 ms (per SLARA_FRONTEND_PLAN §3). */
 function delay(): Promise<void> {
@@ -46,6 +49,11 @@ export async function getKpi(): Promise<KpiSummary> {
 export async function getDashboard(): Promise<DashboardData> {
   await delay();
   return clone(DASHBOARD);
+}
+
+export async function getFleet(): Promise<FleetData> {
+  await delay();
+  return clone(FLEET);
 }
 
 export async function getShipments(

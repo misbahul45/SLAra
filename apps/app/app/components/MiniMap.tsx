@@ -1,14 +1,8 @@
 import { MapContainer, TileLayer, CircleMarker, Tooltip } from "react-leaflet";
+import type { MapMarker } from "~/lib/types";
 
 // Client-only (leaflet touches `window`); loaded via React.lazy. A lightweight map for
 // the dashboard fleet panel and reused on the Live Fleet Map page.
-
-export interface MapMarker {
-  lat: number;
-  lng: number;
-  label?: string;
-  color?: string;
-}
 
 interface MiniMapProps {
   center: [number, number];

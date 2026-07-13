@@ -6,6 +6,7 @@ import type {
   ApiErrorBody,
   DashboardData,
   DecideResponse,
+  FleetData,
   KpiSummary,
   ResolveRequest,
   ResolveResponse,
@@ -51,6 +52,10 @@ export function getKpi(): Promise<KpiSummary> {
 
 export function getDashboard(): Promise<DashboardData> {
   return request<DashboardData>("/dashboard/summary");
+}
+
+export function getFleet(): Promise<FleetData> {
+  return request<FleetData>("/fleet/telemetry");
 }
 
 export function getShipments(
