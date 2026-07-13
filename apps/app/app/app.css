@@ -1,15 +1,24 @@
 @import "tailwindcss";
 
+/* SLAra control-tower design tokens (SLARA_FRONTEND_PLAN §2). */
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --color-base: #0e1420; /* app background — blue-charcoal */
+  --color-surface: #16202e; /* cards, table header */
+  --color-line: #22303f; /* 1px borders */
+  --color-ink: #e6edf3; /* primary text */
+  --color-muted: #8b98a9; /* secondary text */
+
+  --color-safe: #2fbf71;
+  --color-warning: #f5a623;
+  --color-critical: #e5484d;
+  --color-accent: #4cc9f0; /* data / route accent */
+
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
 }
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
-
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
-  }
+  @apply bg-base text-ink font-sans;
+  color-scheme: dark;
 }
