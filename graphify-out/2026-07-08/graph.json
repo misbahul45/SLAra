@@ -1,0 +1,2093 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {
+    "hyperedges": [
+      {
+        "id": "slara_microservices_mesh",
+        "label": "SLAra Microservices Mesh",
+        "nodes": [
+          "services_agent",
+          "services_data",
+          "services_ai",
+          "infra_kafka"
+        ],
+        "relation": "participate_in",
+        "confidence": "EXTRACTED",
+        "confidence_score": 1.0,
+        "source_file": "Readme.md"
+      },
+      {
+        "id": "slara_infrastructure_layer",
+        "label": "Infrastructure Layer",
+        "nodes": [
+          "infra_mongodb",
+          "infra_neo4j",
+          "infra_redis",
+          "infra_qdrant",
+          "infra_kafka"
+        ],
+        "relation": "form",
+        "confidence": "EXTRACTED",
+        "confidence_score": 1.0,
+        "source_file": "infra/docker-compose.yml"
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "label": "graphify.js",
+      "file_type": "code",
+      "source_file": ".opencode/plugins/graphify.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "opencode_plugins_graphify",
+      "community": 9,
+      "norm_label": "graphify.js"
+    },
+    {
+      "label": "GraphifyPlugin()",
+      "file_type": "code",
+      "source_file": ".opencode/plugins/graphify.js",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "opencode_plugins_graphify_graphifyplugin",
+      "community": 9,
+      "norm_label": "graphifyplugin()"
+    },
+    {
+      "label": "root.tsx",
+      "file_type": "code",
+      "source_file": "apps/app/app/root.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "apps_app_app_root",
+      "community": 8,
+      "norm_label": "root.tsx"
+    },
+    {
+      "label": "links()",
+      "file_type": "code",
+      "source_file": "apps/app/app/root.tsx",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "apps_app_app_root_links",
+      "community": 8,
+      "norm_label": "links()"
+    },
+    {
+      "label": "Layout()",
+      "file_type": "code",
+      "source_file": "apps/app/app/root.tsx",
+      "source_location": "L26",
+      "_origin": "ast",
+      "id": "apps_app_app_root_layout",
+      "community": 8,
+      "norm_label": "layout()"
+    },
+    {
+      "label": "App()",
+      "file_type": "code",
+      "source_file": "apps/app/app/root.tsx",
+      "source_location": "L44",
+      "_origin": "ast",
+      "id": "apps_app_app_root_app",
+      "community": 8,
+      "norm_label": "app()"
+    },
+    {
+      "label": "ErrorBoundary()",
+      "file_type": "code",
+      "source_file": "apps/app/app/root.tsx",
+      "source_location": "L48",
+      "_origin": "ast",
+      "id": "apps_app_app_root_errorboundary",
+      "community": 8,
+      "norm_label": "errorboundary()"
+    },
+    {
+      "label": "routes.ts",
+      "file_type": "code",
+      "source_file": "apps/app/app/routes.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "apps_app_app_routes",
+      "community": 14,
+      "norm_label": "routes.ts"
+    },
+    {
+      "label": "home.tsx",
+      "file_type": "code",
+      "source_file": "apps/app/app/routes/home.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "apps_app_app_routes_home",
+      "community": 7,
+      "norm_label": "home.tsx"
+    },
+    {
+      "label": "meta()",
+      "file_type": "code",
+      "source_file": "apps/app/app/routes/home.tsx",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "apps_app_app_routes_home_meta",
+      "community": 7,
+      "norm_label": "meta()"
+    },
+    {
+      "label": "Home()",
+      "file_type": "code",
+      "source_file": "apps/app/app/routes/home.tsx",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "apps_app_app_routes_home_home",
+      "community": 7,
+      "norm_label": "home()"
+    },
+    {
+      "label": "welcome.tsx",
+      "file_type": "code",
+      "source_file": "apps/app/app/welcome/welcome.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "apps_app_app_welcome_welcome",
+      "community": 7,
+      "norm_label": "welcome.tsx"
+    },
+    {
+      "label": "Welcome()",
+      "file_type": "code",
+      "source_file": "apps/app/app/welcome/welcome.tsx",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "apps_app_app_welcome_welcome_welcome",
+      "community": 7,
+      "norm_label": "welcome()"
+    },
+    {
+      "label": "resources",
+      "file_type": "code",
+      "source_file": "apps/app/app/welcome/welcome.tsx",
+      "source_location": "L49",
+      "_origin": "ast",
+      "id": "apps_app_app_welcome_welcome_resources",
+      "community": 7,
+      "norm_label": "resources"
+    },
+    {
+      "label": "package.json",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "apps_app_package",
+      "community": 4,
+      "norm_label": "package.json"
+    },
+    {
+      "label": "name",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "apps_app_package_name",
+      "community": 4,
+      "norm_label": "name"
+    },
+    {
+      "label": "private",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "apps_app_package_private",
+      "community": 4,
+      "norm_label": "private"
+    },
+    {
+      "label": "type",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "apps_app_package_type",
+      "community": 4,
+      "norm_label": "type"
+    },
+    {
+      "label": "scripts",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "apps_app_package_scripts",
+      "community": 4,
+      "norm_label": "scripts"
+    },
+    {
+      "label": "build",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "apps_app_package_scripts_build",
+      "community": 4,
+      "norm_label": "build"
+    },
+    {
+      "label": "dev",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "apps_app_package_scripts_dev",
+      "community": 4,
+      "norm_label": "dev"
+    },
+    {
+      "label": "start",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "apps_app_package_scripts_start",
+      "community": 4,
+      "norm_label": "start"
+    },
+    {
+      "label": "typecheck",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "apps_app_package_scripts_typecheck",
+      "community": 4,
+      "norm_label": "typecheck"
+    },
+    {
+      "label": "dependencies",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "apps_app_package_dependencies",
+      "community": 6,
+      "norm_label": "dependencies"
+    },
+    {
+      "label": "@react-router/node",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "apps_app_package_dependencies_react_router_node",
+      "community": 6,
+      "norm_label": "@react-router/node"
+    },
+    {
+      "label": "@react-router/serve",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "apps_app_package_dependencies_react_router_serve",
+      "community": 6,
+      "norm_label": "@react-router/serve"
+    },
+    {
+      "label": "isbot",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "apps_app_package_dependencies_isbot",
+      "community": 6,
+      "norm_label": "isbot"
+    },
+    {
+      "label": "react",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "apps_app_package_dependencies_react",
+      "community": 6,
+      "norm_label": "react"
+    },
+    {
+      "label": "react-dom",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "apps_app_package_dependencies_react_dom",
+      "community": 6,
+      "norm_label": "react-dom"
+    },
+    {
+      "label": "react-router",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "apps_app_package_dependencies_react_router",
+      "community": 6,
+      "norm_label": "react-router"
+    },
+    {
+      "label": "devDependencies",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "apps_app_package_devdependencies",
+      "community": 5,
+      "norm_label": "devdependencies"
+    },
+    {
+      "label": "@react-router/dev",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L20",
+      "_origin": "ast",
+      "id": "apps_app_package_devdependencies_react_router_dev",
+      "community": 5,
+      "norm_label": "@react-router/dev"
+    },
+    {
+      "label": "@tailwindcss/vite",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L21",
+      "_origin": "ast",
+      "id": "apps_app_package_devdependencies_tailwindcss_vite",
+      "community": 5,
+      "norm_label": "@tailwindcss/vite"
+    },
+    {
+      "label": "@types/node",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "apps_app_package_devdependencies_types_node",
+      "community": 5,
+      "norm_label": "@types/node"
+    },
+    {
+      "label": "@types/react",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L23",
+      "_origin": "ast",
+      "id": "apps_app_package_devdependencies_types_react",
+      "community": 5,
+      "norm_label": "@types/react"
+    },
+    {
+      "label": "@types/react-dom",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L24",
+      "_origin": "ast",
+      "id": "apps_app_package_devdependencies_types_react_dom",
+      "community": 5,
+      "norm_label": "@types/react-dom"
+    },
+    {
+      "label": "tailwindcss",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L25",
+      "_origin": "ast",
+      "id": "apps_app_package_devdependencies_tailwindcss",
+      "community": 5,
+      "norm_label": "tailwindcss"
+    },
+    {
+      "label": "typescript",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L26",
+      "_origin": "ast",
+      "id": "apps_app_package_devdependencies_typescript",
+      "community": 5,
+      "norm_label": "typescript"
+    },
+    {
+      "label": "vite",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "source_location": "L27",
+      "_origin": "ast",
+      "id": "apps_app_package_devdependencies_vite",
+      "community": 5,
+      "norm_label": "vite"
+    },
+    {
+      "label": "react-router.config.ts",
+      "file_type": "code",
+      "source_file": "apps/app/react-router.config.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "apps_app_react_router_config",
+      "community": 15,
+      "norm_label": "react-router.config.ts"
+    },
+    {
+      "label": "tsconfig.json",
+      "file_type": "code",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "apps_app_tsconfig",
+      "community": 0,
+      "norm_label": "tsconfig.json"
+    },
+    {
+      "label": "include",
+      "file_type": "code",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "apps_app_tsconfig_include",
+      "community": 0,
+      "norm_label": "include"
+    },
+    {
+      "label": "compilerOptions",
+      "file_type": "code",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "apps_app_tsconfig_compileroptions",
+      "community": 0,
+      "norm_label": "compileroptions"
+    },
+    {
+      "label": "lib",
+      "file_type": "code",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "apps_app_tsconfig_compileroptions_lib",
+      "community": 0,
+      "norm_label": "lib"
+    },
+    {
+      "label": "types",
+      "file_type": "code",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "apps_app_tsconfig_compileroptions_types",
+      "community": 0,
+      "norm_label": "types"
+    },
+    {
+      "label": "target",
+      "file_type": "code",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "apps_app_tsconfig_compileroptions_target",
+      "community": 0,
+      "norm_label": "target"
+    },
+    {
+      "label": "module",
+      "file_type": "code",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "apps_app_tsconfig_compileroptions_module",
+      "community": 0,
+      "norm_label": "module"
+    },
+    {
+      "label": "moduleResolution",
+      "file_type": "code",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "apps_app_tsconfig_compileroptions_moduleresolution",
+      "community": 0,
+      "norm_label": "moduleresolution"
+    },
+    {
+      "label": "jsx",
+      "file_type": "code",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "apps_app_tsconfig_compileroptions_jsx",
+      "community": 0,
+      "norm_label": "jsx"
+    },
+    {
+      "label": "rootDirs",
+      "file_type": "code",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "apps_app_tsconfig_compileroptions_rootdirs",
+      "community": 0,
+      "norm_label": "rootdirs"
+    },
+    {
+      "label": "paths",
+      "file_type": "code",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "apps_app_tsconfig_compileroptions_paths",
+      "community": 0,
+      "norm_label": "paths"
+    },
+    {
+      "label": "~/*",
+      "file_type": "code",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "apps_app_tsconfig_paths",
+      "community": 0,
+      "norm_label": "~/*"
+    },
+    {
+      "label": "esModuleInterop",
+      "file_type": "code",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "apps_app_tsconfig_compileroptions_esmoduleinterop",
+      "community": 0,
+      "norm_label": "esmoduleinterop"
+    },
+    {
+      "label": "verbatimModuleSyntax",
+      "file_type": "code",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L20",
+      "_origin": "ast",
+      "id": "apps_app_tsconfig_compileroptions_verbatimmodulesyntax",
+      "community": 0,
+      "norm_label": "verbatimmodulesyntax"
+    },
+    {
+      "label": "noEmit",
+      "file_type": "code",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L21",
+      "_origin": "ast",
+      "id": "apps_app_tsconfig_compileroptions_noemit",
+      "community": 0,
+      "norm_label": "noemit"
+    },
+    {
+      "label": "resolveJsonModule",
+      "file_type": "code",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "apps_app_tsconfig_compileroptions_resolvejsonmodule",
+      "community": 0,
+      "norm_label": "resolvejsonmodule"
+    },
+    {
+      "label": "skipLibCheck",
+      "file_type": "code",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L23",
+      "_origin": "ast",
+      "id": "apps_app_tsconfig_compileroptions_skiplibcheck",
+      "community": 0,
+      "norm_label": "skiplibcheck"
+    },
+    {
+      "label": "strict",
+      "file_type": "code",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L24",
+      "_origin": "ast",
+      "id": "apps_app_tsconfig_compileroptions_strict",
+      "community": 0,
+      "norm_label": "strict"
+    },
+    {
+      "label": "vite.config.ts",
+      "file_type": "code",
+      "source_file": "apps/app/vite.config.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "apps_app_vite_config",
+      "community": 16,
+      "norm_label": "vite.config.ts"
+    },
+    {
+      "label": "package.json",
+      "file_type": "code",
+      "source_file": "services/agent/package.json",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "services_agent_package",
+      "community": 1,
+      "norm_label": "package.json"
+    },
+    {
+      "label": "name",
+      "file_type": "code",
+      "source_file": "services/agent/package.json",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "services_agent_package_name",
+      "community": 1,
+      "norm_label": "name"
+    },
+    {
+      "label": "type",
+      "file_type": "code",
+      "source_file": "services/agent/package.json",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "services_agent_package_type",
+      "community": 1,
+      "norm_label": "type"
+    },
+    {
+      "label": "scripts",
+      "file_type": "code",
+      "source_file": "services/agent/package.json",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "services_agent_package_scripts",
+      "community": 1,
+      "norm_label": "scripts"
+    },
+    {
+      "label": "dev",
+      "file_type": "code",
+      "source_file": "services/agent/package.json",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "services_agent_package_scripts_dev",
+      "community": 1,
+      "norm_label": "dev"
+    },
+    {
+      "label": "build",
+      "file_type": "code",
+      "source_file": "services/agent/package.json",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "services_agent_package_scripts_build",
+      "community": 1,
+      "norm_label": "build"
+    },
+    {
+      "label": "start",
+      "file_type": "code",
+      "source_file": "services/agent/package.json",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "services_agent_package_scripts_start",
+      "community": 1,
+      "norm_label": "start"
+    },
+    {
+      "label": "dependencies",
+      "file_type": "code",
+      "source_file": "services/agent/package.json",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "services_agent_package_dependencies",
+      "community": 1,
+      "norm_label": "dependencies"
+    },
+    {
+      "label": "@hono/node-server",
+      "file_type": "code",
+      "source_file": "services/agent/package.json",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "services_agent_package_dependencies_hono_node_server",
+      "community": 1,
+      "norm_label": "@hono/node-server"
+    },
+    {
+      "label": "hono",
+      "file_type": "code",
+      "source_file": "services/agent/package.json",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "services_agent_package_dependencies_hono",
+      "community": 1,
+      "norm_label": "hono"
+    },
+    {
+      "label": "devDependencies",
+      "file_type": "code",
+      "source_file": "services/agent/package.json",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "services_agent_package_devdependencies",
+      "community": 1,
+      "norm_label": "devdependencies"
+    },
+    {
+      "label": "@types/node",
+      "file_type": "code",
+      "source_file": "services/agent/package.json",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "services_agent_package_devdependencies_types_node",
+      "community": 1,
+      "norm_label": "@types/node"
+    },
+    {
+      "label": "tsx",
+      "file_type": "code",
+      "source_file": "services/agent/package.json",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "services_agent_package_devdependencies_tsx",
+      "community": 1,
+      "norm_label": "tsx"
+    },
+    {
+      "label": "typescript",
+      "file_type": "code",
+      "source_file": "services/agent/package.json",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "services_agent_package_devdependencies_typescript",
+      "community": 1,
+      "norm_label": "typescript"
+    },
+    {
+      "label": "index.ts",
+      "file_type": "code",
+      "source_file": "services/agent/src/index.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "services_agent_src_index",
+      "community": 10,
+      "norm_label": "index.ts"
+    },
+    {
+      "label": "app",
+      "file_type": "code",
+      "source_file": "services/agent/src/index.ts",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "services_agent_src_index_app",
+      "community": 10,
+      "norm_label": "app"
+    },
+    {
+      "label": "tsconfig.json",
+      "file_type": "code",
+      "source_file": "services/agent/tsconfig.json",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "services_agent_tsconfig",
+      "community": 3,
+      "norm_label": "tsconfig.json"
+    },
+    {
+      "label": "compilerOptions",
+      "file_type": "code",
+      "source_file": "services/agent/tsconfig.json",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "services_agent_tsconfig_compileroptions",
+      "community": 3,
+      "norm_label": "compileroptions"
+    },
+    {
+      "label": "target",
+      "file_type": "code",
+      "source_file": "services/agent/tsconfig.json",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "services_agent_tsconfig_compileroptions_target",
+      "community": 3,
+      "norm_label": "target"
+    },
+    {
+      "label": "module",
+      "file_type": "code",
+      "source_file": "services/agent/tsconfig.json",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "services_agent_tsconfig_compileroptions_module",
+      "community": 3,
+      "norm_label": "module"
+    },
+    {
+      "label": "strict",
+      "file_type": "code",
+      "source_file": "services/agent/tsconfig.json",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "services_agent_tsconfig_compileroptions_strict",
+      "community": 3,
+      "norm_label": "strict"
+    },
+    {
+      "label": "verbatimModuleSyntax",
+      "file_type": "code",
+      "source_file": "services/agent/tsconfig.json",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "services_agent_tsconfig_compileroptions_verbatimmodulesyntax",
+      "community": 3,
+      "norm_label": "verbatimmodulesyntax"
+    },
+    {
+      "label": "skipLibCheck",
+      "file_type": "code",
+      "source_file": "services/agent/tsconfig.json",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "services_agent_tsconfig_compileroptions_skiplibcheck",
+      "community": 3,
+      "norm_label": "skiplibcheck"
+    },
+    {
+      "label": "types",
+      "file_type": "code",
+      "source_file": "services/agent/tsconfig.json",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "services_agent_tsconfig_compileroptions_types",
+      "community": 3,
+      "norm_label": "types"
+    },
+    {
+      "label": "jsx",
+      "file_type": "code",
+      "source_file": "services/agent/tsconfig.json",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "services_agent_tsconfig_compileroptions_jsx",
+      "community": 3,
+      "norm_label": "jsx"
+    },
+    {
+      "label": "jsxImportSource",
+      "file_type": "code",
+      "source_file": "services/agent/tsconfig.json",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "services_agent_tsconfig_compileroptions_jsximportsource",
+      "community": 3,
+      "norm_label": "jsximportsource"
+    },
+    {
+      "label": "outDir",
+      "file_type": "code",
+      "source_file": "services/agent/tsconfig.json",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "services_agent_tsconfig_compileroptions_outdir",
+      "community": 3,
+      "norm_label": "outdir"
+    },
+    {
+      "label": "exclude",
+      "file_type": "code",
+      "source_file": "services/agent/tsconfig.json",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "services_agent_tsconfig_exclude",
+      "community": 3,
+      "norm_label": "exclude"
+    },
+    {
+      "label": "main.py",
+      "file_type": "code",
+      "source_file": "services/ai/main.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "services_ai_main",
+      "community": 11,
+      "norm_label": "main.py"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "services/ai/main.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "services_ai_main_main",
+      "community": 11,
+      "norm_label": "main()"
+    },
+    {
+      "label": "ml",
+      "file_type": "code",
+      "type": "package",
+      "ecosystem": "python",
+      "source_file": "services/ai/pyproject.toml",
+      "source_location": "L1",
+      "version": "0.1.0",
+      "_origin": "ast",
+      "id": "pkg_ml",
+      "community": 21,
+      "norm_label": "ml"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "services/data/cmd/api/main.go",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "services_data_cmd_api_main",
+      "community": 12,
+      "norm_label": "main.go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "services/data/cmd/api/main.go",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "services_data_cmd_api_main_main",
+      "community": 12,
+      "norm_label": "main()"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "services/data/cmd/seed/main.go",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "services_data_cmd_seed_main",
+      "community": 23,
+      "norm_label": "main.go"
+    },
+    {
+      "label": "github.com/misbahul45/SLAra/services/data",
+      "file_type": "code",
+      "type": "package",
+      "ecosystem": "go",
+      "source_file": "services/data/go.mod",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "pkg_github_com_misbahul45_slara_services_data",
+      "community": 20,
+      "norm_label": "github.com/misbahul45/slara/services/data"
+    },
+    {
+      "label": "AGENTS.md",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "id": "agents_md",
+      "community": 13,
+      "norm_label": "agents.md"
+    },
+    {
+      "label": "Readme.md",
+      "file_type": "document",
+      "source_file": "Readme.md",
+      "id": "readme_md",
+      "community": 22,
+      "norm_label": "readme.md"
+    },
+    {
+      "label": "Documentation Hub",
+      "file_type": "document",
+      "source_file": "docs/Readme.md",
+      "id": "docs_readme_md",
+      "community": 18,
+      "norm_label": "documentation hub"
+    },
+    {
+      "label": "Docker Compose",
+      "file_type": "code",
+      "source_file": "infra/docker-compose.yml",
+      "id": "infra_docker_compose_yml",
+      "community": 19,
+      "norm_label": "docker compose"
+    },
+    {
+      "label": "Gateway Service (Nginx)",
+      "file_type": "code",
+      "source_file": "services/gateway/nginx.conf",
+      "id": "services_gateway",
+      "community": 2,
+      "norm_label": "gateway service (nginx)"
+    },
+    {
+      "label": "Agent Service (Hono)",
+      "file_type": "code",
+      "source_file": "services/agent/index.ts",
+      "id": "services_agent",
+      "community": 2,
+      "norm_label": "agent service (hono)"
+    },
+    {
+      "label": "Data Service (Go)",
+      "file_type": "code",
+      "source_file": "services/data/cmd/server/main.go",
+      "id": "services_data",
+      "community": 2,
+      "norm_label": "data service (go)"
+    },
+    {
+      "label": "AI Service (FastAPI)",
+      "file_type": "code",
+      "source_file": "services/ai/main.py",
+      "id": "services_ai",
+      "community": 2,
+      "norm_label": "ai service (fastapi)"
+    },
+    {
+      "label": "MongoDB",
+      "file_type": "code",
+      "source_file": "infra/docker-compose.yml",
+      "id": "infra_mongodb",
+      "community": 2,
+      "norm_label": "mongodb"
+    },
+    {
+      "label": "Neo4j",
+      "file_type": "code",
+      "source_file": "infra/docker-compose.yml",
+      "id": "infra_neo4j",
+      "community": 2,
+      "norm_label": "neo4j"
+    },
+    {
+      "label": "Redis",
+      "file_type": "code",
+      "source_file": "infra/docker-compose.yml",
+      "id": "infra_redis",
+      "community": 2,
+      "norm_label": "redis"
+    },
+    {
+      "label": "Qdrant",
+      "file_type": "code",
+      "source_file": "infra/docker-compose.yml",
+      "id": "infra_qdrant",
+      "community": 2,
+      "norm_label": "qdrant"
+    },
+    {
+      "label": "Kafka KRaft",
+      "file_type": "code",
+      "source_file": "infra/docker-compose.yml",
+      "id": "infra_kafka",
+      "community": 2,
+      "norm_label": "kafka kraft"
+    },
+    {
+      "label": "React Dashboard",
+      "file_type": "code",
+      "source_file": "apps/app/package.json",
+      "id": "apps_app",
+      "community": 2,
+      "norm_label": "react dashboard"
+    },
+    {
+      "label": "gRPC Contracts",
+      "file_type": "code",
+      "source_file": "shared/protobuf/",
+      "id": "shared_protobuf",
+      "community": 2,
+      "norm_label": "grpc contracts"
+    },
+    {
+      "label": "Kafka Event Schemas",
+      "file_type": "code",
+      "source_file": "shared/events/",
+      "id": "shared_events",
+      "community": 2,
+      "norm_label": "kafka event schemas"
+    },
+    {
+      "label": "SLAra Platform",
+      "file_type": "concept",
+      "source_file": "Readme.md",
+      "id": "concept_slara_platform",
+      "community": 17,
+      "norm_label": "slara platform"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".opencode/plugins/graphify.js",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "opencode_plugins_graphify",
+      "target": "opencode_plugins_graphify_graphifyplugin",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/app/root.tsx",
+      "source_location": "L44",
+      "weight": 1.0,
+      "source": "apps_app_app_root",
+      "target": "apps_app_app_root_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/app/root.tsx",
+      "source_location": "L48",
+      "weight": 1.0,
+      "source": "apps_app_app_root",
+      "target": "apps_app_app_root_errorboundary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/app/root.tsx",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "apps_app_app_root",
+      "target": "apps_app_app_root_layout",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/app/root.tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "apps_app_app_root",
+      "target": "apps_app_app_root_links",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/app/routes.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "apps_app_app_routes",
+      "target": "apps_app_app_routes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/app/routes/home.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "apps_app_app_routes_home",
+      "target": "apps_app_app_routes_home_home",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/app/routes/home.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "apps_app_app_routes_home",
+      "target": "apps_app_app_routes_home_meta",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/app/routes/home.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "apps_app_app_routes_home",
+      "target": "apps_app_app_welcome_welcome",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/app/routes/home.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "apps_app_app_routes_home",
+      "target": "apps_app_app_welcome_welcome_welcome",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/app/welcome/welcome.tsx",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "apps_app_app_welcome_welcome",
+      "target": "apps_app_app_welcome_welcome_resources",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/app/welcome/welcome.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "apps_app_app_welcome_welcome",
+      "target": "apps_app_app_welcome_welcome_welcome",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/package.json",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "apps_app_package",
+      "target": "apps_app_package_dependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/package.json",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "apps_app_package",
+      "target": "apps_app_package_devdependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/package.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "apps_app_package",
+      "target": "apps_app_package_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/package.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "apps_app_package",
+      "target": "apps_app_package_private",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/package.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "apps_app_package",
+      "target": "apps_app_package_scripts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/package.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "apps_app_package",
+      "target": "apps_app_package_type",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/package.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "apps_app_package_scripts",
+      "target": "apps_app_package_scripts_build",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/package.json",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "apps_app_package_scripts",
+      "target": "apps_app_package_scripts_dev",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/package.json",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "apps_app_package_scripts",
+      "target": "apps_app_package_scripts_start",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/package.json",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "apps_app_package_scripts",
+      "target": "apps_app_package_scripts_typecheck",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/package.json",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "apps_app_package_dependencies",
+      "target": "apps_app_package_dependencies_isbot",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/package.json",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "apps_app_package_dependencies",
+      "target": "apps_app_package_dependencies_react",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/package.json",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "apps_app_package_dependencies",
+      "target": "apps_app_package_dependencies_react_dom",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/package.json",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "apps_app_package_dependencies",
+      "target": "apps_app_package_dependencies_react_router",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/package.json",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "apps_app_package_dependencies",
+      "target": "apps_app_package_dependencies_react_router_node",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/package.json",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "apps_app_package_dependencies",
+      "target": "apps_app_package_dependencies_react_router_serve",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/package.json",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "apps_app_package_devdependencies",
+      "target": "apps_app_package_devdependencies_react_router_dev",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/package.json",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "apps_app_package_devdependencies",
+      "target": "apps_app_package_devdependencies_tailwindcss",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/package.json",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "apps_app_package_devdependencies",
+      "target": "apps_app_package_devdependencies_tailwindcss_vite",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/package.json",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "apps_app_package_devdependencies",
+      "target": "apps_app_package_devdependencies_types_node",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/package.json",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "apps_app_package_devdependencies",
+      "target": "apps_app_package_devdependencies_types_react",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/package.json",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "apps_app_package_devdependencies",
+      "target": "apps_app_package_devdependencies_types_react_dom",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/package.json",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "apps_app_package_devdependencies",
+      "target": "apps_app_package_devdependencies_typescript",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/package.json",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "apps_app_package_devdependencies",
+      "target": "apps_app_package_devdependencies_vite",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "apps_app_tsconfig",
+      "target": "apps_app_tsconfig_compileroptions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "apps_app_tsconfig",
+      "target": "apps_app_tsconfig_include",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "apps_app_tsconfig_compileroptions",
+      "target": "apps_app_tsconfig_compileroptions_esmoduleinterop",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "apps_app_tsconfig_compileroptions",
+      "target": "apps_app_tsconfig_compileroptions_jsx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "apps_app_tsconfig_compileroptions",
+      "target": "apps_app_tsconfig_compileroptions_lib",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "apps_app_tsconfig_compileroptions",
+      "target": "apps_app_tsconfig_compileroptions_module",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "apps_app_tsconfig_compileroptions",
+      "target": "apps_app_tsconfig_compileroptions_moduleresolution",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "apps_app_tsconfig_compileroptions",
+      "target": "apps_app_tsconfig_compileroptions_noemit",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "apps_app_tsconfig_compileroptions",
+      "target": "apps_app_tsconfig_compileroptions_paths",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "apps_app_tsconfig_compileroptions",
+      "target": "apps_app_tsconfig_compileroptions_resolvejsonmodule",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "apps_app_tsconfig_compileroptions",
+      "target": "apps_app_tsconfig_compileroptions_rootdirs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "apps_app_tsconfig_compileroptions",
+      "target": "apps_app_tsconfig_compileroptions_skiplibcheck",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "apps_app_tsconfig_compileroptions",
+      "target": "apps_app_tsconfig_compileroptions_strict",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "apps_app_tsconfig_compileroptions",
+      "target": "apps_app_tsconfig_compileroptions_target",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "apps_app_tsconfig_compileroptions",
+      "target": "apps_app_tsconfig_compileroptions_types",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "apps_app_tsconfig_compileroptions",
+      "target": "apps_app_tsconfig_compileroptions_verbatimmodulesyntax",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/app/tsconfig.json",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "apps_app_tsconfig_compileroptions_paths",
+      "target": "apps_app_tsconfig_paths",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/package.json",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "services_agent_package",
+      "target": "services_agent_package_dependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/package.json",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "services_agent_package",
+      "target": "services_agent_package_devdependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/package.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "services_agent_package",
+      "target": "services_agent_package_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/package.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "services_agent_package",
+      "target": "services_agent_package_scripts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/package.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "services_agent_package",
+      "target": "services_agent_package_type",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/package.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "services_agent_package_scripts",
+      "target": "services_agent_package_scripts_build",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/package.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "services_agent_package_scripts",
+      "target": "services_agent_package_scripts_dev",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/package.json",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "services_agent_package_scripts",
+      "target": "services_agent_package_scripts_start",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/package.json",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "services_agent_package_dependencies",
+      "target": "services_agent_package_dependencies_hono",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/package.json",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "services_agent_package_dependencies",
+      "target": "services_agent_package_dependencies_hono_node_server",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/package.json",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "services_agent_package_devdependencies",
+      "target": "services_agent_package_devdependencies_tsx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/package.json",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "services_agent_package_devdependencies",
+      "target": "services_agent_package_devdependencies_types_node",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/package.json",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "services_agent_package_devdependencies",
+      "target": "services_agent_package_devdependencies_typescript",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/src/index.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "services_agent_src_index",
+      "target": "services_agent_src_index_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/tsconfig.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "services_agent_tsconfig",
+      "target": "services_agent_tsconfig_compileroptions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/tsconfig.json",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "services_agent_tsconfig",
+      "target": "services_agent_tsconfig_exclude",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/tsconfig.json",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "services_agent_tsconfig_compileroptions",
+      "target": "services_agent_tsconfig_compileroptions_jsx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/tsconfig.json",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "services_agent_tsconfig_compileroptions",
+      "target": "services_agent_tsconfig_compileroptions_jsximportsource",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/tsconfig.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "services_agent_tsconfig_compileroptions",
+      "target": "services_agent_tsconfig_compileroptions_module",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/tsconfig.json",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "services_agent_tsconfig_compileroptions",
+      "target": "services_agent_tsconfig_compileroptions_outdir",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/tsconfig.json",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "services_agent_tsconfig_compileroptions",
+      "target": "services_agent_tsconfig_compileroptions_skiplibcheck",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/tsconfig.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "services_agent_tsconfig_compileroptions",
+      "target": "services_agent_tsconfig_compileroptions_strict",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/tsconfig.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "services_agent_tsconfig_compileroptions",
+      "target": "services_agent_tsconfig_compileroptions_target",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/tsconfig.json",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "services_agent_tsconfig_compileroptions",
+      "target": "services_agent_tsconfig_compileroptions_types",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/tsconfig.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "services_agent_tsconfig_compileroptions",
+      "target": "services_agent_tsconfig_compileroptions_verbatimmodulesyntax",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/ai/main.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "services_ai_main",
+      "target": "services_ai_main_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/data/cmd/api/main.go",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "services_data_cmd_api_main",
+      "target": "services_data_cmd_api_main_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "apps/app/package.json",
+      "source": "apps_app",
+      "target": "services_gateway"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/gateway/nginx.conf",
+      "source": "services_gateway",
+      "target": "services_agent"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/gateway/nginx.conf",
+      "source": "services_gateway",
+      "target": "services_ai"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/gateway/nginx.conf",
+      "source": "services_gateway",
+      "target": "services_data"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/agent/index.ts",
+      "source": "services_agent",
+      "target": "infra_kafka"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/agent/index.ts",
+      "source": "services_agent",
+      "target": "infra_qdrant"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/agent/index.ts",
+      "source": "services_agent",
+      "target": "infra_redis"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/agent/index.ts",
+      "source": "services_agent",
+      "target": "shared_events"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/data/cmd/server/main.go",
+      "source": "services_data",
+      "target": "infra_kafka"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/data/cmd/server/main.go",
+      "source": "services_data",
+      "target": "infra_mongodb"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/data/cmd/server/main.go",
+      "source": "services_data",
+      "target": "infra_neo4j"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/data/cmd/server/main.go",
+      "source": "services_data",
+      "target": "infra_redis"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/data/cmd/server/main.go",
+      "source": "services_data",
+      "target": "shared_events"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/data/cmd/server/main.go",
+      "source": "services_data",
+      "target": "shared_protobuf"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/ai/main.py",
+      "source": "services_ai",
+      "target": "infra_kafka"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/ai/main.py",
+      "source": "services_ai",
+      "target": "infra_redis"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/ai/main.py",
+      "source": "services_ai",
+      "target": "shared_events"
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "slara_microservices_mesh",
+      "label": "SLAra Microservices Mesh",
+      "nodes": [
+        "services_agent",
+        "services_data",
+        "services_ai",
+        "infra_kafka"
+      ],
+      "relation": "participate_in",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Readme.md"
+    },
+    {
+      "id": "slara_infrastructure_layer",
+      "label": "Infrastructure Layer",
+      "nodes": [
+        "infra_mongodb",
+        "infra_neo4j",
+        "infra_redis",
+        "infra_qdrant",
+        "infra_kafka"
+      ],
+      "relation": "form",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "infra/docker-compose.yml"
+    }
+  ],
+  "built_at_commit": "1837c9262d0743d1913d2c696ae2f44bedae534b"
+}

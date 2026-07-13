@@ -1,0 +1,3606 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+INTERACTION_MAP.md
+M1_ETA_Prediction.md
+M2_Hub_Congestion.md
+M3_Carbon_Emission.md
+M4_Route_Optimization.md
+M5_Explainability_SHAP.md
+M6_MultiAgent_Orchestration.md
+Next.md
+readme.md
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="INTERACTION_MAP.md">
+# SLAra AI — Model Interaction Map (M1–M6)
+
+> **Dokumen ini:** visualisasi bagaimana 6 model saling berinteraksi di sistem SLAra.
+> **Bukan:** spec teknis per-model (lihat file M1–M6 di folder `models/`).
+> **Tujuan:** jadikan referensi tunggal untuk tim saat wiring/integrasi.
+
+---
+
+## 1. Architecture Overview — Semua Komponen Sekaligus
+
+```mermaid
+graph TB
+    subgraph "External Data Sources"
+        OSM[OpenStreetMap<br/>OSRM]
+        BMKG[BMKG API<br/>Cuaca 3-harian]
+        HERE[HERE Traffic Flow API<br/>/ Google Maps]
+        HOLIDAY[Holiday Calendar<br/>Kemendagri]
+    end
+
+    subgraph "Data Pipeline Layer"
+        FE[Feature Store<br/>Redis Cache]
+        SIM[M/M/c Simulator<br/>Hub dwell synthetic]
+        GEN[Shipment Generator<br/>Jabodetabek+intercity]
+    end
+
+    subgraph "Core Models"
+        M1[M1 — ETA Prediction<br/>XGBoost Regressor<br/>P0]
+        M2[M2 — Hub Congestion<br/>LightGBM Quantile P50/P90<br/>P1]
+        M3[M3 — Carbon Estimator<br/>Rule-based Deterministic<br/>P0]
+        M4[M4 — Route Optimization<br/>NSGA-II 3-objective<br/>P0]
+        M5[M5 — SHAP Explainer<br/>TreeExplainer On-demand<br/>P2]
+        M6[M6 — Multi-Agent Orchestration<br/>LangGraph + Confidence<br/>P1]
+    end
+
+    subgraph "Output Layer"
+        DASH[Dashboard Operator<br/>Blibli Logistics]
+        ESC[Human Escalation<br/>Review Queue]
+        AUDIT[Audit Trail DB<br/>Time-series]
+    end
+
+    OSM --> FE
+    BMKG --> FE
+    HERE --> FE
+    HOLIDAY --> FE
+    SIM --> FE
+    GEN --> FE
+
+    FE --> M1
+    FE --> M2
+    FE --> M4
+
+    M2 -->|dwell_p50 feature| M1
+    M3 -->|carbon_cost objective| M4
+    M1 -->|eta_pred + risk_tier| M4
+    M1 -->|features WARNING/CRITICAL| M5
+    M2 -.->|features optionally| M5
+
+    M1 --> M6
+    M2 --> M6
+    M3 --> M6
+    M4 --> M6
+    M5 --> M6
+
+    M6 -->|auto-execute conf>=0.70| DASH
+    M6 -->|escalate conf<0.70| ESC
+    M6 -->|audit_trail_id| AUDIT
+
+    DASH -.->|operator review| ESC
+    ESC -.->|feedback log| M6
+
+    style M1 fill:#ff6b6b,color:#fff
+    style M4 fill:#ff6b6b,color:#fff
+    style M3 fill:#4ecdc4,color:#fff
+    style M2 fill:#ffe66d,color:#333
+    style M5 fill:#a8e6cf,color:#333
+    style M6 fill:#c9b1ff,color:#333
+```
+
+**Legend warna:**
+- 🔴 Merah (M1, M4) — P0, inti sistem, kritikal path
+- 🟢 Hijau (M3) — P0 tapi rule-based, cepat selesai
+- 🟡 Kuning (M2) — P1, upstream dari M1
+- 🟢 Mint (M5) — P2, di atas M1
+- 🟣 Ungu (M6) — P1, orkestrasi di atas semua
+
+---
+
+## 2. Data Flow Antar-Model — Apa yang Mengalir Kemana
+
+```mermaid
+graph LR
+    subgraph "Upstream Features"
+        F1[traffic_index<br/>from HERE]
+        F2[weather_severity<br/>from BMKG]
+        F3[distance_km<br/>from OSRM]
+        F4[queue_length<br/>from hub sensor/sim]
+    end
+
+    subgraph "Models"
+        M2[M2 Hub Congestion]
+        M1[M1 ETA]
+        M3[M3 Carbon]
+        M4[M4 Route Opt]
+        M5[M5 SHAP]
+    end
+
+    F4 -->|queue state| M2
+    F1 --> M2
+    F2 --> M2
+
+    M2 -->|dwell_p50_minutes<br/>dwell_p90_minutes| M1
+    F1 --> M1
+    F2 --> M1
+    F3 --> M1
+
+    M1 -->|eta_pred_minutes<br/>risk_tier| M4
+    M3 -->|co2_kg per TCE<br/>environmental_cost| M4
+    F3 --> M4
+    M2 -->|dwell for hub stops| M4
+
+    M1 -->|features + prediction<br/>ONLY if WARNING/CRITICAL| M5
+
+    M4 -->|pareto_front<br/>selected_route| M6
+    M1 -->|eta + risk_tier<br/>+ model_confidence| M6
+    M2 -->|dwell + coverage_P90<br/>+ model_confidence| M6
+    M3 -->|co2 + audit_validity| M6
+    M5 -->|shap_explanation<br/>top-5 features| M6
+
+    M6 -->|decision + confidence_aggregate| OUT[Dashboard / Escalation]
+
+    style M2 fill:#ffe66d,color:#333
+    style M1 fill:#ff6b6b,color:#fff
+    style M3 fill:#4ecdc4,color:#fff
+    style M4 fill:#ff6b6b,color:#fff
+    style M5 fill:#a8e6cf,color:#333
+    style M6 fill:#c9b1ff,color:#333
+```
+
+### Tabel Interaksi Detail
+
+| Dari | Ke | Payload | Trigger | Sync/Async |
+|---|---|---|---|---|
+| M2 → M1 | `dwell_p50_minutes` (feature upstream) | Setiap queue_length event di hub | Async (via Redis cache) |
+| M1 → M4 | `eta_pred_minutes`, `risk_tier` per shipment | Setiap evaluasi kromosom M4 | Sync (in-process call) |
+| M3 → M4 | `co2_kg`, `environmental_cost` per TCE | Setiap evaluasi kromosom M4 | Sync (in-process call) |
+| M2 → M4 | `dwell_p50/p90` per hub stop | Saat M4 decode chromosome | Sync (cache lookup) |
+| M1 → M5 | `features_df`, `prediction` | HANYA jika risk_tier ∈ {WARNING, CRITICAL} | Sync (lazy on-demand) |
+| M2 → M5 | `features_df`, `prediction_p50` | Opsional: jika dwell_p90 > threshold | Sync (lazy on-demand) |
+| M1 → M6 | eta, risk_tier, model_confidence | Setiap pipeline run | Sync (LangGraph node) |
+| M2 → M6 | dwell_p50/p90, coverage_P90, model_confidence | Setiap pipeline run | Sync (LangGraph node) |
+| M3 → M6 | co2_kg, audit_validity | Setiap pipeline run | Sync (LangGraph node) |
+| M4 → M6 | pareto_front, selected_route, constraint_satisfaction | Setiap pipeline run | Sync (LangGraph node) |
+| M5 → M6 | shap_explanation top-5 | Setiap pipeline run (jika WARNING/CRITICAL) | Sync (LangGraph node) |
+| M6 → Dashboard | decision, confidence_aggregate, audit_trail_id | Setiap pipeline run | Sync response |
+
+---
+
+## 3. Dependency Graph — Urutan Build Wajib
+
+```mermaid
+graph TB
+    DP[Data Pipeline<br/>OSM + BMKG + HERE + Synthetic Gen]
+    M3[M3 Carbon<br/>rule-based]
+    M2[M2 Hub Congestion<br/>needs M/Mc simulator]
+    M1[M1 ETA<br/>needs M2 output as feature]
+    M4[M4 Route Opt<br/>needs M1 + M3]
+    M5[M5 SHAP<br/>needs M1 final]
+    M6[M6 Orchestration<br/>needs all M1-M5]
+
+    DP --> M3
+    DP --> M2
+    DP --> M1
+    DP --> M4
+    M3 --> M4
+    M2 --> M1
+    M1 --> M4
+    M1 --> M5
+    M1 --> M6
+    M2 --> M6
+    M3 --> M6
+    M4 --> M6
+    M5 --> M6
+
+    style DP fill:#c9b1ff,color:#333
+    style M3 fill:#4ecdc4,color:#fff
+    style M1 fill:#ff6b6b,color:#fff
+    style M4 fill:#ff6b6b,color:#fff
+    style M2 fill:#ffe66d,color:#333
+    style M5 fill:#a8e6cf,color:#333
+    style M6 fill:#c9b1ff,color:#333
+```
+
+### Aturan Dependency
+
+| Edge | Wajib? | Fallback jika upstream belum ready |
+|---|---|---|
+| DP → semua | **YA** | Tidak ada fallback — data pipeline adalah blocker |
+| M3 → M4 | **YA** | M4 butuh `environmental_cost` objective, tanpa M4 invalid |
+| M2 → M1 | Tidak | Pakai `dwell_lag_24h` sebagai placeholder, retrain nanti |
+| M1 → M4 | Tidak | Pakai dummy ETA: `distance / avg_speed`, swap nanti |
+| M1 → M5 | **YA** | M5 butuh model final untuk SHAP, tidak ada stub |
+| M1-M5 → M6 | Tidak | M6 bisa test orchestration dengan mock output M1-M5 |
+
+---
+
+## 4. End-to-End Pipeline untuk Satu Shipment
+
+```mermaid
+sequenceDiagram
+    participant REQ as Shipment Request
+    participant FS as Feature Store
+    participant M2 as M2 Hub
+    participant M1 as M1 ETA
+    participant M3 as M3 Carbon
+    participant M4 as M4 Route Opt
+    participant M5 as M5 SHAP
+    participant M6 as M6 Decision
+    participant OPS as Operator Dashboard
+
+    REQ->>FS: get_features(shipment_id)
+    FS-->>REQ: traffic_index, weather, distance, queue_state
+
+    par Parallel fetch
+        FS->>M2: queue_state (cache HIT)
+        M2-->>FS: dwell_p50=38, dwell_p90=52
+    and
+        FS->>M1: features + dwell_p50
+    end
+
+    M1->>M1: predict ETA
+    M1-->>M1: eta_pred=145 min, risk_tier=WARNING
+
+    alt risk_tier ∈ {WARNING, CRITICAL}
+        M1->>M5: explain(features)
+        M5-->>M1: shap top-5 (congestion +0.31, weather +0.18, ...)
+    end
+
+    M1->>M4: eta_pred, risk_tier per shipment
+    M3->>M4: co2_kg per TCE
+    M4->>M4: NSGA-II time-boxed 2.5s
+    M4-->>M4: pareto_front (10 solusi, 8 feasible)
+
+    M1->>M6: eta + risk_tier + model_confidence
+    M2->>M6: dwell + coverage_P90 + model_confidence
+    M3->>M6: co2 + audit_validity
+    M4->>M6: pareto + constraint_satisfaction
+    M5->>M6: shap_explanation (if exists)
+
+    M6->>M6: confidence_aggregate = Σ wi × ci
+    M6-->>M6: confidence = 0.87
+
+    alt confidence ≥ 0.70
+        M6->>OPS: auto-execute + confidence_breakdown
+    else confidence < 0.70
+        M6->>OPS: ESCALATE + primary_uncertainty_driver + shap
+        OPS-->>M6: operator decision (approve/modify/reject)
+    end
+```
+
+---
+
+## 5. Latency Budget — Siapa Makan Berapa Milidetik
+
+```mermaid
+gantt
+    title Latency Budget End-to-End (target P95 < 3000ms)
+    dateFormat X
+    axisFormat %s ms
+
+    section Feature Layer
+    Feature retrieval (cache)     :0, 50
+
+    section Models (parallel where possible)
+    M2 Hub (cache lookup)         :0, 30
+    M1 ETA inference              :50, 100
+    M3 Carbon calc                :50, 55
+    M4 NSGA-II (time-boxed)       :100, 2500
+
+    section Post-Model
+    M5 SHAP (only WARN/CRIT)      :2500, 2550
+    M6 Orchestration overhead     :2550, 2650
+    Buffer margin                 :2650, 3000
+```
+
+### Tabel Budget Detail
+
+| Komponen | Budget | Actual Estimasi | Catatan |
+|---|---|---|---|
+| Feature retrieval | 50ms | ~30ms | Redis cache hit |
+| M2 inference | 30ms | ~15ms | Cache lookup, bukan recompute |
+| M1 inference | 50ms | ~5ms | Tree-based sangat cepat |
+| M3 calculation | 5ms | ~1ms | Formula matematis |
+| M4 NSGA-II | 2500ms | ~2000-2300ms | Time-boxed hard limit |
+| M5 SHAP (WARN/CRIT only) | 50ms | ~30ms | TreeExplainer single-instance |
+| M6 orchestration | 100ms | ~70ms | LangGraph checkpointing |
+| **Total** | **2785ms** | **~2350ms** | Margin 650ms untuk P95 |
+
+**Insight:** M4 makan ~85% budget. Optimasi M4 = optimasi seluruh sistem. M1, M2, M3, M5, M6 combined hanya ~15%.
+
+---
+
+## 6. Sync vs Async — Kapan Tunggu, Kapan Jalan Paralel
+
+```mermaid
+graph TB
+    START([Shipment Request Masuk])
+
+    START --> PAR1{Parallel Block 1}
+    PAR1 --> M2_CALL[M2 cache lookup<br/>dwell_p50/p90]
+    PAR1 --> FEAT[Feature Store get<br/>traffic/weather/distance]
+
+    M2_CALL --> M1_CALL
+    FEAT --> M1_CALL
+
+    M1_CALL[M1 ETA inference<br/>+ risk tier]
+    M1_CALL --> CHECK{risk_tier?}
+
+    CHECK -->|SAFE| M4_CALL
+    CHECK -->|WARNING/CRITICAL| M5_CALL[M5 SHAP<br/>on-demand]
+    M5_CALL --> M4_CALL
+
+    M4_CALL[M4 NSGA-II<br/>time-boxed 2.5s<br/>calls M1 + M3 per chromosome]
+    M4_CALL --> M3_CALL[M3 Carbon<br/>called by M4 per TCE]
+
+    M4_CALL --> M6_AGG[M6 Confidence Aggregation<br/>+ Decision]
+
+    M6_AGG --> DECIDE{confidence ≥ 0.70?}
+    DECIDE -->|YES| AUTO[Auto-execute]
+    DECIDE -->|NO| ESC[Escalate to Human]
+
+    style PAR1 fill:#a8e6cf,color:#333
+    style M4_CALL fill:#ff6b6b,color:#fff
+    style M5_CALL fill:#a8e6cf,color:#333
+    style M6_AGG fill:#c9b1ff,color:#333
+```
+
+### Aturan Sinkron vs Asinkron
+
+| Panggilan | Mode | Alasan |
+|---|---|---|
+| M2 → M1 (feature) | Async (cache) | M2 update event-driven, M1 baca dari cache Redis |
+| M1 → M4 (ETA per chromosome) | Sync | M4 butuh ETA untuk setiap kromosom yang dievaluasi |
+| M3 → M4 (carbon per TCE) | Sync | M4 butuh carbon untuk setiap segmen rute |
+| M1 → M5 (SHAP) | Sync (on-demand) | Hanya dipicu jika WARNING/CRITICAL, tidak untuk SAFE |
+| M1-M5 → M6 | Sync (LangGraph) | Pipeline run adalah satu transaksi atomik |
+| M2 internal update | Async (event-driven) | Queue length change → recompute → update cache |
+| BMKG fetch | Async (cron 3-harian) | Tidak pernah sinkron per-request M1 |
+| HERE Traffic fetch | Async (cron 15-menit) | Tidak pernah sinkron per-request M1 |
+
+---
+
+## 7. Confidence Aggregation Flow — Cara M6 Menghitung 87%
+
+```mermaid
+graph LR
+    subgraph "M1 Confidence"
+        M1_INT[Interval width<br/>P90-P50 = 25]
+        M1_EXP[Expected ETA = 120]
+        M1_CONF[conf_m1 = 1 - 25/240<br/>= 0.896]
+        M1_INT --> M1_CONF
+        M1_EXP --> M1_CONF
+    end
+
+    subgraph "M2 Confidence"
+        M2_COV[Coverage P90<br/>7-day rolling = 0.88]
+        M2_CONF[conf_m2 = 1 - |0.88-0.90|<br/>= 0.98]
+        M2_COV --> M2_CONF
+    end
+
+    subgraph "M4 Confidence"
+        M4_FEAS[Feasible solutions<br/>8 of 10 in Pareto]
+        M4_CONF[conf_m4 = 8/10<br/>= 0.80]
+        M4_FEAS --> M4_CONF
+    end
+
+    subgraph "Traffic Confidence"
+        TF_AGE[Cache age = 8 min]
+        TF_MAX[Max age = 30 min]
+        TF_CONF[freshness = 1 - 8/30<br/>= 0.73]
+        TF_AGE --> TF_CONF
+        TF_MAX --> TF_CONF
+    end
+
+    subgraph "Carbon Confidence"
+        CB_DEV[Audit deviation = 4%]
+        CB_CONF[audit_validity = 1 - 0.04<br/>= 0.96]
+        CB_DEV --> CB_CONF
+    end
+
+    M1_CONF --> AGG[confidence_aggregate]
+    M2_CONF --> AGG
+    M4_CONF --> AGG
+    TF_CONF --> AGG
+    CB_CONF --> AGG
+
+    AGG --> CALC["= 0.40×0.896 + 0.15×0.98<br/>+ 0.25×0.80 + 0.10×0.73<br/>+ 0.10×0.96<br/>= 0.874"]
+    CALC --> RESULT[confidence = 0.874<br/>= 87.4%]
+
+    RESULT --> DECIDE{≥ 0.70?}
+    DECIDE -->|YA| AUTO[Auto-execute ✅]
+    DECIDE -->|TIDAK| ESC[Escalate to human ⚠️]
+
+    style AGG fill:#c9b1ff,color:#333
+    style RESULT fill:#ff6b6b,color:#fff
+    style AUTO fill:#4ecdc4,color:#fff
+    style ESC fill:#ffe66d,color:#333
+```
+
+### Bobot & Justifikasi
+
+| Komponen | Bobot | Confidence Sumber | Alasan Bobot |
+|---|---|---|---|
+| M1 ETA | **0.40** | Interval width P90-P50 | Model inti, paling berpengaruh ke decision |
+| M2 Hub | 0.15 | Coverage P90 historis | Penting tapi upstream M1 → dobel count jika tinggi |
+| M4 Route | **0.25** | Feasibility Pareto | Constraint satisfaction krusial untuk eksekusi |
+| Traffic | 0.10 | Cache freshness | Data quality, bukan model → bobot rendah |
+| Carbon | 0.10 | Audit deviation | Rule-based, confidence tinggi by design |
+| **Total** | **1.00** | — | — |
+
+Bobot di-load dari `m6_confidence_config.yaml`, dikalibrasi manual BA (Orwin) + sensitivity analysis wajib dilampirkan di laporan.
+
+---
+
+## 8. Escalation Flow — Saat Confidence < 0.70
+
+```mermaid
+sequenceDiagram
+    participant M6 as M6 Decision
+    participant DASH as Dashboard
+    participant OPS as Operator
+    participant M4 as M4 Route Opt
+    participant LOG as Audit Trail
+
+    M6->>M6: confidence_aggregate = 0.64
+    M6->>M6: primary_uncertainty_driver = "M1 interval terlalu lebar"
+    M6->>DASH: escalation message<br/>(confidence_breakdown + SHAP + audit_trail_id)
+    M6->>LOG: log pipeline state
+
+    DASH->>OPS: notification (Slack/email/in-app)
+    OPS->>DASH: review context
+
+    alt Approve auto-execute
+        OPS->>DASH: click "Approve"
+        DASH->>M4: execute selected_route
+        M4-->>DASH: route executed
+    else Modify route manual
+        OPS->>DASH: drag-drop route changes
+        DASH->>M4: override with manual route
+        M4-->>DASH: route executed
+    else Delay shipment
+        OPS->>DASH: update deadline
+        DASH->>M6: re-run with new deadline
+        M6-->>DASH: new confidence + decision
+    else Reject
+        OPS->>DASH: flag for follow-up
+        DASH->>LOG: log rejection + reason
+    end
+
+    OPS->>LOG: feedback (decision + reason)
+    LOG->>M6: feedback for weight calibration (roadmap)
+```
+
+### Komponen Wajib di Escalation Message
+
+```json
+{
+  "escalation_id": "ESC-2026-000456",
+  "shipment_id": "SHP-2026-000123",
+  "confidence_aggregate": 0.64,
+  "primary_uncertainty_driver": "M1 model_confidence=0.45 (interval P50-P90 terlalu lebar)",
+  "confidence_breakdown": {
+    "w1_eta": 0.40, "model_confidence_m1": 0.45,
+    "w2_hub": 0.15, "model_confidence_m2": 0.60,
+    "w3_route": 0.25, "constraint_satisfaction_m4": 0.50,
+    "w_traffic": 0.10, "data_freshness": 0.80,
+    "w_carbon": 0.10, "audit_validity": 0.95
+  },
+  "shap_explanation": "top-5 dari M5 (jika WARNING/CRITICAL)",
+  "audit_trail_id": "AT-2026-001",
+  "actions_available": ["approve_auto_execute", "modify_route_manual", "delay_shipment", "reject_decision"]
+}
+```
+
+Field `primary_uncertainty_driver` adalah **UX kunci** — operator langsung tahu komponen mana yang menyebabkan confidence rendah, jadi tahu area apa yang harus di-verify manual.
+
+---
+
+## 9. Cross-Model Feature Sharing — Siapa Pakai Apa dari Siapa
+
+```mermaid
+graph TB
+    subgraph "Features Produced"
+        M2_OUT[dwell_p50<br/>dwell_p90<br/>coverage_P90]
+        M1_OUT[eta_pred<br/>risk_tier<br/>model_confidence_m1]
+        M3_OUT[co2_kg<br/>tce_breakdown<br/>audit_validity]
+        M4_OUT[pareto_front<br/>selected_route<br/>constraint_satisfaction]
+        M5_OUT[shap_top5<br/>base_value<br/>explainer_version]
+    end
+
+    subgraph "Consumers"
+        M1_C[M1 needs dwell]
+        M4_C[M4 needs ETA + CO2]
+        M5_C[M5 needs M1 features]
+        M6_C[M6 needs ALL]
+        DASH_C[Dashboard needs ALL for display]
+    end
+
+    M2_OUT -->|feature upstream| M1_C
+    M2_OUT -->|hub stop dwell| M4_C
+    M1_OUT -->|per chromosome| M4_C
+    M3_OUT -->|per TCE| M4_C
+    M1_OUT -->|WARNING/CRITICAL only| M5_C
+    M1_OUT --> M6_C
+    M2_OUT --> M6_C
+    M3_OUT --> M6_C
+    M4_OUT --> M6_C
+    M5_OUT --> M6_C
+    M1_OUT --> DASH_C
+    M4_OUT --> DASH_C
+    M5_OUT --> DASH_C
+```
+
+### Matriks Konsumsi Feature
+
+| Feature | Diproduksi oleh | Dikonsumsi oleh | Frequency |
+|---|---|---|---|
+| `dwell_p50_minutes` | M2 | M1 (sebagai feature), M4 (untuk hub stop) | Per request M1, per chromosome M4 |
+| `dwell_p90_minutes` | M2 | M1 (konservatif), Dashboard | Per request M1 |
+| `eta_pred_minutes` | M1 | M4 (objective f2), M6 (confidence) | Per chromosome M4, per pipeline run M6 |
+| `risk_tier` | M1 (deterministic rule) | M4 (penalty), M5 (trigger), M6, Dashboard | Per prediction M1 |
+| `co2_kg` | M3 | M4 (objective f3), M6 (audit_validity), Dashboard | Per TCE per chromosome M4 |
+| `pareto_front` | M4 | M6 (constraint_satisfaction), Dashboard | Per pipeline run |
+| `selected_route` | M4 (via Decision Agent M6) | Dashboard, Driver app | Per pipeline run |
+| `shap_top5` | M5 | M6 (escalation message), Dashboard | On-demand (WARN/CRIT only) |
+| `model_confidence_m1` | M1 (derived) | M6 (confidence aggregation) | Per pipeline run |
+| `coverage_P90` | M2 (rolling 7-day) | M6 (confidence aggregation) | Per pipeline run |
+| `audit_validity` | M3 (backtesting) | M6 (confidence aggregation) | Per pipeline run |
+| `constraint_satisfaction` | M4 (Pareto feasibility) | M6 (confidence aggregation) | Per pipeline run |
+
+---
+
+## 10. Failure Cascade — Apa Terjadi Kalau Satu Model Down
+
+```mermaid
+graph TB
+    FAIL_M1[M1 DOWN<br/>ETA inference fails]
+    FAIL_M1 --> M6_DEGRADE_M1[M6: confidence drops<br/>w1=0.40 × 0 = 0<br/>→ confidence_aggregate drops ~40%]
+    M6_DEGRADE_M1 --> ESC_M1[Almost always escalate<br/>operator must verify ETA manual]
+
+    FAIL_M2[M2 DOWN<br/>dwell cache miss]
+    FAIL_M2 --> M1_FALLBACK[M1: pakai fallback<br/>dwell_p50 = median historis<br/>flag m2_degraded=true]
+    M1_FALLBACK --> M6_DEGRADE_M2[M6: w2 × reduced_conf<br/>confidence drops ~10-15%]
+    M6_DEGRADE_M2 --> MAYBE_AUTO[May still auto-execute<br/>if other components high]
+
+    FAIL_M3[M3 DOWN<br/>carbon calc error]
+    FAIL_M3 --> M4_DEGRADE[M4: environmental_cost<br/>skip from objective<br/>run with 2 objectives only]
+    M4_DEGRADE --> M6_DEGRADE_M3[M6: w_carbon × 0<br/>confidence drops ~10%]
+    M6_DEGRADE_M3 --> AUTO_M3[Auto-execute possible<br/>CO2 reported as N/A]
+
+    FAIL_M4[M4 DOWN<br/>NSGA-II timeout/error]
+    FAIL_M4 --> M6_DEGRADE_M4[M6: w3 × 0<br/>confidence drops ~25%]
+    M6_DEGRADE_M4 --> ESC_M4[Escalate<br/>no route recommendation]
+
+    FAIL_M5[M5 DOWN<br/>SHAP error]
+    FAIL_M5 --> M6_NO_SHAP[M6: shap_explanation=null<br/>confidence UNAFFECTED<br/>M5 not in confidence formula]
+    M6_NO_SHAP --> AUTO_NO_SHAP[Auto-execute possible<br/>operator gets less context]
+
+    style FAIL_M1 fill:#ff6b6b,color:#fff
+    style FAIL_M4 fill:#ff6b6b,color:#fff
+    style FAIL_M2 fill:#ffe66d,color:#333
+    style FAIL_M3 fill:#ffe66d,color:#333
+    style FAIL_M5 fill:#a8e6cf,color:#333
+```
+
+### Severity Tier
+
+| Model Down | Severity | Dampak ke Decision | Mitigasi |
+|---|---|---|---|
+| **M1** | 🔴 KRITIS | Sistem praktis tidak bisa auto-execute | Escalate all, fallback ke distance-only heuristic |
+| **M4** | 🔴 KRITIS | Tidak ada rekomendasi rute | Escalate all, pakai rute sebelumnya |
+| M2 | 🟡 SEDANG | M1 pakai fallback dwell, confidence turun ~15% | M1 tetap jalan, dokumentasikan m2_degraded |
+| M3 | 🟡 SEDANG | M4 run 2-objective (skip environmental), confidence turun ~10% | CO2 di-dashboard N/A, rute tetap dihitung |
+| M5 | 🟢 RENDAH | Escalation message tanpa SHAP context | Tetap auto-execute possible, operator kurang konteks |
+
+---
+
+## 11. Build Order dengan Dependency — Visual Timeline
+
+```mermaid
+gantt
+    title SLAra Build Timeline (6 minggu)
+    dateFormat YYYY-MM-DD
+    axisFormat %W
+
+    section Minggu 1-2
+    Data Pipeline (OSM+BMKG+HERE)      :dp1, 2026-07-15, 14d
+    M3 Carbon (rule-based)             :m3, 2026-07-15, 7d
+    M/Mc Simulator (for M2)            :sim, 2026-07-15, 10d
+
+    section Minggu 2-3
+    M1 ETA (Food Delivery proxy first) :m1a, 2026-07-22, 10d
+    M4 NSGA-II (Solomon benchmark)     :m4a, 2026-07-22, 10d
+
+    section Minggu 3-4
+    M2 Hub Congestion (LightGBM)       :m2, 2026-07-29, 10d
+    M1 ETA (Indonesia synthetic)       :m1b, 2026-08-01, 7d
+    M4 NSGA-II (Indonesia scenarios)   :m4b, 2026-08-01, 7d
+
+    section Minggu 4-5
+    M6 Orchestration (LangGraph)       :m6, 2026-08-05, 7d
+    Confidence calibration (BA Orwin)  :cal, 2026-08-05, 5d
+
+    section Minggu 5-6
+    M5 SHAP (TreeExplainer)            :m5, 2026-08-12, 5d
+    End-to-end latency test            :e2e, 2026-08-15, 5d
+    Dashboard wiring                   :dash, 2026-08-15, 5d
+```
+
+### Kritikal Path (yang TIDAK boleh delay)
+
+```mermaid
+graph LR
+    DP[Data Pipeline<br/>Minggu 1-2]
+    M1[M1 ETA Final<br/>Minggu 3-4]
+    M6[M6 Orchestration<br/>Minggu 4-5]
+    DEMO[Demo Ready<br/>Minggu 6]
+
+    DP --> M1 --> M6 --> DEMO
+
+    style DP fill:#ff6b6b,color:#fff
+    style M1 fill:#ff6b6b,color:#fff
+    style M6 fill:#ff6b6b,color:#fff
+    style DEMO fill:#4ecdc4,color:#fff
+```
+
+Hanya **3 node** yang jika delay akan block demo:
+1. **Data Pipeline** — tanpa ini, semua model tidak bisa training
+2. **M1 final** — tanpa ini, M6 tidak bisa integrasi end-to-end
+3. **M6** — tanpa ini, tidak ada orchestrasi untuk demo
+
+Yang lain punya fallback (lihat §3).
+
+---
+
+## 12. Quick Reference — Cheat Sheet Tim
+
+| Saya kerja di... | Saya butuh koordinasi dengan... | Untuk apa |
+|---|---|---|
+| M1 | M2 | Dapat `dwell_p50` sebagai feature (atau pakai placeholder lag-24h) |
+| M1 | M5 | Pastikan TreeExplainer kompatibel dengan model final M1 |
+| M1 | M6 | Ekspos `model_confidence` (interval width) untuk confidence aggregation |
+| M2 | M1 | Update Redis cache dwell_p50/p90 event-driven, jangan tunggu polling M1 |
+| M2 | M6 | Ekspos `coverage_P90` rolling 7-day untuk confidence |
+| M3 | M4 | Performance M3 < 5ms per call (M4 panggil per TCE per kromosom) |
+| M3 | M6 | Ekspos `audit_validity` (deviation dari EPA/DEFRA) untuk confidence |
+| M4 | M1, M3 | Interface: M1 butuh (shipment_features) → eta_pred; M3 butuh (distance, vehicle, load) → co2_kg |
+| M4 | M6 | Ekspos `pareto_front` + `constraint_satisfaction` (feasible/total ratio) |
+| M5 | M1 | Trigger hanya jika risk_tier ∈ {WARNING, CRITICAL} |
+| M5 | M6 | Lampirkan shap_explanation ke escalation message |
+| M6 | SEMUA | Definisikan state schema di LangGraph, semua model harus sesuai schema |
+
+---
+
+**Dokumen referensi:**
+- Spec detail per model: `models/M1_ETA_Prediction.md` sampai `models/M6_MultiAgent_Orchestration.md`
+- Urutan pengembangan & paralelisasi: lihat chat session sebelumnya (§5 dokumen asli)
+- File ini: `models/INTERACTION_MAP.md` — referensi tunggal saat wiring/integrasi
+</file>
+
+<file path="M1_ETA_Prediction.md">
+# M1 — ETA Prediction & SLA Risk Tier
+
+> **Model ID:** M1
+> **Jenis:** Regresi tabular (single-model)
+> **Prioritas:** P0 (inti sistem)
+> **Owner ML:** SLAra AI — Agent Engineer + Data Engineer
+> **Status desain:** Final (keputusan Bagian 7.1 — gabung delay classifier + ETA regressor → satu model regresi)
+
+---
+
+## 1. Ringkasan Eksekutif
+
+M1 adalah model inti SLAra. Tugasnya memprediksi **estimasi waktu tiba (ETA)** sebuah shipment dalam satuan menit, kemudian **menurunkan status SLA risk (SAFE / WARNING / CRITICAL) secara deterministik** dari selisih `predicted_ETA − promised_deadline`.
+
+Keputusan desain utama (hasil resolusi Bagian 7.1): **tidak ada classifier "delay" terpisah**. Semua keputusan SLA adalah turunan matematis langsung dari prediksi ETA. Ini meniadakan risiko *inconsistency* antara classifier dan regressor (kasus: classifier bilang SAFE tapi regressor bilang telat), sekaligus konsisten dengan filosofi auditability yang sama dipakai di M3 (Carbon) — rule-based untuk keputusan yang harus dapat diaudit.
+
+Model berdampak bisnis tertinggi di sistem karena *output*-nya menjadi *trigger* untuk seluruh chain keputusan: reroute (M4), human escalation (M6), SHAP deep-analysis (M5), dan dashboard alerting.
+
+---
+
+## 2. Formulasi Matematis
+
+### 2.1 Prediksi ETA
+
+Diberikan feature vector `x ∈ ℝ^d` untuk satu shipment, model regresi `f_θ` memetakan:
+
+```
+ETA_pred = f_θ(x)                 # dalam menit sejak pickup
+ETA_pred_timestamp = pickup_ts + ETA_pred * 60s
+```
+
+### 2.2 Derivasi Risk Tier (deterministic, non-ML)
+
+```
+slack_minutes = promised_deadline - ETA_pred_timestamp
+                 (positif = masih ada buffer, negatif = telat)
+
+if slack_minutes >= +60:        → SAFE
+if -30 <= slack_minutes < +60:  → WARNING
+if slack_minutes < -30:         → CRITICAL
+```
+
+Threshold `+60` dan `-30` menit **bukan hardcoded final** — keduanya terekspos sebagai parameter konfigurasi (`risk_thresholds.yaml`) yang dapat dituning dari confusion-matrix trade-off pada data validasi (lihat §6.3). Pemisahan parameter dari kode adalah prasyarat agar *tuning threshold* bisa dijalankan otomatis oleh pipeline CI sebelum demo.
+
+### 2.3 Mengapa Bukan Dua Model Terpisah
+
+| Aspek | Dua model (classifier + regressor) | Satu regressor + rule |
+|---|---|---|
+| Konsistensi label | Tidak dijamin — bisa konflik | Dijamin by construction |
+| Auditability | Black-box classifier | Rule transparan |
+| Tuning threshold | Retraining classifier | Edit YAML |
+| Onboarding juri | "Percaya classifier" | "Lihat matematikanya" |
+| Cost training | 2× lipat | 1× |
+
+---
+
+## 3. Arsitektur Model
+
+### 3.1 Pilihan Algoritma
+
+**XGBoost Regressor** (atau LightGBM sebagai alternatif yang lebih cepat di inferensi).
+
+Alasan (sama dengan proposal, dipertahankan):
+- Data tabular dengan campuran numerik & kategorikal → tree-based unggul
+- Cepat dilatih di data terbatas (synthetic Indonesia relatif kecil)
+- Native `feature_importance` → mendukung SHAP TreeExplainer (lihat M5)
+- Robust terhadap outlier & missing value tanpa preprocessing berat
+
+**Bukan** neural network di fase kompetisi: data sintetis tidak cukup untuk regularisasi NN yang efektif, dan interpretabilitas menurun.
+
+### 3.2 Hyperparameter Default (titik awal sebelum tuning)
+
+```python
+xgb.XGBRegressor(
+    objective="reg:squarederror",
+    n_estimators=800,
+    max_depth=6,
+    learning_rate=0.05,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    min_child_weight=5,
+    reg_lambda=1.0,
+    early_stopping_rounds=50,
+    tree_method="hist",          # CPU-friendly, cepat di environment kompetisi
+    random_state=42,
+)
+```
+
+Tuning ruang: `max_depth ∈ {4,6,8}`, `learning_rate ∈ {0.03, 0.05, 0.1}`, `n_estimators ∈ {400, 800, 1500}`, `subsample ∈ {0.7, 0.8, 0.9}`, `colsample_bytree ∈ {0.7, 0.8, 0.9}`, `min_child_weight ∈ {1, 5, 10}`.
+
+---
+
+## 4. Feature Engineering
+
+### 4.1 Group A — Temporal (cyclical encoding wajib)
+
+| Fitur | Encoding | Catatan |
+|---|---|---|
+| `hour_of_day` | `sin(2πh/24)`, `cos(2πh/24)` | Bukan integer — pecah siklus 24 jam |
+| `day_of_week` | `sin(2πd/7)`, `cos(2πd/7)` | Sama |
+| `is_weekend` | binary | Sabtu/Minggu |
+| `is_holiday` | binary | Lookup tabel hari libur nasional + Jawa Timur (Kemendagri) |
+| `is_peak_hour` | binary | 07:00–09:00 & 17:00–19:00 WIB (urban); berbeda untuk intercity |
+
+### 4.2 Group B — Spasial
+
+| Fitur | Sumber | Catatan |
+|---|---|---|
+| `haversine_distance_km` | OSM / OSRM | Great-circle, cepat |
+| `actual_route_distance_km` | OSRM route API | Lebih akurat, gunakan untuk training |
+| `route_type` | OSM road classification | `urban_dense` / `urban` / `intercity` |
+| `origin_region`, `dest_region` | Target encoding | Kabupaten/kota Jabodetabek+Jatim |
+
+### 4.3 Group C — Operasional
+
+| Fitur | Catatan |
+|---|---|
+| `vehicle_type` | One-hot: van / light_truck / medium_truck |
+| `load_weight_kg` | Numerik, perlu scaling? Tidak untuk tree-based |
+| `load_factor` | `load_weight / vehicle_capacity` |
+| `hub_dwell_time_predicted` | **Cross-model feature** — output M2 (P50), critical link M2→M1 |
+| `driver_experience_years` | Numerik (jika tersedia di synthetic generator) |
+| `num_stops_remaining` | Ordinal — beban rute sisa |
+
+### 4.4 Group D — Lingkungan
+
+| Fitur | Sumber | Refresh policy |
+|---|---|---|
+| `weather_condition` | BMKG API (`api.bmkg.go.id/publik/prakiraan-cuaca`) | Cache 3-harian (sesuai frekuansi update BMKG) |
+| `weather_severity_score` | Derived: 0=cerah, 1=mendung, 2=hujan, 3=hujan deras, 4=badai | Dari BMKG kategori |
+| `traffic_index` | **HERE Traffic Flow API** (`traffic.ls.hereapi.com/traffic/6.1/flow.json`) — freemium, sudah dipakai riset Jabodetabek. Alternatif: Google Maps Distance Matrix API (berbayar setelah quota). Fallback gratis: derive dari `is_peak_hour` × OSM road class (didokumentasikan sebagai limitasi) | Cache 15-menit |
+
+> **Catatan traffic source:** Klaim "Jasa Marga" di proposal asli dihapus. Jasa Marga tidak punya public developer API. HERE Traffic Flow dipilih sebagai sumber primer karena (a) freemium, (b) terdokumentasi di riset Jabodetabek, (c) struktur JSON terbuka.
+
+### 4.5 Feature Store Schema
+
+Single Parquet/Arrow table per shipment, di-cache di Redis dengan TTL 5 menit. Komputasi M2 (dwell) dan BMKG fetch TIDAK boleh terjadi synchronously per request M1.
+
+---
+
+## 5. Dataset Sourcing
+
+| Sumber | Peran di pipeline M1 | Link |
+|---|---|---|
+| Food Delivery Dataset (Gaurav Malik) | **Proxy validasi arsitektur** — 45.593 record nyata dengan weather, traffic density, distance, delivery time. Dipakai untuk membuktikan pipeline feature engineering + XGBoost bekerja di data riil sebelum dipakai ke data sintetis Indonesia. | `kaggle.com/datasets/gauravmalik26/food-delivery-dataset` |
+| Amazon Delivery Dataset | Proxy kedua — last-mile logistics (bukan food), agent rating, traffic, weather, distance | `kaggle.com/datasets/sujalsuthar/amazon-delivery-dataset` |
+| US Logistics Performance Dataset | Proxy shipment-level delay dengan missing value & outlier terkontrol — uji robustness preprocessing | `kaggle.com/datasets/shahriarkabir/us-logistics-performance-dataset` |
+| NYC Taxi Trip Duration | Proxy travel-time regression skala besar (1,4 juta trip) — validasi feature time-cyclical di efek jam sibuk & geografi riil | `kaggle.com/c/nyc-taxi-trip-duration` |
+| Data sintetis Indonesia (buatan sendiri) | **Dataset final demo kompetisi** — origin/destination realistis Jabodetabek+intercity, label delay dari rule berbasis distance+traffic+weather | — |
+| OpenStreetMap (OSMnx) | Geometri jalan riil Indonesia untuk distance/travel-time estimate | `osmnx` via `project-osrm.org` |
+| BMKG API (resmi) | Cuaca riil per kelurahan, 3-harian, JSON | `api.bmkg.go.id/publik/prakiraan-cuaca?adm4={kode_wilayah}` |
+| HERE Traffic Flow API | Traffic index real-time Jabodetabek | `traffic.ls.hereapi.com/traffic/6.1/flow.json` |
+
+**Prinsip sourcing:** setiap dataset publik dicantumkan link-nya. Data sintetis Indonesia eksplisit dinyatakan sebagai buatan sendiri (tidak dipalsukan sebagai data riil).
+
+---
+
+## 6. Training Workflow
+
+### 6.1 Tahapan
+
+1. **Baseline dulu** — Linear Regression dengan hanya `actual_route_distance_km` sebagai fitur. Catat baseline MAE. Ini referensi "naive" yang harus dikalahkan model.
+2. **Train XGBoost** dengan fitur §4 + `early_stopping_rounds=50` berbasis validation set.
+3. **Time-based split (bukan random!)** — karena ada pola temporal/musiman, random split membocorkan informasi masa depan.
+   - Train: data 4 minggu pertama
+   - Validation: minggu ke-5 (untuk early stopping & hyperparameter selection)
+   - Test: minggu ke-6 (hanya disentuh sekali di akhir)
+4. **Hyperparameter tuning** dengan Optuna (lebih efisien dari grid search di ruang 6 dimensi), 50–100 trial, fokus minimasi val MAE.
+5. **Retrain final model** di gabungan train+val, evaluasi **sekali** di test set yang belum pernah dilihat. Lapor test MAE sebagai angka resmi di laporan.
+
+### 6.2 Cross-Validation Strategy
+
+Untuk data proxy publik (Food Delivery, NYC Taxi), gunakan **TimeSeriesSplit** dari scikit-learn dengan 5 fold. Untuk data sintetis, gunakan split chronological mingguan di atas.
+
+### 6.3 Kalibrasi Threshold Risk Tier
+
+Setelah model final dipilih, threshold WARNING/CRITICAL dituning dari confusion matrix pada test set:
+
+- Plot trade-off: false CRITICAL (alert fatigue) vs false SAFE (delay tak tertangani)
+- Pilih threshold yang meminimasi biaya bisnis: `cost(false_SAFE) = 3 × cost(false_CRITICAL)` (asumsi: ketelatan SLA lebih mahal daripada operator lelah)
+- Simpan ke `risk_thresholds.yaml`, jangan hardcode
+
+---
+
+## 7. Validasi & Metrik
+
+### 7.1 Metrik Utama (regresi)
+
+| Metrik | Target | Catatan |
+|---|---|---|
+| **MAE (menit)** | < 15 menit di data sintetis | Komunikasi ke stakeholder non-teknis |
+| **RMSE** | < 25 menit | Lebih sensitif ke outlier |
+| **MAPE** | < 20% | Hanya untuk shipment >30 menit (hindari pembagian dengan nol) |
+
+### 7.2 Metrik Turunan (risk tier)
+
+Setelah threshold rule diterapkan pada prediksi ETA:
+
+| Metrik | Target | Catatan |
+|---|---|---|
+| Macro F1 (3 kelas) | ≥ 0.85 | Sesuai proposal |
+| **F1 kelas CRITICAL** | ≥ 0.80 | Kelas paling penting & biasanya paling minoritas — wajib dilaporkan terpisah |
+| Recall CRITICAL | ≥ 0.90 | False SAFE di kelas ini paling mahal bisnis-nya |
+
+### 7.3 Baseline Comparison (wajib ditampilkan ke juri)
+
+Tabel seperti ini harus muncul di laporan:
+
+| Model | MAE (menit) | F1 Macro | F1 CRITICAL |
+|---|---|---|---|
+| Distance-only heuristic | (X) | (X) | (X) |
+| Linear Regression (all features) | (X) | (X) | (X) |
+| **XGBoost (final)** | **(X)** | **(X)** | **(X)** |
+
+Tanpa baseline comparison, klaim "model kami bagus" tidak credible.
+
+### 7.4 Class Imbalance Treatment
+
+Karena CRITICAL biasanya minoritas, aktifkan `sample_weight` di XGBoost:
+```python
+weights = np.where(y_risk_tier == "CRITICAL", 3.0,
+          np.where(y_risk_tier == "WARNING", 1.5, 1.0))
+model.fit(X, y_eta, sample_weight=weights)
+```
+Atau gunakan SMOTER (SMOTE untuk regresi) jika imbalance ekstrem (>1:10).
+
+---
+
+## 8. Inference & Deployment
+
+### 8.1 Serialisasi
+
+- Simpan dengan `joblib.dump(model, "m1_eta_v1.joblib")` ATAU `model.save_model("m1_eta_v1.json")` (XGBoost native)
+- Load **sekali** saat service start, simpan di in-memory variable — **bukan per-request load**
+- Versi model di-tag (`v1`, `v2`) supaya bisa rollback
+
+### 8.2 Serving
+
+```python
+# FastAPI endpoint
+@app.post("/predict/eta")
+async def predict_eta(req: ETARequest) -> ETAResponse:
+    features = feature_store.get(req.shipment_id)   # <50ms
+    eta_pred = model.predict(features)              # <5ms
+    risk_tier = apply_threshold(eta_pred, req.deadline)
+    return ETAResponse(eta_minutes=eta_pred, risk_tier=risk_tier)
+```
+
+**Latency budget:** <50ms end-to-end (tree-based harus sangat cepat).
+
+### 8.3 Feature Retrieval Pattern
+
+```
+Shipment request masuk
+  → Cek feature_store cache (Redis)
+    → HIT: pakai langsung
+    → MISS: synchronous fetch untuk fitur statis (origin/dest/vehicle)
+            + ambil hub_dwell_time dari M2 cache (jangan trigger M2 sync)
+            + ambil weather dari BMKG cache (jangan call BMKG sync)
+```
+
+BMKG update 3-harian → cache 3-harian. HERE Traffic update ~15 menit → cache 15-menit. M2 update event-driven → subscribe ke queue state event.
+
+### 8.4 Monitoring
+
+- Log setiap `(features, prediction, actual_eta jika tersedia)` ke time-series DB (InfluxDB / Prometheus)
+- Shadow mode: bandingkan prediksi vs actual selama 7 hari sebelum go-live
+- **Drift trigger:** jika rolling-7-day MAE naik >20% dari baseline, trigger retraining pipeline (CI/CD)
+- Alerting: dashboard Grafana, alert Slack tim ML jika drift terdeteksi
+
+### 8.5 SHAP Integration (lihat M5)
+
+- SHAP values **TIDAK** dihitung untuk semua shipment — mahal komputasi tanpa nilai bisnis
+- Compute on-demand **hanya** untuk shipment yang di-flag WARNING/CRITICAL
+- Lazy evaluation: dashboard request SHAP → trigger TreeExplainer → cache hasil 1 jam
+
+---
+
+## 9. Risiko & Mitigasi
+
+| Risiko | Severity | Mitigasi |
+|---|---|---|
+| Data sintetis kurang representatif → model tidak generalisasi ke riil | Tinggi | Validasi dulu di Food Delivery Dataset (riil) sebelum pindah ke sintetis; dokumentasikan gap |
+| Drift cepat karena pola traffic berubah | Sedang | Monitoring rolling MAE + retraining trigger |
+| Threshold risk tidak match dengan ekspektasi operator Blibli | Sedang | Kalibrasi threshold bersama BA tim (Orwin) menggunakan confusion matrix |
+| BMKG API down saat demo | Sedang | Cache 3-harian + fallback ke weather_severity_score=1 (munding default) |
+| HERE quota habis | Sedang | Fallback derive dari is_peak_hour × OSM road class, didokumentasikan sebagai limitasi |
+| Cross-model failure: M2 down → M1 kehilangan fitur penting | Tinggi | Feature store return default P50 dwell (median historis) kalau M2 unavailable, plus flag `m2_degraded=true` |
+
+---
+
+## 10. Roadmap (post-MVP)
+
+| Fase | Upgrade |
+|---|---|
+| Production 3 bulan | NN-based ETA (TabNet / FT-Transformer) untuk benchmarking vs XGBoost |
+| Production 6 bulan | Multi-task learning: prediksi ETA + P90 interval sekaligus |
+| Production 12 bulan | Online learning dengan streaming data Blibli riil (kalau diizinkan) |
+
+---
+
+## 11. Acceptance Criteria (untuk demo kompetisi)
+
+- [ ] MAE < 15 menit di test set sintetis Indonesia
+- [ ] F1 CRITICAL ≥ 0.80
+- [ ] Tabel baseline comparison ditampilkan di laporan
+- [ ] Threshold risk di-load dari YAML (bukan hardcoded)
+- [ ] Latency endpoint `/predict/eta` P95 < 50ms
+- [ ] Drift monitoring aktif dengan alert
+- [ ] SHAP on-demand berfungsi untuk shipment WARNING/CRITICAL
+- [ ] Dokumen ini disertakan sebagai lampiran teknis
+
+---
+
+**Referensi internal:** M2 (hub dwell → feature), M5 (SHAP), M6 (confidence aggregation), M4 (reroute trigger dari CRITICAL).
+</file>
+
+<file path="M2_Hub_Congestion.md">
+# M2 — Hub Congestion / Dwell-Time Forecast
+
+> **Model ID:** M2
+> **Jenis:** Regresi quantile (time-series tabular)
+> **Prioritas:** P1
+> **Owner ML:** SLAra AI — Data Engineer + Agent Engineer
+> **Status desain:** Final Opsi A (LightGBM quantile) untuk kompetisi; LSTM di roadmap production
+
+---
+
+## 1. Ringkasan Eksekutif
+
+M2 memprediksi **dwell time** (waktu tunggu shipment di hub/sortir center) dalam menit, dan menghasilkan **dua kuantil** sekaligus: P50 (median estimasi) dan P90 (estimasi konservatif untuk perencanaan buffer). Output P50 menjadi **fitur upstream** bagi M1 (ETA), sehingga latency dan akurasi M2 langsung mempengaruhi kualitas M1.
+
+Keputusan desain (resolusi Bagian 7.3): **Opsi A — LightGBM dengan quantile loss**, bukan LSTM. Alasannya konsistensi tooling dengan M1, kebutuhan data yang jauh lebih sedikit, dan tetap menghasilkan angka P90 yang diminta mockup dashboard. LSTM dipertahankan sebagai roadmap production di §9 — narasi "kami tahu batas MVP dan punya rencana upgrade realistis" justru memperkuat kredibilitas di depan juri teknis.
+
+---
+
+## 2. Formulasi Matematis
+
+### 2.1 Quantile Regression
+
+Diberikan feature vector `x`, model memprediksi fungsi kuantil `q_τ(x)` untuk `τ ∈ {0.5, 0.9}`:
+
+```
+P(dwell_time ≤ q_τ(x) | x) = τ
+```
+
+Pinball loss (quantile loss) yang diminimasi:
+
+```
+L_τ(y, q) = max( (τ - 1)(y - q), τ(y - q) )
+          = τ · |y - q|            if y ≥ q
+            (1-τ) · |y - q|        if y < q
+```
+
+Implementasi LightGBM: gunakan `objective="quantile"` dengan parameter `alpha=0.5` (untuk P50) dan `alpha=0.9` (untuk P90). Dua model terpisah, bukan satu multi-quantile — sederhana dan stabil.
+
+### 2.2 Output Schema
+
+```json
+{
+  "hub_id": "HUB-CGK-01",
+  "shipment_id": "SHP-2026-000123",
+  "dwell_p50_minutes": 38.5,
+  "dwell_p90_minutes": 52.0,
+  "queue_length_snapshot": 14,
+  "timestamp": "2026-07-09T08:30:00+07:00",
+  "model_version": "m2_v1"
+}
+```
+
+P90 dipakai M1 sebagai fitur konservatif (memberi buffer di ETA), P50 dipakai dashboard untuk komunikasi ke operator ("rata-rata 38 menit, worst-case 52 menit").
+
+---
+
+## 3. Arsitektur Model
+
+### 3.1 Pilihan Algoritma — LightGBM Quantile
+
+**Bukan** LSTM di fase kompetisi. Trade-off sudah dievaluasi:
+
+| Opsi | Arsitektur | Kelebihan | Risiko |
+|---|---|---|---|
+| **A (MVP kompetisi) — DIPILIH** | LightGBM quantile + fitur lag/rolling window | Konsisten dengan M1 tooling; butuh data sedikit; tetap hasilkan P90 | Kurang tangkap pola sequential panjang |
+| B (roadmap production) | LSTM/GRU univariate time-series per hub | Tangkap pola congestion berurutan (antrian yang membesar bertahap) | Butuh data time-series historis yang tidak realistis di synthetic; risiko overfit tinggi |
+
+**Pemilihan Opsi A untuk kompetisi bukan "kompromi"** — ini keputusan teknis defensible: dengan dataset sintetis yang realistis (4-6 minggu data per hub, hourly granularity), LSTM akan overfit. LightGBM quantile memberi akurasi sebanding dengan 1/10 data.
+
+### 3.2 Hyperparameter Default
+
+```python
+lgb.LGBMRegressor(
+    objective="quantile",
+    alpha=0.5,                    # ganti ke 0.9 untuk model P90
+    n_estimators=500,
+    max_depth=6,
+    learning_rate=0.05,
+    num_leaves=31,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    reg_lambda=1.0,
+    random_state=42,
+)
+```
+
+---
+
+## 4. Feature Engineering
+
+### 4.1 Group A — Queue State (Snapshot)
+
+| Fitur | Sumber | Catatan |
+|---|---|---|
+| `queue_length_current` | WMS / hub sensor (simulated untuk MVP) | Jumlah shipment menunggu saat ini |
+| `dock_utilization_pct` | Derived: `docks_occupied / docks_total` | 0.0–1.0 |
+| `incoming_shipment_rate_last_1h` | Event log | Rolling count per jam |
+| `incoming_shipment_rate_last_15m` | Event log | Lebih responsif ke spike |
+| `avg_service_time_last_1h` | Event log | Rata-rata waktu proses per shipment 1 jam terakhir |
+
+### 4.2 Group B — Lag & Rolling Window
+
+| Fitur | Rumus | Catatan |
+|---|---|---|
+| `dwell_lag_1h` | `dwell_p50` 1 jam lalu | Autokorelasi kuat |
+| `dwell_lag_24h` | `dwell_p50` 24 jam lalu | Pola harian |
+| `dwell_lag_168h` | `dwell_p50` 1 minggu lalu | Pola mingguan |
+| `dwell_rolling_mean_6h` | Mean dwell 6 jam terakhir | Smooth trend |
+| `dwell_rolling_std_6h` | Std dwell 6 jam terakhir | Volatilitas → kontribusi ke P90 lebar |
+| `queue_rolling_max_3h` | Max queue 3 jam terakhir | Spike detection |
+
+### 4.3 Group C — Temporal (cyclical, sama dengan M1)
+
+`hour_of_day_sin/cos`, `day_of_week_sin/cos`, `is_weekend`, `is_peak_hour`, `is_holiday`.
+
+### 4.4 Group D — Hub-Specific Static
+
+| Fitur | Catatan |
+|---|---|
+| `hub_id` (target encoding) | Embed hub baseline congestion |
+| `hub_capacity` | Maksimum throughput teoretis |
+| `hub_num_docks` | Infrastruktur |
+| `hub_region` | urban_dense / urban / intercity |
+
+### 4.5 Group E — External (weather)
+
+Sama dengan M1 — `weather_severity_score` dari BMKG cache. Hujan deras mempengaruhi kecepatan unloading di dock terbuka.
+
+---
+
+## 5. Dataset Sourcing
+
+| Sumber | Peran | Link |
+|---|---|---|
+| BigQuery-Geotab Intersection Congestion (Kaggle) | Proxy realistis untuk *pendekatan modeling* congestion (stopping distance, wait time, 4 kota AS). Bukan hub gudang, tapi metodologi queueing/congestion prediction dari traffic features transferable. | `kaggle.com/c/bigquery-geotab-intersection-congestion` |
+| Traffic Prediction Dataset (fedesoriano) | Proxy sederhana time-series traffic per jam, 4 titik. Bagus untuk uji cepat fitur lag/rolling. | `kaggle.com/datasets/fedesoriano/traffic-prediction-dataset` |
+| **Data sintetis (wajib, tidak ada penggantinya)** | Tidak ada dataset publik "warehouse/hub dwell time last-mile" yang terbuka. Domain port-congestion (container dwell time) paling dekat secara konsep tapi proprietary (TOS vendor). **Solusi:** bangun simulasi antrian **M/M/c queue** (teori antrian, bukan random number) berdasarkan kapasitas hub, jumlah dock, rata-rata service time per shipment. Defensible di depan juri karena grounded di teori matematis yang dapat dijelaskan. | — |
+
+### 5.1 Simulator M/M/c (Spesifikasi)
+
+```
+λ = arrival rate shipment/jam (variasi: poisson dengan rate tergantung jam)
+μ = service rate per dock (shipment/jam)
+c = jumlah dock
+
+Untuk setiap hub:
+  - Set λ(t) per jam berdasarkan pola trafik Jakarta (peak di 09:00 & 17:00)
+  - Set μ berdasarkan vehicle_type mix
+  - Set c berdasarkan hub tier (5/10/20 docks)
+  - Simulasi 8 minggu × 24 jam × 7 hari
+  - Output: dwell_time per shipment + queue_length per jam
+
+Validasi simulasi:
+  - Bandingkan distribusi output dengan BigQuery-Geotab wait time (sama-sama right-skewed)
+  - Cek steady-state: rata-rata queue stabil setelah warm-up 2 minggu
+```
+
+---
+
+## 6. Training Workflow
+
+### 6.1 Tahapan
+
+1. **Baseline naive** — `dwell_p50_pred = dwell_lag_24h` (kemarin jam yang sama). Catat pinball loss & MAE baseline.
+2. **Train LightGBM quantile P50** — fitur §4, objective `quantile`, `alpha=0.5`.
+3. **Train LightGBM quantile P90** — model terpisah, `alpha=0.9`.
+4. **Time-based split** — sama dengan M1 (4 minggu train / 1 minggu val / 1 minggu test). Per-hub split bukan per-shipment, untuk mencegah leakage antar jam di hub yang sama.
+5. **Hyperparameter tuning** Optuna, 50 trial, fokus minimasi pinball loss di val.
+6. **Retrain final** di train+val, evaluasi di test set sekali.
+
+### 6.2 Cross-Validation
+
+GroupKFold dengan `group=hub_id` — semua jam dari satu hub di fold yang sama. Mencegah leakage pola per-hub.
+
+---
+
+## 7. Validasi & Metrik
+
+### 7.1 Pinball Loss (Primary)
+
+Metrik utama untuk quantile regression. Dilaporkan terpisah untuk P50 dan P90:
+
+| Metrik | Target |
+|---|---|
+| Pinball loss P50 | < 5.0 (menit) |
+| Pinball loss P90 | < 8.0 (menit) |
+
+### 7.2 MAE P50 (Komunikasi Stakeholder)
+
+MAE pada prediksi P50 — angka yang mudah dijelaskan ke operator non-teknis.
+
+| Metrik | Target |
+|---|---|
+| MAE P50 | < 8 menit |
+
+### 7.3 Coverage Check (P90 Calibration) — KRITIS
+
+**Definisi:** dari semua actual dwell time di test set, berapa persen yang **benar-benar ≤ prediksi P90**?
+
+```
+coverage = (count(actual_dwell ≤ predicted_p90)) / (total samples)
+```
+
+| Coverage | Interpretasi | Aksi |
+|---|---|---|
+| 88–92% | P90 terkalibrasi dengan baik (target 90% ± 2%) | — |
+| < 85% | P90 **under-predicting** — shipment telat lebih sering dari prediksi | Naikkan `alpha` atau tambah fitur volatilitas |
+| > 95% | P90 **over-predicting** — buffer terlalu konservatif, bikin ETA terlalu pesimis | Turunkan `alpha` atau re-check fitur |
+
+Coverage check wajib dilaporkan di laporan — ini metrik yang membedakan "P90 valid" dari "angka karangan".
+
+### 7.4 Baseline Comparison
+
+| Model | Pinball P50 | Pinball P90 | MAE P50 | Coverage P90 |
+|---|---|---|---|---|
+| Naive lag-24h | (X) | (X) | (X) | (X) |
+| Linear Quantile | (X) | (X) | (X) | (X) |
+| **LightGBM Quantile (final)** | **(X)** | **(X)** | **(X)** | **(X)** |
+
+---
+
+## 8. Inference & Deployment
+
+### 8.1 Latency Budget — < 30ms
+
+Lebih ketat dari M1 (50ms) karena M2 adalah upstream dependency M1. Total budget M1+M2 harus tetap di bawah 80ms.
+
+### 8.2 Update Policy — Event-Driven, Bukan Polling
+
+M2 **TIDAK** dipanggil per request M1 secara sinkron. Sebaliknya:
+
+```
+Event: queue_length berubah di hub X
+  → Trigger recomputation dwell_p50/p90 untuk hub X
+  → Update Redis cache key: m2:dwell:{hub_id}
+  → M1 baca dari cache (HIT cepat, MISS pakai fallback default)
+
+Polling fallback tiap 5 menit (kalau tidak ada event) — untuk safety.
+```
+
+Implementasi: Kafka/Redis Streams untuk event, atau cron job 5-menitan untuk MVP sederhana.
+
+### 8.3 Fallback Behavior
+
+Jika M2 cache miss atau service down:
+
+```
+dwell_p50_fallback = median historis per hub (precomputed dari training data)
+dwell_p90_fallback = dwell_p50_fallback × 1.4  (heuristik lebar interval)
+flag m2_degraded = true → confidence_aggregate M6 diturunkan
+```
+
+M1 tetap berjalan dengan fitur degraded; sistem tidak crash.
+
+### 8.4 Caching Strategy
+
+| Key | TTL | Update trigger |
+|---|---|---|
+| `m2:dwell:{hub_id}` | 5 menit | queue_length event |
+| `m2:dwell:{hub_id}:historical_median` | 24 jam | batch job malam |
+| `m2:model_version` | — | Deploy pipeline |
+
+### 8.5 Monitoring
+
+- Pinball loss rolling 24-jam (alert jika naik >30%)
+- Coverage P90 rolling 7-hari (alert jika keluar band 85–95%)
+- Queue length distribution drift per hub (KS-test terhadap distribusi training)
+
+---
+
+## 9. Roadmap — Opsi B (LSTM) untuk Production
+
+### 9.1 Kapan Upgrade
+
+Upgrade dari Opsi A ke LSTM hanya jika **semua** kondisi terpenuhi:
+
+- [ ] Data historis hub dwell time riil (dari Blibli WMS) tersedia minimal 6 bulan dengan granularity 15-menit
+- [ ] Jumlah hub ≥ 10 (cukup sample untuk generalisasi)
+- [ ] Opsi A sudah hit ceiling performance (coverage P90 tidak bisa di atas 88% meski fitur ditambah)
+- [ ] Tim punya kapasitas ML ops untuk monitoring LSTM (gradient vanishing, exploding, drift deteksi lebih kompleks)
+
+### 9.2 Arsitektur Roadmap LSTM
+
+```
+Per hub:
+  Input: [dwell_t-168h, ..., dwell_t-1h, queue_t-168h, ..., queue_t-1h]
+  LSTM(64) → LSTM(32) → Dense(2) → [p50, p90]
+  
+  Loss: pinball combined (τ=0.5 + τ=0.9)
+  Training: teacher forcing dengan window 168 jam (1 minggu)
+```
+
+### 9.3 Hybrid Bridge (opsional, menengah)
+
+Sebelum full LSTM, bisa coba hybrid: LightGBM quantile sebagai baseline + LSTM residual model untuk capture temporal pattern yang tertinggal. Kompleksitas operasional naik tapi lebih aman dari full switch.
+
+---
+
+## 10. Risiko & Mitigasi
+
+| Risiko | Severity | Mitigasi |
+|---|---|---|
+| Simulator M/M/c terlalu ideal (poisson murni) → tidak representatif | Tinggi | Modulasi λ(t) dengan pola trafik riil Jakarta; tambah shock event (kondweather buruk mendadak) |
+| P90 under-calibrated → M1 dapat ETA terlalu optimis | Tinggi | Coverage check di §7.3 wajib lulus sebelum model di-deploy |
+| Cold-start hub baru (tidak ada historis) | Sedang | Fallback ke median global + flag `hub_cold_start=true` |
+| Event queue down → M2 tidak update | Sedang | Polling fallback 5 menit + alert |
+| Feature leakage dari lag construction | Sedang | Strict chronological split + GroupKFold per hub |
+
+---
+
+## 11. Acceptance Criteria (untuk demo kompetisi)
+
+- [ ] Simulator M/M/c menghasilkan distribusi dwell right-skewed (validasi visual vs BigQuery-Geotab)
+- [ ] Pinball loss P50 < 5.0 di test set
+- [ ] Coverage P90 di band 88–92%
+- [ ] Endpoint event-driven update aktif (bukan polling-only)
+- [ ] Latency inference < 30ms
+- [ ] Fallback behavior teruji (M2 down → M1 tetap jalan dengan flag degraded)
+- [ ] Tabel baseline comparison ditampilkan di laporan
+- [ ] Narasi roadmap LSTM §9 ada di dokumen teknis (menunjukkan kesadaran batas MVP)
+
+---
+
+**Referensi internal:** M1 (downstream consumer fitur `hub_dwell_time_predicted`), M6 (flag `m2_degraded` → turunkan confidence aggregate), M5 (SHAP untuk dwell prediction, opsional).
+</file>
+
+<file path="M3_Carbon_Emission.md">
+# M3 — Carbon Emission Estimator
+
+> **Model ID:** M3
+> **Jenis:** Rule-based deterministic (BUKAN ML)
+> **Prioritas:** P0 (dependency M4)
+> **Owner:** SLAra AI — Data Engineer (validasi audit) + BA (kalibrasi emission factor)
+> **Status desain:** Final — desain rule-based dipertahankan dengan alasan prinsip
+
+---
+
+## 1. Ringkasan Eksekutif
+
+M3 menghitung emisi CO₂ per shipment dengan **formula matematis deterministic**, bukan model machine learning. Keputusan ini disengaja dan prinsipial: untuk ESG reporting yang harus diaudit (ISO 14083, GLEC Framework), model black-box ML justru **mengurangi trust**, bukan menambah. Expertise seorang "AI Infrastructure Architect" di komponen ini justru adalah tahu **kapan tidak perlu ML**.
+
+M3 adalah **dependency upstream** bagi M4 (Route Optimization) — `environmental_cost` di objective function M4 memanggil M3 per kromosom yang dievaluasi. Karena M4 mengevaluasi ribuan kromosom per generasi, M3 harus sangat cepat (<5ms per call) — sesuatu yang hanya mungkin dengan formula deterministic, bukan ML inference.
+
+---
+
+## 2. Formulasi Matematis
+
+### 2.1 Formula Utama (dari proposal, dipertahankan)
+
+```
+CO2_shipment (kg) = distance_km × emission_factor(kg_CO2/km) × load_factor_adjustment
+```
+
+Dimana:
+- `distance_km` — dari OSRM route, bukan haversine (koreksi: haversine undercount 10–20% di area urban)
+- `emission_factor` — lookup tabel per `vehicle_type` dari sumber resmi (§3)
+- `load_factor_adjustment` — koreksi berdasarkan rasio muatan aktual vs kapasitas (§2.3)
+
+### 2.2 — Per Transport Chain Element (GLEC Framework)
+
+GLEC v3 membagi pengiriman menjadi beberapa **Transport Chain Element** (TCE). M3 menghitung per TCE lalu menjumlahkan:
+
+```
+total_CO2 = Σ TCE_i
+TCE_i = distance_i × EF(vehicle_type_i) × load_adjustment_i
+```
+
+Contoh: pengiriman intercity Jabodetabek → Surabaya mungkin punya TCE:
+1. First-mile (pickup → hub) — van, 5 km
+2. Hub sortir — emissions 0 (tidak ada pergerakan kendaraan, atau listrik dari grid → GLEC Scope 2)
+3. Line-haul (hub → hub) — medium truck, 780 km
+4. Last-mile (hub → customer) — van, 8 km
+
+### 2.3 Load Factor Adjustment
+
+Beban kendaraan mempengaruhi konsumsi bahan bakar. Berdasarkan GLEC v3:
+
+```
+load_adjustment = 1 + 0.5 × (load_factor - 0.5)
+```
+
+Dimana `load_factor = load_weight / vehicle_capacity ∈ [0, 1]`.
+
+- `load_factor = 0` (kosong) → adjustment = 0.75 (75% dari baseline EF, karena kendaraan tetap konsumsi bahan bakar untuk pergerakan)
+- `load_factor = 0.5` (half load) → adjustment = 1.0 (baseline)
+- `load_factor = 1.0` (full load) → adjustment = 1.25 (25% lebih banyak emisic dari baseline)
+
+Formula ini **over-simplification** — real-world curve non-linear — tapi konsisten dengan asumsi GLEC default dan dapat dijelaskan ke auditor.
+
+### 2.4 Scope Emissions (Klasifikasi GHG Protocol)
+
+| Scope | Komponen M3 | Status MVP |
+|---|---|---|
+| Scope 1 (direct) | Bahan bakar kendaraan sendiri / kontrak | Dihitung |
+| Scope 2 (indirect energy) | Listrik di hub untuk sortir | Tidak dihitung MVP (data tidak tersedia) — flag sebagai limitasi |
+| Scope 3 (value chain) | Kendaraan vendor pihak ketiga | Dihitung dengan EF default vendor (jika diketahui), else pakai fleet average |
+
+---
+
+## 3. Sumber Emission Factor (Wajib Resmi, Bukan Angka Karangan)
+
+Setiap `emission_factor` di lookup tabel M3 harus dapat ditelusuri ke salah satu sumber berikut:
+
+### 3.1 IPCC 2019 Refinement to 2006 Guidelines
+
+Tabel default emission factor per jenis kendaraan (diesel, bensin, listrik). Sudah kalian sebut di mockup "0.213 kg/km for van" — angka ini berasal dari IPCC default untuk light-duty diesel vehicle.
+
+Referensi: `IPCC 2019 Refinement, Volume 2: Energy, Chapter 3 — Mobile Combustion`.
+
+### 3.2 GLEC Framework v3 (Smart Freight Centre)
+
+Standar industri untuk perhitungan emisi logistics. GLEC menyediakan:
+- Default EF per mode transport (road/rail/air/sea/inland waterway)
+- Metodologi per TCE (Transport Chain Element)
+- Aturan agregasi & reporting
+
+Website: `smartfreightcentre.org/en/our-programs/glec-framework/`
+
+### 3.3 ISO 14083:2023
+
+Standar resmi perhitungan emisi transport chain. Mengacu pada GLEC dan menambahkan:
+- Definisi metodologi verification
+- Requirement audit trail
+- Format reporting standar
+
+### 3.4 Lookup Table M3 (Default untuk MVP)
+
+| vehicle_type | emission_factor (kg_CO2/km) | Sumber | Catatan |
+|---|---|---|---|
+| `van` (diesel, <3.5 ton) | 0.213 | IPCC 2019 default | Sudah di mockup |
+| `light_truck` (3.5–7.5 ton) | 0.348 | GLEC v3 road freight default | Diesel Euro IV |
+| `medium_truck` (7.5–16 ton) | 0.562 | GLEC v3 | Diesel Euro IV |
+| `heavy_truck` (>16 ton) | 0.815 | GLEC v3 | Diesel Euro V |
+| `electric_van` | 0.062 | GLEC v3 + Indonesia grid factor | Scope 2 konversi |
+
+**Catatan penting:** untuk Indonesia, grid emission factor (~0.7 kg CO₂/kWh, sesukan data ESDM 2022) perlu dikalikan ke EF electric vehicle. Lookup table M3 harus menyertakan kolom `region_grid_factor` jika ingin support EV di masa depan.
+
+---
+
+## 4. Validasi via Backtesting Numerik (Bukan Train/Test Split)
+
+### 4.1 Konsep "Validation" untuk Komponen Rule-Based
+
+Karena M3 bukan ML, konsep "validation" berbeda:
+- **Bukan** train/test split
+- **Bukan** k-fold cross-validation
+- **Yang valid:** backtesting numerik — bandingkan output M3 dengan kalkulator emisi resmi di skenario rute nyata.
+
+### 4.2 Audit Trail Procedure
+
+Untuk setiap skenario test (minimum 10 skenario, mix van/medium_truck/intercity):
+
+1. **Definisikan skenario** — origin, destination, vehicle_type, load_weight
+2. **Hitung dengan M3** — catat hasil `co2_kg_M3`
+3. **Hitung dengan kalkulator referensi**:
+   - EPA Greenhouse Gas Equivalencies Calculator — `epa.gov/energy/greenhouse-gas-equivalencies-calculator`
+   - DEFRA Company Reporting Guidelines — `gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2024`
+   - DKT — Danish Council for Sustainable Business (gratis, public)
+4. **Bandingkan** — hitung % deviation
+5. **Dokumentasikan** di audit trail file `m3_validation_report.md`
+
+### 4.3 Acceptance Deviation
+
+| Deviation dari referensi | Status |
+|---|---|
+| < 5% | Excellent — M3 akurat |
+| 5–10% | Acceptable — dokumentasikan asumsi |
+| > 10% | Reject — cek formula atau EF sumber |
+
+Penyebab deviation umum:
+- M3 pakai EF IPCC default, referensi pakai EF region-specific (e.g., DEFRA untuk UK)
+- Load factor adjustment berbeda metodologi
+- Distance source berbeda (OSRM vs Google Maps)
+
+### 4.4 Output Audit Trail Format
+
+```markdown
+## Audit Trail Skenario #01
+
+- Origin: Jakarta Pusat (-6.1944, 106.8229)
+- Destination: Bandung (-6.9175, 107.6191)
+- Distance (OSRM): 152.3 km
+- Vehicle: medium_truck
+- Load weight: 8.500 kg (load_factor=0.53)
+- EF used: 0.562 kg/km (GLEC v3 default)
+- Load adjustment: 1 + 0.5×(0.53−0.5) = 1.015
+
+**M3 Output:** 152.3 × 0.562 × 1.015 = 86.95 kg CO₂
+
+**Referensi:**
+- EPA calculator (input same): 91.20 kg CO₂
+- DEFRA (medium truck diesel UK 2024): 84.10 kg CO₂
+
+**Deviation:**
+- vs EPA: -4.7% ✅
+- vs DEFRA: +3.4% ✅
+
+**Status:** ACCEPTABLE
+```
+
+Skenario seperti ini diulang 10× untuk mix kondisi. Hasil audit trail dilampirkan di laporan teknis — ini yang akan meyakinkan juri soal klaim "auditability".
+
+---
+
+## 5. Integrasi dengan M4 (Route Optimization)
+
+### 5.1 Peran di Objective Function M4
+
+M4 punya 3 objective (lihat dokumen M4). Salah satunya adalah **environmental_cost**, yang merupakan kombinasi fuel_cost + CO₂_cost:
+
+```
+environmental_cost = fuel_cost(distance, vehicle_type, fuel_price)
+                   + carbon_cost(CO2_kg, carbon_price_per_kg)
+```
+
+Dimana `CO2_kg` dihitung dengan M3 per TCE.
+
+### 5.2 Mengapa M3 Bukan Objective Terpisah di M4
+
+Sesuai keputusan Bagian 7.2 — fuel dan CO₂ digabung jadi satu objective karena keduanya bergerak searah (CO₂ = fungsi linear dari fuel). Memisahkan jadi 2 objective di NSGA-II tidak menambah diversitas Pareto front, tapi membuang budget GA. M3 tetap **dilaporkan terpisah di dashboard** sebagai derived metric, bukan objective GA yang berdiri sendiri.
+
+### 5.3 Performance Budget
+
+M4 mengevaluasi ribuan kromosom per generasi × puluhan generasi. Setiap evaluasi memanggil M3. Maka:
+
+- M3 harus < 5ms per call (formula matematis sederhana → seharusnya <1ms di Python)
+- Lookup tabel EF di-load sekali di memory, bukan dari disk per call
+- Implementasi vectorized (NumPy) jika M4 batch-evaluate kromosom
+
+---
+
+## 6. Reporting & Auditability
+
+### 6.1 Output Schema per Shipment
+
+```json
+{
+  "shipment_id": "SHP-2026-000123",
+  "total_co2_kg": 86.95,
+  "tce_breakdown": [
+    {
+      "tce_id": "TCE-01",
+      "segment": "pickup_to_hub",
+      "distance_km": 5.2,
+      "vehicle_type": "van",
+      "load_factor": 0.40,
+      "emission_factor_source": "IPCC 2019 default",
+      "co2_kg": 1.10
+    },
+    {
+      "tce_id": "TCE-02",
+      "segment": "line_haul",
+      "distance_km": 138.9,
+      "vehicle_type": "medium_truck",
+      "load_factor": 0.53,
+      "emission_factor_source": "GLEC v3 default",
+      "co2_kg": 79.20
+    },
+    {
+      "tce_id": "TCE-03",
+      "segment": "hub_to_customer",
+      "distance_km": 8.2,
+      "vehicle_type": "van",
+      "load_factor": 0.30,
+      "emission_factor_source": "IPCC 2019 default",
+      "co2_kg": 6.65
+    }
+  ],
+  "methodology": "GLEC v3 + ISO 14083:2023",
+  "model_version": "m3_v1",
+  "audit_trail_id": "AT-2026-001"
+}
+```
+
+### 6.2 Audit Trail ID
+
+Setiap perhitungan M3 mendapat `audit_trail_id` yang dapat ditelusuri ke:
+- Snapshot input (distance, vehicle, load)
+- Snapshot emission factor table (version)
+- Timestamp perhitungan
+- Referensi validation report
+
+Ini memenuhi requirement ISO 14083 untuk transport chain emission reporting — **bukan tambahan opsional, tapi requirement compliance**.
+
+### 6.3 Dashboard Reporting
+
+Di dashboard SLAra, M3 ditampilkan:
+- Per-shipment CO₂ (dengan breakdown TCE jika drill-down)
+- Aggregate CO₂ per hari/minggu
+- Perbandingan baseline (current route) vs optimized route (M4) — gap inisiatif penghematan emisi
+- Equivalency: jumlah pohon yang setara menyerap CO₂ tsb (EPA equivalency) — komunikasi ke stakeholder non-teknis
+
+---
+
+## 7. Risiko & Mitigasi
+
+| Risiko | Severity | Mitigasi |
+|---|---|---|
+| EF lookup outdated (IPCC update tiap 5 tahun) | Sedang | Versi tabel EF di-tag (e.g., `ipcc_2019_v1`); re-check tiap rilis baru |
+| Region-specific EF Indonesia tidak tersedia | Tinggi | Pakai IPCC default + dokumentasikan sebagai limitasi; roadmap: kolaborasi dengan Kementerian Perhubungan untuk EF nasional |
+| Distance source (OSRM) under-count vs actual | Sedang | Bandingkan dengan Google Maps distance di sample, kalibrasi faktor koreksi |
+| EV grid factor Indonesia tinggi (~0.7 kg/kWh) → EF EV sebenarnya tidak serendah klaim hijau | Tinggi | Hitung dengan grid factor Indonesia, jangan pakai grid factor Eropa; transparansi > greenwashing |
+| Auditor external menolak metodologi | Sedang | Lampirkan ISO 14083:2023 compliance checklist; rujuk GLEC v3 sebagai best practice industri |
+
+---
+
+## 8. Roadmap (post-MVP)
+
+| Fase | Upgrade |
+|---|---|
+| Production 3 bulan | Integrasi EF region-specific Indonesia (kolaborasi Kemhub / Litbang) |
+| Production 6 bulan | Scope 2 emissions dari hub electricity consumption |
+| Production 12 bulan | Real-time fuel consumption telematics dari IoT kendaraan → EF lebih akurat daripada tabel default |
+| Production 18 bulan | Verification oleh pihak ketiga (SGS / TÜV) untuk compliance ISO 14083 |
+
+---
+
+## 9. Acceptance Criteria (untuk demo kompetisi)
+
+- [ ] Lookup tabel EF menulis sumber IPCC/GLEC/ISO untuk setiap entri
+- [ ] Audit trail 10 skenario test dilampirkan di laporan teknis
+- [ ] Deviation M3 vs EPA/DEFRA < 10% di semua skenario audit
+- [ ] Performance M3 < 5ms per call (benchmark di profile)
+- [ ] Output schema §6.1 mengandung TCE breakdown + audit_trail_id
+- [ ] Narasi "kapan tidak perlu ML" jelas di laporan (prinsip desain rule-based)
+- [ ] Klaim "ISO 14083 / GLEC / IPCC compliance" dapat di-backup dengan referensi
+- [ ] M3 terintegrasi dengan M4 objective function (lihat M4 §5)
+
+---
+
+**Referensi internal:** M4 (consumer untuk objective `environmental_cost`), M6 (audit_trail_id dilaporkan ke Decision Agent untuk compliance), Dashboard (TCE breakdown + equivalency view).
+</file>
+
+<file path="M4_Route_Optimization.md">
+# M4 — Route Optimization Engine (NSGA-II)
+
+> **Model ID:** M4
+> **Jenis:** Multi-objective metaheuristic (genetic algorithm)
+> **Prioritas:** P0 (inti sistem)
+> **Owner ML:** SLAra AI — Agent Engineer + Algorithm Engineer
+> **Status desain:** Final — 3 objectives (konsolidasi dari 4 sesuai keputusan Bagian 7.2)
+
+---
+
+## 1. Ringkasan Eksekutif
+
+M4 menyelesaikan **Vehicle Routing Problem with Time Windows (VRPTW)** multi-objective menggunakan **NSGA-II** (Non-dominated Sorting Genetic Algorithm II). Output M4 adalah **Pareto front** — himpunan rute yang berbeda trade-off antara biaya, waktu/SLA, dan dampak lingkungan — yang kemudian dipilih oleh Decision Agent M6 berdasarkan konteks bisnis.
+
+Keputusan desain utama (resolusi Bagian 7.2): **konsolidasi 4 objective → 3 objective**. Fuel cost dan CO₂ digabung jadi satu objective `environmental_cost` karena keduanya bergerak searah (CO₂ = fungsi linear dari fuel). Memisahkan keduanya tidak menambah diversitas Pareto front, tapi membuang budget komputasi GA yang seharusnya bisa dipakai eksplorasi trade-off cost vs time vs SLA risk yang benar-benar konflik. Tiga objective adalah **sweet spot** NSGA-II sebelum perlu upgrade ke NSGA-III untuk many-objective problem.
+
+---
+
+## 2. Formulasi Matematis
+
+### 2.1 Problem Statement
+
+Diberikan:
+- Set shipment `S = {s_1, s_2, ..., s_n}` dengan origin, destination, deadline, weight
+- Set vehicle `V = {v_1, v_2, ..., v_m}` dengan capacity, vehicle_type, cost_per_km
+- Set hub `H = {h_1, ..., h_k}` sebagai transit point
+- Distance matrix `D` dari OSRM
+- ETA prediction function `f_M1` dari M1
+- Carbon calculation function `f_M3` dari M3
+
+Cari: assignment shipment ke vehicle + urutan stop per vehicle yang **meminimalkan 3 objective** sambil memenuhi constraint.
+
+### 2.2 Tiga Objective (Final)
+
+```
+minimize F(x) = (f1(x), f2(x), f3(x))
+
+f1(x) = total_operational_cost(x)
+      = Σ_vehicle [distance(v) × cost_per_km(v) + driver_cost(v)]
+
+f2(x) = total_sla_risk_score(x)
+      = Σ_shipment [risk_penalty(s, ETA_predicted(s, x), deadline(s))]
+
+f3(x) = total_environmental_cost(x)
+      = Σ_vehicle [fuel_cost(v) + carbon_cost(M3(v))]
+```
+
+Dimana:
+- `risk_penalty` adalah fungsi deterministic dari M1 (CRITICAL=3.0, WARNING=1.0, SAFE=0.0) — konsisten dengan filosofi turunan rule-based
+- `fuel_cost + carbon_cost` dihitung dengan M3 (lihat M3 §5)
+
+### 2.3 Constraint (Bukan Objective)
+
+Constraint ditangani lewat **penalty function**, bukan dimasukkan sebagai objective tambahan:
+
+| Constraint | Penalty jika dilanggar |
+|---|---|
+| Vehicle capacity | `+1000 × overload_kg` per vehicle |
+| Delivery time window | `+100 × late_minutes²` per shipment (kuadratik, scaling) |
+| Driver hour limit | `+500 × overtime_minutes` per driver |
+
+Penalty kuadratik untuk time window (bukan linear) karena pelanggaran kecil dapat ditoleransi, pelanggaran besar tidak. Penalty linear untuk kapasitas karena batas keras.
+
+### 2.4 Mengapa 3 Objective (Bukan 4 atau 5)
+
+Literatur optimasi multi-objective (Deb et al., yang kalian kutip di proposal) menunjukkan NSGA-II mulai kehilangan selektivitas Pareto-dominance di atas 3 objective — fenomena ini disebut **"many-objective problem"**. Di 4+ objective, hampir semua solusi non-dominated → seleksi GA tidak efektif → konvergensi lambat.
+
+Dengan konsolidasi:
+- Original: cost, travel time, fuel, CO₂, SLA risk (5 objektif) — many-objective, NSGA-II tidak cocok
+- Setelah konsolidasi: cost, SLA risk, environmental (3 objektif) — sweet spot NSGA-II
+
+Jika nanti perlu tambah objective (e.g., driver fatigue score, fairness antar driver), **upgrade ke NSGA-III** wajib dipertimbangkan (lihat §9 roadmap).
+
+---
+
+## 3. Chromosome Encoding
+
+### 3.1 Representasi Permutation
+
+**Pilihan:** permutasi urutan stop per route, representasi standar untuk VRP.
+
+```
+Chromosome = [route_1, route_2, ..., route_m]
+route_i = [stop_1, stop_2, ..., stop_k]  (permutation of shipments assigned to vehicle i)
+```
+
+Contoh (3 vehicle, 8 shipment):
+```
+[ [s1, s3, s7], [s2, s5, s8], [s4, s6] ]
+```
+
+### 3.2 Decoder
+
+Chromosome → fenotype (rute aktual) memerlukan decoder:
+1. Untuk setiap `route_i`, urutan stop mengikuti permutasi
+2. Tambahkan hub visits: pickup_origin → hub → delivery_destinations
+3. Hitung distance aktual dengan OSRM
+4. Hitung ETA setiap stop dengan M1
+5. Hitung CO₂ setiap segment dengan M3
+6. Hitung ketiga objective + penalty
+
+Decoder ini dipanggil untuk setiap kromosom di setiap generasi → harus sangat cepat.
+
+### 3.3 Inisialisasi Populasi
+
+Strategi hybrid (bukan pure random):
+- 20% populasi: solusi heuristik (nearest neighbor, savings algorithm)
+- 20% populasi: solusi dari request sebelumnya (warm-start, lihat §8.2)
+- 60% populasi: random permutation
+
+Hybrid inisialisasi mempercepat konvergensi vs pure random.
+
+---
+
+## 4. Operator Genetik
+
+### 4.1 Selection — Tournament Binary
+
+```
+tournament_size = 2
+select kandidat1, kandidat2 random dari populasi
+pilih yang lebih baik berdasarkan non-dominated sorting + crowding distance
+```
+
+### 4.2 Crossover — Order Crossover (OX)
+
+Khusus untuk kromosom permutasi. OX mempertahankan urutan sebagian parent, sisanya diisi dari parent kedua dengan urutan yang konsisten.
+
+```
+parent1: [1, 2, 3, 4, 5, 6, 7, 8]
+parent2: [3, 7, 5, 1, 6, 8, 2, 4]
+
+cut points: index 2 dan 5
+
+child: [?, ?, 3, 4, 5, ?, ?, ?]  ← middle from parent1
+        fill remaining from parent2 order: 7, 1, 6, 8, 2, 4
+        → [7, 1, 6, 3, 4, 5, 8, 2]
+```
+
+Crossover rate: 0.9 (default, tuning di §6).
+
+### 4.3 Mutation — Swap + 2-opt
+
+Dua operator mutation dirotasi:
+- **Swap mutation** (50%): tukar 2 stop random dalam route
+- **2-opt mutation** (50%): reverse segmen rute (lebih agresif escape local optima)
+
+Mutation rate: 0.1 (default, tuning di §6).
+
+### 4.4 Survival Selection — (μ + λ) with Crowding Distance
+
+Populasi parent + offspring digabung, di-sort berdasarkan:
+1. Non-dominated front (Pareto rank) — lower is better
+2. Crowding distance (untuk solusi di front yang sama) — higher is better
+
+Pilih N terbaik untuk generasi berikutnya.
+
+### 4.5 Repair Operator (untuk constraint)
+
+Jika offspring melanggar constraint hard (capacity), jalankan repair:
+- Pindahkan shipment yang overload ke vehicle lain dengan kapasitas tersedia
+- Jika tidak ada vehicle tersedia, tandai sebagai infeasible → penalty tinggi
+
+Repair lebih efektif dari penalty saja di VRP dengan constraint ketat.
+
+---
+
+## 5. Benchmark & Dataset Sourcing
+
+| Sumber | Peran | Link |
+|---|---|---|
+| Solomon VRPTW Benchmark (1987) | Standar de-facto untuk validasi VRPTW. 56 instance, best-known solution tersedia. Dipakai untuk **pembuktian korektnes algoritma** sebelum sentuh data Indonesia. | `neo.lcc.uma.es/vrp/vrp-instances` |
+| CVRPLIB (Uchoa et al.) | Benchmark skala lebih besar (100–1000 customer) untuk stress-test performa GA di skala production. | `vrp.galgos.inf.puc-rio.br/index.php/en/` |
+| Amazon Last-Mile Routing Research Challenge | Dataset rute nyata driver Amazon (5 kota AS, ribuan rute). Dipakai bukan untuk "benchmark optimal solution" tapi untuk **validasi realisme**: apakah rute hasil NSGA-II polanya masuk akal dibanding rute driver manusia berpengalaman. | `github.com/aws-samples/amazon-last-mile-routing-research-challenge` |
+| OpenStreetMap (via OSRM/OSMnx) | Distance matrix riil untuk skenario Indonesia (Jabodetabek + intercity). | `project-osrm.org` |
+
+### 5.1 Strategi Penggunaan Benchmark
+
+```
+Fase 1 — Validasi algoritma (minggu 3):
+  Solomon R1_25 (25 customer, time window tight) → bandingkan dengan best-known
+  Target: gap < 5% ke best-known, konvergensi dalam 100 generasi
+
+Fase 2 — Stress test (minggu 4):
+  Solomon R1_100 + CVRPLIB instance 100-customer → cek scalability
+  Target: solusi feasible dalam 30 detik
+
+Fase 3 — Validasi realisme (minggu 4-5):
+  Amazon Last-Mile dataset → bandingkan pola rute (jumlah U-turn, backtracking)
+  Target: rute NSGA-II tidak lebih buruk dari rute driver rata-rata
+
+Fase 4 — Skenario Indonesia (minggu 5-6):
+  Data sintetis Jabodetabek + intercity (origin/dest realistis, deadline 24-48 jam)
+  Target: reduction 15-20% vs baseline distance-only
+```
+
+---
+
+## 6. Tuning Workflow (GA Configuration, Bukan Gradient Training)
+
+### 6.1 Tahapan
+
+1. **Validasi di Solomon instance kecil (25-customer)** → cek convergence & compare ke best-known solution. Ini pembuktian korektnes algoritma, dilakukan sebelum sentuh data Indonesia.
+2. **Tuning parameter GA**: population size, crossover rate, mutation rate, jumlah generasi. Pakai grid search kecil di 2-3 instance representatif.
+3. **Terapkan ke skenario sintetis Indonesia** (OSM + BMKG + data sintetis shipment).
+
+### 6.2 Default Parameter
+
+```python
+nsga2_config = {
+    "population_size": 100,
+    "n_generations": 200,
+    "crossover_rate": 0.9,
+    "mutation_rate": 0.1,
+    "tournament_size": 2,
+    "elite_preservation": True,
+    "time_budget_seconds": 2.5,  # hard limit, lihat §8.1
+}
+```
+
+### 6.3 Tuning Space (Grid Search)
+
+| Parameter | Range | Default |
+|---|---|---|
+| population_size | {50, 100, 200} | 100 |
+| n_generations | {100, 200, 500} | 200 |
+| crossover_rate | {0.7, 0.8, 0.9} | 0.9 |
+| mutation_rate | {0.05, 0.1, 0.2} | 0.1 |
+
+3 × 3 × 3 × 3 = 81 kombinasi. Evaluasi di 3 Solomon instance, pilih parameter dengan trade-off terbaik (hypervolume + konvergensi time).
+
+---
+
+## 7. Validasi & Metrik
+
+### 7.1 Hypervolume Indicator (Primary)
+
+Metrik standar untuk kualitas Pareto front multi-objective. Sudah muncul di mockup dashboard kalian ("Hypervolume 0.84") — metrik yang tepat.
+
+```
+Hypervolume = volume of objective space dominated by Pareto front
+            (relatif ke reference point)
+```
+
+| Metrik | Target |
+|---|---|
+| Hypervolume | ≥ 0.80 (skala 0–1, normalisasi ke reference point worst-case) |
+
+Hipervolume di-monitor selama GA berjalan — konvergensi ditandai dengan stabilisasi nilai.
+
+### 7.2 Gap ke Best-Known Solution (Solomon)
+
+```
+gap = (objective_NSGA2 - best_known) / best_known × 100%
+```
+
+| Metrik | Target |
+|---|---|
+| Gap ke best-known (Solomon single-objective relaxation) | < 5% |
+
+### 7.3 Reduction vs Baseline (Wajib Multi-Skenario)
+
+Klaim 15-20% reduction vs distance-only baseline **tidak boleh cherry-picked dari satu skenario**. Ukur di 3 skenario berbeda:
+
+| Skenario | Karakteristik | Target Reduction |
+|---|---|---|
+| Urban dense (Jabodetabek, 50 stop, jarak pendek, traffic tinggi) | SLA risk dominan | ≥ 15% |
+| Intercity (Surabaya-Malang, 20 stop, jarak jauh, kapasitas truck besar) | Cost dominan | ≥ 15% |
+| Mixed (Jabodetabek + intercity, 80 stop, vehicle mix) | Trade-off kompleks | ≥ 18% |
+
+Klaim "kami mengurangi X% rute" hanya credible jika ditampilkan dengan multi-skenario breakdown seperti tabel di atas.
+
+### 7.4 Convergence Plot
+
+Plot hypervolume vs generasi untuk setiap run. Konvergensi sehat:
+- Kurva naik cepat di 50 generasi pertama
+- Plateau di 100-150 generasi
+- Tidak ada degradasi (overfit ke generasi terakhir)
+
+---
+
+## 8. Inference & Deployment (Best Practice Runtime)
+
+### 8.1 Runtime Budget Hard Limit — Time-Boxed Execution
+
+Target dashboard P95 < 3 detik. M4 mendominasi budget (~2.0-2.5 detik). Maka:
+
+```python
+# Pseudocode time-boxed NSGA-II
+def run_nsga2(problem, time_budget=2.5):
+    population = initialize()
+    start_time = time.now()
+    generation = 0
+    while time.now() - start_time < time_budget:
+        offspring = crossover_and_mutate(population)
+        population = select_next_gen(population + offspring)
+        generation += 1
+    return pareto_front(population)
+```
+
+**Stop di N generasi ATAU T detik, mana yang lebih dulu tercapai.** Bukan fixed generation count — fixed count bisa kelewatan time budget di instance besar.
+
+### 8.2 Warm-Start — Reuse Previous Solution
+
+```
+Request: shipment set S_request
+Cari di cache: request serupa sebelumnya (similarity > 0.8 by origin/dest cluster)
+  HIT: ambil Pareto front sebelumnya sebagai 20% initial population
+  MISS: gunakan heuristic init (nearest neighbor, savings)
+```
+
+Signifikan mempercepat convergence (literatur: 30-50% lebih sedikit generasi ke plateau).
+
+### 8.3 Caching
+
+| Cache Key | TTL | Invalidate |
+|---|---|---|
+| `m4:route:{origin_hub_dest_hash}` | 1 jam | Perubahan traffic/weather signifikan |
+| `m4:pareto_front:{request_signature}` | 5 menit | Perubahan shipment set |
+| `m4:warm_start:{cluster_id}` | 24 jam | Perubahan vehicle fleet |
+
+### 8.4 Parallelization
+
+Evaluasi kromosom dalam satu generasi dapat di-parallel-kan (embarrassingly parallel):
+- `multiprocessing.Pool` untuk CPU-bound
+- Population size 100 → 4 worker → ~3-4× speedup
+- Hindari `threading` (Python GIL tidak membantu untuk CPU-bound)
+
+### 8.5 Library Choice
+
+| Library | Pros | Cons | Status |
+|---|---|---|---|
+| **DEAP** (Python) | Mature, NSGA-II built-in, fleksibel | Lebih lambat dari C++ | ✅ Pilihan untuk MVP |
+| pymoo | API modern, benchmark terupdate | Komunitas lebih kecil | Alternatif |
+| OR-Tools (Google) | C++ backend, sangat cepat | Tidak fleksibel untuk multi-objective custom | Untuk single-objective comparison |
+| Custom C++ | Performance tertinggi | Development time tinggi | Roadmap production |
+
+---
+
+## 9. Roadmap — NSGA-III untuk Many-Objective
+
+### 9.1 Kapan Upgrade
+
+Upgrade ke NSGA-III jika **salah satu** kondisi terpenuhi:
+
+- [ ] Tim business ingin tambah objective ke-4 (e.g., driver fairness, customer satisfaction score)
+- [ ] Hypervolume tidak improve meski populasi dinaikkan ke 500+
+- [ ] Pareto front terlalu padat (terlalu banyak solusi non-dominated) → seleksi tidak efektif
+
+### 9.2 Perbedaan NSGA-II vs NSGA-III
+
+| Aspek | NSGA-II | NSGA-III |
+|---|---|---|
+| Seleksi | Crowding distance (Euclidean di objective space) | Reference point-based |
+| Cocok untuk | 2-3 objective | 4+ objective (many-objective) |
+| Kompleksitas | O(MN²) | O(MN²) tapi dengan reference points |
+| Implementasi | DEAP support native | DEAP support, pymoo lebih baik |
+
+### 9.3 Migration Plan
+
+1. Replicate hasil NSGA-II di NSGA-III dengan 3 objective → harus konvergen ke solusi serupa (sanity check)
+2. Tambah objective ke-4 (driver fairness) → bandingkan hypervolume
+3. Decision: jika improvement > 5%, switch ke NSGA-III
+
+---
+
+## 10. Risiko & Mitigasi
+
+| Risiko | Severity | Mitigasi |
+|---|---|---|
+| GA tidak konvergen di instance besar (>100 customer) | Tinggi | Time-boxed execution + warm-start; dokumentasikan batas skala |
+| Solusi infeasible (constraint violation) lolos | Tinggi | Repair operator + penalty kuadratik + post-check di decoder |
+| Pareto front terlalu kecil (kurang diversitas) | Sedang | Hybrid inisialisasi + mutation 2-opt + crowding distance preservation |
+| Warm-start cache stale (request mirip tapi kondisi traffic beda) | Sedang | Cache invalidate pada traffic_index delta > 20% |
+| Profiling menunjukkan bottleneck di decoder | Sedang | Vectorize dengan NumPy; precompute distance matrix; profile dengan cProfile |
+| Demo gagal karena latency melebihi 3 detik | Tinggi | Hard time-budget 2.5s + fallback ke cached solution jika timeout |
+
+---
+
+## 11. Acceptance Criteria (untuk demo kompetisi)
+
+- [ ] Validasi di Solomon R1_25 dengan gap < 5% ke best-known
+- [ ] Hypervolume ≥ 0.80 di skenario sintetis Indonesia
+- [ ] Reduction ≥ 15% vs baseline di ketiga skenario (urban/intercity/mixed) — bukan satu skenario cherry-picked
+- [ ] Latency P95 end-to-end M4 < 2.5 detik (time-boxed)
+- [ ] Warm-start aktif dan terukur improve konvergensi
+- [ ] Convergence plot ditampilkan di laporan
+- [ ] Tiga objective (bukan 4) — konsolidasi fuel+CO₂ jelas didokumentasikan
+- [ ] Narasi "kapan upgrade ke NSGA-III" ada di roadmap §9
+- [ ] Integrasi dengan M1 (ETA sebagai input objective f2) terverifikasi
+- [ ] Integrasi dengan M3 (carbon sebagai input objective f3) terverifikasi
+
+---
+
+**Referensi internal:** M1 (ETA prediction untuk risk score objective), M3 (carbon calculation untuk environmental objective), M6 (Decision Agent memilih dari Pareto front), Dashboard (hypervolume + Pareto visualization).
+</file>
+
+<file path="M5_Explainability_SHAP.md">
+# M5 — Explainability Layer (SHAP)
+
+> **Model ID:** M5
+> **Jenis:** Post-hoc interpretability di atas M1 (dan opsional M2)
+> **Prioritas:** P2
+> **Owner ML:** SLAra AI — Agent Engineer
+> **Status desain:** Final — on-demand TreeExplainer, lazy evaluation
+
+---
+
+## 1. Ringkasan Eksekutif
+
+M5 bukan model terpisah, melainkan **lapisan interpretability post-hoc** yang dipasang di atas M1 (ETA Prediction) — dan opsional M2 (Hub Congestion). M5 menggunakan **SHAP (SHapley Additive exPlanations)** untuk mengkuantifikasi kontribusi setiap fitur terhadap prediksi individual. Tanpa M5, M1 adalah black-box: operator Blibli tidak tahu **mengapa** suatu shipment di-flag CRITICAL. Dengan M5, operator dapat melihat: "ETA telat karena congestion_index +0.31, weather_severity +0.18, traffic_index +0.12" — dan mengambil tindakan spesifik.
+
+Muncul di dashboard kalian (Figure 3, "SHAP Feature Importance") — desain eksplisit M5 diperlukan karena tanpa spesifikasi, ini bisa menjadi angka karangan saat demo. M5 memastikan SHAP values dihitung dari library standar (`shap` package), pada shipment yang tepat (hanya WARNING/CRITICAL), dengan performance budget yang dapat dipertahankan.
+
+---
+
+## 2. Pilihan Algoritma — TreeExplainer
+
+### 2.1 Mengapa TreeExplainer (Bukan KernelExplainer)
+
+| Explainer | Kompatibilitas | Speed | Pilihan |
+|---|---|---|---|
+| **TreeExplainer** | XGBoost, LightGBM, RandomForest, sklearn tree-based | Sangat cepat (exact Shapley untuk tree) | ✅ Pilihan M5 |
+| KernelExplainer | Model-agnostic (neural net, sklearn non-tree) | Lambat (sampling-based) | ❌ Tidak dipakai |
+| DeepExplainer | TensorFlow / PyTorch NN | Cepat untuk NN | ❌ Tidak dipakai (M1 bukan NN) |
+| GradientExplainer | NN dengan gradient access | Cepat untuk NN | ❌ Tidak dipakai |
+
+**TreeExplainer** dipilih karena M1 (XGBoost) dan M2 (LightGBM) sama-sama tree-based — native support, exact computation (bukan approximation), kompleksitas polinomial bukan eksponensial.
+
+### 2.2 Implementasi Reference
+
+```python
+import shap
+
+# Load model M1 (XGBoost)
+model_m1 = joblib.load("m1_eta_v1.joblib")
+
+# Buat explainer (di-load sekali saat service start, bukan per-request)
+explainer_m1 = shap.TreeExplainer(model_m1)
+
+# Saat shipment di-flag WARNING/CRITICAL
+def explain_prediction(features_df):
+    shap_values = explainer_m1.shap_values(features_df)  # shape: (1, n_features)
+    return shap_values
+```
+
+TreeExplainer di-load sekali di service start (~2 detik warmup). Setelah itu, per-call ~10-50ms untuk satu shipment.
+
+### 2.3 Output Schema
+
+```json
+{
+  "shipment_id": "SHP-2026-000123",
+  "predicted_eta_minutes": 145.2,
+  "risk_tier": "WARNING",
+  "shap_explanation": {
+    "base_value": 78.5,
+    "prediction": 145.2,
+    "top_features": [
+      {"feature": "congestion_index", "value": 0.82, "shap_value": +0.31, "direction": "increases ETA"},
+      {"feature": "weather_severity_score", "value": 3, "shap_value": +0.18, "direction": "increases ETA"},
+      {"feature": "traffic_index", "value": 0.75, "shap_value": +0.12, "direction": "increases ETA"},
+      {"feature": "actual_route_distance_km", "value": 38.5, "shap_value": +0.08, "direction": "increases ETA"},
+      {"feature": "hour_of_day_cos", "value": -0.5, "shap_value": -0.04, "direction": "decreases ETA"}
+    ],
+    "model_version": "m1_v1",
+    "explainer_version": "shap_v0.44"
+  }
+}
+```
+
+`base_value` adalah nilai prediksi rata-rata dataset training (E[f(x)]), dan jumlah `base_value + Σ shap_values = prediction` — ini properti fundamental SHAP yang harus diverifikasi setiap kali M5 dipanggil.
+
+---
+
+## 3. Kapan M5 Dipanggil — On-Demand Only
+
+### 3.1 Prinsip Lazy Evaluation
+
+SHAP values **TIDAK** dihitung untuk semua shipment. Alasan:
+
+| Skenario | Compute SHAP? | Alasan |
+|---|---|---|
+| Shipment SAFE | ❌ Tidak | Tidak ada keputusan operator yang harus diambil |
+| Shipment WARNING | ✅ Ya, on-demand | Operator butuh konteks untuk monitor |
+| Shipment CRITICAL | ✅ Ya, on-demand + push notification | Operator butuh konteks untuk intervensi |
+| Batch monitoring (semua shipment) | ❌ Tidak | Terlalu mahal komputasi; pakai global feature importance saja |
+
+Sesuai desain dashboard kalian: "deep analyze only for affected trucks" — prinsip ini benar dan dipertahankan.
+
+### 3.2 Trigger Points
+
+M5 dipanggil ketika:
+
+1. **M1 mengembalikan risk_tier WARNING/CRITICAL** — M1 memanggil M5 secara internal, lalu menyertakan `shap_explanation` di response
+2. **Dashboard operator click "Explain" pada shipment tertentu** — explicit user-triggered, bahkan untuk shipment SAFE (untuk debugging)
+3. **Batch analysis terjadwal** (mingguan) — untuk top-100 shipment paling sering CRITICAL, compute SHAP untuk analisis root cause aggregate
+
+### 3.3 Cost Justification
+
+| Operasi | Cost per call | Budget |
+|---|---|---|
+| TreeExplainer single-instance | 10-50ms | Bisa sinkron di request M1 |
+| KernelExplainer single-instance (alternatif) | 1-5 detik | Terlalu lambat untuk sinkron |
+| TreeExplainer batch 1000 instance | 1-3 detik | Background job only |
+
+Karena TreeExplainer cepat, M5 dapat dipanggil sinkron di request M1 untuk shipment WARNING/CRITICAL tanpa melanggar latency budget M1 (<50ms). Untuk batch analysis, jalankan di background worker.
+
+---
+
+## 4. Output Format — Top-5 Feature Contribution
+
+### 4.1 Mengapa Top-5
+
+Mockup dashboard kalian ("congestion_index +0.31, weather_severity +0.18, traffic_index +0.12") menunjukkan 3 fitur. Saya rekomendasikan **top-5** untuk fleksibilitas:
+
+- Top-3 terlalu sedikit — bisa miss fitur penting yang kalah tipis
+- Top-10 terlalu banyak — kognitif overload untuk operator
+- Top-5 sweet spot — operator dapat lihat pola tanpa overwhelm
+
+### 4.2 Urutan Tampilan
+
+```
+Top-5 SHAP Contribution untuk shipment SHP-2026-000123 (WARNING):
+
+  🔴 congestion_index          +0.31  →  ETA +31 menit
+  🟠 weather_severity_score    +0.18  →  ETA +18 menit
+  🟡 traffic_index             +0.12  →  ETA +12 menit
+  🟢 actual_route_distance_km  +0.08  →  ETA +8 menit
+  🔵 hour_of_day_cos           -0.04  →  ETA -4 menit
+  ─────────────────────────────────
+  Base value: 78 menit (rata-rata historis)
+  Final prediction: 145 menit (WARNING)
+```
+
+Konversi shap_value ke "menit" dilakukan dengan mengalikan shap_value dengan range output (karena SHAP untuk regressor dalam unit target variable). Ini membuat angka langsung dapat dipahami operator.
+
+### 4.3 Visualisasi Tambahan — Force Plot
+
+Untuk dashboard drill-down (operator click "Details"), tampilkan SHAP force plot:
+
+```
+Base value 78 ──[+31 congestion]──[+18 weather]──[+12 traffic]──[+8 distance]──[−4 hour]──> 145 ETA
+```
+
+Force plot memberikan visual yang lebih intuitif daripada tabel untuk operator non-teknis. Library `shap` punya implementasi siap pakai: `shap.force_plot(explainer.expected_value, shap_values, features)`.
+
+---
+
+## 5. Integrasi dengan M1
+
+### 5.1 Flow M1 + M5
+
+```
+Shipment request masuk → M1.predict_eta(features)
+  → risk_tier = apply_threshold(eta, deadline)
+  → if risk_tier in [WARNING, CRITICAL]:
+      shap_values = M5.explain(features)   # internal call, sinkron
+      return ETA + risk_tier + shap_explanation
+  → else:
+      return ETA + risk_tier (tanpa shap)
+```
+
+### 5.2 Performance Impact di M1
+
+| Komponen | Latency tanpa M5 | Latency dengan M5 (WARNING/CRITICAL) |
+|---|---|---|
+| Feature retrieval | ~30ms | ~30ms |
+| M1 inference | ~5ms | ~5ms |
+| Threshold rule | <1ms | <1ms |
+| M5 SHAP compute | — | +10-50ms |
+| **Total** | **~35ms** | **~45-85ms** |
+
+Untuk shipment SAFE, latency tetap ~35ms (M5 skip). Untuk WARNING/CRITICAL, latency naik menjadi ~45-85ms — masih dalam budget M1 <50ms untuk WARNING, sedikit over untuk CRITICAL (acceptable karena CRITICAL jarang terjadi dan operator OK dengan latency sedikit lebih tinggi untuk konteks tambahan).
+
+### 5.3 Caching SHAP Results
+
+```
+Cache key: m5:shap:{shipment_id}:{model_version}
+TTL: 1 jam (sampai fitur shipment berubah signifikan)
+Invalidate: shipment status change OR new M1 prediction
+```
+
+Untuk shipment yang sama di-query berulang oleh dashboard, cache hit → <5ms.
+
+---
+
+## 6. Integrasi dengan M2 (Opsional)
+
+### 6.1 SHAP untuk Dwell Time Prediction
+
+M5 dapat juga menjelaskan prediksi M2 (dwell time per hub). Karena M2 juga LightGBM (tree-based), TreeExplainer dapat dipakai dengan pola yang sama.
+
+### 6.2 Output Schema M2-SHAP
+
+```json
+{
+  "hub_id": "HUB-CGK-01",
+  "predicted_dwell_p50": 38.5,
+  "predicted_dwell_p90": 52.0,
+  "shap_explanation_p50": {
+    "top_features": [
+      {"feature": "queue_length_current", "value": 14, "shap_value": +8.2},
+      {"feature": "dock_utilization_pct", "value": 0.92, "shap_value": +5.1},
+      {"feature": "is_peak_hour", "value": 1, "shap_value": +3.4},
+      {"feature": "weather_severity_score", "value": 2, "shap_value": +1.8},
+      {"feature": "dwell_lag_1h", "value": 32, "shap_value": +1.2}
+    ]
+  }
+}
+```
+
+### 6.3 Kapan M5-M2 Dipanggil
+
+Sama dengan M1 — on-demand only:
+- Saat dwell P90 > threshold (e.g., > 60 menit) → SHAP untuk membantu operator diagnosa penyebab kemacetan
+- Saat operator click "Explain" di hub monitoring dashboard
+
+---
+
+## 7. Performance Budget
+
+### 7.1 Latency Budget M5
+
+| Operasi | Target | Catatan |
+|---|---|---|
+| Single-instance TreeExplainer (M1) | <50ms | Sinkron di request M1 untuk WARNING/CRITICAL |
+| Single-instance TreeExplainer (M2) | <50ms | On-demand, async |
+| Batch 1000 instances | <5 detik | Background job, untuk analisis mingguan |
+| Force plot render di dashboard | <200ms | Client-side, library shap.js |
+
+### 7.2 Memory Budget
+
+TreeExplainer menyimpan tree structure di memory. Untuk M1 dengan 800 pohon:
+- Memory footprint: ~50-100MB per explainer instance
+- M1 + M2 = ~200MB total
+- Acceptable untuk server dengan 4GB+ RAM
+
+### 7.3 CPU Budget
+
+SHAP computation TreeExplainer adalah CPU-bound. Untuk mencegah blocking di request handler:
+- M1 SHAP compute: sinkron (cepat, <50ms)
+- M2 SHAP compute: async via thread pool (tidak block M1)
+- Batch SHAP: background worker dengan Celery/RQ
+
+---
+
+## 8. Validasi & Trust
+
+### 8.1 Additivity Check
+
+Properti fundamental SHAP: `base_value + Σ shap_values = prediction`. Setiap M5 deployment harus melewati additivity check:
+
+```python
+def validate_additivity(explainer, features_df, model):
+    shap_values = explainer.shap_values(features_df)
+    base_value = explainer.expected_value
+    pred_from_shap = base_value + shap_values.sum(axis=1)
+    pred_from_model = model.predict(features_df)
+    assert np.allclose(pred_from_shap, pred_from_model, atol=1e-4)
+```
+
+Jika gagal, ada bug di explainer atau model — jangan deploy M5.
+
+### 8.2 Sanity Check di Sample
+
+Manual verify top-5 feature di 10 shipment sampel:
+- Apakah kontribusi masuk akal bisnis? (e.g., congestion_index tinggi → +shap_value positif)
+- Apakah ada fitur dengan shap_value konstan tinggi? (pertanda fitur tidak variatif, bisa di-drop)
+- Apakah ada interaksi tak terduga? (analisis dengan shap.interaction_values untuk subset)
+
+### 8.3 Auditability untuk Juri
+
+M5 output dapat ditelusuri:
+- `model_version` M1 → tree structure yang dapat di-load
+- `explainer_version` shap → versi library yang dapat direproduce
+- `base_value` → rata-rata prediksi di training set (dapat diverifikasi)
+
+Ini memenuhi prinsip "auditability" yang kalian klaim di proposal — tidak ada angka yang tidak dapat ditelusuri.
+
+---
+
+## 9. Risiko & Mitigasi
+
+| Risiko | Severity | Mitigasi |
+|---|---|---|
+| SHAP computation memperlambat M1 untuk shipment WARNING/CRITICAL | Sedang | TreeExplainer cepat (<50ms); untuk batch, pakai background worker |
+| SHAP values salah interpretasi oleh operator | Tinggi | Visualisasi jelas (force plot) + dokumentasi "cara baca SHAP" di dashboard help |
+| Feature importance global vs lokal berbeda → operator bingung | Sedang | Selalu label "local explanation for this shipment" di UI |
+| TreeExplainer memory bengkak dengan model besar | Sedang | Load explainer sekali di service start, share across request |
+| shap library update breaking change | Sedang | Pin versi shap di requirements.txt (`shap==0.44.x`); test additivity di CI |
+| Operator kelewat informasi karena top-5 cutoff | Sedang | Sediakan "show all features" toggle untuk user power |
+
+---
+
+## 10. Roadmap (post-MVP)
+
+| Fase | Upgrade |
+|---|---|
+| Production 3 bulan | SHAP interaction values untuk analisis pairwise feature interaction |
+| Production 6 bulan | Counterfactual explanations: "apa yang harus diubah agar shipment tidak CRITICAL?" (e.g., "kalau departure di-delay 30 menit, risk turun ke WARNING") |
+| Production 12 bulan | Natural language explanation via LLM: konversi SHAP top-5 ke kalimat ("Shipment ini diperkirakan telat karena kemacetan tinggi di rute + cuaca buruk + jam sibuk") |
+| Production 18 bulan | Per-feature what-if analysis di dashboard (slider congestion_index → lihat prediksi ETA update real-time) |
+
+---
+
+## 11. Acceptance Criteria (untuk demo kompetisi)
+
+- [ ] TreeExplainer (bukan KernelExplainer) digunakan untuk M1 dan M2
+- [ ] SHAP hanya dihitung untuk shipment WARNING/CRITICAL (lazy evaluation terverifikasi)
+- [ ] Output top-5 feature contribution ditampilkan di dashboard sesuai schema §2.3
+- [ ] Additivity check lulus di CI (base_value + Σ shap = prediction)
+- [ ] Latency M1 + M5 sinkron untuk WARNING/CRITICAL tetap <100ms
+- [ ] Force plot render di dashboard drill-down
+- [ ] Caching SHAP results aktif (Redis)
+- [ ] Model version + explainer version dilog untuk reproducibility
+- [ ] Dokumentasi "cara baca SHAP" tersedia di dashboard help
+
+---
+
+**Referensi internal:** M1 (consumer — SHAP di atas M1), M2 (opsional consumer), Dashboard (force plot + top-5 list), M6 (SHAP explanation dapat dilampirkan ke human-in-the-loop escalation message).
+</file>
+
+<file path="M6_MultiAgent_Orchestration.md">
+# M6 — Multi-Agent Orchestration & Confidence Aggregation
+
+> **Model ID:** M6
+> **Jenis:** LangGraph orchestration + rule-based confidence scoring (BUKAN ML training)
+> **Prioritas:** P1
+> **Owner:** SLAra AI — Agent Engineer + BA (kalibrasi bobot confidence)
+> **Status desain:** Final — formula confidence aggregation eksplisit, human-in-the-loop gate terdefinisi
+
+---
+
+## 1. Ringkasan Eksekutif
+
+M6 adalah **otak orkestrasi** SLAra — bukan model ML, tapi sistem yang mengkoordinasikan M1–M5 menjadi pipeline end-to-end yang dapat dijelaskan. M6 menggunakan **LangGraph** untuk mengelola state graph 6 agent (Traffic, Delay/ETA, Carbon, Hub Risk, Route Optimizer, Decision) dengan conditional edge berbasis confidence.
+
+Tugas inti M6 adalah menghasilkan **Aggregate Decision Confidence** — angka tunggal (0–1) yang mewakili seberapa yakin sistem terhadap keputusan akhirnya. Angka ini muncul di dashboard kalian ("Aggregate Decision Confidence 86%") dan **tidak boleh** menjadi angka yang di-hardcode manual saat demo. M6 mendefinisikan formula eksplisit untuk angka ini, dengan bobot yang dikalibrasi dan didokumentasikan sebagai asumsi bisnis — bukan black-box.
+
+Output M6 adalah keputusan actionable: **auto-execute** (confidence tinggi) atau **escalate to human** (confidence rendah), dengan threshold yang sudah kalian tentukan di mockup (70% threshold).
+
+---
+
+## 2. Arsitektur LangGraph
+
+### 2.1 Node Design — 6 Agent
+
+```
+┌─────────┐   ┌─────────┐   ┌─────────┐
+│ Traffic │   │  ETA    │   │ Carbon  │
+│ Agent   │   │  Agent  │   │ Agent   │
+│ (M1-feat)│   │  (M1)   │   │  (M3)   │
+└────┬────┘   └────┬────┘   └────┬────┘
+     │              │              │
+     └──────────────┼──────────────┘
+                    ↓
+            ┌──────────────┐
+            │  Hub Risk    │
+            │  Agent (M2)  │
+            └──────┬───────┘
+                   ↓
+            ┌──────────────┐
+            │ Route Opt    │
+            │ Agent (M4)   │
+            └──────┬───────┘
+                   ↓
+            ┌──────────────┐
+            │ Decision     │
+            │ Agent (M6-core)│
+            └──────┬───────┘
+                   ↓
+        ┌──────────┴──────────┐
+        ↓                     ↓
+   auto-execute         escalate-to-human
+   (conf ≥ 0.70)         (conf < 0.70)
+```
+
+### 2.2 Detail per Node
+
+| Node | Model | Input | Output | Confidence component |
+|---|---|---|---|---|
+| Traffic Agent | Rule-based aggregator (HERE/Google/BMKG cache) | Origin, destination, timestamp | `traffic_index`, `weather_severity` | `w_traffic` × data_freshness |
+| ETA Agent | M1 (XGBoost) | Features from Traffic + Hub + shipment | `eta_pred`, `risk_tier` | `w1` × model_confidence(M1) |
+| Carbon Agent | M3 (rule-based) | Route, vehicle, load | `co2_kg`, `tce_breakdown` | `w_carbon` × audit_validity_score |
+| Hub Risk Agent | M2 (LightGBM quantile) | Hub state, queue, time | `dwell_p50`, `dwell_p90` | `w2` × model_confidence(M2) |
+| Route Opt Agent | M4 (NSGA-II) | All shipments, fleet | `pareto_front`, `selected_route` | `w3` × constraint_satisfaction(M4) |
+| Decision Agent | Formula aggregation | All agent outputs | `decision`, `confidence_aggregate` | — (this node COMPUTES confidence, tidak punya confidence sendiri) |
+
+### 2.3 Edge — Conditional Flow
+
+```python
+# LangGraph conditional edges
+graph.add_conditional_edges(
+    "decision_agent",
+    lambda state: "auto_execute" if state.confidence >= 0.70 else "escalate_human",
+    {
+        "auto_execute": "execute_node",
+        "escalate_human": "human_review_node",
+    }
+)
+```
+
+Edge lainnya adalah sequential (Traffic → ETA → Hub → Route → Decision), tapi beberapa dapat di-parallel:
+- Traffic + Hub Risk dapat jalan paralel (tidak ada dependency)
+- Carbon menunggu output Route (perlu distance & vehicle assignment)
+
+### 2.4 State Schema
+
+```python
+from typing import TypedDict, List
+
+class SLAraState(TypedDict):
+    shipment_id: str
+    shipment_features: dict
+    traffic_index: float
+    weather_severity: int
+    eta_pred: float
+    risk_tier: str
+    dwell_p50: float
+    dwell_p90: float
+    co2_kg: float
+    co2_tce_breakdown: List[dict]
+    pareto_front: List[dict]
+    selected_route: dict
+    confidence_aggregate: float
+    confidence_breakdown: dict
+    decision: str  # "auto_execute" | "escalate_human"
+    shap_explanation: dict  # from M5 jika WARNING/CRITICAL
+    audit_trail_id: str
+```
+
+LangGraph mengelola state ini via checkpointing — setiap transisi node disimpan, sehingga pipeline dapat di-resume dari node terakhir sukses jika ada failure.
+
+---
+
+## 3. Confidence Aggregation Formula
+
+### 3.1 Formula Utama
+
+```
+confidence_aggregate = w1 × model_confidence(M1)
+                     + w2 × model_confidence(M2)
+                     + w3 × constraint_satisfaction(M4)
+                     + w_traffic × data_freshness(Traffic)
+                     + w_carbon × audit_validity(Carbon)
+```
+
+Dimana bobot dinormalisasi: `Σ w_i = 1.0`.
+
+### 3.2 Default Bobot (Kalibrasi Awal)
+
+| Komponen | Bobot | Justifikasi |
+|---|---|---|
+| `w1` (M1 ETA) | 0.40 | Model inti, paling berpengaruh ke decision |
+| `w2` (M2 Hub) | 0.15 | Penting tapi upstream dari M1 — dobel count jika bobot tinggi |
+| `w3` (M4 Route) | 0.25 | Constraint satisfaction penting untuk feasibility |
+| `w_traffic` (Traffic data) | 0.10 | Data freshness, bukan model — bobot lebih rendah |
+| `w_carbon` (Carbon audit) | 0.10 | Rule-based, confidence tinggi by design |
+
+**Catatan:** bobot di atas adalah **starting point**, bukan angka final. Kalibrasi awal dipimpin BA tim (Orwin) berdasarkan business judgment — lihat §4.
+
+### 3.3 Definisi `model_confidence` per Komponen
+
+#### 3.3.1 `model_confidence(M1)` — dari prediction interval
+
+Karena M1 adalah regressor (bukan classifier dengan probabilitas), confidence didekati dari **prediction interval width**:
+
+```
+model_confidence(M1) = 1 - min(1, interval_width / (2 × expected_eta))
+```
+
+Dimana `interval_width` didapat dari:
+- Quantile regression M1 (jika pakai LightGBM quantile di M1) — P90 − P50
+- Atau: conformal prediction wrapper di atas M1 (lebih robust, tambahan komputasi minimal)
+
+Implementasi sederhana: jika M1 punya prediksi P50=120, P90=145 → interval_width=25 → expected_eta=120 → `1 - min(1, 25/240)` = 1 - 0.104 = 0.896.
+
+#### 3.3.2 `model_confidence(M2)` — dari quantile coverage historis
+
+```
+model_confidence(M2) = 1 - |coverage_P90_historical - 0.90|
+```
+
+Jika coverage P90 historis (7 hari rolling) = 0.88 → `1 - |0.88 - 0.90|` = 0.98. Jika coverage = 0.75 (under-predicting) → `1 - 0.15` = 0.85.
+
+#### 3.3.3 `constraint_satisfaction(M4)` — dari feasibility Pareto front
+
+```
+constraint_satisfaction(M4) = n_feasible_solutions / n_total_solutions_in_pareto
+```
+
+Jika Pareto front punya 10 solusi, 9 di antaranya feasible (constraint terpenuhi) → 0.90. Jika hanya 5 feasible → 0.50 (sinyal kuat untuk escalate).
+
+#### 3.3.4 `data_freshness(Traffic)`
+
+```
+data_freshness(Traffic) = max(0, 1 - (age_minutes / max_age_minutes))
+```
+
+- `max_age_minutes = 30` (BMKG cache 3-harian, HERE 15-menit — ambil yang lebih ketat untuk safety)
+- Jika cache age 5 menit → freshness = 1 - 5/30 = 0.83
+- Jika cache age 60 menit (stale) → freshness = max(0, 1 - 60/30) = 0
+
+#### 3.3.5 `audit_validity(Carbon)`
+
+```
+audit_validity(Carbon) = 1.0 - deviation_from_reference
+```
+
+Jika audit trail M3 menunjukkan deviation 5% dari EPA/DEFRA → `1 - 0.05` = 0.95. Default 1.0 jika tidak ada audit terbaru.
+
+### 3.4 Contoh Perhitungan End-to-End
+
+```
+Skenario:
+- M1: P50=120, P90=145 → interval_width=25, expected=120
+       model_confidence(M1) = 1 - min(1, 25/240) = 0.896
+- M2: coverage P90 historis 0.88
+       model_confidence(M2) = 1 - |0.88-0.90| = 0.98
+- M4: Pareto front 10 solusi, 8 feasible
+       constraint_satisfaction(M4) = 0.80
+- Traffic: cache age 8 menit
+       data_freshness = 1 - 8/30 = 0.73
+- Carbon: audit deviation 4%
+       audit_validity = 0.96
+
+confidence_aggregate = 0.40 × 0.896
+                     + 0.15 × 0.98
+                     + 0.25 × 0.80
+                     + 0.10 × 0.73
+                     + 0.10 × 0.96
+                     = 0.358 + 0.147 + 0.200 + 0.073 + 0.096
+                     = 0.874 → 87.4%
+
+Decision: 87.4% ≥ 70% → auto-execute
+```
+
+Angka ini dapat dilacak ke komponen-komponennya — tidak ada black-box.
+
+---
+
+## 4. Kalibrasi Bobot Confidence
+
+### 4.1 Pendekatan — Manual dengan Business Judgment
+
+Bobot `w1, w2, w3, w_traffic, w_carbon` **tidak** dioptimasi via ML (data tidak cukup untuk tuning data-driven di MVP). Sebagai gantinya, kalibrasi manual dipimpin BA (Orwin) berdasarkan:
+
+1. **Domain expertise** — mana komponen yang paling kritikal untuk keputusan Blibli?
+2. **Historical incident review** — kalau ada data logistik sebelumnya, komponen mana yang paling sering jadi root cause delay?
+3. **Stakeholder interview** — apa yang paling dikhawatirkan operations manager?
+
+### 4.2 Dokumentasi Asumsi
+
+Setiap bobot harus didokumentasikan di `m6_confidence_config.yaml`:
+
+```yaml
+confidence_weights:
+  w1_eta: 0.40
+  w2_hub: 0.15
+  w3_route: 0.25
+  w_traffic: 0.10
+  w_carbon: 0.10
+
+assumptions:
+  - "ETA adalah model inti → bobot tertinggi (0.40)"
+  - "Hub adalah upstream ETA, dobel count jika bobot tinggi → 0.15"
+  - "Route opt feasibility krusial untuk eksekusi → 0.25"
+  - "Traffic & Carbon adalah support, bobot lebih rendah → 0.10 masing-masing"
+
+calibration_method: "Manual judgment by BA (Orwin) + Agent Engineer, 2026-07-09"
+last_calibrated: "2026-07-09"
+```
+
+File ini **dilampirkan di laporan teknis** — juri dapat melihat asumsi dan menanyakan alasannya. Lebih credible daripada angka tanpa justifikasi.
+
+### 4.3 Sensitivity Analysis (Wajib)
+
+Setelah kalibrasi, jalankan sensitivity analysis:
+- Variasikan bobot ±10% dari nilai default
+- Catat perubahan confidence_aggregate di 100 shipment sampel
+- Jika >5% shipment berganti decision (auto→escalate atau sebaliknya) → bobot perlu re-kalibrasi
+
+Sensitivity analysis dilampirkan di laporan sebagai bukti robustness.
+
+### 4.4 Roadmap — Bayesian Weight Learning
+
+Di production (12+ bulan), bobot dapat dioptimasi via Bayesian approach:
+- Prior: distribusi bobot di sekitar nilai manual
+- Likelihood: kalibrasi terhadap outcome (shipment yang sebelumnya di-escalate ternyata OK → naikkan threshold; shipment yang di-auto ternyata gagal → turunkan threshold)
+- Posterior: bobot updated
+
+Tidak untuk MVP — butuh data outcome historis yang tidak ada di fase kompetisi.
+
+---
+
+## 5. Human-in-the-Loop Escalation
+
+### 5.1 Threshold
+
+Sesuai mockup dashboard kalian: **confidence < 0.70 → escalate to human**.
+
+```
+if confidence_aggregate >= 0.70:
+    decision = "auto_execute"
+    # eksekusi reroute, push notification ke driver, dll.
+else:
+    decision = "escalate_human"
+    # kirim ke dashboard human review dengan konteks lengkap
+```
+
+### 5.2 Escalation Message Schema
+
+Saat escalate, M6 menyusun message untuk human reviewer:
+
+```json
+{
+  "escalation_id": "ESC-2026-000456",
+  "shipment_id": "SHP-2026-000123",
+  "timestamp": "2026-07-09T08:30:00+07:00",
+  "confidence_aggregate": 0.64,
+  "confidence_breakdown": {
+    "w1_eta": 0.40,
+    "model_confidence_m1": 0.45,
+    "w2_hub": 0.15,
+    "model_confidence_m2": 0.60,
+    "w3_route": 0.25,
+    "constraint_satisfaction_m4": 0.50,
+    "w_traffic": 0.10,
+    "data_freshness": 0.80,
+    "w_carbon": 0.10,
+    "audit_validity": 0.95
+  },
+  "primary_uncertainty_driver": "model_confidence_m1 (0.45) — interval P50-P90 terlalu lebar",
+  "recommendation": "ETA terlalu tidak pasti untuk auto-execute. Review manual disarankan: cek kondisi traffic real-time di rute ini, konfirmasi dengan driver jika perlu.",
+  "shap_explanation": {
+    "...": "top-5 SHAP dari M5 (jika WARNING/CRITICAL)"
+  },
+  "audit_trail_id": "AT-2026-001",
+  "actions_available": [
+    "approve_auto_execute",
+    "modify_route_manual",
+    "delay_shipment",
+    "reject_decision"
+  ]
+}
+```
+
+Field `primary_uncertainty_driver` adalah **elemen kunci UX** — operator langsung tahu komponen mana yang menyebabkan confidence rendah, jadi tahu area apa yang perlu di-verify manual.
+
+### 5.3 Operator Decision Loop
+
+```
+Escalation message masuk ke dashboard operator
+  → Operator review konteks (SHAP, audit trail, confidence breakdown)
+  → Operator pilih action:
+      approve_auto_execute → sistem eksekusi rekomendasi M4
+      modify_route_manual  → operator override rute, sistem eksekusi
+      delay_shipment       → sistem update deadline, re-run M1
+      reject_decision      → shipment di-flag untuk follow-up, tidak dieksekusi
+  → Operator decision dilog sebagai feedback untuk kalibrasi bobot (§4.4)
+```
+
+### 5.4 Alert Fatigue Mitigation
+
+Jika escalation terlalu sering (>30% shipment), operator akan lelah dan mengabaikan alert. Mitigasi:
+- Monitor escalation rate per hari (alert ke tim ML jika >30%)
+- Jika escalation rate tinggi persisten, threshold 0.70 mungkin perlu diturunkan ke 0.65 — tapi dokumentasikan perubahan dengan alasan
+- Sediakan "quick approve" button untuk escalation yang berulang pola sama (operator approve dengan 1 klik)
+
+---
+
+## 6. Latency Budget
+
+### 6.1 Budget End-to-End (untuk P95 < 3s dashboard)
+
+| Tahap | Target Latency | Catatan |
+|---|---|---|
+| Feature retrieval (cache BMKG, traffic, queue state) | <50ms | Jangan sinkron call API eksternal per-request |
+| M1 (ETA inference) | <50ms | Tree-based, harus sangat cepat |
+| M2 (Hub congestion inference) | <30ms | Tree-based quantile |
+| M3 (Carbon calculation) | <5ms | Formula matematis sederhana |
+| M4 (NSGA-II, time-boxed) | ~2000-2500ms | Komponen paling berat, dominasi budget |
+| Orchestration overhead (LangGraph) | <100ms | Checkpointing & routing logic |
+| **Total** | **~2.2-2.7s** | Menyisakan margin untuk P95 <3s |
+
+### 6.2 LangGraph Overhead
+
+LangGraph checkpointing menambah overhead ~50-100ms per pipeline run. Mitigasi:
+- Checkpoint hanya di node kritis (ETA, Route Opt, Decision) — bukan setiap edge
+- Gunakan in-memory checkpointer untuk MVP (SQLite untuk production)
+- Async execution antar node yang tidak punya dependency
+
+### 6.3 Parallel Execution
+
+Beberapa node dapat di-parallel:
+- Traffic Agent + Hub Risk Agent (no inter-dependency)
+- Carbon Agent dapat dimulai setelah Route Agent punya distance (tidak perlu full Pareto)
+
+Parallelisasi dapat menghemat ~200-300ms dari budget.
+
+---
+
+## 7. Monitoring & Observability
+
+### 7.1 Per-Node Metrics
+
+| Metric | Target | Alert threshold |
+|---|---|---|
+| Traffic Agent latency | <50ms P95 | >200ms |
+| ETA Agent latency | <50ms P95 | >100ms |
+| Hub Risk Agent latency | <30ms P95 | >100ms |
+| Carbon Agent latency | <5ms P95 | >50ms |
+| Route Opt Agent latency | <2500ms P95 | >3000ms |
+| Decision Agent latency | <100ms P95 | >500ms |
+| Total pipeline latency | <3000ms P95 | >5000ms |
+
+### 7.2 Confidence Distribution Monitoring
+
+Monitor distribusi `confidence_aggregate` harian:
+- Median seharusnya stabil di 0.80-0.90
+- P10 seharusnya tidak di bawah 0.50 (jika ya, ada komponen yang degradasi)
+- Escalation rate (confidence <0.70) seharusnya 5-20%
+  - <5%: threshold mungkin terlalu rendah
+  - >30%: alert fatigue risk
+
+### 7.3 Audit Trail
+
+Setiap pipeline run menghasilkan audit trail:
+- Input state per node
+- Output state per node
+- Latency per node
+- Decision akhir + confidence
+- SHAP explanation (jika WARNING/CRITICAL)
+
+Disimpan di database time-series (InfluxDB) untuk retrospective analysis. Juri dapat menanyakan "mengapa shipment X di-escalate?" → tim dapat query audit trail dan tunjukkan confidence breakdown + SHAP.
+
+---
+
+## 8. Risiko & Mitigasi
+
+| Risiko | Severity | Mitigasi |
+|---|---|---|
+| Bobot confidence tidak terkalibrasi → false escalation/execution | Tinggi | Kalibrasi manual BA + sensitivity analysis §4.3 |
+| LangGraph overhead melanggar latency budget | Sedang | Checkpoint minimal, in-memory untuk MVP |
+| Failure di satu node → pipeline stuck | Tinggi | LangGraph checkpointing + retry policy + fallback default values |
+| Audit trail storage bengkak | Sedang | Retention policy 30 hari untuk raw, aggregate untuk long-term |
+| Operator override rate tinggi → indikasi model tidak trustworthy | Tinggi | Monitor override rate per hari; jika >40% → review ulang model & bobot |
+| SHAP explanation (M5) tidak tersedia saat escalation → konteks kurang | Sedang | Pastikan M5 aktif untuk semua shipment WARNING/CRITICAL sebelum Decision Agent |
+
+---
+
+## 9. Roadmap (post-MVP)
+
+| Fase | Upgrade |
+|---|---|
+| Production 3 bulan | Bayesian weight learning §4.4 — bobot dioptimasi dari outcome historis |
+| Production 6 bulan | Dynamic threshold: threshold 0.70 menyesuaikan beban operasional (turun saat peak, naik saat low-load) |
+| Production 12 bulan | LLM-based escalation summary: konversi confidence breakdown + SHAP ke narasi natural language untuk operator |
+| Production 18 bulan | Active learning: shipment yang di-escalate & operator override digunakan sebagai training signal untuk retrain M1/M2 |
+
+---
+
+## 10. Acceptance Criteria (untuk demo kompetisi)
+
+- [ ] 6 node LangGraph terdefinisi dengan state schema §2.4
+- [ ] Formula confidence aggregation §3.1 diimplementasikan dan dapat ditelusuri
+- [ ] Bobot confidence di-load dari `m6_confidence_config.yaml` (bukan hardcoded)
+- [ ] Asumsi kalibrasi bobot didokumentasikan (file YAML + lampiran laporan)
+- [ ] Sensitivity analysis §4.3 dilampirkan di laporan
+- [ ] Threshold escalation 0.70 aktif dengan conditional edge
+- [ ] Escalation message schema §5.2 terimplementasi dengan `primary_uncertainty_driver`
+- [ ] Latency end-to-end P95 < 3 detik
+- [ ] Audit trail per pipeline run tersimpan dan queryable
+- [ ] Escalation rate monitoring aktif (alert jika >30%)
+- [ ] Dashboard menampilkan confidence breakdown (bukan hanya angka aggregate)
+
+---
+
+**Referensi internal:** M1 (model_confidence input), M2 (model_confidence input), M3 (audit_validity input), M4 (constraint_satisfaction input), M5 (SHAP explanation di escalation message), Dashboard (confidence breakdown visualization + escalation UI).
+</file>
+
+<file path="Next.md">
+# 🗺️ SLAra AI — Next Training Plan (Post-M1)
+
+> **Dokumen ini:** Planning lengkap training M2 → M6 setelah M1 (ETA Prediction) selesai.
+> **Status M1:** ✅ DONE — LightGBM Quantile α=0.90 di 1M data sintetis Indonesia.
+> **Hasil M1:** MAE 8.00 min, F1 CRITICAL 0.923, Recall CRITICAL 0.987 (semua acceptance criteria tercapai)
+> **Tanggal planning:** 2026-07-11
+> **Owner:** SLAra AI — Agent Engineer + Data Engineer
+
+---
+
+## 1. Dependency Graph — Urutan Build Wajib
+
+```mermaid
+graph TB
+    M1[M1 ETA ✅ DONE]
+    M3[M3 Carbon<br/>rule-based]
+    M2[M2 Hub Dwell<br/>LightGBM Quantile P50/P90]
+    M4[M4 Route Opt<br/>NSGA-II 3-objective]
+    M5[M5 SHAP<br/>TreeExplainer on-demand]
+    M6[M6 Orchestration<br/>LangGraph]
+
+    M3 --> M4
+    M1 --> M4
+    M1 --> M5
+    M2 -.->|dwell_p50 feature| M1
+    M1 --> M6
+    M2 --> M6
+    M3 --> M6
+    M4 --> M6
+    M5 --> M6
+
+    style M1 fill:#4ecdc4,color:#fff
+    style M3 fill:#4ecdc4,color:#fff
+    style M2 fill:#ffe66d,color:#333
+    style M4 fill:#ff6b6b,color:#fff
+    style M5 fill:#a8e6cf,color:#333
+    style M6 fill:#c9b1ff,color:#333
+```
+
+### Urutan Eksekusi Rekomendasi
+
+| Urutan | Model | Jenis | Estimasi Effort | Dependency | Status |
+|---|---|---|---|---|---|
+| 1 | **M3 — Carbon Emission** | Rule-based (NO training) | 1-2 hari | Tidak ada | 🔜 Next |
+| 2 | **M2 — Hub Dwell Forecast** | LightGBM Quantile P50/P90 | 3-4 hari | M/M/c simulator | 🔜 |
+| 3 | **M5 — SHAP Explainability** | TreeExplainer on-demand | 1-2 hari | M1 final (done) | 🔜 |
+| 4 | **M4 — Route Optimization** | NSGA-II (genetic algorithm) | 5-7 hari | M1 + M3 | 🔜 |
+| 5 | **M6 — Multi-Agent Orchestration** | LangGraph (NO training) | 3-5 hari | M1-M5 semua | 🔜 |
+
+**Total estimasi:** 13-20 hari kerja (2-4 minggu) untuk seluruh pipeline M2-M6.
+
+### Alasan Urutan Ini
+
+1. **M3 duluan** karena rule-based, cepat (1-2 hari), dan jadi dependency M4. Tidak butuh training.
+2. **M2 sebelum M4/M5** karena M2 adalah upstream feature M1 (dwell_p50/p90) — walau M1 sudah pakai placeholder, integrasi M2 akan improve M1 accuracy 5-10%.
+3. **M5 sebelum M4** karena M5 ringan (1-2 hari) dan langsung terpakai di demo (juri bisa lihat "mengapa shipment ini CRITICAL").
+4. **M4 setelah M1+M3+M2** karena butuh output M1 (ETA) dan M3 (carbon) di objective function NSGA-II.
+5. **M6 terakhir** karena orkestrasi di atas semua model — kalau M1-M5 belum ready, M6 cuma bisa pakai mock.
+
+---
+
+## 2. M3 — Carbon Emission Estimator (P0, Rule-Based)
+
+### Kenapa Duluan
+M3 adalah **rule-based deterministic** (BUKAN ML). Tidak butuh training — cukup implementasi formula matematis + audit trail validation. Tapi M3 adalah **dependency upstream M4** (Route Optimization), jadi harus selesai sebelum M4.
+
+### Spec Singkat
+- **Formula:** `CO2 = distance_km × emission_factor × load_factor_adjustment`
+- **Standar:** GLEC v3 + ISO 14083:2023 + IPCC 2019
+- **Latency target:** < 5ms per call (formula matematis, harus <1ms)
+- **Output:** CO2 per shipment + TCE breakdown + audit_trail_id
+
+### Pipeline Implementation
+
+#### FASE M3.1 — Lookup Table Emission Factor
+```python
+EMISSION_FACTORS = {
+    'van':            {'ef': 0.213, 'source': 'IPCC 2019 default'},
+    'light_truck':    {'ef': 0.348, 'source': 'GLEC v3 road freight default'},
+    'medium_truck':   {'ef': 0.562, 'source': 'GLEC v3'},
+    'heavy_truck':    {'ef': 0.815, 'source': 'GLEC v3'},
+    'electric_van':   {'ef': 0.062, 'source': 'GLEC v3 + Indonesia grid factor'},
+}
+```
+
+#### FASE M3.2 — Load Factor Adjustment
+```python
+def load_adjustment(load_factor):
+    # load_factor = load_weight / vehicle_capacity ∈ [0, 1]
+    return 1 + 0.5 * (load_factor - 0.5)
+    # 0 → 0.75, 0.5 → 1.0, 1.0 → 1.25
+```
+
+#### FASE M3.3 — Per-TCE Calculation
+```python
+def calculate_co2(distance_km, vehicle_type, load_factor):
+    ef = EMISSION_FACTORS[vehicle_type]['ef']
+    adjustment = load_adjustment(load_factor)
+    return distance_km * ef * adjustment
+```
+
+#### FASE M3.4 — Audit Trail Validation
+- 10 skenario test (mix van/medium_truck/intercity)
+- Bandingkan dengan EPA calculator + DEFRA + DKT
+- Target deviation < 10%
+- Output: `m3_validation_report.md`
+
+### Acceptance Criteria M3
+- [ ] Lookup tabel EF menulis sumber IPCC/GLEC/ISO untuk setiap entri
+- [ ] Audit trail 10 skenario test dilampirkan di laporan
+- [ ] Deviation M3 vs EPA/DEFRA < 10% di semua skenario
+- [ ] Performance M3 < 5ms per call
+- [ ] Output schema mengandung TCE breakdown + audit_trail_id
+- [ ] M3 terintegrasi dengan M4 objective function
+
+### Output Files M3
+- `m3_carbon_estimator.py` — main module
+- `m3_emission_factors.yaml` — lookup table dengan sumber
+- `m3_validation_report.md` — 10 skenario audit
+- `m3_audit_trail.json` — log semua perhitungan
+
+---
+
+## 3. M2 — Hub Dwell Time Forecast (P1, LightGBM Quantile)
+
+### Spec Singkat
+- **Algoritma:** LightGBM Quantile, **2 model terpisah** (P50 dan P90)
+- **Output:** `dwell_p50_minutes`, `dwell_p90_minutes` per hub
+- **Latency target:** < 30ms (lebih ketat dari M1 karena upstream M1)
+- **Loss:** Pinball loss (quantile loss) — sama dengan M1 FASE 6.7
+- **Update policy:** Event-driven (queue_length berubah → recompute), bukan polling
+
+### Data Strategy — M/M/c Queue Simulator
+
+Tidak ada dataset publik "warehouse/hub dwell time" yang open. Solusi: bangun **M/M/c queue simulator** berbasis teori antrian matematis (defensible di depan juri).
+
+```python
+# M/M/c queue parameters
+lambda_t = arrival_rate_per_hour(t)  # Poisson, modulated by Jakarta traffic pattern
+mu = service_rate_per_dock           # shipment/jam
+c = num_docks                        # 5/10/20 tergantung hub tier
+
+# Generate 8 minggu × 24 jam × 7 hari per hub
+# Output: dwell_time per shipment + queue_length per jam
+```
+
+**Validasi simulator:**
+- Distribusi output harus right-skewed (sama dengan BigQuery-Geotab wait time)
+- Steady-state setelah warm-up 2 minggu
+- 10-20 hub dengan tier berbeda (urban_dense, urban, intercity)
+
+### Feature Engineering (5 Group)
+
+| Group | Fitur | Sumber |
+|---|---|---|
+| **A — Queue State** | `queue_length_current`, `dock_utilization_pct`, `incoming_shipment_rate_1h/15m`, `avg_service_time_1h` | WMS / hub sensor |
+| **B — Lag & Rolling** | `dwell_lag_1h/24h/168h`, `dwell_rolling_mean/std_6h`, `queue_rolling_max_3h` | Derived dari time-series |
+| **C — Temporal** | `hour_sin/cos`, `day_of_week_sin/cos`, `is_weekend`, `is_peak_hour`, `is_holiday` | Sama dengan M1 |
+| **D — Hub Static** | `hub_id` (target encoding), `hub_capacity`, `hub_num_docks`, `hub_region` | Hub master data |
+| **E — External** | `weather_severity_score` (BMKG) | Sama dengan M1 |
+
+### Training Pipeline M2
+
+```python
+# FASE M2.1 — Generate M/M/c synthetic data (10-20 hub × 8 minggu)
+# Output: ~500K-1M baris dwell time records
+
+# FASE M2.2 — Feature engineering (5 group, ~25 fitur)
+
+# FASE M2.3 — Train LightGBM Quantile P50 (alpha=0.5)
+lgb_p50 = lgb.train({'objective': 'quantile', 'alpha': 0.5, ...})
+
+# FASE M2.4 — Train LightGBM Quantile P90 (alpha=0.9) — model terpisah
+lgb_p90 = lgb.train({'objective': 'quantile', 'alpha': 0.9, ...})
+
+# FASE M2.5 — GroupKFold CV (group=hub_id, 5 fold)
+# Mencegah leakage antar jam di hub yang sama
+
+# FASE M2.6 — Optuna tuning (50 trials, minimize pinball loss di val)
+
+# FASE M2.7 — Coverage check P90 (target 88-92%)
+coverage = (actual_dwell <= predicted_p90).mean()
+# < 85%: under-predicting, naikkan alpha
+# > 95%: over-predicting, turunkan alpha
+
+# FASE M2.8 — Retrain final di train+val, evaluate di test (held-out 1 minggu)
+```
+
+### Cross-Validation Strategy
+**GroupKFold dengan `group=hub_id`** — semua jam dari satu hub di fold yang sama. Mencegah leakage pola per-hub. Berbeda dari M1 yang pakai TimeSeriesSplit.
+
+### Acceptance Criteria M2
+- [ ] Simulator M/M/c menghasilkan distribusi dwell right-skewed (validasi visual)
+- [ ] Pinball loss P50 < 5.0 di test set
+- [ ] Pinball loss P90 < 8.0 di test set
+- [ ] MAE P50 < 8 menit
+- [ ] Coverage P90 di band 88–92% (kalibrasi quantile)
+- [ ] Latency inference < 30ms
+- [ ] Fallback behavior teruji (M2 down → M1 tetap jalan dengan flag `m2_degraded`)
+- [ ] Tabel baseline comparison (Naive lag-24h vs Linear Quantile vs LightGBM Quantile)
+- [ ] Endpoint event-driven update aktif (bukan polling-only)
+
+### Output Files M2
+- `m2_dwell_p50_lightgbm.txt` — model P50
+- `m2_dwell_p90_lightgbm.txt` — model P90
+- `m2_simulator.py` — M/M/c queue generator
+- `m2_feature_store.py` — feature engineering pipeline
+- `m2_inference_helper.py` — predict dwell_p50/p90 + caching
+- `m2_config.yaml` — hyperparams + threshold coverage
+
+### Integrasi M2 → M1 (Setelah M2 Done)
+Update M1 inference_helper.py untuk baca `dwell_p50` dari Redis cache (key: `m2:dwell:{hub_id}`):
+- Cache HIT → pakai sebagai feature `hub_dwell_time_predicted`
+- Cache MISS → fallback ke `dwell_lag_24h` + flag `m2_degraded=true`
+- Confidence aggregate M6 diturunkan jika `m2_degraded=true`
+
+---
+
+## 4. M5 — SHAP Explainability (P2, On-Demand)
+
+### Kenapa Setelah M1 Final
+M5 butuh **model M1 final** untuk TreeExplainer. Karena M1 sudah pakai LightGBM Quantile (tree-based), TreeExplainer native support.
+
+### Spec Singkat
+- **Algoritma:** SHAP TreeExplainer (exact Shapley untuk tree, bukan approximation)
+- **Trigger:** On-demand ONLY untuk shipment WARNING/CRITICAL (lazy evaluation)
+- **Latency:** < 50ms per single-instance (sinkron di request M1)
+- **Output:** Top-5 feature contribution + force plot
+
+### Pipeline M5
+
+```python
+import shap
+
+# Load M1 model (LightGBM Quantile)
+explainer_m1 = shap.TreeExplainer(model_m1_lightgbm)
+
+# On-demand untuk shipment WARNING/CRITICAL
+def explain_prediction(features_df):
+    shap_values = explainer_m1.shap_values(features_df)  # shape: (1, 9)
+    base_value = explainer_m1.expected_value
+    prediction = model_m1.predict(features_df)[0]
+    
+    # Additivity check (wajib di CI)
+    assert np.allclose(base_value + shap_values.sum(), prediction, atol=1e-4)
+    
+    # Top-5 feature contribution
+    top5 = sorted(zip(FEATURE_COLS, shap_values[0]), key=lambda x: abs(x[1]), reverse=True)[:5]
+    return {'base_value': base_value, 'prediction': prediction, 'top_features': top5}
+```
+
+### Integration M1 + M5 Flow
+```
+Shipment request → M1.predict_eta(features)
+  → risk_tier = apply_threshold(eta, deadline)
+  → if risk_tier in [WARNING, CRITICAL]:
+      shap_values = M5.explain(features)   # internal call, sinkron
+      return ETA + risk_tier + shap_explanation
+  → else:
+      return ETA + risk_tier (tanpa shap, ~35ms)
+```
+
+### Acceptance Criteria M5
+- [ ] TreeExplainer (bukan KernelExplainer) digunakan untuk M1
+- [ ] SHAP hanya dihitung untuk shipment WARNING/CRITICAL (lazy evaluation)
+- [ ] Output top-5 feature contribution sesuai schema
+- [ ] Additivity check lulus di CI (base_value + Σ shap = prediction)
+- [ ] Latency M1 + M5 sinkron untuk WARNING/CRITICAL tetap < 100ms
+- [ ] Force plot render di dashboard drill-down
+- [ ] Caching SHAP results aktif (Redis, TTL 1 jam)
+- [ ] Model version + explainer version dilog untuk reproducibility
+
+### Output Files M5
+- `m5_shap_explainer.py` — TreeExplainer wrapper
+- `m5_force_plot.html` — sample force plot untuk demo
+- `m5_additivity_test.py` — CI test untuk additivity check
+
+---
+
+## 5. M4 — Route Optimization (P0, NSGA-II)
+
+### Spec Singkat
+- **Algoritma:** NSGA-II (Non-dominated Sorting Genetic Algorithm II)
+- **Problem:** VRPTW multi-objective (Vehicle Routing Problem with Time Windows)
+- **3 Objective:** `cost`, `sla_risk`, `environmental_cost` (fuel+CO₂ digabung)
+- **Latency target:** < 2.5 detik (time-boxed, hard limit)
+- **Library:** DEAP (Python, NSGA-II built-in)
+
+### 3 Objective Function
+
+```python
+minimize F(x) = (f1, f2, f3)
+
+f1 = total_operational_cost
+   = Σ_vehicle [distance × cost_per_km + driver_cost]
+
+f2 = total_sla_risk_score
+   = Σ_shipment [risk_penalty(s, ETA_M1(s, x), deadline)]
+   # CRITICAL=3.0, WARNING=1.0, SAFE=0.0
+
+f3 = total_environmental_cost
+   = Σ_vehicle [fuel_cost + carbon_cost(M3(v))]
+```
+
+### Constraint (Penalty Function, Bukan Objective)
+| Constraint | Penalty |
+|---|---|
+| Vehicle capacity | `+1000 × overload_kg` per vehicle |
+| Delivery time window | `+100 × late_minutes²` (kuadratik) |
+| Driver hour limit | `+500 × overtime_minutes` |
+
+### Pipeline M4
+
+#### FASE M4.1 — Validasi algoritma di Solomon Benchmark
+```
+Solomon R1_25 (25 customer, time window tight)
+→ bandingkan dengan best-known solution
+→ target gap < 5%, konvergensi < 100 generasi
+```
+
+#### FASE M4.2 — Tuning GA parameters (grid search)
+```python
+nsga2_config = {
+    'population_size': [50, 100, 200],       # 3 options
+    'n_generations': [100, 200, 500],         # 3 options
+    'crossover_rate': [0.7, 0.8, 0.9],        # 3 options
+    'mutation_rate': [0.05, 0.1, 0.2],        # 3 options
+}
+# 81 kombinasi × 3 Solomon instance = 243 runs
+```
+
+#### FASE M4.3 — Implementasi Chromosome + Decoder
+```python
+# Chromosome: permutation of stop order per route
+chromosome = [[s1, s3, s7], [s2, s5, s8], [s4, s6]]
+
+# Decoder (dipanggil per kromosom per generasi, harus cepat):
+# 1. Urutan stop mengikuti permutasi
+# 2. Tambah hub visits: pickup → hub → delivery
+# 3. Hitung distance aktual (OSRM cache)
+# 4. Hitung ETA per stop (M1 inference)
+# 5. Hitung CO₂ per segment (M3 inference)
+# 6. Hitung 3 objective + penalty
+```
+
+#### FASE M4.4 — Operator Genetik
+- **Selection:** Tournament binary (size=2)
+- **Crossover:** Order Crossover (OX) — khusus permutation, rate=0.9
+- **Mutation:** Swap (50%) + 2-opt (50%) — rate=0.1
+- **Survival:** (μ+λ) with crowding distance
+
+#### FASE M4.5 — Time-Boxed Execution
+```python
+def run_nsga2(problem, time_budget=2.5):
+    population = initialize()
+    start = time.now()
+    while time.now() - start < time_budget:
+        offspring = crossover_and_mutate(population)
+        population = select_next_gen(population + offspring)
+    return pareto_front(population)
+```
+
+#### FASE M4.6 — Warm-Start (Reuse Previous Solution)
+- Cache: `m4:warm_start:{cluster_id}`, TTL 24 jam
+- 20% initial population dari solusi sebelumnya yang mirip (similarity > 0.8)
+- Speed up convergence 30-50%
+
+### Multi-Skenario Validation (Wajib, Bukan Cherry-Picked)
+
+| Skenario | Karakteristik | Target Reduction vs Baseline |
+|---|---|---|
+| Urban dense (Jabodetabek, 50 stop, jarak pendek) | SLA risk dominan | ≥ 15% |
+| Intercity (Surabaya-Malang, 20 stop, jarak jauh) | Cost dominan | ≥ 15% |
+| Mixed (Jabodetabek + intercity, 80 stop) | Trade-off kompleks | ≥ 18% |
+
+### Acceptance Criteria M4
+- [ ] Validasi di Solomon R1_25 dengan gap < 5% ke best-known
+- [ ] Hypervolume ≥ 0.80 di skenario sintetis Indonesia
+- [ ] Reduction ≥ 15% vs baseline di **ketiga skenario** (bukan satu cherry-picked)
+- [ ] Latency P95 end-to-end M4 < 2.5 detik (time-boxed)
+- [ ] Warm-start aktif dan terukur improve konvergensi 30%+
+- [ ] Convergence plot (hypervolume vs generasi) ditampilkan di laporan
+- [ ] 3 objective (bukan 4) — konsolidasi fuel+CO₂ didokumentasikan
+- [ ] Integrasi M1 (ETA sebagai input f2) terverifikasi
+- [ ] Integrasi M3 (carbon sebagai input f3) terverifikasi
+- [ ] Narasi "kapan upgrade ke NSGA-III" ada di roadmap
+
+### Output Files M4
+- `m4_nsga2_engine.py` — NSGA-II implementation (DEAP-based)
+- `m4_chromosome.py` — encoding + decoder
+- `m4_objective.py` — 3 objective + penalty function
+- `m4_warm_start.py` — cache + similarity matching
+- `m4_benchmark_solomon.py` — Solomon validation
+- `m4_convergence_plot.py` — hypervolume visualization
+
+---
+
+## 6. M6 — Multi-Agent Orchestration (P1, LangGraph)
+
+### Spec Singkat
+- **Framework:** LangGraph (state graph 6 agent)
+- **Jenis:** BUKAN ML training — orchestration + rule-based confidence aggregation
+- **Output:** Aggregate Decision Confidence (0-1) + auto-execute/escalate decision
+- **Threshold:** confidence ≥ 0.70 → auto-execute, < 0.70 → escalate to human
+
+### 6 Agent Nodes
+
+```python
+from langgraph.graph import StateGraph
+
+class SLAraState(TypedDict):
+    shipment_id: str
+    shipment_features: dict
+    traffic_index: float
+    weather_severity: int
+    eta_pred: float
+    risk_tier: str
+    dwell_p50: float
+    dwell_p90: float
+    co2_kg: float
+    pareto_front: List[dict]
+    selected_route: dict
+    confidence_aggregate: float
+    confidence_breakdown: dict
+    decision: str  # "auto_execute" | "escalate_human"
+    shap_explanation: dict
+    audit_trail_id: str
+
+graph = StateGraph(SLAraState)
+
+# 6 nodes
+graph.add_node("traffic_agent", traffic_agent_fn)      # Rule-based aggregator
+graph.add_node("eta_agent", eta_agent_fn)              # M1 inference
+graph.add_node("carbon_agent", carbon_agent_fn)        # M3 calculation
+graph.add_node("hub_risk_agent", hub_risk_agent_fn)    # M2 inference
+graph.add_node("route_opt_agent", route_opt_agent_fn)  # M4 NSGA-II
+graph.add_node("decision_agent", decision_agent_fn)    # Confidence aggregation
+
+# Conditional edge
+graph.add_conditional_edges(
+    "decision_agent",
+    lambda state: "auto_execute" if state.confidence_aggregate >= 0.70 else "escalate_human",
+    {"auto_execute": "execute_node", "escalate_human": "human_review_node"}
+)
+```
+
+### Confidence Aggregation Formula
+
+```python
+confidence_aggregate = (w1 × model_confidence_M1 +
+                       w2 × model_confidence_M2 +
+                       w3 × constraint_satisfaction_M4 +
+                       w_traffic × data_freshness +
+                       w_carbon × audit_validity)
+
+# Default weights (manual calibration by BA Orwin)
+weights = {
+    'w1_eta': 0.40,       # M1 model inti
+    'w2_hub': 0.15,       # M2 upstream M1, hindari double-count
+    'w3_route': 0.25,     # M4 feasibility krusial
+    'w_traffic': 0.10,    # Data freshness
+    'w_carbon': 0.10,     # Rule-based, confidence tinggi by design
+}
+```
+
+### Sub-component Confidence Definitions
+
+```python
+# M1 confidence dari prediction interval width
+model_confidence_M1 = 1 - min(1, interval_width / (2 * expected_eta))
+# Contoh: P50=120, P90=145 → interval=25, expected=120 → 1 - 25/240 = 0.896
+
+# M2 confidence dari quantile coverage historis (7-day rolling)
+model_confidence_M2 = 1 - abs(coverage_P90_historical - 0.90)
+# Contoh: coverage=0.88 → 1 - 0.02 = 0.98
+
+# M4 constraint satisfaction
+constraint_satisfaction_M4 = n_feasible / n_total_in_pareto
+# Contoh: 8/10 feasible → 0.80
+
+# Traffic data freshness
+data_freshness = max(0, 1 - age_minutes / 30)
+# Contoh: age=8 min → 1 - 8/30 = 0.73
+
+# Carbon audit validity
+audit_validity = 1.0 - deviation_from_reference
+# Contoh: deviation 4% → 0.96
+```
+
+### Pipeline M6
+
+#### FASE M6.1 — Define LangGraph state schema + 6 agent nodes
+#### FASE M6.2 — Implement confidence aggregation formula
+#### FASE M6.3 — Manual weight calibration (BA Orwin) + dokumentasi asumsi
+#### FASE M6.4 — Sensitivity analysis (variasi bobot ±10%, cek perubahan decision)
+#### FASE M6.5 — Human-in-the-loop escalation message schema
+#### FASE M6.6 — Audit trail logging (setiap transisi node di-checkpoint)
+
+### Acceptance Criteria M6
+- [ ] 6 agent nodes terdefinisi dengan state schema eksplisit
+- [ ] Confidence aggregation formula dapat ditelusuri ke komponen
+- [ ] Threshold 0.70 (auto-execute vs escalate) terverifikasi
+- [ ] Bobot confidence didokumentasikan di `m6_confidence_config.yaml`
+- [ ] Sensitivity analysis (±10% bobot) dilampirkan di laporan
+- [ ] Escalation message schema sesuai spec (confidence_breakdown + context)
+- [ ] Audit trail ID di-generate per pipeline run
+- [ ] LangGraph checkpointing aktif (resume dari node terakhir sukses jika failure)
+- [ ] End-to-end demo: shipment request → 6 agent → decision + confidence
+
+### Output Files M6
+- `m6_langgraph_orchestrator.py` — main graph definition
+- `m6_agent_nodes.py` — 6 agent node functions
+- `m6_confidence_config.yaml` — bobot + asumsi + kalibrasi
+- `m6_sensitivity_analysis.py` — sensitivity test
+- `m6_escalation_handler.py` — human-in-the-loop message
+- `m6_audit_trail.py` — checkpointing + audit log
+
+---
+
+## 7. Timeline & Milestone
+
+```mermaid
+gantt
+    title SLAra AI M2-M6 Timeline (4 minggu)
+    dateFormat YYYY-MM-DD
+    section M3 Carbon
+    M3 Implementation + Audit    :m3, 2026-07-12, 2d
+    section M2 Hub Dwell
+    M2 M/M/c Simulator            :m2a, 2026-07-14, 2d
+    M2 Feature Engineering        :m2b, after m2a, 1d
+    M2 Train P50 + P90            :m2c, after m2b, 2d
+    M2 Coverage Check + Optuna    :m2d, after m2c, 1d
+    section M5 SHAP
+    M5 TreeExplainer              :m5, 2026-07-19, 2d
+    section M4 Route Opt
+    M4 Solomon Validation         :m4a, 2026-07-21, 2d
+    M4 GA Tuning                  :m4b, after m4a, 2d
+    M4 Skenario Indonesia         :m4c, after m4b, 3d
+    section M6 Orchestration
+    M6 LangGraph + Confidence     :m6a, 2026-07-28, 3d
+    M6 Sensitivity + Integration  :m6b, after m6a, 2d
+```
+
+### Milestone Detail
+
+| Minggu | Fokus | Deliverable |
+|---|---|---|
+| **Minggu 1** (12-16 Jul) | M3 + M2 simulator + M2 training | M3 production-ready, M2 model P50/P90 trained |
+| **Minggu 2** (19-23 Jul) | M5 + M4 Solomon validation + M4 tuning | M5 SHAP integrated ke M1, M4 GA tuned |
+| **Minggu 3** (26-30 Jul) | M4 skenario Indonesia + M6 LangGraph | M4 multi-skenario validated, M6 6-agent graph |
+| **Minggu 4** (2-6 Aug) | M6 integration + end-to-end demo | Full pipeline M1→M6 demo-ready |
+
+---
+
+## 8. Resource Requirements
+
+### Compute
+- **Colab GPU** (T4/PCIe): untuk M2 training (LightGBM Quantile, ~30 menit)
+- **Colab CPU**: cukup untuk M3 (rule-based), M5 (SHAP), M6 (LangGraph)
+- **Local machine**: M4 NSGA-II (DEAP, CPU-bound, parallel dengan multiprocessing)
+
+### Data
+- **M2:** M/M/c simulator output (~500K-1M baris, ~150MB Parquet)
+- **M4:** Solomon VRPTW benchmark (56 instance, download dari `neo.lcc.uma.es/vrp/vrp-instances`)
+- **M4:** OpenStreetMap via OSRM untuk distance matrix Jabodetabek
+- **M5:** Pakai model M1 final (sudah ada di `m1_artifacts/models/`)
+
+### Dependencies (pip install)
+```
+# M2
+lightgbm>=4.0
+pyarrow>=14.0
+simpy>=4.0  # untuk M/M/c queue simulation
+
+# M3
+pyyaml>=6.0
+
+# M4
+deap>=1.3
+networkx>=3.0
+osmnx>=1.6
+geopy>=2.4
+
+# M5
+shap>=0.44
+
+# M6
+langgraph>=0.2
+langchain>=0.3
+redis>=5.0
+```
+
+---
+
+## 9. Risk & Mitigation
+
+| Risk | Severity | Mitigation | Owner |
+|---|---|---|---|
+| M/M/c simulator terlalu ideal (poisson murni) → tidak representatif | Tinggi | Modulasi λ(t) dengan pola trafik Jakarta; tambah shock event (weather buruk mendadak) | Data Engineer |
+| M2 P90 under-calibrated → M1 dapat ETA terlalu optimis | Tinggi | Coverage check wajib lulus 88-92% sebelum deploy | ML Engineer |
+| M4 NSGA-II tidak konvergen di instance besar (>100 customer) | Tinggi | Time-boxed 2.5s + warm-start; dokumentasikan batas skala | Algorithm Engineer |
+| M5 SHAP memperlambat M1 untuk WARNING/CRITICAL | Sedang | TreeExplainer cepat (<50ms); untuk batch, pakai background worker | Agent Engineer |
+| M6 bobot confidence tidak terkalibrasi → decision tidak robust | Sedang | Sensitivity analysis ±10% wajib; manual calibration by BA Orwin | BA + Agent Engineer |
+| Demo gagal karena latency end-to-end > 3 detik | Tinggi | Hard time-budget per komponen (M1<50ms, M2<30ms, M4<2.5s) + fallback cache | All |
+
+---
+
+## 10. Next Action Checklist
+
+### Segera (Minggu 1)
+- [ ] **M3:** Implement `m3_carbon_estimator.py` + 10 skenario audit trail
+- [ ] **M2:** Bangun M/M/c simulator (simpy), generate 500K baris synthetic hub dwell
+- [ ] **M2:** Feature engineering 5 group (~25 fitur)
+- [ ] **M2:** Train LightGBM Quantile P50 + P90, Optuna 50 trials
+
+### Setelah M2 Done (Minggu 2)
+- [ ] **M5:** Implement SHAP TreeExplainer di atas M1 LightGBM
+- [ ] **M5:** Additivity check CI test
+- [ ] **M4:** Download Solomon VRPTW benchmark, validasi NSGA-II di R1_25
+- [ ] **M4:** Grid search GA parameters (81 kombinasi)
+
+### Setelah M4 Tuned (Minggu 3)
+- [ ] **M4:** Skenario Indonesia (urban/intercity/mixed), validasi reduction ≥ 15%
+- [ ] **M6:** Define LangGraph state schema + 6 agent nodes
+- [ ] **M6:** Confidence aggregation formula + manual weight calibration
+
+### Final Integration (Minggu 4)
+- [ ] **M6:** Sensitivity analysis ±10% bobot
+- [ ] **M6:** End-to-end demo M1→M6
+- [ ] **All:** Laporan teknis final (semua acceptance criteria M2-M6 tercentang)
+
+---
+
+## 11. Success Metrics (Demo ke Juri)
+
+| Metric | Target | Model |
+|---|---|---|
+| ETA MAE | < 15 min | M1 ✅ DONE (8.00 min) |
+| ETA F1 CRITICAL | ≥ 0.80 | M1 ✅ DONE (0.923) |
+| ETA Recall CRITICAL | ≥ 0.90 | M1 ✅ DONE (0.987) |
+| Hub Dwell Pinball P50 | < 5.0 | M2 🔜 |
+| Hub Dwell Coverage P90 | 88-92% | M2 🔜 |
+| Carbon Audit Deviation | < 10% | M3 🔜 |
+| Route Hypervolume | ≥ 0.80 | M4 🔜 |
+| Route Reduction vs Baseline | ≥ 15% (3 skenario) | M4 🔜 |
+| SHAP Latency (WARNING/CRITICAL) | < 100ms | M5 🔜 |
+| Aggregate Confidence Calibration | Sensitivity < 5% decision change | M6 🔜 |
+| End-to-End Latency P95 | < 3 detik | All 🔜 |
+
+---
+
+**Dokumen ini living document — update setiap milestone tercapai.**
+
+> Last updated: 2026-07-11
+> Next review: setelah M3 + M2 selesai (estimasi 2026-07-18)
+</file>
+
+<file path="readme.md">
+Urutan pengembangan model sudah saya tulis di **§5 dokumen asli**, tapi saya akan breakdown lebih konkret dengan dependency graph supaya tim bisa mulai paralel tanpa bikin blocker:
+
+## Urutan Berdasarkan Dependency (bukan timeline kalender)
+
+```
+MINGGU 1-2
+├─ M3 (Carbon) ──── paling cepat selesai (rule-based, no training)
+│   └─ dependency: none
+│   └─ deliverable: lookup table EF + audit trail 10 skenario
+│
+└─ Data Pipeline (paralel)
+    ├─ OSM setup (OSRM docker)
+    ├─ BMKG cache worker
+    └─ Synthetic generator (M/M/c simulator untuk M2 + shipment generator untuk M1)
+
+MINGGU 2-3
+├─ M1 (ETA) ──── ⭐ inti sistem, mulai dari sini
+│   └─ dependency: data pipeline (BMKG, OSM), M2 output (dwell time sebagai feature)
+│   └─ ⚠️ chicken-egg dengan M2: pakai dwell_lag_24h sebagai placeholder M2 di minggu 2,
+│       swap ke M2 output asli di minggu 3
+│   └─ deliverable: model v1 di Food Delivery Dataset (proxy) → validasi arsitektur
+│
+└─ M4 (Route Opt) ──── mulai paralel, TIDAK tunggu M1
+    └─ dependency: M3 (carbon untuk objective), distance matrix OSRM
+    └─ mulai dengan Solomon benchmark dulu (validasi algoritma, tidak butuh M1)
+    └─ deliverable: gap <5% ke best-known di Solomon R1_25
+
+MINGGU 3-4
+├─ M2 (Hub Congestion) ──── baru mulai setelah synthetic generator M/M/c ready
+│   └─ dependency: M/M/c simulator (dari data pipeline minggu 1)
+│   └─ deliverable: LightGBM quantile P50+P90, coverage P90 di 88-92%
+│
+└─ M1 lanjutan ──── swap placeholder M2 → M2 output asli, retrain
+    └─ deliverable: model v2 di data sintetis Indonesia
+
+MINGGU 4-5
+└─ M4 lanjutan ──── swap M1 dummy → M1 asli untuk SLA risk objective
+    └─ deliverable: 3-skenario Indonesia (urban/intercity/mixed), reduction ≥15%
+
+MINGGU 5-6
+├─ M6 (Orchestration) ──── integrasi semua, baru mulai setelah M1+M2+M3+M4 stabil
+│   └─ dependency: SEMUA model lain harus bisa dipanggil
+│   └─ deliverable: confidence aggregation formula, escalation gate aktif
+│
+└─ M5 (SHAP) ──── paling akhir, di atas M1 final
+    └─ dependency: M1 v final
+    └─ deliverable: TreeExplainer on-demand untuk WARNING/CRITICAL
+
+MINGGU 6 (akhir)
+└─ End-to-end latency test + dashboard wiring + shadow mode
+```
+
+## Yang Bisa Dikerjakan Paralel Hari 1
+
+| Anggota Tim | Ambil | Alasan bisa mulai hari 1 |
+|---|---|---|
+| Data Engineer | M3 + data pipeline | M3 rule-based tidak butuh model lain; OSM/BMKG setup independen |
+| Agent Engineer #1 | M4 (NSGA-II di Solomon) | Validasi algoritma di benchmark publik, tidak butuh M1/M2/M3 |
+| Agent Engineer #2 | M1 feature engineering scaffold | Bangun pipeline feature store, latih di Food Delivery Dataset (proxy) |
+| BA (Orwin) | M6 confidence formula + M3 emission factor calibration | Tidak butuh kode, kerjaan dominan riset + dokumentasi |
+
+## Aturan Penting — Jangan Tunggu Mock!
+
+- **M1 jangan tunggu M2 ready** → pakai `dwell_lag_24h` sebagai placeholder, retrain nanti
+- **M4 jangan tunggu M1 ready** → pakai dummy ETA function (e.g., `distance / avg_speed`), swap nanti
+- **M6 jangan tunggu semua final** → mock output M1-M5 dengan stub, test orchestration flow lebih dulu
+
+Filosofi: **integrasi dengan stub > integrasi dengan model final tapi terlambat**. Lebih mudah swap stub → model asli daripada debug orchestration saat semua model belum stabil.
+
+## Kritikal Path (yang TIDAK boleh delay)
+
+Hanya **2 hal** yang jika delay akan block semua:
+
+1. **Data Pipeline (OSM + BMKG + synthetic generator)** — tanpa ini, M1/M2/M4 tidak bisa training
+2. **M1 final model** — tanpa ini, M6 tidak bisa integrasi end-to-end, dashboard tidak bisa demo
+
+Yang lain punya fallback: M2 → pakai lag feature, M4 → pakai dummy ETA, M3 → pakai EF default IPCC.
+
+---
+
+**Rekomendasi konkrit mulai Senin ini:** Data Engineer + Agent Engineer #1 langsung start. Agent Engineer #2 mulai hari Selasa setelah Data Engineer punya OSM basic ready (butuh distance matrix). BA (Orwin) mulai hari Senin juga untuk M6 confidence formula — kalibrasi bobot butuh waktu diskusi, jangan ditunda.
+
+Mau saya buatkan **starter code** untuk salah satu: simulator M/M/c (data pipeline), training script XGBoost M1, atau setup DEAP NSGA-II M4? Sebutkan mana yang mau dikerjakan duluan.
+</file>
+
+</files>
