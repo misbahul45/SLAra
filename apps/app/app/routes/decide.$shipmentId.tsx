@@ -5,6 +5,8 @@ import { getShipments, decide } from "~/lib/data";
 import type { DecideResponse } from "~/lib/types";
 import { TierBadge } from "~/components/TierBadge";
 import { RouteCards } from "~/components/RouteCards";
+import { ConfidencePanel } from "~/components/ConfidencePanel";
+import { ShapChart } from "~/components/ShapChart";
 
 // RouteMap is client-only (leaflet touches `window`); lazy so its module isn't
 // evaluated during SSR. It only ever renders inside the client-set `result` block.
@@ -114,23 +116,12 @@ export default function DecisionView({ loaderData }: Route.ComponentProps) {
               />
             </div>
 
-            {/* Right column: confidence panel + SHAP land here in Slice 5 */}
-            <aside className="space-y-3">
-              <div className="rounded border border-line bg-surface/40 p-4">
-                <div className="text-xs uppercase tracking-wide text-muted">
-                  Decision
-                </div>
-                <div className="mt-1 text-lg font-semibold">
-                  {result.decision}
-                </div>
-                <div className="mt-2 font-mono text-sm tabular-nums text-muted">
-                  confidence {result.confidence.toFixed(2)} / threshold{" "}
-                  {result.threshold.toFixed(2)} · {result.latency_ms} ms
-                </div>
-                <p className="mt-3 text-sm text-ink">{result.explanation}</p>
-              </div>
-              <div className="rounded border border-dashed border-line p-4 text-sm text-muted">
-                Confidence breakdown + SHAP — Slice 5
+            {/* Right column: confidence panel + SHAP (Slice 5) */}
+            <aside className="space-y-4">
+              <ConfidencePanel result={result} />
+              <ShapChart shap={result.shap_top5} />
+              <div className="text-right font-mono text-xs text-muted">
+                pipeline latency {result.latency_ms} ms
               </div>
             </aside>
           </div>
