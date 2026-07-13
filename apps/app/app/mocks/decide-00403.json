@@ -1,0 +1,60 @@
+{
+  "shipment_id": "SHP-2026-00403",
+  "decided_at": "2026-07-15T02:11:03Z",
+  "decision": "ESCALATE",
+  "confidence": 0.65,
+  "threshold": 0.70,
+  "confidence_breakdown": {
+    "conf_m1":        { "value": 0.45, "weight": 0.40, "label": "ETA certainty (M1)" },
+    "conf_m2":        { "value": 0.78, "weight": 0.15, "label": "Hub dwell certainty (M2)" },
+    "cs_m4":          { "value": 0.66, "weight": 0.25, "label": "Route optimality (M4)" },
+    "data_freshness": { "value": 0.90, "weight": 0.10, "label": "Data freshness" },
+    "audit_validity": { "value": 1.00, "weight": 0.10, "label": "Audit validity" }
+  },
+  "primary_uncertainty_driver": "wide_eta_interval",
+  "selected_route_id": "R-B",
+  "routes": [
+    {
+      "route_id": "R-B",
+      "label": "Balanced",
+      "eta_p50_min": 47.2,
+      "eta_p90_min": 78.5,
+      "risk_tier": "WARNING",
+      "cost_idr": 41200,
+      "co2_kg": 0.41,
+      "distance_km": 14.2,
+      "geometry": [[-7.3315, 112.7681], [-7.3102, 112.7654], [-7.2874, 112.7590], [-7.2653, 112.7519]]
+    },
+    {
+      "route_id": "R-A",
+      "label": "Fastest",
+      "eta_p50_min": 41.0,
+      "eta_p90_min": 92.3,
+      "risk_tier": "CRITICAL",
+      "cost_idr": 38900,
+      "co2_kg": 0.48,
+      "distance_km": 13.1,
+      "geometry": [[-7.3315, 112.7681], [-7.3210, 112.7480], [-7.2801, 112.7433], [-7.2653, 112.7519]]
+    },
+    {
+      "route_id": "R-C",
+      "label": "Greenest",
+      "eta_p50_min": 55.8,
+      "eta_p90_min": 71.2,
+      "risk_tier": "SAFE",
+      "cost_idr": 46800,
+      "co2_kg": 0.33,
+      "distance_km": 15.6,
+      "geometry": [[-7.3315, 112.7681], [-7.3350, 112.7830], [-7.2950, 112.7811], [-7.2653, 112.7519]]
+    }
+  ],
+  "shap_top5": [
+    { "feature": "hub_dwell_time_predicted", "impact_min": 12.4, "direction": "increases_eta" },
+    { "feature": "distance_km",              "impact_min": 8.1,  "direction": "increases_eta" },
+    { "feature": "rain_intensity",           "impact_min": 5.3,  "direction": "increases_eta" },
+    { "feature": "hour_of_day",              "impact_min": -3.2, "direction": "decreases_eta" },
+    { "feature": "vehicle_type",             "impact_min": 2.0,  "direction": "increases_eta" }
+  ],
+  "explanation": "Escalated: P90-P50 interval is wide (31.3 min) driven mainly by predicted hub dwell at Surabaya Rungkut. Greenest route R-C is SAFE but costs 13% more.",
+  "latency_ms": 2140
+}

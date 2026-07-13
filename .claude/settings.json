@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs du -ch)",
+      "Bash(corepack pnpm *)",
+      "Bash(echo \"EXIT=$?\")",
+      "Read(//tmp/**)",
+      "Bash(tail -30 /tmp/tc.log)",
+      "Bash(curl -s http://localhost:5173/)"
+    ]
+  }
+}

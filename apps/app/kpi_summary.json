@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-07-15T02:10:00Z",
+  "active_shipments": 12,
+  "tier_counts": {
+    "SAFE": 8,
+    "WARNING": 3,
+    "CRITICAL": 1
+  },
+  "on_time_rate_pct": 91.4,
+  "auto_execute_rate_pct": 84.3,
+  "co2_saved_today_kg": 142.7,
+  "avg_decision_latency_ms": 1980
+}

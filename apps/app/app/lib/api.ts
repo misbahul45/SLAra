@@ -1,0 +1,76 @@
+// Real adapter — talks to the FastAPI `ai` service. Same function signatures as mock.ts,
+// so data.ts can swap between them via VITE_USE_MOCK with zero call-site changes.
+// Base URL + contract: SLARA_API_CONTRACT.md (dev: http://localhost:8000/api/v1).
+
+import type {
+  ApiErrorBody,
+  DecideResponse,
+  KpiSummary,
+  ResolveRequest,
+  ResolveResponse,
+  ShipmentsQuery,
+  ShipmentsResponse,
+} from "./types";
+
+const BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000/api/v1";
+
+/** Thrown for non-2xx responses; carries the parsed error envelope when present. */
+export class ApiError extends Error {
+  readonly status: number;
+  readonly body: ApiErrorBody | null;
+  constructor(status: number, message: string, body: ApiErrorBody | null) {
+    super(message);
+    this.name = "ApiError";
+    this.status = status;
+    this.body = body;
+  }
+}
+
+async function request<T>(path: string, init?: RequestInit): Promise<T> {
+  const res = await fetch(`${BASE_URL}${path}`, {
+    ...init,
+    headers: { "Content-Type": "application/json", ...init?.headers },
+  });
+  const data: unknown = await res.json().catch(() => null);
+  if (!res.ok) {
+    const body = data as ApiErrorBody | null;
+    throw new ApiError(
+      res.status,
+      body?.error?.message ?? `Request failed: ${res.status}`,
+      body,
+    );
+  }
+  return data as T;
+}
+
+export function getKpi(): Promise<KpiSummary> {
+  return request<KpiSummary>("/kpi/summary");
+}
+
+export function getShipments(
+  query: ShipmentsQuery = {},
+): Promise<ShipmentsResponse> {
+  const params = new URLSearchParams();
+  if (query.tier) params.set("tier", query.tier);
+  if (typeof query.limit === "number") params.set("limit", String(query.limit));
+  const qs = params.toString();
+  return request<ShipmentsResponse>(`/shipments${qs ? `?${qs}` : ""}`);
+}
+
+export function decide(shipmentId: string): Promise<DecideResponse> {
+  return request<DecideResponse>(
+    `/shipments/${encodeURIComponent(shipmentId)}/decide`,
+    { method: "POST", body: "{}" },
+  );
+}
+
+export function resolve(
+  shipmentId: string,
+  body: ResolveRequest,
+): Promise<ResolveResponse> {
+  return request<ResolveResponse>(
+    `/shipments/${encodeURIComponent(shipmentId)}/resolve`,
+    { method: "POST", body: JSON.stringify(body) },
+  );
+}
