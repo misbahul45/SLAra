@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router";
+import { NavLink, Outlet, useLocation } from "react-router";
 import {
   LogoMark,
   DashboardIcon,
@@ -8,6 +8,7 @@ import {
   ApprovalIcon,
   KpiIcon,
 } from "~/components/nav-icons";
+import { NavProgress } from "~/components/NavProgress";
 
 // Persistent app shell for all 6 pages: steel-blue sidebar + scrollable content.
 // Active nav item = translucent glass pill with a navy border (Figma).
@@ -29,16 +30,18 @@ const NAV: NavItem[] = [
 ];
 
 export default function AppShell() {
+  const location = useLocation();
   return (
     <div className="flex min-h-screen bg-bg text-ink">
-      <aside className="flex w-[265px] shrink-0 flex-col bg-brand">
+      <NavProgress />
+      <aside className="sticky top-0 flex h-screen w-[265px] shrink-0 flex-col bg-brand">
         <div className="flex items-center gap-2 px-5 pb-4 pt-6">
           <LogoMark className="h-9 w-9 text-white" />
           <span className="text-[22px] font-bold text-white">SLAra AI</span>
         </div>
         <div className="mx-5 mb-4 h-1 rounded-full bg-white/90" />
 
-        <nav className="flex flex-col gap-1 px-3">
+        <nav className="flex flex-1 flex-col gap-1 overflow-y-auto px-3 pb-4">
           {NAV.map(({ to, label, Icon, end }) => (
             <NavLink
               key={to}
@@ -60,7 +63,9 @@ export default function AppShell() {
       </aside>
 
       <main className="flex-1 overflow-x-hidden px-8 py-6">
-        <Outlet />
+        <div key={location.pathname} className="animate-fadein">
+          <Outlet />
+        </div>
       </main>
     </div>
   );

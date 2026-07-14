@@ -23,7 +23,7 @@ export function ApprovalQueue({
             key={it.approval_id}
             type="button"
             onClick={() => onSelect(it.approval_id)}
-            className={`glass-card w-full p-4 text-left transition-colors ${
+            className={`glass-card w-full p-4 text-left transition duration-150 hover:-translate-y-0.5 hover:shadow-md ${
               active ? "border-ink ring-1 ring-ink/30" : "hover:border-brand"
             }`}
           >

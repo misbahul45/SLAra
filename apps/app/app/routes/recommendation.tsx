@@ -74,7 +74,7 @@ export default function Recommendation({ loaderData }: Route.ComponentProps) {
                   key={r.route_id}
                   type="button"
                   onClick={() => setSelectedRouteId(r.route_id)}
-                  className={`w-full rounded-[14px] border-2 p-3 text-left transition-colors ${
+                  className={`w-full rounded-[14px] border-2 p-3 text-left transition duration-150 hover:-translate-y-0.5 hover:shadow-md ${
                     selected
                       ? "border-ink bg-ink/5"
                       : "border-brand/40 hover:border-brand"

@@ -36,6 +36,7 @@
   ],
   "plans": [
     {
+      "route_id": "R-A",
       "plan": "Plan A – Current",
       "route_via": "Cikampek Toll Road → Bekasi Barat",
       "eta": "78m",
@@ -47,6 +48,7 @@
       "tag": "CURRENT"
     },
     {
+      "route_id": "R-B",
       "plan": "Plan B – Fastest",
       "route_via": "Bekasi Arteri → JORR E2 Toll Road → Bypass",
       "eta": "49m",
@@ -58,6 +60,7 @@
       "tag": "FASTEST"
     },
     {
+      "route_id": "R-C",
       "plan": "Plan C – Balanced",
       "route_via": "JORR S Toll Road → Tambun → South Arteri",
       "eta": "51m",
@@ -69,6 +72,7 @@
       "tag": "RECOMMENDED"
     },
     {
+      "route_id": "R-D",
       "plan": "Plan D – Greenest",
       "route_via": "Cikarang local route → Bekasi via Jababeka",
       "eta": "65m",
@@ -80,5 +84,56 @@
       "tag": "LOW CARBON"
     }
   ],
-  "note": "Optimizer selected Plan C because it dominates the Pareto front on the SLA × Delay × Fuel dimensions. CO₂ delta +0.2 kg is still within internal regulation tolerance (cap +15%). Fitness weights: α(SLA)=1.0 · β(Fuel)=0.6 · γ(CO₂)=0.5 · δ(Delay)=0.8. Fallback: if GA fails → OR-Tools CP-SAT (Tier-2). Estimated fallback result: Plan B (sub-optimal for CO₂)."
+  "note": "Optimizer selected Plan C because it dominates the Pareto front on the SLA × Delay × Fuel dimensions. CO₂ delta +0.2 kg is still within internal regulation tolerance (cap +15%). Fitness weights: α(SLA)=1.0 · β(Fuel)=0.6 · γ(CO₂)=0.5 · δ(Delay)=0.8. Fallback: if GA fails → OR-Tools CP-SAT (Tier-2). Estimated fallback result: Plan B (sub-optimal for CO₂).",
+  "route_view": {
+    "origin": { "hub_id": "HUB-CBT-01", "name": "Hub Cibitung – Dock A", "lat": -6.283, "lng": 107.086 },
+    "destination": { "label": "Bekasi Barat", "lat": -6.222, "lng": 106.972 },
+    "selected_route_id": "R-C",
+    "routes": [
+      {
+        "route_id": "R-A",
+        "label": "Plan A – Current",
+        "eta_p50_min": 70.0,
+        "eta_p90_min": 92.0,
+        "risk_tier": "CRITICAL",
+        "cost_idr": 38000,
+        "co2_kg": 2.8,
+        "distance_km": 24.0,
+        "geometry": [[-6.283, 107.086], [-6.30, 107.02], [-6.28, 106.98], [-6.222, 106.972]]
+      },
+      {
+        "route_id": "R-B",
+        "label": "Plan B – Fastest",
+        "eta_p50_min": 49.0,
+        "eta_p90_min": 66.0,
+        "risk_tier": "WARNING",
+        "cost_idr": 46000,
+        "co2_kg": 3.4,
+        "distance_km": 20.0,
+        "geometry": [[-6.283, 107.086], [-6.24, 107.05], [-6.21, 106.99], [-6.222, 106.972]]
+      },
+      {
+        "route_id": "R-C",
+        "label": "Plan C – Balanced",
+        "eta_p50_min": 51.0,
+        "eta_p90_min": 58.0,
+        "risk_tier": "SAFE",
+        "cost_idr": 41000,
+        "co2_kg": 3.0,
+        "distance_km": 22.0,
+        "geometry": [[-6.283, 107.086], [-6.32, 107.03], [-6.29, 106.95], [-6.222, 106.972]]
+      },
+      {
+        "route_id": "R-D",
+        "label": "Plan D – Greenest",
+        "eta_p50_min": 65.0,
+        "eta_p90_min": 80.0,
+        "risk_tier": "SAFE",
+        "cost_idr": 35000,
+        "co2_kg": 2.4,
+        "distance_km": 26.0,
+        "geometry": [[-6.283, 107.086], [-6.35, 107.06], [-6.33, 106.96], [-6.222, 106.972]]
+      }
+    ]
+  }
 }

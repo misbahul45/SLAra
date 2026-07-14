@@ -31,7 +31,15 @@ function ScoreCell({ score }: { score: number }) {
   );
 }
 
-export function ParetoTable({ plans }: { plans: ParetoPlan[] }) {
+export function ParetoTable({
+  plans,
+  selectedId,
+  onSelect,
+}: {
+  plans: ParetoPlan[];
+  selectedId?: string;
+  onSelect?: (routeId: string) => void;
+}) {
   return (
     <div className="glass-card overflow-x-auto p-0">
       <table className="w-full text-left text-[14px]">
@@ -45,11 +53,20 @@ export function ParetoTable({ plans }: { plans: ParetoPlan[] }) {
           </tr>
         </thead>
         <tbody>
-          {plans.map((p) => (
+          {plans.map((p) => {
+            const selected = p.route_id === selectedId;
+            return (
             <tr
               key={p.plan}
-              className={`border-t border-brand/20 ${
-                p.tag === "RECOMMENDED" ? "bg-safe/10" : ""
+              onClick={onSelect ? () => onSelect(p.route_id) : undefined}
+              className={`border-t border-brand/20 ${onSelect ? "cursor-pointer" : ""} ${
+                selected
+                  ? "bg-accent/10"
+                  : p.tag === "RECOMMENDED"
+                    ? "bg-safe/5"
+                    : onSelect
+                      ? "hover:bg-brand/5"
+                      : ""
               }`}
             >
               <td className="whitespace-nowrap px-4 py-3 font-bold text-ink">
@@ -85,7 +102,8 @@ export function ParetoTable({ plans }: { plans: ParetoPlan[] }) {
                 </span>
               </td>
             </tr>
-          ))}
+            );
+          })}
         </tbody>
       </table>
     </div>

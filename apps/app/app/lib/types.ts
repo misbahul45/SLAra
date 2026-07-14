@@ -336,6 +336,7 @@ export interface WeightTuning {
 }
 
 export interface ParetoPlan {
+  route_id: string;
   plan: string;
   route_via: string;
   eta: string;
@@ -354,6 +355,7 @@ export interface OptimizationResult {
   weights: WeightTuning[];
   plans: ParetoPlan[];
   note: string;
+  route_view: RouteView;
 }
 
 // ── Human Approval page ──────────────────────────────────────────────────────

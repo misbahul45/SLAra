@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Modal } from "./Modal";
+import { useToast } from "./toast";
 
 // Bottom decision bar (Figma 6-23): approve / reject / send-to-human, each confirmed
 // via modal, then collapses into an outcome banner. Mock-first (no backend call).
@@ -27,6 +28,7 @@ export function DecisionActionBar({
 }) {
   const [pending, setPending] = useState<Action | null>(null);
   const [outcome, setOutcome] = useState<Action | null>(null);
+  const { toast } = useToast();
 
   if (outcome) {
     return (
@@ -93,7 +95,17 @@ export function DecisionActionBar({
           <button
             type="button"
             onClick={() => {
-              if (pending) setOutcome(pending);
+              if (pending) {
+                setOutcome(pending);
+                toast(
+                  OUTCOME_TEXT[pending],
+                  pending === "APPROVE"
+                    ? "success"
+                    : pending === "REJECT"
+                      ? "error"
+                      : "info",
+                );
+              }
               setPending(null);
             }}
             className="rounded bg-ink px-3 py-1.5 text-[14px] font-medium text-white"

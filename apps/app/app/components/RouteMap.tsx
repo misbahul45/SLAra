@@ -21,6 +21,8 @@ interface RouteMapProps {
   destination: DestinationRef;
   selectedRouteId: string;
   onSelect: (routeId: string) => void;
+  /** "tier" colors by risk tier (default); "selection" colors selected vs rest. */
+  colorMode?: "tier" | "selection";
 }
 
 function FitBounds({ positions }: { positions: LatLng[] }) {
@@ -39,6 +41,7 @@ export default function RouteMap({
   destination,
   selectedRouteId,
   onSelect,
+  colorMode = "tier",
 }: RouteMapProps) {
   const allPoints: LatLng[] = routes.flatMap((r) => r.geometry);
   // Draw the selected route last so its thicker line sits on top.
@@ -63,12 +66,18 @@ export default function RouteMap({
 
       {ordered.map((r) => {
         const selected = r.route_id === selectedRouteId;
+        const color =
+          colorMode === "selection"
+            ? selected
+              ? "#780001"
+              : "#669bbb"
+            : TIER_HEX[r.risk_tier];
         return (
           <Polyline
             key={r.route_id}
             positions={r.geometry}
             pathOptions={{
-              color: TIER_HEX[r.risk_tier],
+              color,
               weight: selected ? 6 : 3,
               opacity: selected ? 1 : 0.45,
             }}

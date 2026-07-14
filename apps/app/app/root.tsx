@@ -8,6 +8,7 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
+import { ToastProvider } from "~/components/toast";
 import "leaflet/dist/leaflet.css";
 import "./app.css";
 
@@ -43,7 +44,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <ToastProvider>
+      <Outlet />
+    </ToastProvider>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
@@ -63,14 +68,16 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
-        </pre>
-      )}
+    <main className="mx-auto max-w-2xl px-4 py-16">
+      <div className="glass-card p-6">
+        <h1 className="text-[28px] font-bold text-ink">{message}</h1>
+        <p className="mt-2 text-ink/70">{details}</p>
+        {stack && (
+          <pre className="mt-4 w-full overflow-x-auto rounded-[12px] bg-white/60 p-4 text-xs text-ink/80">
+            <code>{stack}</code>
+          </pre>
+        )}
+      </div>
     </main>
   );
 }

@@ -2,6 +2,7 @@ import { Fragment, useState } from "react";
 import type { ApprovalDetail } from "~/lib/types";
 import { SeverityPill } from "./SeverityPill";
 import { Modal } from "./Modal";
+import { useToast } from "./toast";
 
 // Right-hand approval detail (Figma 6-27): escalation trigger, AI recommendation,
 // impact metrics, operator note, approve/reject, escalation timeline.
@@ -13,6 +14,7 @@ export function ApprovalDetailPanel({ detail }: { detail: ApprovalDetail }) {
   const [note, setNote] = useState("");
   const [pending, setPending] = useState<Action | null>(null);
   const [outcome, setOutcome] = useState<Action | null>(null);
+  const { toast } = useToast();
 
   return (
     <div className="glass-card p-6">
@@ -139,7 +141,15 @@ export function ApprovalDetailPanel({ detail }: { detail: ApprovalDetail }) {
           <button
             type="button"
             onClick={() => {
-              if (pending) setOutcome(pending);
+              if (pending) {
+                setOutcome(pending);
+                toast(
+                  pending === "APPROVE"
+                    ? `Approved & executed — ${detail.shipments} shipments reassigned.`
+                    : "Recommendation rejected — flagged for follow-up.",
+                  pending === "APPROVE" ? "success" : "error",
+                );
+              }
               setPending(null);
             }}
             className="rounded bg-ink px-3 py-1.5 text-[14px] font-medium text-white"
