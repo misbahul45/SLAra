@@ -10,17 +10,17 @@
     "semantic_hash": "d12d57c380c6f01a0a3c3d480824d09f"
   },
   "apps/app/app/root.tsx": {
-    "mtime": 1783975363.4637618,
+    "mtime": 1783977379.295564,
     "ast_hash": "c6c300107717cc352ea1d687a4af1880",
     "semantic_hash": ""
   },
   "apps/app/app/routes.ts": {
-    "mtime": 1783975363.4637618,
+    "mtime": 1783977379.295564,
     "ast_hash": "9c4b29d2a82f6526750a833c3ad65fba",
     "semantic_hash": ""
   },
   "apps/app/package.json": {
-    "mtime": 1783975363.464762,
+    "mtime": 1783977379.21457,
     "ast_hash": "0eb788aba52b693533b064e123087dc0",
     "semantic_hash": ""
   },
@@ -195,152 +195,152 @@
     "semantic_hash": ""
   },
   ".claude/settings.json": {
-    "mtime": 1783975363.458762,
+    "mtime": 1783977379.293564,
     "ast_hash": "9f9c53cfbe6bcfdc79891097837d4b28",
     "semantic_hash": ""
   },
   "apps/app/app/components/ActiveRecommendationCard.tsx": {
-    "mtime": 1783975363.458762,
+    "mtime": 1783977379.293564,
     "ast_hash": "3a38501a4b43edbe81cea27ea0d20142",
     "semantic_hash": ""
   },
   "apps/app/app/components/ClientOnly.tsx": {
-    "mtime": 1783975363.4597619,
+    "mtime": 1783977379.293564,
     "ast_hash": "d633133242c8c423bf03cd91c2069bdf",
     "semantic_hash": ""
   },
   "apps/app/app/components/Clock.tsx": {
-    "mtime": 1783975363.4597619,
+    "mtime": 1783977379.294564,
     "ast_hash": "edcdd5c6e362c0e2e71bc13ecaf429d0",
     "semantic_hash": ""
   },
   "apps/app/app/components/ConfidencePanel.tsx": {
-    "mtime": 1783975363.4597619,
+    "mtime": 1783977379.2335687,
     "ast_hash": "94f1dc8fa91b9b6f4662749d98217fea",
     "semantic_hash": ""
   },
   "apps/app/app/components/DashboardKpis.tsx": {
-    "mtime": 1783975363.4597619,
+    "mtime": 1783977379.294564,
     "ast_hash": "6cfb6d275182ac6ab9bae75b7e4e65bf",
     "semantic_hash": ""
   },
   "apps/app/app/components/EtaBand.tsx": {
-    "mtime": 1783975363.4597619,
+    "mtime": 1783977379.1945715,
     "ast_hash": "b4823aba4af48bd5408ac6b8feb6d239",
     "semantic_hash": ""
   },
   "apps/app/app/components/EventFeed.tsx": {
-    "mtime": 1783975363.4597619,
+    "mtime": 1783977379.294564,
     "ast_hash": "9fe45696acdeab480da0e56a75a056c7",
     "semantic_hash": ""
   },
   "apps/app/app/components/FilterTabs.tsx": {
-    "mtime": 1783975363.4597619,
+    "mtime": 1783977379.1945715,
     "ast_hash": "644bb8cc79c9740f31213cc6a16b6b43",
     "semantic_hash": ""
   },
   "apps/app/app/components/KpiStrip.tsx": {
-    "mtime": 1783975363.460762,
+    "mtime": 1783977379.2755654,
     "ast_hash": "bfa1c979994a0064694f22b39465f441",
     "semantic_hash": ""
   },
   "apps/app/app/components/MiniMap.tsx": {
-    "mtime": 1783975363.460762,
+    "mtime": 1783977379.3135626,
     "ast_hash": "964eaa9c2de75298d04258522ea8741f",
     "semantic_hash": ""
   },
   "apps/app/app/components/Modal.tsx": {
-    "mtime": 1783975363.460762,
+    "mtime": 1783977379.2535672,
     "ast_hash": "9862a2c864b072f4c899c8f83560cede",
     "semantic_hash": ""
   },
   "apps/app/app/components/OperatorPanel.tsx": {
-    "mtime": 1783975363.460762,
+    "mtime": 1783977379.2535672,
     "ast_hash": "eafd32a5d2644ef42695b40d5747e849",
     "semantic_hash": ""
   },
   "apps/app/app/components/PageHeader.tsx": {
-    "mtime": 1783975363.460762,
+    "mtime": 1783977379.294564,
     "ast_hash": "55bc84d22b945355de4de7a3ea3795c1",
     "semantic_hash": ""
   },
   "apps/app/app/components/PhasePlaceholder.tsx": {
-    "mtime": 1783975363.460762,
+    "mtime": 1783977379.294564,
     "ast_hash": "13761184880808f1870d7e1de81b7f34",
     "semantic_hash": ""
   },
   "apps/app/app/components/ProcessSteps.tsx": {
-    "mtime": 1783975363.460762,
+    "mtime": 1783977379.294564,
     "ast_hash": "6f424c0c35b7fed0d76e428b80af125d",
     "semantic_hash": ""
   },
   "apps/app/app/components/RouteCards.tsx": {
-    "mtime": 1783975363.460762,
+    "mtime": 1783977379.21357,
     "ast_hash": "8399808230ca296fbed44d30d40e9f6e",
     "semantic_hash": ""
   },
   "apps/app/app/components/RouteMap.tsx": {
-    "mtime": 1783975363.460762,
+    "mtime": 1783977379.21357,
     "ast_hash": "3977e9bf6578edb7664acc987c228bad",
     "semantic_hash": ""
   },
   "apps/app/app/components/ShapChart.tsx": {
-    "mtime": 1783975363.461762,
+    "mtime": 1783977379.2335687,
     "ast_hash": "666ae0cc819dd5379e6799ff48f25da0",
     "semantic_hash": ""
   },
   "apps/app/app/components/ShipmentTable.tsx": {
-    "mtime": 1783975363.461762,
+    "mtime": 1783977379.1945715,
     "ast_hash": "214a01c12b374230d8ca40f9ccd60713",
     "semantic_hash": ""
   },
   "apps/app/app/components/TierBadge.tsx": {
-    "mtime": 1783975363.461762,
+    "mtime": 1783977379.1955714,
     "ast_hash": "49024b51146d5e237a938ac84cc35eaf",
     "semantic_hash": ""
   },
   "apps/app/app/components/VehicleTelemetryPanel.tsx": {
-    "mtime": 1783975363.461762,
+    "mtime": 1783977379.3135626,
     "ast_hash": "71cf8a65e2953e57663b7957aedb2d38",
     "semantic_hash": ""
   },
   "apps/app/app/components/nav-icons.tsx": {
-    "mtime": 1783975363.461762,
+    "mtime": 1783977379.294564,
     "ast_hash": "ed94b0874c0d06916397bde08a924ef5",
     "semantic_hash": ""
   },
   "apps/app/app/layouts/app-shell.tsx": {
-    "mtime": 1783975363.461762,
+    "mtime": 1783977379.294564,
     "ast_hash": "1139093fe3e5a9ce60f1014ecd6ba990",
     "semantic_hash": ""
   },
   "apps/app/app/lib/api.ts": {
-    "mtime": 1783975363.4627619,
+    "mtime": 1783977379.3145626,
     "ast_hash": "237c0268716ec35efde4a7120e30e9bf",
     "semantic_hash": ""
   },
   "apps/app/app/lib/data.ts": {
-    "mtime": 1783975363.4627619,
+    "mtime": 1783977379.3145626,
     "ast_hash": "6f950b51e9dbfb6eb81b3d045a575249",
     "semantic_hash": ""
   },
   "apps/app/app/lib/mock.ts": {
-    "mtime": 1783975363.4627619,
+    "mtime": 1783977379.3145626,
     "ast_hash": "5b3e64fd55707592fecc612145cc743b",
     "semantic_hash": ""
   },
   "apps/app/app/lib/tier.ts": {
-    "mtime": 1783975363.4627619,
+    "mtime": 1783977379.1955714,
     "ast_hash": "b81cc3da57f179d25fa5194ef945bbf9",
     "semantic_hash": ""
   },
   "apps/app/app/lib/types.ts": {
-    "mtime": 1783975363.4627619,
+    "mtime": 1783977379.3145626,
     "ast_hash": "1b6ba953e88687657df6cc6f44d65104",
     "semantic_hash": ""
   },
   "apps/app/app/mocks/dashboard.json": {
-    "mtime": 1783975363.4637618,
+    "mtime": 1783977379.295564,
     "ast_hash": "ebee0bca55c67951e74645159b4b2c24",
     "semantic_hash": ""
   },
@@ -355,7 +355,7 @@
     "semantic_hash": ""
   },
   "apps/app/app/mocks/fleet.json": {
-    "mtime": 1783975363.4637618,
+    "mtime": 1783977379.3145626,
     "ast_hash": "e71839ac993186d97a71ece55c33edce",
     "semantic_hash": ""
   },
@@ -370,32 +370,32 @@
     "semantic_hash": ""
   },
   "apps/app/app/routes/approvals.tsx": {
-    "mtime": 1783975363.4637618,
+    "mtime": 1783977379.295564,
     "ast_hash": "45611b49f5cd4337757006abcda25302",
     "semantic_hash": ""
   },
   "apps/app/app/routes/dashboard.tsx": {
-    "mtime": 1783975363.4637618,
+    "mtime": 1783977379.295564,
     "ast_hash": "e4024b8837caa496cbe2f93daa042cd3",
     "semantic_hash": ""
   },
   "apps/app/app/routes/fleet.tsx": {
-    "mtime": 1783975363.464762,
+    "mtime": 1783977379.3145626,
     "ast_hash": "f709e6f3518a7dcb24127d6f0e8e930d",
     "semantic_hash": ""
   },
   "apps/app/app/routes/impact.tsx": {
-    "mtime": 1783975363.464762,
+    "mtime": 1783977379.295564,
     "ast_hash": "ee387e974c09e0e12b9d68c10042d91d",
     "semantic_hash": ""
   },
   "apps/app/app/routes/optimization.tsx": {
-    "mtime": 1783975363.464762,
+    "mtime": 1783977379.295564,
     "ast_hash": "4a4b54848d68a5f4ca026cb664667861",
     "semantic_hash": ""
   },
   "apps/app/app/routes/recommendation.tsx": {
-    "mtime": 1783975363.464762,
+    "mtime": 1783977379.295564,
     "ast_hash": "3a1d1dbd9644d8dd0ddecc33e73ff42b",
     "semantic_hash": ""
   },
