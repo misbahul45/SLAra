@@ -19,12 +19,12 @@ export function EtaBand({ p50, p90, domainMax, tier }: EtaBandProps) {
 
   return (
     <div className="w-44">
-      <div className="mb-1 flex items-baseline justify-between font-mono text-[11px] tabular-nums">
+      <div className="mb-1 flex items-baseline justify-between text-[11px] font-semibold tabular-nums">
         <span className="text-muted">{p50.toFixed(0)}</span>
         <span className="text-ink">Δ{(p90 - p50).toFixed(0)}m</span>
         <span className="text-muted">{p90.toFixed(0)}</span>
       </div>
-      <div className="relative h-1.5 w-full rounded-full bg-line">
+      <div className="relative h-1.5 w-full rounded-full bg-brand/25">
         <div
           className="absolute top-0 h-full rounded-full"
           style={{

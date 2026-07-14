@@ -299,6 +299,13 @@ export interface AgentTraceItem {
   top_shap?: string;
 }
 
+export interface RouteView {
+  origin: HubRef;
+  destination: DestinationRef;
+  routes: RouteOption[];
+  selected_route_id: string;
+}
+
 export interface RecommendationDetail {
   event: RecoEvent;
   current_plan: PlanCard;
@@ -306,6 +313,9 @@ export interface RecommendationDetail {
   agents: AgentNode[];
   confidence: ConfidenceScore;
   trace: AgentTraceItem[];
+  route_view: RouteView;
+  /** Signed SHAP impacts (minutes) explaining the recommended route's ETA (M5). */
+  eta_shap: ShapFeature[];
 }
 
 // ── Route Optimization page (NSGA-II) ────────────────────────────────────────

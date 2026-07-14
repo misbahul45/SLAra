@@ -23,7 +23,7 @@ function humanize(s: string): string {
 export function ShapChart({ shap }: { shap: ShapFeature[] | null }) {
   if (!shap || shap.length === 0) {
     return (
-      <div className="rounded border border-line bg-surface/40 p-4">
+      <div>
         <div className="text-xs uppercase tracking-wide text-muted">
           ETA drivers (SHAP)
         </div>
@@ -54,26 +54,26 @@ export function ShapChart({ shap }: { shap: ShapFeature[] | null }) {
           >
             <XAxis
               type="number"
-              tick={{ fill: "#8b98a9", fontSize: 11 }}
-              stroke="#22303f"
+              tick={{ fill: "#6f86a0", fontSize: 11 }}
+              stroke="#669bbb"
             />
             <YAxis
               type="category"
               dataKey="name"
               width={140}
-              tick={{ fill: "#e6edf3", fontSize: 11 }}
-              stroke="#22303f"
+              tick={{ fill: "#01304a", fontSize: 11 }}
+              stroke="#669bbb"
             />
-            <ReferenceLine x={0} stroke="#8b98a9" />
+            <ReferenceLine x={0} stroke="#669bbb" />
             <Tooltip
-              cursor={{ fill: "#16202e" }}
+              cursor={{ fill: "#669bbb", fillOpacity: 0.1 }}
               contentStyle={{
-                background: "#0e1420",
-                border: "1px solid #22303f",
-                borderRadius: 4,
+                background: "#ffffff",
+                border: "1px solid #669bbb",
+                borderRadius: 8,
                 fontSize: 12,
               }}
-              labelStyle={{ color: "#e6edf3" }}
+              labelStyle={{ color: "#01304a" }}
               formatter={(value) => [`${Number(value).toFixed(1)} min`, "impact"]}
             />
             <Bar dataKey="impact_min" radius={2}>

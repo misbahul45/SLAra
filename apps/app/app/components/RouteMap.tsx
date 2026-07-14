@@ -53,7 +53,7 @@ export default function RouteMap({
       center={[origin.lat, origin.lng]}
       zoom={12}
       className="h-full w-full"
-      style={{ background: "#0e1420" }}
+      style={{ background: "#eef1f6" }}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -81,8 +81,8 @@ export default function RouteMap({
         center={[origin.lat, origin.lng]}
         radius={7}
         pathOptions={{
-          color: "#4cc9f0",
-          fillColor: "#4cc9f0",
+          color: "#ffffff",
+          fillColor: "#01304a",
           fillOpacity: 1,
           weight: 2,
         }}
@@ -94,8 +94,8 @@ export default function RouteMap({
         center={[destination.lat, destination.lng]}
         radius={7}
         pathOptions={{
-          color: "#e6edf3",
-          fillColor: "#16202e",
+          color: "#ffffff",
+          fillColor: "#780001",
           fillOpacity: 1,
           weight: 2,
         }}

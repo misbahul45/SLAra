@@ -111,5 +111,52 @@
       "confidence": 99,
       "reasoning": "Push reroute to TMS API. Notified driver Budi Santoso via FCM. Idempotency key EVT-1024-20260520T10212."
     }
+  ],
+  "route_view": {
+    "origin": { "hub_id": "HUB-CBT-01", "name": "Hub Cibitung – Dock A", "lat": -6.283, "lng": 107.086 },
+    "destination": { "label": "Bekasi Barat", "lat": -6.222, "lng": 106.972 },
+    "selected_route_id": "R-C",
+    "routes": [
+      {
+        "route_id": "R-A",
+        "label": "Current (Plan A)",
+        "eta_p50_min": 70.0,
+        "eta_p90_min": 92.0,
+        "risk_tier": "CRITICAL",
+        "cost_idr": 38000,
+        "co2_kg": 2.8,
+        "distance_km": 24.0,
+        "geometry": [[-6.283, 107.086], [-6.30, 107.02], [-6.28, 106.98], [-6.222, 106.972]]
+      },
+      {
+        "route_id": "R-B",
+        "label": "Fastest (Plan B)",
+        "eta_p50_min": 44.0,
+        "eta_p90_min": 66.0,
+        "risk_tier": "WARNING",
+        "cost_idr": 46000,
+        "co2_kg": 3.4,
+        "distance_km": 20.0,
+        "geometry": [[-6.283, 107.086], [-6.24, 107.05], [-6.21, 106.99], [-6.222, 106.972]]
+      },
+      {
+        "route_id": "R-C",
+        "label": "Recommended (Plan C)",
+        "eta_p50_min": 47.0,
+        "eta_p90_min": 58.0,
+        "risk_tier": "SAFE",
+        "cost_idr": 41000,
+        "co2_kg": 3.0,
+        "distance_km": 22.0,
+        "geometry": [[-6.283, 107.086], [-6.32, 107.03], [-6.29, 106.95], [-6.222, 106.972]]
+      }
+    ]
+  },
+  "eta_shap": [
+    { "feature": "hub_dwell_time_predicted", "impact_min": 12.4, "direction": "increases_eta" },
+    { "feature": "distance_km", "impact_min": 8.1, "direction": "increases_eta" },
+    { "feature": "rain_intensity", "impact_min": 5.3, "direction": "increases_eta" },
+    { "feature": "hour_of_day", "impact_min": -3.2, "direction": "decreases_eta" },
+    { "feature": "vehicle_type", "impact_min": 2.0, "direction": "increases_eta" }
   ]
 }
