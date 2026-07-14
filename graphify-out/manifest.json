@@ -40,7 +40,7 @@
     "semantic_hash": "884386922abc8e8141a7ef050ef15af2"
   },
   "services/agent/package.json": {
-    "mtime": 1784019120.4969883,
+    "mtime": 1784023043.6964872,
     "ast_hash": "9ddf6427350381f40c2160d5150bd28c",
     "semantic_hash": ""
   },
@@ -125,8 +125,8 @@
     "semantic_hash": ""
   },
   "infra/docker-compose.yml": {
-    "mtime": 1784020464.7869213,
-    "ast_hash": "24199ae4b82a45fb310b1346145e4791",
+    "mtime": 1784021454.3661013,
+    "ast_hash": "d076b23671445c5ace7a059d776437bd",
     "semantic_hash": ""
   },
   "services/agent/Readme.md": {
@@ -667,6 +667,11 @@
   "services/ai/models/m1_eta_lightgbm.txt": {
     "mtime": 1783699796.0,
     "ast_hash": "ea83cb607f337cb8702614bb6fb16342",
+    "semantic_hash": ""
+  },
+  "services/agent/pnpm-workspace.yaml": {
+    "mtime": 1784023097.7274797,
+    "ast_hash": "a1f5d1cb1360039768a7a5df12576f08",
     "semantic_hash": ""
   }
 }

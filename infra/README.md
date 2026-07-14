@@ -84,6 +84,19 @@ curl http://localhost:8000/health
 ```
 `models_loaded` lists model keys with a loaded booster — use it to confirm the model mount worked.
 
+### Health Check Script
+
+`infra/check-health.sh` memeriksa semua endpoint sekaligus (langsung + via gateway) plus status
+container Docker, dengan color output, timing per-request, dan summary pass/fail. Exit code non-zero
+kalau ada yang fail (aman untuk CI / pre-merge gate).
+
+```bash
+bash infra/check-health.sh                 # semua checks (direct + gateway + docker)
+bash infra/check-health.sh --direct-only   # HTTP endpoint langsung (tanpa gateway)
+bash infra/check-health.sh --gateway-only  # HTTP endpoint via gateway (:80/api/*)
+bash infra/check-health.sh --docker-only   # status health container Docker saja
+```
+
 ## VS Code Dev Containers
 
 `.devcontainer/devcontainer.json` in root + each service. Open in VS Code → **Reopen in Container**.

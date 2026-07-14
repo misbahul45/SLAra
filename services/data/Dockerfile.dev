@@ -8,6 +8,9 @@ RUN go install github.com/air-verse/air@latest
 COPY go.mod go.sum ./
 RUN go mod download
 
+# Bake source (termasuk .air.toml) supaya CMD `air` tidak crash sebelum watch sync.
+COPY . .
+
 EXPOSE 8081
 
 CMD ["air", "-c", ".air.toml"]

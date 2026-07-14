@@ -1,7 +1,7 @@
 FROM node:22-alpine AS deps
 RUN npm install -g corepack@latest && corepack enable
 WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile
 
 FROM node:22-alpine AS build
@@ -15,7 +15,7 @@ FROM node:22-alpine AS runtime
 RUN npm install -g corepack@latest && corepack enable
 WORKDIR /app
 ENV NODE_ENV=production
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --prod --frozen-lockfile
 COPY --from=build /app/dist ./dist
 EXPOSE 3000

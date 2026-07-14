@@ -1,4 +1,9 @@
 services:
+  gateway:
+    # Dev: pakai nginx config yang nunjuk app upstream ke Vite (5173), bukan 3000.
+    volumes:
+      - ../services/gateway/nginx.dev.conf:/etc/nginx/nginx.conf:ro
+
   agent:
     build:
       context: ../services/agent
@@ -61,6 +66,13 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - "5173:5173"
+    # Override healthcheck base (port 3000) — Vite dev server listen di 5173.
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:5173/ || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
     develop:
       watch:
         - action: sync
