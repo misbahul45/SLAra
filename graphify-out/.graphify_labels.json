@@ -16,14 +16,14 @@
   "14": "routes.ts",
   "15": "react-router.config.ts",
   "16": "vite.config.ts",
-  "17": "AGENTS.md — SLAra Project Instructions",
+  "17": "__init__.py",
   "18": "SLAra",
   "19": "Konvensi Kode",
   "20": "github.com/misbahul45/SLAra/services/data",
   "21": "ml",
   "22": "Konvensi Kode",
   "23": "main.go",
-  "24": "React Dashboard",
+  "24": "init_env.py",
   "25": "M5 — Explainability Layer (SHAP)",
   "26": "M3 — Carbon Emission Estimator",
   "27": "M6 — Multi-Agent Orchestration & Confidence Aggregation",
@@ -65,5 +65,8 @@
   "63": "Readme.md",
   "64": "Readme.md",
   "65": "Kafka Event Schemas",
-  "66": "gRPC Contracts"
+  "66": "gRPC Contracts",
+  "67": "index.ts",
+  "68": "init_model.py",
+  "69": "__init__.py"
 }

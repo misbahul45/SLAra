@@ -1,0 +1,27 @@
+{
+  "name": "SLAra · Data (Go + air)",
+  "dockerComposeFile": [
+    "../../../infra/docker-compose.yml",
+    "../../../infra/docker-compose.dev.yml"
+  ],
+  "service": "data",
+  "workspaceFolder": "/app",
+  "remoteUser": "root",
+  "shutdownAction": "none",
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/app,type=bind,consistency=cached"
+  ],
+  "postCreateCommand": "go mod download",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "golang.go",
+        "ms-azuretools.vscode-docker"
+      ],
+      "settings": {
+        "go.useLanguageServer": true,
+        "[go]": { "editor.formatOnSave": true }
+      }
+    }
+  }
+}

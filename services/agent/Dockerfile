@@ -1,14 +1,22 @@
-FROM node:22-alpine
+FROM node:22-alpine AS deps
 RUN corepack enable
-
 WORKDIR /app
-
 COPY package.json pnpm-lock.yaml ./
-# Install dependensi (termasuk devDependencies untuk hot-reload)
 RUN pnpm install --frozen-lockfile
 
-# Source code akan di-mount dari host
-EXPOSE 3000
+FROM node:22-alpine AS build
+RUN corepack enable
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+RUN pnpm run build
 
-# Asumsi kamu menggunakan tsx atau ts-node-dev di script "dev" pada package.json
-CMD ["pnpm", "run", "dev"]
+FROM node:22-alpine AS runtime
+RUN corepack enable
+WORKDIR /app
+ENV NODE_ENV=production
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --prod --frozen-lockfile
+COPY --from=build /app/dist ./dist
+EXPOSE 3000
+CMD ["node", "dist/index.js"]

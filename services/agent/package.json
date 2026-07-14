@@ -1,6 +1,7 @@
 {
   "name": "agent",
   "type": "module",
+  "packageManager": "pnpm@11.8.0",
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc",

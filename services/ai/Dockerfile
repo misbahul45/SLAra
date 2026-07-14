@@ -1,13 +1,15 @@
-FROM python:3.12-slim
+FROM python:3.14-slim AS build
 WORKDIR /app
-
-# Install uv menggunakan binary terbaru dari astral
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
-
+ENV UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy
 COPY pyproject.toml uv.lock ./
-RUN uv sync
+RUN uv sync --frozen --no-dev
+COPY . .
 
+FROM python:3.14-slim AS runtime
+WORKDIR /app
+COPY --from=build /app /app
+ENV PATH="/app/.venv/bin:$PATH"
 EXPOSE 8000
-
-# Gunakan flag --reload untuk development
-CMD ["uv", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

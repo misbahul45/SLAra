@@ -1,16 +1,16 @@
 # Graph Report - SLAra  (2026-07-14)
 
 ## Corpus Check
-- 94 files · ~45,324 words
+- 130 files · ~12,289,986 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 804 nodes · 880 edges · 67 communities (50 shown, 17 thin omitted)
+- 802 nodes · 875 edges · 70 communities (55 shown, 15 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `c28940f2`
+- Built from commit: `ac82492c`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -25,14 +25,12 @@
 - [[_COMMUNITY_home.tsx|home.tsx]]
 - [[_COMMUNITY_index.ts|index.ts]]
 - [[_COMMUNITY_AGENTS.md — SLAra Project Instructions|AGENTS.md — SLAra Project Instructions]]
-- [[_COMMUNITY_AGENTS.md — SLAra Project Instructions|AGENTS.md — SLAra Project Instructions]]
 - [[_COMMUNITY_SLAra|SLAra]]
 - [[_COMMUNITY_Konvensi Kode|Konvensi Kode]]
 - [[_COMMUNITY_github.commisbahul45SLAraservicesdata|github.com/misbahul45/SLAra/services/data]]
 - [[_COMMUNITY_ml|ml]]
 - [[_COMMUNITY_Konvensi Kode|Konvensi Kode]]
 - [[_COMMUNITY_main.go|main.go]]
-- [[_COMMUNITY_React Dashboard|React Dashboard]]
 - [[_COMMUNITY_M5 — Explainability Layer (SHAP)|M5 — Explainability Layer (SHAP)]]
 - [[_COMMUNITY_M3 — Carbon Emission Estimator|M3 — Carbon Emission Estimator]]
 - [[_COMMUNITY_M6 — Multi-Agent Orchestration & Confidence Aggregation|M6 — Multi-Agent Orchestration & Confidence Aggregation]]
@@ -77,13 +75,13 @@
 1. `compilerOptions` - 15 edges
 2. `AGENTS.md — SLAra Project Instructions` - 13 edges
 3. `Framework Mode` - 13 edges
-4. `AGENTS.md — SLAra Project Instructions` - 13 edges
-5. `📚 SLAra — Documentation Hub` - 13 edges
-6. `SLAra AI — Model Interaction Map (M1–M6)` - 13 edges
-7. `M1 — ETA Prediction & SLA Risk Tier` - 12 edges
-8. `M2 — Hub Congestion / Dwell-Time Forecast` - 12 edges
-9. `M4 — Route Optimization Engine (NSGA-II)` - 12 edges
-10. `M5 — Explainability Layer (SHAP)` - 12 edges
+4. `📚 SLAra — Documentation Hub` - 13 edges
+5. `SLAra AI — Model Interaction Map (M1–M6)` - 13 edges
+6. `M1 — ETA Prediction & SLA Risk Tier` - 12 edges
+7. `M2 — Hub Congestion / Dwell-Time Forecast` - 12 edges
+8. `M4 — Route Optimization Engine (NSGA-II)` - 12 edges
+9. `M5 — Explainability Layer (SHAP)` - 12 edges
+10. `🗺️ SLAra AI — Next Training Plan (Post-M1)` - 12 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `EtaBandProps` --references--> `RiskTier`  [EXTRACTED]
@@ -104,15 +102,19 @@
 - **SLAra Microservices Mesh** — services_agent, services_data, services_ai, infra_kafka [EXTRACTED 1.00]
 - **Infrastructure Layer** — infra_mongodb, infra_neo4j, infra_redis, infra_qdrant, infra_kafka [EXTRACTED 1.00]
 
-## Communities (67 total, 17 thin omitted)
+## Communities (70 total, 15 thin omitted)
 
 ### Community 0 - "compilerOptions"
 Cohesion: 0.11
 Nodes (17): compilerOptions, esModuleInterop, jsx, lib, module, moduleResolution, noEmit, paths (+9 more)
 
 ### Community 1 - "package.json"
-Cohesion: 0.14
-Nodes (13): dependencies, hono, @hono/node-server, devDependencies, tsx, @types/node, typescript, name (+5 more)
+Cohesion: 0.13
+Nodes (14): dependencies, hono, @hono/node-server, devDependencies, tsx, @types/node, typescript, name (+6 more)
+
+### Community 2 - "Kafka Event Schemas"
+Cohesion: 0.29
+Nodes (6): AI Models (cached, not baked into image), Config, Health check, Run, SLAra — Infra (Docker), VS Code Dev Containers
 
 ### Community 3 - "compilerOptions"
 Cohesion: 0.17
@@ -120,7 +122,7 @@ Nodes (11): compilerOptions, jsx, jsxImportSource, module, outDir, skipLibCheck,
 
 ### Community 4 - "devDependencies"
 Cohesion: 0.07
-Nodes (28): dependencies, isbot, leaflet, react, react-dom, react-leaflet, react-router, @react-router/node (+20 more)
+Nodes (29): dependencies, isbot, leaflet, react, react-dom, react-leaflet, react-router, @react-router/node (+21 more)
 
 ### Community 5 - "📚 SLAra — Documentation Hub"
 Cohesion: 0.10
@@ -135,16 +137,12 @@ Cohesion: 0.07
 Nodes (13): ClientOnly(), Clock(), pad(), EventFeed(), PageHeader(), PhasePlaceholder(), ProcessSteps(), STEPS (+5 more)
 
 ### Community 13 - "AGENTS.md — SLAra Project Instructions"
-Cohesion: 0.08
-Nodes (23): Agent (TypeScript / Hono), AGENTS.md — SLAra Project Instructions, AI Agents Capability (untuk agent yg kerja di repo ini), AI (Python / FastAPI), Architecture Map, Build & Run Commands, Codebase Understanding — WAJIB baca `graphify-out/` dulu, Common Gotchas (+15 more)
-
-### Community 17 - "AGENTS.md — SLAra Project Instructions"
-Cohesion: 0.08
-Nodes (23): Agent (TypeScript / Hono), AGENTS.md — SLAra Project Instructions, AI Agents Capability (untuk agent yg kerja di repo ini), AI (Python / FastAPI), Architecture Map, Build & Run Commands, Codebase Understanding — WAJIB baca `graphify-out/` dulu, Common Gotchas (+15 more)
+Cohesion: 0.06
+Nodes (30): Agent (TypeScript / Hono), AGENTS.md — SLAra Project Instructions, AI Agents Capability (untuk agent yg kerja di repo ini), AI (Python / FastAPI), Architecture Map, Build & Run Commands, Codebase Understanding — WAJIB baca `graphify-out/` dulu, Common Gotchas (+22 more)
 
 ### Community 18 - "SLAra"
-Cohesion: 0.12
-Nodes (15): Agent — Hono + LangGraph, AI — FastAPI, Alur Komunikasi, Data — Go, Dokumentasi, Gateway — Nginx, Getting Started, Jalankan 1 service aja (dev mode) (+7 more)
+Cohesion: 0.11
+Nodes (17): Agent — Hono + LangGraph, AI — FastAPI, Alur Komunikasi, Data — Go, Dokumentasi, Gateway — Nginx, Getting Started, Jalankan 1 service aja (dev mode) (+9 more)
 
 ### Community 19 - "Konvensi Kode"
 Cohesion: 0.06
@@ -267,9 +265,9 @@ Cohesion: 0.83
 Nodes (3): Checkpoint, Shipment, Time
 
 ## Knowledge Gaps
-- **487 isolated node(s):** `SEVERITY_BG`, `ORDER`, `SEG_COLOR`, `svg`, `TierFilter` (+482 more)
+- **481 isolated node(s):** `Config`, `Run`, `AI Models (cached, not baked into image)`, `Health check`, `VS Code Dev Containers` (+476 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **17 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **15 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
@@ -278,13 +276,13 @@ _Questions this graph is uniquely positioned to answer:_
   _High betweenness centrality (0.007) - this node is a cross-community bridge._
 - **Why does `5. M4 — Route Optimization (P0, NSGA-II)` connect `5. M4 — Route Optimization (P0, NSGA-II)` to `🗺️ SLAra AI — Next Training Plan (Post-M1)`?**
   _High betweenness centrality (0.003) - this node is a cross-community bridge._
-- **What connects `SEVERITY_BG`, `ORDER`, `SEG_COLOR` to the rest of the system?**
-  _487 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **What connects `Config`, `Run`, `AI Models (cached, not baked into image)` to the rest of the system?**
+  _481 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `compilerOptions` be split into smaller, more focused modules?**
   _Cohesion score 0.1111111111111111 - nodes in this community are weakly interconnected._
 - **Should `package.json` be split into smaller, more focused modules?**
-  _Cohesion score 0.14285714285714285 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.13333333333333333 - nodes in this community are weakly interconnected._
 - **Should `devDependencies` be split into smaller, more focused modules?**
-  _Cohesion score 0.06896551724137931 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06666666666666667 - nodes in this community are weakly interconnected._
 - **Should `📚 SLAra — Documentation Hub` be split into smaller, more focused modules?**
   _Cohesion score 0.09523809523809523 - nodes in this community are weakly interconnected._
