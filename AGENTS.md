@@ -166,13 +166,13 @@ Bruno itu buat testing manual/exploratory & sanity check sebelum merge — **buk
 
 ## Environment Variables
 
-Semua env var disimpan di `infra/environments/*.env`, **JANGAN PERNAH** commit file `.env` sungguhan.
-Template `.env.example` WAJIB di-commit dan di-update setiap kali ada env baru.
+Semua env var disimpan di **satu file root `.env`**, **JANGAN PERNAH** commit file `.env` sungguhan.
+Tiap service di compose baca file itu via `env_file: ../.env`. Template `.env.example` WAJIB di-commit dan di-update setiap kali ada env baru.
 
-Daftar service-level secret:
-- `AGENT.env`: OPENAI_API_KEY / GEMINI_API_KEY, QDRANT_URL, REDIS_URL, KAFKA_BROKER
-- `DATA.env`: MONGO_URI, NEO4J_*, REDIS_URL, KAFKA_BROKER, JWT_SECRET
-- `AI.env`: KAFKA_BROKER, MODEL_REGISTRY_URL, REDIS_URL
+Daftar env yang dipakai (semua di root `.env`):
+- Agent: OPENAI_API_KEY / GEMINI_API_KEY, QDRANT_URL, REDIS_URL, KAFKA_BROKERS
+- Data: MONGO_URI, NEO4J_*, REDIS_URL, KAFKA_BROKERS, JWT_SECRET
+- AI: KAFKA_BROKERS, MODEL_REGISTRY_URL, REDIS_URL
 
 ## Common Gotchas
 

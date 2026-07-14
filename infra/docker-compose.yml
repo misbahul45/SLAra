@@ -10,35 +10,24 @@ volumes:
   kafka_data:
 
 services:
-  # ==========================================
-  # GATEWAY (Nginx)
-  # ==========================================
   gateway:
     image: nginx:alpine
     container_name: slara_gateway
     ports:
       - "80:80"
     volumes:
-      - ./services/gateway/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ../services/gateway/nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       - agent
       - data
       - ai
+      - app
     networks:
       - slara_net
-
-  # ==========================================
-  # APPLICATION SERVICES (with Watch)
-  # ==========================================
   agent:
-    build:
-      context: ../services/agent
-      dockerfile: Dockerfile.dev
     container_name: slara_agent
-    ports:
-      - "3000:3000"
     env_file:
-      - ./environments/agent.env
+      - ../.env
     depends_on:
       qdrant:
         condition: service_healthy
@@ -48,26 +37,11 @@ services:
         condition: service_healthy
     networks:
       - slara_net
-    develop:
-      watch:
-        - action: sync+restart
-          path: ../services/agent/src
-          target: /app/src
-          initial_sync: true
-        - action: rebuild
-          path: ../services/agent/package.json
-        - action: rebuild
-          path: ../services/agent/pnpm-lock.yaml
 
   data:
-    build:
-      context: ../services/data
-      dockerfile: Dockerfile.dev
     container_name: slara_data
-    ports:
-      - "8081:8081"
     env_file:
-      - ./environments/data.env
+      - ../.env
     depends_on:
       mongodb:
         condition: service_healthy
@@ -79,28 +53,11 @@ services:
         condition: service_healthy
     networks:
       - slara_net
-    develop:
-      watch:
-        - action: sync
-          path: ../services/data
-          target: /app
-          initial_sync: true
-          ignore:
-            - tmp/ # Ignore build folder milik air
-        - action: rebuild
-          path: ../services/data/go.mod
-        - action: rebuild
-          path: ../services/data/go.sum
 
   ai:
-    build:
-      context: ../services/ai
-      dockerfile: Dockerfile.dev
     container_name: slara_ai
-    ports:
-      - "8000:8000"
     env_file:
-      - ./environments/ai.env
+      - ../.env
     depends_on:
       kafka:
         condition: service_healthy
@@ -108,22 +65,13 @@ services:
         condition: service_healthy
     networks:
       - slara_net
-    develop:
-      watch:
-        - action: sync
-          path: ../services/ai
-          target: /app
-          initial_sync: true
-          ignore:
-            - .venv/
-        - action: rebuild
-          path: ../services/ai/pyproject.toml
-        - action: rebuild
-          path: ../services/ai/uv.lock
 
-  # ==========================================
-  # INFRASTRUCTURE DATABASES
-  # ==========================================
+  app:
+    container_name: slara_app
+    env_file:
+      - ../.env
+    networks:
+      - slara_net
   mongodb:
     image: mongo:latest
     container_name: slara_mongodb
@@ -144,10 +92,10 @@ services:
     image: neo4j:latest
     container_name: slara_neo4j
     ports:
-      - "7474:7474" # HTTP Browser
-      - "7687:7687" # Bolt Protocol
-    environment:
-      - NEO4J_AUTH=${NEO4J_AUTH:-neo4j/password}
+      - "7474:7474"
+      - "7687:7687"
+    env_file:
+      - ../.env
     volumes:
       - neo4j_data:/data
     healthcheck:
@@ -178,8 +126,7 @@ services:
     image: qdrant/qdrant:latest
     container_name: slara_qdrant
     ports:
-      - "6333:6333" # REST API
-      - "6334:6334" # gRPC (protokol internal Qdrant sendiri, bukan kontrak antar service kita)
+      - "6333:6333"
     volumes:
       - qdrant_data:/qdrant/storage
     healthcheck:
@@ -190,10 +137,6 @@ services:
       start_period: 10s
     networks:
       - slara_net
-
-  # ==========================================
-  # MESSAGE BROKER (Kafka KRaft Mode)
-  # ==========================================
   kafka:
     image: bitnami/kafka:latest
     container_name: slara_kafka

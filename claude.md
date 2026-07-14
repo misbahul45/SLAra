@@ -11,7 +11,7 @@ AGENTS.md describes the **intended** end state. The repo is currently an early s
 | AGENTS.md claims | Actual state |
 |---|---|
 | pnpm workspaces monorepo | No root `pnpm-workspace.yaml` / root `package.json`. Each JS service (`services/agent`, `apps/app`) has its own `pnpm-lock.yaml` and is installed independently. |
-| `cd infra && docker compose watch` boots everything | **Won't run as-is.** `infra/docker-compose.yml` references `Dockerfile.dev` (only `Dockerfile` exists in each service) and `./environments/*.env` (`infra/environments/` is missing). Fix those before expecting compose to work. |
+| `cd infra && docker compose watch` boots everything | **Superseded.** Compose is now split base + override. Dev: `docker compose -f docker-compose.yml -f docker-compose.dev.yml watch`. Prod: `... -f docker-compose.prod.yml up -d --build`. Each service has `Dockerfile` (prod) + `Dockerfile.dev`. Env lives in a single root `.env` (`env_file: ../.env`); `infra/environments/` no longer exists. |
 | Agent = Hono + LangGraph + RAG + MCP tools | `services/agent/src/index.ts` is a single-file Hono "Hello Hono!" on port 3000. No LangGraph/MCP/`src/adapters` yet. |
 | AI = FastAPI + ML models | `services/ai/main.py` is a `print("Hello from ml!")` stub. No FastAPI app, no `app/`/`ml/` folders. |
 | `shared/`, `docs/architecture`, `docs/specifications`, `docs/contracts`, `docs/progress`, `docs/api/bruno` | None exist. The only real docs are in `docs/models/` (see below). |

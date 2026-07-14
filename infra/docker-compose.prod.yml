@@ -1,0 +1,38 @@
+services:
+  gateway:
+    restart: unless-stopped
+
+  agent:
+    build:
+      context: ../services/agent
+      dockerfile: Dockerfile
+    restart: unless-stopped
+
+  data:
+    build:
+      context: ../services/data
+      dockerfile: Dockerfile
+    restart: unless-stopped
+
+  ai:
+    build:
+      context: ../services/ai
+      dockerfile: Dockerfile
+    restart: unless-stopped
+
+  app:
+    build:
+      context: ../apps/app
+      dockerfile: Dockerfile
+    restart: unless-stopped
+
+  mongodb:
+    restart: unless-stopped
+  neo4j:
+    restart: unless-stopped
+  redis:
+    restart: unless-stopped
+  qdrant:
+    restart: unless-stopped
+  kafka:
+    restart: unless-stopped

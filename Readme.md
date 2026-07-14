@@ -170,12 +170,28 @@ Machine learning: delay prediction, ETA prediction, carbon calculation, hub risk
 
 ## Getting Started
 
-### Jalankan semua service + infra sekaligus
+### Setup env (sekali)
+
+```bash
+cp .env.example .env   # isi nilai real; .env di-gitignore
+```
+
+### Jalankan semua service + infra (development, auto-reload)
 
 ```bash
 cd infra
-docker compose watch
+docker compose -f docker-compose.yml -f docker-compose.dev.yml watch
 ```
+Edit kode = reload instan. Edit `package.json`/`go.mod`/`pyproject.toml` (atau lockfile) = container rebuild otomatis.
+Dashboard dev: `http://localhost:5173`. API lewat gateway: `http://localhost/api/...`.
+
+### Jalankan mode production
+
+```bash
+cd infra
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+```
+Semua akses lewat gateway `http://localhost` (dashboard di `/`, API di `/api/...`).
 
 ### Jalankan 1 service aja (dev mode)
 

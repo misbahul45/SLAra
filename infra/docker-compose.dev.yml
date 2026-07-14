@@ -1,0 +1,75 @@
+services:
+  agent:
+    build:
+      context: ../services/agent
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    develop:
+      watch:
+        - action: sync+restart
+          path: ../services/agent/src
+          target: /app/src
+          initial_sync: true
+        - action: rebuild
+          path: ../services/agent/package.json
+        - action: rebuild
+          path: ../services/agent/pnpm-lock.yaml
+
+  data:
+    build:
+      context: ../services/data
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8081:8081"
+    develop:
+      watch:
+        - action: sync
+          path: ../services/data
+          target: /app
+          initial_sync: true
+          ignore:
+            - tmp/
+        - action: rebuild
+          path: ../services/data/go.mod
+        - action: rebuild
+          path: ../services/data/go.sum
+
+  ai:
+    build:
+      context: ../services/ai
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8000:8000"
+    develop:
+      watch:
+        - action: sync
+          path: ../services/ai
+          target: /app
+          initial_sync: true
+          ignore:
+            - .venv/
+        - action: rebuild
+          path: ../services/ai/pyproject.toml
+        - action: rebuild
+          path: ../services/ai/uv.lock
+
+  app:
+    build:
+      context: ../apps/app
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5173:5173"
+    develop:
+      watch:
+        - action: sync
+          path: ../apps/app/app
+          target: /app/app
+          initial_sync: true
+        - action: sync
+          path: ../apps/app/public
+          target: /app/public
+        - action: rebuild
+          path: ../apps/app/package.json
+        - action: rebuild
+          path: ../apps/app/pnpm-lock.yaml

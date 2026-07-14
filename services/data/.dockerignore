@@ -1,10 +1,10 @@
-node_modules
-build
-.react-router
+tmp
+bin
+vendor
 .git
 .gitignore
 *.log
 .env
 .env.*
 Dockerfile*
-README.md
+Readme.md
