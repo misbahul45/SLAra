@@ -1,16 +1,16 @@
 # Graph Report - SLAra  (2026-07-14)
 
 ## Corpus Check
-- 94 files · ~45,324 words
+- 96 files · ~44,797 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 804 nodes · 880 edges · 67 communities (50 shown, 17 thin omitted)
+- 805 nodes · 880 edges · 68 communities (51 shown, 17 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `c28940f2`
+- Built from commit: `05d0080c`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -104,7 +104,7 @@
 - **SLAra Microservices Mesh** — services_agent, services_data, services_ai, infra_kafka [EXTRACTED 1.00]
 - **Infrastructure Layer** — infra_mongodb, infra_neo4j, infra_redis, infra_qdrant, infra_kafka [EXTRACTED 1.00]
 
-## Communities (67 total, 17 thin omitted)
+## Communities (68 total, 17 thin omitted)
 
 ### Community 0 - "compilerOptions"
 Cohesion: 0.11
