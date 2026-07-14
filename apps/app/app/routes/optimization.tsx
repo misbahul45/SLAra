@@ -1,22 +1,83 @@
 import type { Route } from "./+types/optimization";
+import { getOptimization } from "~/lib/data";
 import { PageHeader } from "~/components/PageHeader";
-import { PhasePlaceholder } from "~/components/PhasePlaceholder";
+import { ClientOnly } from "~/components/ClientOnly";
+import { GaConvergenceChart } from "~/components/GaConvergenceChart";
+import { ParetoStats, WeightTuningPanel } from "~/components/ParetoStats";
+import { ParetoTable } from "~/components/ParetoTable";
 
 export function meta(_: Route.MetaArgs) {
   return [{ title: "SLAra — Route Optimization" }];
 }
 
-export default function Optimization() {
+export async function loader(_: Route.LoaderArgs) {
+  return { result: await getOptimization() };
+}
+
+export default function Optimization({ loaderData }: Route.ComponentProps) {
+  const { result } = loaderData;
+
   return (
-    <>
+    <div className="mx-auto max-w-[1500px] space-y-5">
       <PageHeader
         title="Route Optimization Result"
         subtitle="NSGA-II Genetic Algorithm"
       />
-      <PhasePlaceholder
-        phase={4}
-        note="GA convergence chart · Pareto statistics · weight tuning · plan comparison table"
-      />
-    </>
+
+      <div className="flex flex-wrap gap-2">
+        {result.objectives.map((o) => (
+          <span
+            key={o}
+            className="rounded-full bg-brand/15 px-3 py-1 text-[13px] font-medium text-ink"
+          >
+            {o}
+          </span>
+        ))}
+      </div>
+
+      <div className="grid gap-5 lg:grid-cols-3">
+        <section className="space-y-2 lg:col-span-2">
+          <h2 className="text-[22px] font-bold text-brand">GA Convergence</h2>
+          <p className="text-[14px] text-ink/70">Fitness evolution over generations</p>
+          <div className="glass-card p-4">
+            <ClientOnly fallback={<ChartFallback />}>
+              {() => <GaConvergenceChart data={result.convergence} />}
+            </ClientOnly>
+          </div>
+        </section>
+
+        <div className="space-y-5">
+          <ParetoStats stats={result.stats} />
+          <WeightTuningPanel weights={result.weights} />
+        </div>
+      </div>
+
+      <section className="space-y-2">
+        <h2 className="text-[22px] font-bold text-brand">
+          Pareto Plan Comparison
+        </h2>
+        <p className="text-[14px] text-ink/70">
+          Plan C dominates SLA × CO₂ × fuel trade-off
+        </p>
+        <ParetoTable plans={result.plans} />
+      </section>
+
+      <div className="glass-card border-accent/50 p-5">
+        <div className="flex items-center gap-2 text-[15px] font-bold text-accent">
+          <span aria-hidden="true">⚙️</span> Optimizer Note
+        </div>
+        <p className="mt-2 text-[14px] leading-relaxed text-ink/80">
+          {result.note}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function ChartFallback() {
+  return (
+    <div className="flex h-[300px] items-center justify-center text-sm text-brand">
+      Loading chart…
+    </div>
   );
 }
