@@ -24,7 +24,10 @@ export function WeightTuningPanel({ weights }: { weights: WeightTuning[] }) {
   return (
     <div className="glass-card p-4">
       <div className="text-[13px] font-bold uppercase tracking-wide text-brand">
-        Weight Tuning (Active)
+        Weight Tuning
+      </div>
+      <div className="text-[12px] text-ink/60">
+        post-Pareto plan selection weights
       </div>
       <div className="mt-3 space-y-3">
         {weights.map((w) => (

@@ -107,7 +107,7 @@ export default function Recommendation({ loaderData }: Route.ComponentProps) {
 
         <div className="glass-card p-4">
           <div className="text-[13px] font-bold uppercase tracking-wide text-brand">
-            ETA drivers — Plan C (SHAP · minutes)
+            ETA drivers — {detail.recommended_plan} (SHAP · minutes)
           </div>
           <ClientOnly fallback={<ChartFallback />}>
             {() => <ShapChart shap={detail.eta_shap} />}
@@ -138,7 +138,10 @@ export default function Recommendation({ loaderData }: Route.ComponentProps) {
         <AgentReasoningTrace trace={detail.trace} />
       </section>
 
-      <DecisionActionBar affected={detail.event.affected} planTitle="Plan C" />
+      <DecisionActionBar
+        affected={detail.event.affected}
+        planTitle={detail.recommended_plan}
+      />
     </div>
   );
 }

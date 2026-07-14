@@ -14,6 +14,13 @@
         { "label": "CO₂ IMPACT", "value": "+1.2 kg" },
         { "label": "AI CONFIDENCE", "value": "64%" }
       ],
+      "confidence_breakdown": {
+        "conf_m1": { "value": 0.44, "weight": 0.40, "label": "ETA certainty (M1)" },
+        "conf_m2": { "value": 0.76, "weight": 0.15, "label": "Hub dwell certainty (M2)" },
+        "cs_m4": { "value": 0.64, "weight": 0.25, "label": "Route optimality (M4)" },
+        "data_freshness": { "value": 0.90, "weight": 0.10, "label": "Data freshness" },
+        "audit_validity": { "value": 1.00, "weight": 0.10, "label": "Audit validity" }
+      },
       "timeline": ["Detected", "LangGraph", "Confidence Check", "Escalated", "Awaiting Approval"]
     },
     {
@@ -30,6 +37,13 @@
         { "label": "CO₂ IMPACT", "value": "+0.3 kg" },
         { "label": "AI CONFIDENCE", "value": "77%" }
       ],
+      "confidence_breakdown": {
+        "conf_m1": { "value": 0.68, "weight": 0.40, "label": "ETA certainty (M1)" },
+        "conf_m2": { "value": 0.80, "weight": 0.15, "label": "Hub dwell certainty (M2)" },
+        "cs_m4": { "value": 0.74, "weight": 0.25, "label": "Route optimality (M4)" },
+        "data_freshness": { "value": 0.93, "weight": 0.10, "label": "Data freshness" },
+        "audit_validity": { "value": 1.00, "weight": 0.10, "label": "Audit validity" }
+      },
       "timeline": ["Detected", "LangGraph", "Confidence Check", "Escalated", "Awaiting Approval"]
     },
     {
@@ -46,6 +60,13 @@
         { "label": "CO₂ IMPACT", "value": "-0.4 kg" },
         { "label": "AI CONFIDENCE", "value": "81%" }
       ],
+      "confidence_breakdown": {
+        "conf_m1": { "value": 0.72, "weight": 0.40, "label": "ETA certainty (M1)" },
+        "conf_m2": { "value": 0.86, "weight": 0.15, "label": "Hub dwell certainty (M2)" },
+        "cs_m4": { "value": 0.80, "weight": 0.25, "label": "Route optimality (M4)" },
+        "data_freshness": { "value": 0.93, "weight": 0.10, "label": "Data freshness" },
+        "audit_validity": { "value": 1.00, "weight": 0.10, "label": "Audit validity" }
+      },
       "timeline": ["Detected", "LangGraph", "Confidence Check", "Escalated", "Awaiting Approval"]
     }
   ]

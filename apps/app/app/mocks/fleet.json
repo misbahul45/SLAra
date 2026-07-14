@@ -12,7 +12,7 @@
     ],
     "bars": [
       { "label": "Current ETA", "display": "78 min", "bar_pct": 64 },
-      { "label": "SLA Confidence", "display": "72 %", "bar_pct": 72 }
+      { "label": "Delay Risk", "display": "72 %", "bar_pct": 72 }
     ],
     "map_center": [-6.28, 107.02]
   },

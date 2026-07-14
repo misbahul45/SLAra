@@ -7,6 +7,16 @@
     { "icon": "latency", "label": "Avg Decision Latency", "value": "2.1s", "delta": "P95 < 3s" },
     { "icon": "auto", "label": "Auto-Resolution Rate", "value": "76 %", "delta": "target > 78%" }
   ],
+  "process_steps": [
+    { "title": "Monitor All Trucks", "sub": "Lightweight state tracking" },
+    { "title": "Filter Affected Trucks", "sub": "Detect disruption zones" },
+    { "title": "Deep Analyze Selected Trucks", "sub": "Delay & route analysis" },
+    { "title": "Decide Action", "sub": "Reroute, reassign, hold" }
+  ],
+  "map": {
+    "center": [-6.24, 107.0],
+    "markers": [{ "lat": -6.252, "lng": 106.99, "label": "B-1247-XV · Bekasi" }]
+  },
   "events": [
     { "event_id": "EVT-1024", "title": "SLA Risk", "affected": 4 },
     { "event_id": "EVT-1026", "title": "Hub Overload", "affected": 18 },

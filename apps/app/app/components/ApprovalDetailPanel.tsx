@@ -3,6 +3,7 @@ import type { ApprovalDetail } from "~/lib/types";
 import { SeverityPill } from "./SeverityPill";
 import { Modal } from "./Modal";
 import { useToast } from "./toast";
+import { ConfidenceBreakdown } from "./ConfidenceBreakdown";
 
 // Right-hand approval detail (Figma 6-27): escalation trigger, AI recommendation,
 // impact metrics, operator note, approve/reject, escalation timeline.
@@ -54,6 +55,10 @@ export function ApprovalDetailPanel({ detail }: { detail: ApprovalDetail }) {
           </div>
         ))}
       </dl>
+
+      <div className="mt-5">
+        <ConfidenceBreakdown breakdown={detail.confidence_breakdown} />
+      </div>
 
       {outcome ? (
         <div

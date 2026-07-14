@@ -71,7 +71,7 @@
       "name": "Delay",
       "latency_ms": 290,
       "confidence": 88,
-      "reasoning": "XGBoost predicts P(delay>30min)=0.72 on the existing route. Plan C reduces it to 0.21.",
+      "reasoning": "LightGBM Quantile predicts P(delay>30min)=0.72 on the existing route. Plan C reduces it to 0.21.",
       "top_shap": "hub_dwell_p90 (+0.23)"
     },
     {
@@ -87,7 +87,7 @@
       "name": "Hub Risk",
       "latency_ms": 240,
       "confidence": 82,
-      "reasoning": "Hub Cibitung queue 86%. LSTM projected dwell P90 = 52 minutes if not rerouted. Plan C bypasses via Bekasi cross-dock.",
+      "reasoning": "Hub Cibitung queue 86%. Projected dwell P90 = 52 minutes if not rerouted. Plan C bypasses via Bekasi cross-dock.",
       "top_shap": "hub_queue_depth_ratio (+0.19)"
     },
     {
@@ -158,5 +158,6 @@
     { "feature": "rain_intensity", "impact_min": 5.3, "direction": "increases_eta" },
     { "feature": "hour_of_day", "impact_min": -3.2, "direction": "decreases_eta" },
     { "feature": "vehicle_type", "impact_min": 2.0, "direction": "increases_eta" }
-  ]
+  ],
+  "recommended_plan": "Plan C"
 }

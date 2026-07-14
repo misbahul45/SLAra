@@ -29,15 +29,15 @@ export default function Optimization({ loaderData }: Route.ComponentProps) {
         subtitle="NSGA-II Genetic Algorithm"
       />
 
-      <div className="flex flex-wrap gap-2">
-        {result.objectives.map((o) => (
-          <span
-            key={o}
-            className="rounded-full bg-brand/15 px-3 py-1 text-[13px] font-medium text-ink"
-          >
-            {o}
-          </span>
-        ))}
+      <div className="space-y-1 text-[14px]">
+        <div>
+          <span className="font-bold text-brand">Objectives: </span>
+          <span className="text-ink">{result.objectives.join(" · ")}</span>
+        </div>
+        <div>
+          <span className="font-bold text-brand">Constraints: </span>
+          <span className="text-ink">{result.constraints.join(" · ")}</span>
+        </div>
       </div>
 
       <div className="grid gap-5 lg:grid-cols-3">

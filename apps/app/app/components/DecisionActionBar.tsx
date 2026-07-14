@@ -13,11 +13,16 @@ const ACTION_LABEL: Record<Action, string> = {
   REVIEW: "Send to Human Review",
 };
 
-const OUTCOME_TEXT: Record<Action, string> = {
-  APPROVE: "Plan C executed — reroute pushed to TMS.",
-  REJECT: "Recommendation rejected — flagged for follow-up.",
-  REVIEW: "Sent to the human review queue.",
-};
+function outcomeText(action: Action, planTitle: string): string {
+  switch (action) {
+    case "APPROVE":
+      return `${planTitle} executed — reroute pushed to TMS.`;
+    case "REJECT":
+      return "Recommendation rejected — flagged for follow-up.";
+    case "REVIEW":
+      return "Sent to the human review queue.";
+  }
+}
 
 export function DecisionActionBar({
   affected,
@@ -38,7 +43,7 @@ export function DecisionActionBar({
             outcome === "REJECT" ? "text-[#ff9a9a]" : "text-[#8ce0b6]"
           }`}
         >
-          {OUTCOME_TEXT[outcome]}
+          {outcomeText(outcome, planTitle)}
         </span>
       </div>
     );
@@ -98,7 +103,7 @@ export function DecisionActionBar({
               if (pending) {
                 setOutcome(pending);
                 toast(
-                  OUTCOME_TEXT[pending],
+                  outcomeText(pending, planTitle),
                   pending === "APPROVE"
                     ? "success"
                     : pending === "REJECT"

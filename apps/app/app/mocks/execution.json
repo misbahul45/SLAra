@@ -17,7 +17,7 @@
   ],
   "distribution": [
     { "label": "Executed", "value": 32 },
-    { "label": "Human Approves", "value": 6 },
+    { "label": "Human Approved", "value": 6 },
     { "label": "Rejected", "value": 3 },
     { "label": "Failed", "value": 2 }
   ],

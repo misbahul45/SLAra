@@ -200,10 +200,22 @@ export interface ActiveRecommendation {
   metrics: RecMetric[];
 }
 
+export interface ProcessStep {
+  title: string;
+  sub: string;
+}
+
+export interface DashboardMap {
+  center: [number, number];
+  markers: MapMarker[];
+}
+
 export interface DashboardData {
   kpis: DashboardKpi[];
+  process_steps: ProcessStep[];
   events: EventFeedItem[];
   recommendation: ActiveRecommendation;
+  map: DashboardMap;
 }
 
 // ── Live Fleet Map page ──────────────────────────────────────────────────────
@@ -316,6 +328,8 @@ export interface RecommendationDetail {
   route_view: RouteView;
   /** Signed SHAP impacts (minutes) explaining the recommended route's ETA (M5). */
   eta_shap: ShapFeature[];
+  /** Short label of the recommended plan, e.g. "Plan C". */
+  recommended_plan: string;
 }
 
 // ── Route Optimization page (NSGA-II) ────────────────────────────────────────
@@ -350,6 +364,7 @@ export interface ParetoPlan {
 
 export interface OptimizationResult {
   objectives: string[];
+  constraints: string[];
   convergence: GaPoint[];
   stats: LabeledValue[];
   weights: WeightTuning[];
@@ -375,6 +390,8 @@ export interface ApprovalDetail {
   recommendation: string;
   metrics: ApprovalMetric[];
   timeline: string[];
+  /** 5-component decision confidence (value × weight), same shape as the contract. */
+  confidence_breakdown: ConfidenceBreakdown;
 }
 
 export interface ApprovalsData {

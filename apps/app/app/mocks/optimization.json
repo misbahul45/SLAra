@@ -1,12 +1,6 @@
 {
-  "objectives": [
-    "SLA Compliance",
-    "Fuel Cost",
-    "CO₂ Emission",
-    "Delay Risk",
-    "Driver Hours",
-    "Vehicle Capacity"
-  ],
+  "objectives": ["SLA risk", "Cost", "CO₂"],
+  "constraints": ["driver hours", "vehicle capacity", "time windows"],
   "convergence": [
     { "generation": 1, "fitness": 45 },
     { "generation": 5, "fitness": 57 },

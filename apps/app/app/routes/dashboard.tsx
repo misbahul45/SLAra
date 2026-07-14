@@ -30,7 +30,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
         right={<Clock />}
       />
 
-      <ProcessSteps />
+      <ProcessSteps steps={data.process_steps} />
       <DashboardKpis kpis={data.kpis} />
 
       <section className="space-y-2">
@@ -53,15 +53,9 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
                 {() => (
                   <Suspense fallback={<MapFallback />}>
                     <MiniMap
-                      center={[-6.24, 107.0]}
+                      center={data.map.center}
                       zoom={12}
-                      markers={[
-                        {
-                          lat: -6.252,
-                          lng: 106.99,
-                          label: "B-1247-XV · Bekasi",
-                        },
-                      ]}
+                      markers={data.map.markers}
                     />
                   </Suspense>
                 )}
