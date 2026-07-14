@@ -1,0 +1,115 @@
+{
+  "event": {
+    "event_id": "EVT-1024",
+    "title": "Traffic Spike – Cikampek Corridor",
+    "severity": "HIGH",
+    "affected": 12,
+    "detected_at": "10:21 WIB"
+  },
+  "current_plan": {
+    "tag": "CURRENT PLAN (PLAN A)",
+    "variant": "current",
+    "route": "Tol Cikampek → Bekasi Barat (main road)",
+    "metrics": [
+      { "label": "ETA", "value": "78 min" },
+      { "label": "DELAY RISK", "value": "72 %", "tone": "up" },
+      { "label": "FUEL", "value": "Rp 38.000" },
+      { "label": "CO₂", "value": "2.8 kg" }
+    ]
+  },
+  "ai_plan": {
+    "tag": "AI RECOMMENDATION (PLAN C)",
+    "variant": "recommended",
+    "score": 91,
+    "route": "Tol JORR S → Tambun → Arteri Selatan (optimal Pareto)",
+    "metrics": [
+      { "label": "ETA", "value": "51 min", "delta": "-27m", "tone": "down" },
+      { "label": "DELAY RISK", "value": "21 %", "delta": "-51pp", "tone": "down" },
+      { "label": "FUEL", "value": "Rp 41.000", "delta": "+Rp 3k", "tone": "up" },
+      { "label": "CO₂", "value": "3 kg", "delta": "+0.2 kg", "tone": "up" }
+    ]
+  },
+  "agents": [
+    { "key": "traffic", "name": "Traffic", "confidence": 93, "status": "completed" },
+    { "key": "delay", "name": "Delay", "confidence": 88, "status": "completed" },
+    { "key": "carbon", "name": "Carbon", "confidence": 95, "status": "completed" },
+    { "key": "hub", "name": "Hub Risk", "confidence": 82, "status": "completed" },
+    { "key": "route", "name": "Route Optimizer", "confidence": 91, "status": "completed" },
+    { "key": "decision", "name": "Decision", "confidence": 86, "status": "completed" },
+    { "key": "execution", "name": "Execution", "confidence": 99, "status": "completed" }
+  ],
+  "confidence": {
+    "aggregate_pct": 86,
+    "threshold_pct": 70,
+    "passed": true,
+    "shap": [
+      { "feature": "congestion_index", "value": 0.31 },
+      { "feature": "hub_dwell_p90", "value": 0.23 },
+      { "feature": "driver_delay_rate_30d", "value": 0.12 },
+      { "feature": "weather_severity_idx", "value": 0.09 },
+      { "feature": "is_holiday", "value": 0.08 }
+    ]
+  },
+  "trace": [
+    {
+      "key": "supervisor",
+      "name": "Supervisor",
+      "latency_ms": 180,
+      "confidence": 98,
+      "reasoning": "Event classified as traffic_spike. Delegating to 4 parallel agents."
+    },
+    {
+      "key": "traffic",
+      "name": "Traffic",
+      "latency_ms": 390,
+      "confidence": 93,
+      "reasoning": "Heavy traffic at Cikampek KM 47-55. Congestion index 0.81, projected duration 35 minutes. Dual provider (TomTom + Google) confirmation.",
+      "top_shap": "congestion_index_now (+0.31)"
+    },
+    {
+      "key": "delay",
+      "name": "Delay",
+      "latency_ms": 290,
+      "confidence": 88,
+      "reasoning": "XGBoost predicts P(delay>30min)=0.72 on the existing route. Plan C reduces it to 0.21.",
+      "top_shap": "hub_dwell_p90 (+0.23)"
+    },
+    {
+      "key": "carbon",
+      "name": "Carbon",
+      "latency_ms": 480,
+      "confidence": 95,
+      "reasoning": "CO2 delta Plan C vs Plan A: +0.2 kg (+7.1%). Within internal emission tolerance (cap +15%). IPCC 2019 factor 0.213 kg/km for van.",
+      "top_shap": "vehicle_type_emission_factor (+0.18)"
+    },
+    {
+      "key": "hub",
+      "name": "Hub Risk",
+      "latency_ms": 240,
+      "confidence": 82,
+      "reasoning": "Hub Cibitung queue 86%. LSTM projected dwell P90 = 52 minutes if not rerouted. Plan C bypasses via Bekasi cross-dock.",
+      "top_shap": "hub_queue_depth_ratio (+0.19)"
+    },
+    {
+      "key": "route",
+      "name": "Route Optimizer",
+      "latency_ms": 2200,
+      "confidence": 91,
+      "reasoning": "NSGA-II converged at generation 87/150. Pareto front: 24 solutions. Plan C is dominant on SLA × CO2 × fuel. Hypervolume 0.84."
+    },
+    {
+      "key": "decision",
+      "name": "Decision",
+      "latency_ms": 300,
+      "confidence": 86,
+      "reasoning": "Plan C selected: policy weights SLA=1.0, Delay=0.8, Fuel=0.6, CO2=0.5. Aggregate confidence 86%. Auto-execute threshold met."
+    },
+    {
+      "key": "execution",
+      "name": "Execution",
+      "latency_ms": 0,
+      "confidence": 99,
+      "reasoning": "Push reroute to TMS API. Notified driver Budi Santoso via FCM. Idempotency key EVT-1024-20260520T10212."
+    }
+  ]
+}

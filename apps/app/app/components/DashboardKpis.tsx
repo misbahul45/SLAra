@@ -55,12 +55,38 @@ function KpiGlyph({ kind }: { kind: KpiIconKind }) {
           <path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v3.5h-3.5" />
         </svg>
       );
+    case "truck":
+      return (
+        <svg className={cls} {...svg} aria-hidden="true">
+          <path d="M3 6h11v9H3zM14 9h4l3 3v3h-7z" />
+          <circle cx="7" cy="18" r="1.6" />
+          <circle cx="17.5" cy="18" r="1.6" />
+        </svg>
+      );
+    case "fuel":
+      return (
+        <svg className={cls} {...svg} aria-hidden="true">
+          <path d="M4 20V5a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v15M3 20h11" />
+          <path d="M13 8h3l2 2v6a2 2 0 0 0 2 2 2 2 0 0 0 2-2v-7l-3-3" />
+          <path d="M6 8h5" />
+        </svg>
+      );
   }
 }
 
-export function DashboardKpis({ kpis }: { kpis: DashboardKpi[] }) {
+export function DashboardKpis({
+  kpis,
+  columns = 6,
+}: {
+  kpis: DashboardKpi[];
+  columns?: 4 | 6;
+}) {
+  const grid =
+    columns === 4
+      ? "grid grid-cols-2 gap-3 md:grid-cols-4"
+      : "grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6";
   return (
-    <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
+    <div className={grid}>
       {kpis.map((k) => (
         <div key={k.label} className="glass-card p-4">
           <div className="flex items-start justify-between gap-2">

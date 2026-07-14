@@ -1,0 +1,52 @@
+{
+  "kpis": [
+    { "icon": "box", "label": "Active Shipments", "value": "428", "delta": "+18 Today" },
+    { "icon": "warning", "label": "Shipment Delay Risk", "value": "32", "delta": "7 high priority" },
+    { "icon": "target", "label": "OTD Forecast", "value": "94.2%", "delta": "+6.8 pp vs baseline" },
+    { "icon": "leaf", "label": "CO₂ Saved Today", "value": "12.4 kg", "delta": "-22% vs non AI route" },
+    { "icon": "latency", "label": "Avg Decision Latency", "value": "2.1 s", "delta": "P95 < 3s" },
+    { "icon": "auto", "label": "Auto-Resolution Rate", "value": "76%", "delta": "Target > 78%" },
+    { "icon": "truck", "label": "Delay Prevented", "value": "18", "delta": "shipments" },
+    { "icon": "fuel", "label": "Fuel Saved", "value": "Rp 320k", "delta": "vs baseline" }
+  ],
+  "before_after": [
+    { "label": "Delay Risk", "before": 72, "after": 21, "before_display": "72%", "after_display": "21%" },
+    { "label": "ETA", "before": 78, "after": 51, "before_display": "78m", "after_display": "51m" },
+    { "label": "Fuel Cost (k)", "before": 38, "after": 41, "before_display": "38", "after_display": "41" },
+    { "label": "CO₂", "before": 2.6, "after": 3, "before_display": "2.6kg", "after_display": "3kg" }
+  ],
+  "distribution": [
+    { "label": "Executed", "value": 32 },
+    { "label": "Human Approves", "value": 6 },
+    { "label": "Rejected", "value": 3 },
+    { "label": "Failed", "value": 2 }
+  ],
+  "summary": {
+    "headline": "AI selected Plan C (Balanced) for Traffic Spike EVT-1024. Clear trade-offs:",
+    "bullets": [
+      { "tone": "good", "text": "ETA improved: -27 mins (78m → 51m)" },
+      { "tone": "good", "text": "Delay risk dropped drastically: 72% → 21%" },
+      { "tone": "up", "text": "Minor fuel cost increase: +Rp 3.000 (+7.9%)" },
+      { "tone": "up", "text": "Marginal CO₂ increase: +0.2 kg (+7.1%)" }
+    ],
+    "footnote": "SLA compliance maintained for 12 Gold tier shipments. GHG Protocol Scope 3 within internal regulations."
+  },
+  "sustainability": [
+    { "label": "CO₂ SAVED VS NON-AI BASELINE", "value": "12.4 kg CO₂e" },
+    { "label": "CALCULATION METHOD", "value": "Well-to-Wheel · IPCC 2019" },
+    { "label": "REPORTING STANDARD", "value": "GHG Protocol Corporate" },
+    { "label": "SCOPE COVERAGE", "value": "Scope 1 + Scope 3 Cat. 4" }
+  ],
+  "performance": {
+    "auto_resolution": { "label": "Auto-Resolution Rate", "value_pct": 76, "display": "76% / target 78%" },
+    "percentiles": [
+      { "label": "P50", "value": "1.8s" },
+      { "label": "P95", "value": "2.9s" },
+      { "label": "P99", "value": "4.1s" }
+    ],
+    "bars": [
+      { "label": "Tier-0 Rate (Full AI)", "value_pct": 94, "display": "94%" },
+      { "label": "Agent Agreement Rate", "value_pct": 89, "display": "89%" }
+    ]
+  }
+}

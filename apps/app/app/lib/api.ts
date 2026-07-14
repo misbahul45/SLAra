@@ -4,10 +4,14 @@
 
 import type {
   ApiErrorBody,
+  ApprovalsData,
   DashboardData,
   DecideResponse,
+  ExecutionKpiData,
   FleetData,
   KpiSummary,
+  OptimizationResult,
+  RecommendationDetail,
   ResolveRequest,
   ResolveResponse,
   ShipmentsQuery,
@@ -56,6 +60,22 @@ export function getDashboard(): Promise<DashboardData> {
 
 export function getFleet(): Promise<FleetData> {
   return request<FleetData>("/fleet/telemetry");
+}
+
+export function getRecommendation(): Promise<RecommendationDetail> {
+  return request<RecommendationDetail>("/recommendation/latest");
+}
+
+export function getOptimization(): Promise<OptimizationResult> {
+  return request<OptimizationResult>("/optimization/latest");
+}
+
+export function getApprovals(): Promise<ApprovalsData> {
+  return request<ApprovalsData>("/approvals");
+}
+
+export function getExecutionKpi(): Promise<ExecutionKpiData> {
+  return request<ExecutionKpiData>("/execution/kpi");
 }
 
 export function getShipments(

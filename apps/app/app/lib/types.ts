@@ -166,7 +166,9 @@ export type KpiIconKind =
   | "target"
   | "leaf"
   | "latency"
-  | "auto";
+  | "auto"
+  | "truck"
+  | "fuel";
 
 export interface DashboardKpi {
   icon: KpiIconKind;
@@ -237,4 +239,181 @@ export interface VehicleTelemetry {
 export interface FleetData {
   selected: VehicleTelemetry;
   markers: MapMarker[];
+}
+
+// ── AI Recommendation Detail page ────────────────────────────────────────────
+
+export interface RecoEvent {
+  event_id: string;
+  title: string;
+  severity: Severity;
+  affected: number;
+  detected_at: string;
+}
+
+/** "down" = improvement (green), "up" = increase/worse (amber), "neutral" = gray. */
+export type MetricTone = "up" | "down" | "neutral";
+
+export interface PlanMetric {
+  label: string;
+  value: string;
+  delta?: string;
+  tone?: MetricTone;
+}
+
+export interface PlanCard {
+  tag: string;
+  route: string;
+  metrics: PlanMetric[];
+  score?: number;
+  variant: "current" | "recommended";
+}
+
+export type AgentStatus = "completed" | "active" | "pending";
+
+export interface AgentNode {
+  key: string;
+  name: string;
+  confidence: number;
+  status: AgentStatus;
+}
+
+export interface ShapImportance {
+  feature: string;
+  value: number;
+}
+
+export interface ConfidenceScore {
+  aggregate_pct: number;
+  threshold_pct: number;
+  passed: boolean;
+  shap: ShapImportance[];
+}
+
+export interface AgentTraceItem {
+  key: string;
+  name: string;
+  latency_ms: number;
+  confidence: number;
+  reasoning: string;
+  top_shap?: string;
+}
+
+export interface RecommendationDetail {
+  event: RecoEvent;
+  current_plan: PlanCard;
+  ai_plan: PlanCard;
+  agents: AgentNode[];
+  confidence: ConfidenceScore;
+  trace: AgentTraceItem[];
+}
+
+// ── Route Optimization page (NSGA-II) ────────────────────────────────────────
+
+export interface GaPoint {
+  generation: number;
+  fitness: number;
+}
+
+export interface LabeledValue {
+  label: string;
+  value: string;
+}
+
+export interface WeightTuning {
+  label: string;
+  value: number;
+}
+
+export interface ParetoPlan {
+  plan: string;
+  route_via: string;
+  eta: string;
+  delay_risk: string;
+  delay_tone?: MetricTone;
+  fuel: string;
+  co2: string;
+  score: number;
+  tag: string;
+}
+
+export interface OptimizationResult {
+  objectives: string[];
+  convergence: GaPoint[];
+  stats: LabeledValue[];
+  weights: WeightTuning[];
+  plans: ParetoPlan[];
+  note: string;
+}
+
+// ── Human Approval page ──────────────────────────────────────────────────────
+
+export interface ApprovalMetric {
+  label: string;
+  value: string;
+}
+
+export interface ApprovalDetail {
+  approval_id: string;
+  severity: Severity;
+  title: string;
+  shipments: number;
+  ai_confidence: number;
+  escalation_reason: string;
+  recommendation: string;
+  metrics: ApprovalMetric[];
+  timeline: string[];
+}
+
+export interface ApprovalsData {
+  items: ApprovalDetail[];
+}
+
+// ── Execution & KPI page ─────────────────────────────────────────────────────
+
+export interface BeforeAfterRow {
+  label: string;
+  before: number;
+  after: number;
+  before_display: string;
+  after_display: string;
+}
+
+export interface DistributionBar {
+  label: string;
+  value: number;
+}
+
+export type BulletTone = "good" | "up";
+
+export interface ImpactBullet {
+  tone: BulletTone;
+  text: string;
+}
+
+export interface ImpactSummaryData {
+  headline: string;
+  bullets: ImpactBullet[];
+  footnote: string;
+}
+
+export interface PerfBar {
+  label: string;
+  value_pct: number;
+  display: string;
+}
+
+export interface DecisionPerformanceData {
+  auto_resolution: PerfBar;
+  percentiles: LabeledValue[];
+  bars: PerfBar[];
+}
+
+export interface ExecutionKpiData {
+  kpis: DashboardKpi[];
+  before_after: BeforeAfterRow[];
+  distribution: DistributionBar[];
+  summary: ImpactSummaryData;
+  sustainability: LabeledValue[];
+  performance: DecisionPerformanceData;
 }

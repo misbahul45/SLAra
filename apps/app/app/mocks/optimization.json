@@ -1,0 +1,84 @@
+{
+  "objectives": [
+    "SLA Compliance",
+    "Fuel Cost",
+    "CO₂ Emission",
+    "Delay Risk",
+    "Driver Hours",
+    "Vehicle Capacity"
+  ],
+  "convergence": [
+    { "generation": 1, "fitness": 45 },
+    { "generation": 5, "fitness": 57 },
+    { "generation": 10, "fitness": 66 },
+    { "generation": 15, "fitness": 72 },
+    { "generation": 20, "fitness": 77 },
+    { "generation": 30, "fitness": 83 },
+    { "generation": 40, "fitness": 86 },
+    { "generation": 50, "fitness": 88 },
+    { "generation": 60, "fitness": 89.5 },
+    { "generation": 70, "fitness": 90.3 },
+    { "generation": 80, "fitness": 90.8 },
+    { "generation": 87, "fitness": 91 },
+    { "generation": 90, "fitness": 91 }
+  ],
+  "stats": [
+    { "label": "GENERATIONS", "value": "87 / 150" },
+    { "label": "PARETO SOLUTIONS", "value": "24" },
+    { "label": "HYPERVOLUME", "value": "0.84" },
+    { "label": "RUNTIME", "value": "2.2s" }
+  ],
+  "weights": [
+    { "label": "SLA Priority", "value": 1.0 },
+    { "label": "Fuel Cost", "value": 0.6 },
+    { "label": "CO₂ Emission", "value": 0.5 },
+    { "label": "Delay Risk", "value": 0.8 }
+  ],
+  "plans": [
+    {
+      "plan": "Plan A – Current",
+      "route_via": "Cikampek Toll Road → Bekasi Barat",
+      "eta": "78m",
+      "delay_risk": "72%",
+      "delay_tone": "up",
+      "fuel": "Rp 38k",
+      "co2": "2.8 kg",
+      "score": 54,
+      "tag": "CURRENT"
+    },
+    {
+      "plan": "Plan B – Fastest",
+      "route_via": "Bekasi Arteri → JORR E2 Toll Road → Bypass",
+      "eta": "49m",
+      "delay_risk": "18%",
+      "delay_tone": "down",
+      "fuel": "Rp 46k",
+      "co2": "3.4 kg",
+      "score": 82,
+      "tag": "FASTEST"
+    },
+    {
+      "plan": "Plan C – Balanced",
+      "route_via": "JORR S Toll Road → Tambun → South Arteri",
+      "eta": "51m",
+      "delay_risk": "21%",
+      "delay_tone": "down",
+      "fuel": "Rp 41k",
+      "co2": "3 kg",
+      "score": 91,
+      "tag": "RECOMMENDED"
+    },
+    {
+      "plan": "Plan D – Greenest",
+      "route_via": "Cikarang local route → Bekasi via Jababeka",
+      "eta": "65m",
+      "delay_risk": "38%",
+      "delay_tone": "neutral",
+      "fuel": "Rp 35k",
+      "co2": "2.4 kg",
+      "score": 74,
+      "tag": "LOW CARBON"
+    }
+  ],
+  "note": "Optimizer selected Plan C because it dominates the Pareto front on the SLA × Delay × Fuel dimensions. CO₂ delta +0.2 kg is still within internal regulation tolerance (cap +15%). Fitness weights: α(SLA)=1.0 · β(Fuel)=0.6 · γ(CO₂)=0.5 · δ(Delay)=0.8. Fallback: if GA fails → OR-Tools CP-SAT (Tier-2). Estimated fallback result: Plan B (sub-optimal for CO₂)."
+}
