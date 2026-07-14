@@ -1,16 +1,16 @@
 # Graph Report - SLAra  (2026-07-14)
 
 ## Corpus Check
-- 120 files · ~51,746 words
+- 130 files · ~12,289,986 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 792 nodes · 869 edges · 66 communities (50 shown, 16 thin omitted)
+- 802 nodes · 875 edges · 70 communities (55 shown, 15 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `da78a66c`
+- Built from commit: `ac82492c`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -102,7 +102,7 @@
 - **SLAra Microservices Mesh** — services_agent, services_data, services_ai, infra_kafka [EXTRACTED 1.00]
 - **Infrastructure Layer** — infra_mongodb, infra_neo4j, infra_redis, infra_qdrant, infra_kafka [EXTRACTED 1.00]
 
-## Communities (66 total, 16 thin omitted)
+## Communities (70 total, 15 thin omitted)
 
 ### Community 0 - "compilerOptions"
 Cohesion: 0.11
@@ -111,6 +111,10 @@ Nodes (17): compilerOptions, esModuleInterop, jsx, lib, module, moduleResolution
 ### Community 1 - "package.json"
 Cohesion: 0.13
 Nodes (14): dependencies, hono, @hono/node-server, devDependencies, tsx, @types/node, typescript, name (+6 more)
+
+### Community 2 - "Kafka Event Schemas"
+Cohesion: 0.29
+Nodes (6): AI Models (cached, not baked into image), Config, Health check, Run, SLAra — Infra (Docker), VS Code Dev Containers
 
 ### Community 3 - "compilerOptions"
 Cohesion: 0.17
@@ -261,9 +265,9 @@ Cohesion: 0.83
 Nodes (3): Checkpoint, Shipment, Time
 
 ## Knowledge Gaps
-- **477 isolated node(s):** `Project Overview`, `Architecture Map`, `Repo Structure`, `Codebase Understanding — WAJIB baca `graphify-out/` dulu`, `Inisialisasi penuh (semua services + infra)` (+472 more)
+- **481 isolated node(s):** `Config`, `Run`, `AI Models (cached, not baked into image)`, `Health check`, `VS Code Dev Containers` (+476 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **16 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **15 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
@@ -272,8 +276,8 @@ _Questions this graph is uniquely positioned to answer:_
   _High betweenness centrality (0.007) - this node is a cross-community bridge._
 - **Why does `5. M4 — Route Optimization (P0, NSGA-II)` connect `5. M4 — Route Optimization (P0, NSGA-II)` to `🗺️ SLAra AI — Next Training Plan (Post-M1)`?**
   _High betweenness centrality (0.003) - this node is a cross-community bridge._
-- **What connects `Project Overview`, `Architecture Map`, `Repo Structure` to the rest of the system?**
-  _477 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **What connects `Config`, `Run`, `AI Models (cached, not baked into image)` to the rest of the system?**
+  _481 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `compilerOptions` be split into smaller, more focused modules?**
   _Cohesion score 0.1111111111111111 - nodes in this community are weakly interconnected._
 - **Should `package.json` be split into smaller, more focused modules?**
