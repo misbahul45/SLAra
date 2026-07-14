@@ -36,6 +36,996 @@
   },
   "nodes": [
     {
+      "label": "opencode.json",
+      "file_type": "code",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "opencode_opencode",
+      "community": 52,
+      "norm_label": "opencode.json"
+    },
+    {
+      "label": "$schema",
+      "file_type": "code",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "opencode_opencode_schema",
+      "community": 52,
+      "norm_label": "$schema"
+    },
+    {
+      "label": "plugin",
+      "file_type": "code",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "opencode_opencode_plugin",
+      "community": 52,
+      "norm_label": "plugin"
+    },
+    {
+      "label": "vite.config.ts",
+      "file_type": "code",
+      "source_file": "apps/app/vite.config.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "apps_app_vite_config",
+      "community": 16,
+      "norm_label": "vite.config.ts"
+    },
+    {
+      "label": "0003-gateway-dev-mode-strategy.md",
+      "file_type": "document",
+      "source_file": "docs/architecture/adr/0003-gateway-dev-mode-strategy.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_architecture_adr_0003_gateway_dev_mode_strategy",
+      "community": 49,
+      "norm_label": "0003-gateway-dev-mode-strategy.md"
+    },
+    {
+      "label": "ADR-0003: Strategi Gateway di Dev Mode",
+      "file_type": "document",
+      "source_file": "docs/architecture/adr/0003-gateway-dev-mode-strategy.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_architecture_adr_0003_gateway_dev_mode_strategy_adr_0003_strategi_gateway_di_dev_mode",
+      "community": 49,
+      "norm_label": "adr-0003: strategi gateway di dev mode"
+    },
+    {
+      "label": "Konteks",
+      "file_type": "document",
+      "source_file": "docs/architecture/adr/0003-gateway-dev-mode-strategy.md",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "docs_architecture_adr_0003_gateway_dev_mode_strategy_konteks",
+      "community": 49,
+      "norm_label": "konteks"
+    },
+    {
+      "label": "Keputusan",
+      "file_type": "document",
+      "source_file": "docs/architecture/adr/0003-gateway-dev-mode-strategy.md",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "docs_architecture_adr_0003_gateway_dev_mode_strategy_keputusan",
+      "community": 49,
+      "norm_label": "keputusan"
+    },
+    {
+      "label": "Alternatif yang dipertimbangkan",
+      "file_type": "document",
+      "source_file": "docs/architecture/adr/0003-gateway-dev-mode-strategy.md",
+      "source_location": "L45",
+      "_origin": "ast",
+      "id": "docs_architecture_adr_0003_gateway_dev_mode_strategy_alternatif_yang_dipertimbangkan",
+      "community": 49,
+      "norm_label": "alternatif yang dipertimbangkan"
+    },
+    {
+      "label": "Konsekuensi",
+      "file_type": "document",
+      "source_file": "docs/architecture/adr/0003-gateway-dev-mode-strategy.md",
+      "source_location": "L51",
+      "_origin": "ast",
+      "id": "docs_architecture_adr_0003_gateway_dev_mode_strategy_konsekuensi",
+      "community": 49,
+      "norm_label": "konsekuensi"
+    },
+    {
+      "label": "Readme.md",
+      "file_type": "document",
+      "source_file": "docs/architecture/adr/Readme.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_architecture_adr_readme",
+      "community": 49,
+      "norm_label": "readme.md"
+    },
+    {
+      "label": "architecture/adr",
+      "file_type": "document",
+      "source_file": "docs/architecture/adr/Readme.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_architecture_adr_readme_architecture_adr",
+      "community": 49,
+      "norm_label": "architecture/adr"
+    },
+    {
+      "label": "service-routing.md",
+      "file_type": "document",
+      "source_file": "docs/architecture/diagrams/service-routing.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_architecture_diagrams_service_routing",
+      "community": 50,
+      "norm_label": "service-routing.md"
+    },
+    {
+      "label": "SLAra \u2014 Service Routing Diagram",
+      "file_type": "document",
+      "source_file": "docs/architecture/diagrams/service-routing.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_architecture_diagrams_service_routing_slara_service_routing_diagram",
+      "community": 50,
+      "norm_label": "slara \u2014 service routing diagram"
+    },
+    {
+      "label": "Traffic Flow",
+      "file_type": "document",
+      "source_file": "docs/architecture/diagrams/service-routing.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "docs_architecture_diagrams_service_routing_traffic_flow",
+      "community": 50,
+      "norm_label": "traffic flow"
+    },
+    {
+      "label": "Service Dependencies",
+      "file_type": "document",
+      "source_file": "docs/architecture/diagrams/service-routing.md",
+      "source_location": "L36",
+      "_origin": "ast",
+      "id": "docs_architecture_diagrams_service_routing_service_dependencies",
+      "community": 50,
+      "norm_label": "service dependencies"
+    },
+    {
+      "label": "Internal Ports",
+      "file_type": "document",
+      "source_file": "docs/architecture/diagrams/service-routing.md",
+      "source_location": "L46",
+      "_origin": "ast",
+      "id": "docs_architecture_diagrams_service_routing_internal_ports",
+      "community": 50,
+      "norm_label": "internal ports"
+    },
+    {
+      "label": "WebSocket",
+      "file_type": "document",
+      "source_file": "docs/architecture/diagrams/service-routing.md",
+      "source_location": "L61",
+      "_origin": "ast",
+      "id": "docs_architecture_diagrams_service_routing_websocket",
+      "community": 50,
+      "norm_label": "websocket"
+    },
+    {
+      "label": "Readme.md",
+      "file_type": "document",
+      "source_file": "docs/progress/plan/Readme.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_progress_plan_readme",
+      "community": 47,
+      "norm_label": "readme.md"
+    },
+    {
+      "label": "progress/plan",
+      "file_type": "document",
+      "source_file": "docs/progress/plan/Readme.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_progress_plan_readme_progress_plan",
+      "community": 47,
+      "norm_label": "progress/plan"
+    },
+    {
+      "label": "sprint-2026-07-b.md",
+      "file_type": "document",
+      "source_file": "docs/progress/plan/sprint-2026-07-b.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_progress_plan_sprint_2026_07_b",
+      "community": 47,
+      "norm_label": "sprint-2026-07-b.md"
+    },
+    {
+      "label": "Sprint 2026-07-B (14\u201325 Juli)",
+      "file_type": "document",
+      "source_file": "docs/progress/plan/sprint-2026-07-b.md",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "docs_progress_plan_sprint_2026_07_b_sprint_2026_07_b_14_25_juli",
+      "community": 47,
+      "norm_label": "sprint 2026-07-b (14\u201325 juli)"
+    },
+    {
+      "label": "Fokus",
+      "file_type": "document",
+      "source_file": "docs/progress/plan/sprint-2026-07-b.md",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "docs_progress_plan_sprint_2026_07_b_fokus",
+      "community": 47,
+      "norm_label": "fokus"
+    },
+    {
+      "label": "Komitmen",
+      "file_type": "document",
+      "source_file": "docs/progress/plan/sprint-2026-07-b.md",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "docs_progress_plan_sprint_2026_07_b_komitmen",
+      "community": 47,
+      "norm_label": "komitmen"
+    },
+    {
+      "label": "Dependensi & Urutan",
+      "file_type": "document",
+      "source_file": "docs/progress/plan/sprint-2026-07-b.md",
+      "source_location": "L26",
+      "_origin": "ast",
+      "id": "docs_progress_plan_sprint_2026_07_b_dependensi_urutan",
+      "community": 47,
+      "norm_label": "dependensi & urutan"
+    },
+    {
+      "label": "Exit Criteria (Sprint Done)",
+      "file_type": "document",
+      "source_file": "docs/progress/plan/sprint-2026-07-b.md",
+      "source_location": "L34",
+      "_origin": "ast",
+      "id": "docs_progress_plan_sprint_2026_07_b_exit_criteria_sprint_done",
+      "community": 47,
+      "norm_label": "exit criteria (sprint done)"
+    },
+    {
+      "label": "Hasil Retro",
+      "file_type": "document",
+      "source_file": "docs/progress/plan/sprint-2026-07-b.md",
+      "source_location": "L41",
+      "_origin": "ast",
+      "id": "docs_progress_plan_sprint_2026_07_b_hasil_retro",
+      "community": 47,
+      "norm_label": "hasil retro"
+    },
+    {
+      "label": "docker-infrastructure-audit.md",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_audit",
+      "community": 28,
+      "norm_label": "docker-infrastructure-audit.md"
+    },
+    {
+      "label": "Audit Infrastruktur Docker \u2014 SLAra",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_audit_audit_infrastruktur_docker_slara",
+      "community": 28,
+      "norm_label": "audit infrastruktur docker \u2014 slara"
+    },
+    {
+      "label": "1. Ringkasan",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_audit_1_ringkasan",
+      "community": 28,
+      "norm_label": "1. ringkasan"
+    },
+    {
+      "label": "2. Tabel Temuan",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L36",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_audit_2_tabel_temuan",
+      "community": 28,
+      "norm_label": "2. tabel temuan"
+    },
+    {
+      "label": "3. Detail Per Temuan",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L55",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_audit_3_detail_per_temuan",
+      "community": 28,
+      "norm_label": "3. detail per temuan"
+    },
+    {
+      "label": "B1 \u2014 Qdrant healthcheck: `wget` tidak ditemukan",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L57",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_audit_b1_qdrant_healthcheck_wget_tidak_ditemukan",
+      "community": 28,
+      "norm_label": "b1 \u2014 qdrant healthcheck: `wget` tidak ditemukan"
+    },
+    {
+      "label": "B2 \u2014 `app` healthcheck port mismatch di dev mode",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L91",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_audit_b2_app_healthcheck_port_mismatch_di_dev_mode",
+      "community": 28,
+      "norm_label": "b2 \u2014 `app` healthcheck port mismatch di dev mode"
+    },
+    {
+      "label": "B3 \u2014 nginx upstream `app:3000` tapi dev app di 5173",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L118",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_audit_b3_nginx_upstream_app_3000_tapi_dev_app_di_5173",
+      "community": 28,
+      "norm_label": "b3 \u2014 nginx upstream `app:3000` tapi dev app di 5173"
+    },
+    {
+      "label": "S1 & S2 \u2014 `data` dan `ai` Dockerfile.dev manifest-only",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L141",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_audit_s1_s2_data_dan_ai_dockerfile_dev_manifest_only",
+      "community": 28,
+      "norm_label": "s1 & s2 \u2014 `data` dan `ai` dockerfile.dev manifest-only"
+    },
+    {
+      "label": "S3 \u2014 `react-router dev --host 0.0.0.0` belum terverifikasi diteruskan ke Vite",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L185",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_audit_s3_react_router_dev_host_0_0_0_0_belum_terverifikasi_diteruskan_ke_vite",
+      "community": 28,
+      "norm_label": "s3 \u2014 `react-router dev --host 0.0.0.0` belum terverifikasi diteruskan ke vite"
+    },
+    {
+      "label": "D1 \u2014 Runbook mendokumentasikan versi script yang berbeda",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L208",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_audit_d1_runbook_mendokumentasikan_versi_script_yang_berbeda",
+      "community": 28,
+      "norm_label": "d1 \u2014 runbook mendokumentasikan versi script yang berbeda"
+    },
+    {
+      "label": "4. Diagram Topologi",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L214",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_audit_4_diagram_topologi",
+      "community": 28,
+      "norm_label": "4. diagram topologi"
+    },
+    {
+      "label": "5. Saran Perbaikan",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L263",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_audit_5_saran_perbaikan",
+      "community": 28,
+      "norm_label": "5. saran perbaikan"
+    },
+    {
+      "label": "Fix B1 \u2014 Ganti `wget` dengan bash `/dev/tcp` di Qdrant healthcheck",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L267",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_audit_fix_b1_ganti_wget_dengan_bash_dev_tcp_di_qdrant_healthcheck",
+      "community": 28,
+      "norm_label": "fix b1 \u2014 ganti `wget` dengan bash `/dev/tcp` di qdrant healthcheck"
+    },
+    {
+      "label": "Fix B2 \u2014 Override healthcheck `app` di `docker-compose.dev.yml`",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L288",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_audit_fix_b2_override_healthcheck_app_di_docker_compose_dev_yml",
+      "community": 28,
+      "norm_label": "fix b2 \u2014 override healthcheck `app` di `docker-compose.dev.yml`"
+    },
+    {
+      "label": "Fix B3 \u2014 Pisahkan nginx config untuk dev mode (Opsi A)",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L313",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_audit_fix_b3_pisahkan_nginx_config_untuk_dev_mode_opsi_a",
+      "community": 28,
+      "norm_label": "fix b3 \u2014 pisahkan nginx config untuk dev mode (opsi a)"
+    },
+    {
+      "label": "Fix S3 \u2014 Set `server.host` di `vite.config.ts`, hapus flag dari Dockerfile",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L335",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_audit_fix_s3_set_server_host_di_vite_config_ts_hapus_flag_dari_dockerfile",
+      "community": 28,
+      "norm_label": "fix s3 \u2014 set `server.host` di `vite.config.ts`, hapus flag dari dockerfile"
+    },
+    {
+      "label": "Fix H3 \u2014 Tambah `pnpm-workspace.yaml` di prod Dockerfile agent",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L363",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_audit_fix_h3_tambah_pnpm_workspace_yaml_di_prod_dockerfile_agent",
+      "community": 28,
+      "norm_label": "fix h3 \u2014 tambah `pnpm-workspace.yaml` di prod dockerfile agent"
+    },
+    {
+      "label": "Fix D2 + H1 \u2014 Commit script dan dokumentasikan di infra/README.md",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L372",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_audit_fix_d2_h1_commit_script_dan_dokumentasikan_di_infra_readme_md",
+      "community": 28,
+      "norm_label": "fix d2 + h1 \u2014 commit script dan dokumentasikan di infra/readme.md"
+    },
+    {
+      "label": "Fix H2 \u2014 Pin image tag",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L397",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_audit_fix_h2_pin_image_tag",
+      "community": 28,
+      "norm_label": "fix h2 \u2014 pin image tag"
+    },
+    {
+      "label": "6. Item Terbuka / UNVERIFIED",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L411",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_audit_6_item_terbuka_unverified",
+      "community": 28,
+      "norm_label": "6. item terbuka / unverified"
+    },
+    {
+      "label": "docker-infrastructure-remediation.md",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_remediation",
+      "community": 28,
+      "norm_label": "docker-infrastructure-remediation.md"
+    },
+    {
+      "label": "Rencana Remediasi Infrastruktur Docker \u2014 SLAra",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_remediation_rencana_remediasi_infrastruktur_docker_slara",
+      "community": 28,
+      "norm_label": "rencana remediasi infrastruktur docker \u2014 slara"
+    },
+    {
+      "label": "1. Tujuan",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_remediation_1_tujuan",
+      "community": 28,
+      "norm_label": "1. tujuan"
+    },
+    {
+      "label": "2. Baseline yang Sudah Ada (uncommitted, sebelum remediasi ini)",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L24",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_remediation_2_baseline_yang_sudah_ada_uncommitted_sebelum_remediasi_ini",
+      "community": 28,
+      "norm_label": "2. baseline yang sudah ada (uncommitted, sebelum remediasi ini)"
+    },
+    {
+      "label": "3. Peta Temuan \u2192 Fix",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L38",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_remediation_3_peta_temuan_fix",
+      "community": 28,
+      "norm_label": "3. peta temuan \u2192 fix"
+    },
+    {
+      "label": "4. Detail Perubahan",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L61",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_remediation_4_detail_perubahan",
+      "community": 28,
+      "norm_label": "4. detail perubahan"
+    },
+    {
+      "label": "B1 \u2014 Qdrant healthcheck pakai bash `/dev/tcp`",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L63",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_remediation_b1_qdrant_healthcheck_pakai_bash_dev_tcp",
+      "community": 28,
+      "norm_label": "b1 \u2014 qdrant healthcheck pakai bash `/dev/tcp`"
+    },
+    {
+      "label": "B2 \u2014 Override healthcheck `app` di dev",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L73",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_remediation_b2_override_healthcheck_app_di_dev",
+      "community": 28,
+      "norm_label": "b2 \u2014 override healthcheck `app` di dev"
+    },
+    {
+      "label": "B3 \u2014 nginx dev config terpisah (Opsi A dipilih)",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L88",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_remediation_b3_nginx_dev_config_terpisah_opsi_a_dipilih",
+      "community": 28,
+      "norm_label": "b3 \u2014 nginx dev config terpisah (opsi a dipilih)"
+    },
+    {
+      "label": "S1 & S2 \u2014 Dockerfile.dev bake source",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L108",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_remediation_s1_s2_dockerfile_dev_bake_source",
+      "community": 28,
+      "norm_label": "s1 & s2 \u2014 dockerfile.dev bake source"
+    },
+    {
+      "label": "S3 \u2014 Vite host binding via config",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L122",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_remediation_s3_vite_host_binding_via_config",
+      "community": 28,
+      "norm_label": "s3 \u2014 vite host binding via config"
+    },
+    {
+      "label": "H3 \u2014 prod agent copy `pnpm-workspace.yaml`",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L133",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_remediation_h3_prod_agent_copy_pnpm_workspace_yaml",
+      "community": 28,
+      "norm_label": "h3 \u2014 prod agent copy `pnpm-workspace.yaml`"
+    },
+    {
+      "label": "D1 & H1 \u2014 Dokumentasi",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L142",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_remediation_d1_h1_dokumentasi",
+      "community": 28,
+      "norm_label": "d1 & h1 \u2014 dokumentasi"
+    },
+    {
+      "label": "5. Urutan Penerapan",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L149",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_remediation_5_urutan_penerapan",
+      "community": 28,
+      "norm_label": "5. urutan penerapan"
+    },
+    {
+      "label": "6. Verifikasi",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L158",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_remediation_6_verifikasi",
+      "community": 28,
+      "norm_label": "6. verifikasi"
+    },
+    {
+      "label": "7. Item Terbuka",
+      "file_type": "document",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L173",
+      "_origin": "ast",
+      "id": "docs_runbooks_docker_infrastructure_remediation_7_item_terbuka",
+      "community": 28,
+      "norm_label": "7. item terbuka"
+    },
+    {
+      "label": "health-check-runbook.md",
+      "file_type": "document",
+      "source_file": "docs/runbooks/health-check-runbook.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_runbooks_health_check_runbook",
+      "community": 48,
+      "norm_label": "health-check-runbook.md"
+    },
+    {
+      "label": "SLAra \u2014 Health Check Runbook",
+      "file_type": "document",
+      "source_file": "docs/runbooks/health-check-runbook.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_runbooks_health_check_runbook_slara_health_check_runbook",
+      "community": 48,
+      "norm_label": "slara \u2014 health check runbook"
+    },
+    {
+      "label": "Health Endpoints per Service",
+      "file_type": "document",
+      "source_file": "docs/runbooks/health-check-runbook.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "docs_runbooks_health_check_runbook_health_endpoints_per_service",
+      "community": 48,
+      "norm_label": "health endpoints per service"
+    },
+    {
+      "label": "Run Docker Compose (Dev)",
+      "file_type": "document",
+      "source_file": "docs/runbooks/health-check-runbook.md",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "docs_runbooks_health_check_runbook_run_docker_compose_dev",
+      "community": 48,
+      "norm_label": "run docker compose (dev)"
+    },
+    {
+      "label": "Deteksi Health Status Semua Service",
+      "file_type": "document",
+      "source_file": "docs/runbooks/health-check-runbook.md",
+      "source_location": "L28",
+      "_origin": "ast",
+      "id": "docs_runbooks_health_check_runbook_deteksi_health_status_semua_service",
+      "community": 48,
+      "norm_label": "deteksi health status semua service"
+    },
+    {
+      "label": "Script Health Check Cepat",
+      "file_type": "document",
+      "source_file": "docs/runbooks/health-check-runbook.md",
+      "source_location": "L46",
+      "_origin": "ast",
+      "id": "docs_runbooks_health_check_runbook_script_health_check_cepat",
+      "community": 48,
+      "norm_label": "script health check cepat"
+    },
+    {
+      "label": "Docker Healthcheck Config (docker-compose.yml)",
+      "file_type": "document",
+      "source_file": "docs/runbooks/health-check-runbook.md",
+      "source_location": "L60",
+      "_origin": "ast",
+      "id": "docs_runbooks_health_check_runbook_docker_healthcheck_config_docker_compose_yml",
+      "community": 48,
+      "norm_label": "docker healthcheck config (docker-compose.yml)"
+    },
+    {
+      "label": "Startup Order (berdasarkan depends_on)",
+      "file_type": "document",
+      "source_file": "docs/runbooks/health-check-runbook.md",
+      "source_location": "L77",
+      "_origin": "ast",
+      "id": "docs_runbooks_health_check_runbook_startup_order_berdasarkan_depends_on",
+      "community": 48,
+      "norm_label": "startup order (berdasarkan depends_on)"
+    },
+    {
+      "label": "Troubleshooting",
+      "file_type": "document",
+      "source_file": "docs/runbooks/health-check-runbook.md",
+      "source_location": "L93",
+      "_origin": "ast",
+      "id": "docs_runbooks_health_check_runbook_troubleshooting",
+      "community": 48,
+      "norm_label": "troubleshooting"
+    },
+    {
+      "label": "Readme.md",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/Readme.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_readme",
+      "community": 42,
+      "norm_label": "readme.md"
+    },
+    {
+      "label": "specifications/platform",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/Readme.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_readme_specifications_platform",
+      "community": 42,
+      "norm_label": "specifications/platform"
+    },
+    {
+      "label": "SPEC-001-docker-dev-startup-health.md",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_spec_001_docker_dev_startup_health",
+      "community": 42,
+      "norm_label": "spec-001-docker-dev-startup-health.md"
+    },
+    {
+      "label": "SPEC-001: Docker Dev Stack \u2014 Startup & Health Remediation",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_spec_001_docker_dev_startup_health_spec_001_docker_dev_stack_startup_health_remediation",
+      "community": 42,
+      "norm_label": "spec-001: docker dev stack \u2014 startup & health remediation"
+    },
+    {
+      "label": "1. Problem Statement",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_spec_001_docker_dev_startup_health_1_problem_statement",
+      "community": 42,
+      "norm_label": "1. problem statement"
+    },
+    {
+      "label": "2. Root Cause Analysis (Rantai Kausal)",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L18",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_spec_001_docker_dev_startup_health_2_root_cause_analysis_rantai_kausal",
+      "community": 42,
+      "norm_label": "2. root cause analysis (rantai kausal)"
+    },
+    {
+      "label": "3. Goals",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L43",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_spec_001_docker_dev_startup_health_3_goals",
+      "community": 42,
+      "norm_label": "3. goals"
+    },
+    {
+      "label": "4. Non-Goals",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L51",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_spec_001_docker_dev_startup_health_4_non_goals",
+      "community": 42,
+      "norm_label": "4. non-goals"
+    },
+    {
+      "label": "5. Desain & Daftar Fix",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L59",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_spec_001_docker_dev_startup_health_5_desain_daftar_fix",
+      "community": 42,
+      "norm_label": "5. desain & daftar fix"
+    },
+    {
+      "label": "5.1 Blocking (wajib duluan)",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L63",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_spec_001_docker_dev_startup_health_5_1_blocking_wajib_duluan",
+      "community": 42,
+      "norm_label": "5.1 blocking (wajib duluan)"
+    },
+    {
+      "label": "Fix B1 \u2014 Qdrant healthcheck tanpa `wget`",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L65",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_spec_001_docker_dev_startup_health_fix_b1_qdrant_healthcheck_tanpa_wget",
+      "community": 42,
+      "norm_label": "fix b1 \u2014 qdrant healthcheck tanpa `wget`"
+    },
+    {
+      "label": "Fix B2 \u2014 Override healthcheck `app` di dev overlay",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L79",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_spec_001_docker_dev_startup_health_fix_b2_override_healthcheck_app_di_dev_overlay",
+      "community": 42,
+      "norm_label": "fix b2 \u2014 override healthcheck `app` di dev overlay"
+    },
+    {
+      "label": "Fix B3 \u2014 Strategi nginx dev (BUTUH KEPUTUSAN TECH LEAD)",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L101",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_spec_001_docker_dev_startup_health_fix_b3_strategi_nginx_dev_butuh_keputusan_tech_lead",
+      "community": 42,
+      "norm_label": "fix b3 \u2014 strategi nginx dev (butuh keputusan tech lead)"
+    },
+    {
+      "label": "5.2 Silent (risiko laten)",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L108",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_spec_001_docker_dev_startup_health_5_2_silent_risiko_laten",
+      "community": 42,
+      "norm_label": "5.2 silent (risiko laten)"
+    },
+    {
+      "label": "Fix S1 / S2 \u2014 `Dockerfile.dev` data & ai hanya copy manifest",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L110",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_spec_001_docker_dev_startup_health_fix_s1_s2_dockerfile_dev_data_ai_hanya_copy_manifest",
+      "community": 42,
+      "norm_label": "fix s1 / s2 \u2014 `dockerfile.dev` data & ai hanya copy manifest"
+    },
+    {
+      "label": "Fix S3 \u2014 Binding host `app`",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L114",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_spec_001_docker_dev_startup_health_fix_s3_binding_host_app",
+      "community": 42,
+      "norm_label": "fix s3 \u2014 binding host `app`"
+    },
+    {
+      "label": "5.3 Drift (dokumentasi / git)",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L121",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_spec_001_docker_dev_startup_health_5_3_drift_dokumentasi_git",
+      "community": 42,
+      "norm_label": "5.3 drift (dokumentasi / git)"
+    },
+    {
+      "label": "Fix D1 \u2014 Runbook tidak mencerminkan `check-health.sh` aktual",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L123",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_spec_001_docker_dev_startup_health_fix_d1_runbook_tidak_mencerminkan_check_health_sh_aktual",
+      "community": 42,
+      "norm_label": "fix d1 \u2014 runbook tidak mencerminkan `check-health.sh` aktual"
+    },
+    {
+      "label": "Fix D2 \u2014 `check-health.sh` tidak ter-commit",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L127",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_spec_001_docker_dev_startup_health_fix_d2_check_health_sh_tidak_ter_commit",
+      "community": 42,
+      "norm_label": "fix d2 \u2014 `check-health.sh` tidak ter-commit"
+    },
+    {
+      "label": "5.4 Hygiene",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L131",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_spec_001_docker_dev_startup_health_5_4_hygiene",
+      "community": 42,
+      "norm_label": "5.4 hygiene"
+    },
+    {
+      "label": "6. Urutan Implementasi (Dependency Order)",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L142",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_spec_001_docker_dev_startup_health_6_urutan_implementasi_dependency_order",
+      "community": 42,
+      "norm_label": "6. urutan implementasi (dependency order)"
+    },
+    {
+      "label": "7. Verification Plan",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L156",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_spec_001_docker_dev_startup_health_7_verification_plan",
+      "community": 42,
+      "norm_label": "7. verification plan"
+    },
+    {
+      "label": "8. Success Metrics",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L186",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_spec_001_docker_dev_startup_health_8_success_metrics",
+      "community": 42,
+      "norm_label": "8. success metrics"
+    },
+    {
+      "label": "9. Open Questions / UNVERIFIED (perlu runtime/konfirmasi)",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L194",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_spec_001_docker_dev_startup_health_9_open_questions_unverified_perlu_runtime_konfirmasi",
+      "community": 42,
+      "norm_label": "9. open questions / unverified (perlu runtime/konfirmasi)"
+    },
+    {
+      "label": "10. Kontrak yang Terdampak",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L204",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_spec_001_docker_dev_startup_health_10_kontrak_yang_terdampak",
+      "community": 42,
+      "norm_label": "10. kontrak yang terdampak"
+    },
+    {
+      "label": "Catatan Graphify / Freshness",
+      "file_type": "document",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L211",
+      "_origin": "ast",
+      "id": "docs_specifications_platform_spec_001_docker_dev_startup_health_catatan_graphify_freshness",
+      "community": 42,
+      "norm_label": "catatan graphify / freshness"
+    },
+    {
       "label": "README.md",
       "file_type": "document",
       "source_file": "infra/README.md",
@@ -96,14 +1086,106 @@
       "norm_label": "health check"
     },
     {
-      "label": "VS Code Dev Containers",
+      "label": "Health Check Script",
       "file_type": "document",
       "source_file": "infra/README.md",
       "source_location": "L87",
       "_origin": "ast",
+      "id": "infra_readme_health_check_script",
+      "community": 2,
+      "norm_label": "health check script"
+    },
+    {
+      "label": "VS Code Dev Containers",
+      "file_type": "document",
+      "source_file": "infra/README.md",
+      "source_location": "L100",
+      "_origin": "ast",
       "id": "infra_readme_vs_code_dev_containers",
       "community": 2,
       "norm_label": "vs code dev containers"
+    },
+    {
+      "label": "check-health.sh",
+      "file_type": "code",
+      "source_file": "infra/check-health.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "_origin": "ast",
+      "id": "infra_check_health",
+      "community": 51,
+      "norm_label": "check-health.sh"
+    },
+    {
+      "label": "check-health.sh script",
+      "file_type": "code",
+      "source_file": "infra/check-health.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "_origin": "ast",
+      "id": "infra_check_health_sh__entry",
+      "community": 51,
+      "norm_label": "check-health.sh script"
+    },
+    {
+      "label": "hit()",
+      "file_type": "code",
+      "source_file": "infra/check-health.sh",
+      "source_location": "L15",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "infra_check_health_hit",
+      "community": 51,
+      "norm_label": "hit()"
+    },
+    {
+      "label": "index.ts",
+      "file_type": "code",
+      "source_file": "services/agent/src/index.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "services_agent_src_index",
+      "community": 10,
+      "norm_label": "index.ts"
+    },
+    {
+      "label": "app",
+      "file_type": "code",
+      "source_file": "services/agent/src/index.ts",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "services_agent_src_index_app",
+      "community": 10,
+      "norm_label": "app"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "services/data/cmd/api/main.go",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "services_data_cmd_api_main",
+      "community": 12,
+      "norm_label": "main.go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "services/data/cmd/api/main.go",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "services_data_cmd_api_main_main",
+      "community": 12,
+      "norm_label": "main()"
     },
     {
       "label": "__init__.py",
@@ -111,9 +1193,9 @@
       "source_file": "services/ai/app/__init__.py",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "services_ai_app_init",
       "community": 69,
-      "norm_label": "__init__.py"
+      "norm_label": "__init__.py",
+      "id": "services_ai_app_init"
     },
     {
       "label": "__init__.py",
@@ -121,9 +1203,9 @@
       "source_file": "services/ai/app/config/__init__.py",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "services_ai_app_config_init",
       "community": 17,
-      "norm_label": "__init__.py"
+      "norm_label": "__init__.py",
+      "id": "services_ai_app_config_init"
     },
     {
       "label": "init_env.py",
@@ -131,9 +1213,9 @@
       "source_file": "services/ai/app/config/init_env.py",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "services_ai_app_config_init_env",
       "community": 24,
-      "norm_label": "init_env.py"
+      "norm_label": "init_env.py",
+      "id": "services_ai_app_config_init_env"
     },
     {
       "label": "init_model.py",
@@ -141,9 +1223,9 @@
       "source_file": "services/ai/app/config/init_model.py",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "services_ai_app_config_init_model",
       "community": 68,
-      "norm_label": "init_model.py"
+      "norm_label": "init_model.py",
+      "id": "services_ai_app_config_init_model"
     },
     {
       "label": "main.py",
@@ -151,9 +1233,9 @@
       "source_file": "services/ai/main.py",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "services_ai_main",
       "community": 11,
-      "norm_label": "main.py"
+      "norm_label": "main.py",
+      "id": "services_ai_main"
     },
     {
       "label": "health()",
@@ -161,9 +1243,9 @@
       "source_file": "services/ai/main.py",
       "source_location": "L9",
       "_origin": "ast",
-      "id": "services_ai_main_health",
       "community": 11,
-      "norm_label": "health()"
+      "norm_label": "health()",
+      "id": "services_ai_main_health"
     },
     {
       "label": "ml",
@@ -174,9 +1256,9 @@
       "source_location": "L1",
       "version": "0.1.0",
       "_origin": "ast",
-      "id": "pkg_ml",
       "community": 21,
-      "norm_label": "ml"
+      "norm_label": "ml",
+      "id": "pkg_ml"
     },
     {
       "label": "AGENTS.md",
@@ -1164,7 +2246,7 @@
       "source_file": "apps/app/app/components/ActiveRecommendationCard.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 48,
+      "community": 23,
       "norm_label": "activerecommendationcard.tsx",
       "id": "apps_app_app_components_activerecommendationcard"
     },
@@ -1174,7 +2256,7 @@
       "source_file": "apps/app/app/components/ActiveRecommendationCard.tsx",
       "source_location": "L7",
       "_origin": "ast",
-      "community": 48,
+      "community": 23,
       "norm_label": "severity_bg",
       "id": "apps_app_app_components_activerecommendationcard_severity_bg"
     },
@@ -1184,7 +2266,7 @@
       "source_file": "apps/app/app/components/ActiveRecommendationCard.tsx",
       "source_location": "L13",
       "_origin": "ast",
-      "community": 48,
+      "community": 23,
       "norm_label": "severitypill()",
       "id": "apps_app_app_components_activerecommendationcard_severitypill"
     },
@@ -1194,7 +2276,7 @@
       "source_file": "apps/app/app/components/ActiveRecommendationCard.tsx",
       "source_location": "L24",
       "_origin": "ast",
-      "community": 48,
+      "community": 23,
       "norm_label": "activerecommendationcard()",
       "id": "apps_app_app_components_activerecommendationcard_activerecommendationcard"
     },
@@ -1334,7 +2416,7 @@
       "source_file": "apps/app/app/components/DashboardKpis.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 49,
+      "community": 23,
       "norm_label": "dashboardkpis.tsx",
       "id": "apps_app_app_components_dashboardkpis"
     },
@@ -1344,7 +2426,7 @@
       "source_file": "apps/app/app/components/DashboardKpis.tsx",
       "source_location": "L5",
       "_origin": "ast",
-      "community": 49,
+      "community": 23,
       "norm_label": "svg",
       "id": "apps_app_app_components_dashboardkpis_svg"
     },
@@ -1354,7 +2436,7 @@
       "source_file": "apps/app/app/components/DashboardKpis.tsx",
       "source_location": "L14",
       "_origin": "ast",
-      "community": 49,
+      "community": 23,
       "norm_label": "kpiglyph()",
       "id": "apps_app_app_components_dashboardkpis_kpiglyph"
     },
@@ -1364,7 +2446,7 @@
       "source_file": "apps/app/app/components/DashboardKpis.tsx",
       "source_location": "L61",
       "_origin": "ast",
-      "community": 49,
+      "community": 23,
       "norm_label": "dashboardkpis()",
       "id": "apps_app_app_components_dashboardkpis_dashboardkpis"
     },
@@ -1394,7 +2476,7 @@
       "source_file": "apps/app/app/components/EtaBand.tsx",
       "source_location": "L15",
       "_origin": "ast",
-      "community": 50,
+      "community": 37,
       "norm_label": "etaband()",
       "id": "apps_app_app_components_etaband_etaband"
     },
@@ -1464,7 +2546,7 @@
       "source_file": "apps/app/app/components/KpiStrip.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 51,
+      "community": 37,
       "norm_label": "kpistrip.tsx",
       "id": "apps_app_app_components_kpistrip"
     },
@@ -1474,7 +2556,7 @@
       "source_file": "apps/app/app/components/KpiStrip.tsx",
       "source_location": "L6",
       "_origin": "ast",
-      "community": 51,
+      "community": 37,
       "norm_label": "kpiitem",
       "id": "apps_app_app_components_kpistrip_kpiitem"
     },
@@ -1484,7 +2566,7 @@
       "source_file": "apps/app/app/components/KpiStrip.tsx",
       "source_location": "L12",
       "_origin": "ast",
-      "community": 51,
+      "community": 37,
       "norm_label": "kpistrip()",
       "id": "apps_app_app_components_kpistrip_kpistrip"
     },
@@ -1494,7 +2576,7 @@
       "source_file": "apps/app/app/components/MiniMap.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 52,
+      "community": 23,
       "norm_label": "minimap.tsx",
       "id": "apps_app_app_components_minimap"
     },
@@ -1504,7 +2586,7 @@
       "source_file": "apps/app/app/components/MiniMap.tsx",
       "source_location": "L7",
       "_origin": "ast",
-      "community": 52,
+      "community": 23,
       "norm_label": "minimapprops",
       "id": "apps_app_app_components_minimap_minimapprops"
     },
@@ -1514,7 +2596,7 @@
       "source_file": "apps/app/app/components/MiniMap.tsx",
       "source_location": "L13",
       "_origin": "ast",
-      "community": 52,
+      "community": 23,
       "norm_label": "minimap()",
       "id": "apps_app_app_components_minimap_minimap"
     },
@@ -1554,7 +2636,7 @@
       "source_file": "apps/app/app/components/OperatorPanel.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 42,
+      "community": 37,
       "norm_label": "operatorpanel.tsx",
       "id": "apps_app_app_components_operatorpanel"
     },
@@ -1564,7 +2646,7 @@
       "source_file": "apps/app/app/components/OperatorPanel.tsx",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 42,
+      "community": 37,
       "norm_label": "operatorpanelprops",
       "id": "apps_app_app_components_operatorpanel_operatorpanelprops"
     },
@@ -1574,7 +2656,7 @@
       "source_file": "apps/app/app/components/OperatorPanel.tsx",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 42,
+      "community": 37,
       "norm_label": "operatorpanel()",
       "id": "apps_app_app_components_operatorpanel_operatorpanel"
     },
@@ -1654,7 +2736,7 @@
       "source_file": "apps/app/app/components/RouteCards.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 42,
+      "community": 37,
       "norm_label": "routecards.tsx",
       "id": "apps_app_app_components_routecards"
     },
@@ -1664,7 +2746,7 @@
       "source_file": "apps/app/app/components/RouteCards.tsx",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 42,
+      "community": 37,
       "norm_label": "idr",
       "id": "apps_app_app_components_routecards_idr"
     },
@@ -1674,7 +2756,7 @@
       "source_file": "apps/app/app/components/RouteCards.tsx",
       "source_location": "L10",
       "_origin": "ast",
-      "community": 42,
+      "community": 37,
       "norm_label": "routecardsprops",
       "id": "apps_app_app_components_routecards_routecardsprops"
     },
@@ -1684,7 +2766,7 @@
       "source_file": "apps/app/app/components/RouteCards.tsx",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 42,
+      "community": 37,
       "norm_label": "routecards()",
       "id": "apps_app_app_components_routecards_routecards"
     },
@@ -1694,7 +2776,7 @@
       "source_file": "apps/app/app/components/RouteCards.tsx",
       "source_location": "L70",
       "_origin": "ast",
-      "community": 42,
+      "community": 37,
       "norm_label": "metricrow()",
       "id": "apps_app_app_components_routecards_metricrow"
     },
@@ -1704,7 +2786,7 @@
       "source_file": "apps/app/app/components/RouteMap.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 47,
+      "community": 37,
       "norm_label": "routemap.tsx",
       "id": "apps_app_app_components_routemap"
     },
@@ -1714,7 +2796,7 @@
       "source_file": "apps/app/app/components/RouteMap.tsx",
       "source_location": "L18",
       "_origin": "ast",
-      "community": 47,
+      "community": 37,
       "norm_label": "routemapprops",
       "id": "apps_app_app_components_routemap_routemapprops"
     },
@@ -1724,7 +2806,7 @@
       "source_file": "apps/app/app/components/RouteMap.tsx",
       "source_location": "L26",
       "_origin": "ast",
-      "community": 47,
+      "community": 37,
       "norm_label": "fitbounds()",
       "id": "apps_app_app_components_routemap_fitbounds"
     },
@@ -1734,7 +2816,7 @@
       "source_file": "apps/app/app/components/RouteMap.tsx",
       "source_location": "L36",
       "_origin": "ast",
-      "community": 47,
+      "community": 37,
       "norm_label": "routemap()",
       "id": "apps_app_app_components_routemap_routemap"
     },
@@ -1744,7 +2826,7 @@
       "source_file": "apps/app/app/components/ShapChart.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "shapchart.tsx",
       "id": "apps_app_app_components_shapchart"
     },
@@ -1754,7 +2836,7 @@
       "source_file": "apps/app/app/components/ShapChart.tsx",
       "source_location": "L19",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "humanize()",
       "id": "apps_app_app_components_shapchart_humanize"
     },
@@ -1764,7 +2846,7 @@
       "source_file": "apps/app/app/components/ShapChart.tsx",
       "source_location": "L23",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "shapchart()",
       "id": "apps_app_app_components_shapchart_shapchart"
     },
@@ -1774,7 +2856,7 @@
       "source_file": "apps/app/app/components/ShipmentTable.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 50,
+      "community": 37,
       "norm_label": "shipmenttable.tsx",
       "id": "apps_app_app_components_shipmenttable"
     },
@@ -1784,7 +2866,7 @@
       "source_file": "apps/app/app/components/ShipmentTable.tsx",
       "source_location": "L9",
       "_origin": "ast",
-      "community": 50,
+      "community": 37,
       "norm_label": "columns",
       "id": "apps_app_app_components_shipmenttable_columns"
     },
@@ -1794,7 +2876,7 @@
       "source_file": "apps/app/app/components/ShipmentTable.tsx",
       "source_location": "L21",
       "_origin": "ast",
-      "community": 50,
+      "community": 37,
       "norm_label": "shipmenttableprops",
       "id": "apps_app_app_components_shipmenttable_shipmenttableprops"
     },
@@ -1804,7 +2886,7 @@
       "source_file": "apps/app/app/components/ShipmentTable.tsx",
       "source_location": "L26",
       "_origin": "ast",
-      "community": 50,
+      "community": 37,
       "norm_label": "shipmenttable()",
       "id": "apps_app_app_components_shipmenttable_shipmenttable"
     },
@@ -1824,7 +2906,7 @@
       "source_file": "apps/app/app/components/TierBadge.tsx",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 42,
+      "community": 37,
       "norm_label": "tierbadge()",
       "id": "apps_app_app_components_tierbadge_tierbadge"
     },
@@ -2294,7 +3376,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "types.ts",
       "id": "apps_app_app_lib_types"
     },
@@ -2314,7 +3396,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "vehicletype",
       "id": "apps_app_app_lib_types_vehicletype"
     },
@@ -2324,7 +3406,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L9",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "slatype",
       "id": "apps_app_app_lib_types_slatype"
     },
@@ -2334,7 +3416,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L10",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "decisionstatus",
       "id": "apps_app_app_lib_types_decisionstatus"
     },
@@ -2344,7 +3426,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "decision",
       "id": "apps_app_app_lib_types_decision"
     },
@@ -2354,7 +3436,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L17",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "resolveaction",
       "id": "apps_app_app_lib_types_resolveaction"
     },
@@ -2364,7 +3446,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L18",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "shapdirection",
       "id": "apps_app_app_lib_types_shapdirection"
     },
@@ -2374,7 +3456,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L21",
       "_origin": "ast",
-      "community": 47,
+      "community": 37,
       "norm_label": "latlng",
       "id": "apps_app_app_lib_types_latlng"
     },
@@ -2384,7 +3466,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L25",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "tiercounts",
       "id": "apps_app_app_lib_types_tiercounts"
     },
@@ -2394,7 +3476,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L31",
       "_origin": "ast",
-      "community": 51,
+      "community": 23,
       "norm_label": "kpisummary",
       "id": "apps_app_app_lib_types_kpisummary"
     },
@@ -2404,7 +3486,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L43",
       "_origin": "ast",
-      "community": 47,
+      "community": 37,
       "norm_label": "hubref",
       "id": "apps_app_app_lib_types_hubref"
     },
@@ -2414,7 +3496,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L50",
       "_origin": "ast",
-      "community": 47,
+      "community": 37,
       "norm_label": "destinationref",
       "id": "apps_app_app_lib_types_destinationref"
     },
@@ -2424,7 +3506,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L56",
       "_origin": "ast",
-      "community": 50,
+      "community": 37,
       "norm_label": "shipment",
       "id": "apps_app_app_lib_types_shipment"
     },
@@ -2454,7 +3536,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L87",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "confidencecomponent",
       "id": "apps_app_app_lib_types_confidencecomponent"
     },
@@ -2474,7 +3556,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L102",
       "_origin": "ast",
-      "community": 42,
+      "community": 37,
       "norm_label": "routeoption",
       "id": "apps_app_app_lib_types_routeoption"
     },
@@ -2484,7 +3566,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L114",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "shapfeature",
       "id": "apps_app_app_lib_types_shapfeature"
     },
@@ -2494,7 +3576,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L120",
       "_origin": "ast",
-      "community": 41,
+      "community": 23,
       "norm_label": "decideresponse",
       "id": "apps_app_app_lib_types_decideresponse"
     },
@@ -2534,7 +3616,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L163",
       "_origin": "ast",
-      "community": 49,
+      "community": 23,
       "norm_label": "kpiiconkind",
       "id": "apps_app_app_lib_types_kpiiconkind"
     },
@@ -2544,7 +3626,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L171",
       "_origin": "ast",
-      "community": 49,
+      "community": 23,
       "norm_label": "dashboardkpi",
       "id": "apps_app_app_lib_types_dashboardkpi"
     },
@@ -2564,7 +3646,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L184",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "recmetric",
       "id": "apps_app_app_lib_types_recmetric"
     },
@@ -2574,7 +3656,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L191",
       "_origin": "ast",
-      "community": 48,
+      "community": 23,
       "norm_label": "severity",
       "id": "apps_app_app_lib_types_severity"
     },
@@ -2584,7 +3666,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L193",
       "_origin": "ast",
-      "community": 48,
+      "community": 23,
       "norm_label": "activerecommendation",
       "id": "apps_app_app_lib_types_activerecommendation"
     },
@@ -2604,7 +3686,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L209",
       "_origin": "ast",
-      "community": 52,
+      "community": 23,
       "norm_label": "mapmarker",
       "id": "apps_app_app_lib_types_mapmarker"
     },
@@ -2614,7 +3696,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L216",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "telemetryrow",
       "id": "apps_app_app_lib_types_telemetryrow"
     },
@@ -2624,7 +3706,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L223",
       "_origin": "ast",
-      "community": 28,
+      "community": 23,
       "norm_label": "telemetrybar",
       "id": "apps_app_app_lib_types_telemetrybar"
     },
@@ -3169,36 +4251,6 @@
       "id": "apps_app_tsconfig_compileroptions_strict"
     },
     {
-      "label": "vite.config.ts",
-      "file_type": "code",
-      "source_file": "apps/app/vite.config.ts",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 16,
-      "norm_label": "vite.config.ts",
-      "id": "apps_app_vite_config"
-    },
-    {
-      "label": "index.ts",
-      "file_type": "code",
-      "source_file": "services/agent/src/index.ts",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 10,
-      "norm_label": "index.ts",
-      "id": "services_agent_src_index"
-    },
-    {
-      "label": "app",
-      "file_type": "code",
-      "source_file": "services/agent/src/index.ts",
-      "source_location": "L4",
-      "_origin": "ast",
-      "community": 10,
-      "norm_label": "app",
-      "id": "services_agent_src_index_app"
-    },
-    {
       "label": "tsconfig.json",
       "file_type": "code",
       "source_file": "services/agent/tsconfig.json",
@@ -3317,26 +4369,6 @@
       "community": 3,
       "norm_label": "exclude",
       "id": "services_agent_tsconfig_exclude"
-    },
-    {
-      "label": "main.go",
-      "file_type": "code",
-      "source_file": "services/data/cmd/api/main.go",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 12,
-      "norm_label": "main.go",
-      "id": "services_data_cmd_api_main"
-    },
-    {
-      "label": "main()",
-      "file_type": "code",
-      "source_file": "services/data/cmd/api/main.go",
-      "source_location": "L8",
-      "_origin": "ast",
-      "community": 12,
-      "norm_label": "main()",
-      "id": "services_data_cmd_api_main_main"
     },
     {
       "label": "github.com/misbahul45/SLAra/services/data",
@@ -8061,6 +9093,916 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "opencode_opencode",
+      "target": "opencode_opencode_plugin",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "opencode_opencode",
+      "target": "opencode_opencode_schema",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/architecture/adr/0003-gateway-dev-mode-strategy.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "docs_architecture_adr_0003_gateway_dev_mode_strategy",
+      "target": "docs_architecture_adr_0003_gateway_dev_mode_strategy_adr_0003_strategi_gateway_di_dev_mode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/architecture/adr/Readme.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "docs_architecture_adr_readme",
+      "target": "docs_architecture_adr_0003_gateway_dev_mode_strategy",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/architecture/adr/0003-gateway-dev-mode-strategy.md",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "docs_architecture_adr_0003_gateway_dev_mode_strategy_adr_0003_strategi_gateway_di_dev_mode",
+      "target": "docs_architecture_adr_0003_gateway_dev_mode_strategy_alternatif_yang_dipertimbangkan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/architecture/adr/0003-gateway-dev-mode-strategy.md",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "docs_architecture_adr_0003_gateway_dev_mode_strategy_adr_0003_strategi_gateway_di_dev_mode",
+      "target": "docs_architecture_adr_0003_gateway_dev_mode_strategy_keputusan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/architecture/adr/0003-gateway-dev-mode-strategy.md",
+      "source_location": "L51",
+      "weight": 1.0,
+      "source": "docs_architecture_adr_0003_gateway_dev_mode_strategy_adr_0003_strategi_gateway_di_dev_mode",
+      "target": "docs_architecture_adr_0003_gateway_dev_mode_strategy_konsekuensi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/architecture/adr/0003-gateway-dev-mode-strategy.md",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "docs_architecture_adr_0003_gateway_dev_mode_strategy_adr_0003_strategi_gateway_di_dev_mode",
+      "target": "docs_architecture_adr_0003_gateway_dev_mode_strategy_konteks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/architecture/adr/Readme.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "docs_architecture_adr_readme",
+      "target": "docs_architecture_adr_readme_architecture_adr",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/architecture/diagrams/service-routing.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "docs_architecture_diagrams_service_routing",
+      "target": "docs_architecture_diagrams_service_routing_slara_service_routing_diagram",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/architecture/diagrams/service-routing.md",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "docs_architecture_diagrams_service_routing_slara_service_routing_diagram",
+      "target": "docs_architecture_diagrams_service_routing_internal_ports",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/architecture/diagrams/service-routing.md",
+      "source_location": "L36",
+      "weight": 1.0,
+      "source": "docs_architecture_diagrams_service_routing_slara_service_routing_diagram",
+      "target": "docs_architecture_diagrams_service_routing_service_dependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/architecture/diagrams/service-routing.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "docs_architecture_diagrams_service_routing_slara_service_routing_diagram",
+      "target": "docs_architecture_diagrams_service_routing_traffic_flow",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/architecture/diagrams/service-routing.md",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "docs_architecture_diagrams_service_routing_slara_service_routing_diagram",
+      "target": "docs_architecture_diagrams_service_routing_websocket",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/progress/plan/Readme.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "docs_progress_plan_readme",
+      "target": "docs_progress_plan_readme_progress_plan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/progress/plan/Readme.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "docs_progress_plan_readme",
+      "target": "docs_progress_plan_sprint_2026_07_b",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/progress/plan/sprint-2026-07-b.md",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "docs_progress_plan_sprint_2026_07_b",
+      "target": "docs_progress_plan_sprint_2026_07_b_sprint_2026_07_b_14_25_juli",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/progress/plan/sprint-2026-07-b.md",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "docs_progress_plan_sprint_2026_07_b_sprint_2026_07_b_14_25_juli",
+      "target": "docs_progress_plan_sprint_2026_07_b_dependensi_urutan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/progress/plan/sprint-2026-07-b.md",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "docs_progress_plan_sprint_2026_07_b_sprint_2026_07_b_14_25_juli",
+      "target": "docs_progress_plan_sprint_2026_07_b_exit_criteria_sprint_done",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/progress/plan/sprint-2026-07-b.md",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "docs_progress_plan_sprint_2026_07_b_sprint_2026_07_b_14_25_juli",
+      "target": "docs_progress_plan_sprint_2026_07_b_fokus",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/progress/plan/sprint-2026-07-b.md",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "docs_progress_plan_sprint_2026_07_b_sprint_2026_07_b_14_25_juli",
+      "target": "docs_progress_plan_sprint_2026_07_b_hasil_retro",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/progress/plan/sprint-2026-07-b.md",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "docs_progress_plan_sprint_2026_07_b_sprint_2026_07_b_14_25_juli",
+      "target": "docs_progress_plan_sprint_2026_07_b_komitmen",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_audit",
+      "target": "docs_runbooks_docker_infrastructure_audit_audit_infrastruktur_docker_slara",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_remediation",
+      "target": "docs_runbooks_docker_infrastructure_audit",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_audit_audit_infrastruktur_docker_slara",
+      "target": "docs_runbooks_docker_infrastructure_audit_1_ringkasan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L36",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_audit_audit_infrastruktur_docker_slara",
+      "target": "docs_runbooks_docker_infrastructure_audit_2_tabel_temuan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L55",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_audit_audit_infrastruktur_docker_slara",
+      "target": "docs_runbooks_docker_infrastructure_audit_3_detail_per_temuan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L214",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_audit_audit_infrastruktur_docker_slara",
+      "target": "docs_runbooks_docker_infrastructure_audit_4_diagram_topologi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L263",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_audit_audit_infrastruktur_docker_slara",
+      "target": "docs_runbooks_docker_infrastructure_audit_5_saran_perbaikan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L411",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_audit_audit_infrastruktur_docker_slara",
+      "target": "docs_runbooks_docker_infrastructure_audit_6_item_terbuka_unverified",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_audit_3_detail_per_temuan",
+      "target": "docs_runbooks_docker_infrastructure_audit_b1_qdrant_healthcheck_wget_tidak_ditemukan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L91",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_audit_3_detail_per_temuan",
+      "target": "docs_runbooks_docker_infrastructure_audit_b2_app_healthcheck_port_mismatch_di_dev_mode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L118",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_audit_3_detail_per_temuan",
+      "target": "docs_runbooks_docker_infrastructure_audit_b3_nginx_upstream_app_3000_tapi_dev_app_di_5173",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L208",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_audit_3_detail_per_temuan",
+      "target": "docs_runbooks_docker_infrastructure_audit_d1_runbook_mendokumentasikan_versi_script_yang_berbeda",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L141",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_audit_3_detail_per_temuan",
+      "target": "docs_runbooks_docker_infrastructure_audit_s1_s2_data_dan_ai_dockerfile_dev_manifest_only",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L185",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_audit_3_detail_per_temuan",
+      "target": "docs_runbooks_docker_infrastructure_audit_s3_react_router_dev_host_0_0_0_0_belum_terverifikasi_diteruskan_ke_vite",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L267",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_audit_5_saran_perbaikan",
+      "target": "docs_runbooks_docker_infrastructure_audit_fix_b1_ganti_wget_dengan_bash_dev_tcp_di_qdrant_healthcheck",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L288",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_audit_5_saran_perbaikan",
+      "target": "docs_runbooks_docker_infrastructure_audit_fix_b2_override_healthcheck_app_di_docker_compose_dev_yml",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L313",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_audit_5_saran_perbaikan",
+      "target": "docs_runbooks_docker_infrastructure_audit_fix_b3_pisahkan_nginx_config_untuk_dev_mode_opsi_a",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L372",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_audit_5_saran_perbaikan",
+      "target": "docs_runbooks_docker_infrastructure_audit_fix_d2_h1_commit_script_dan_dokumentasikan_di_infra_readme_md",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L397",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_audit_5_saran_perbaikan",
+      "target": "docs_runbooks_docker_infrastructure_audit_fix_h2_pin_image_tag",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L363",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_audit_5_saran_perbaikan",
+      "target": "docs_runbooks_docker_infrastructure_audit_fix_h3_tambah_pnpm_workspace_yaml_di_prod_dockerfile_agent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-audit.md",
+      "source_location": "L335",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_audit_5_saran_perbaikan",
+      "target": "docs_runbooks_docker_infrastructure_audit_fix_s3_set_server_host_di_vite_config_ts_hapus_flag_dari_dockerfile",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_remediation",
+      "target": "docs_runbooks_docker_infrastructure_remediation_rencana_remediasi_infrastruktur_docker_slara",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_remediation_rencana_remediasi_infrastruktur_docker_slara",
+      "target": "docs_runbooks_docker_infrastructure_remediation_1_tujuan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_remediation_rencana_remediasi_infrastruktur_docker_slara",
+      "target": "docs_runbooks_docker_infrastructure_remediation_2_baseline_yang_sudah_ada_uncommitted_sebelum_remediasi_ini",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_remediation_rencana_remediasi_infrastruktur_docker_slara",
+      "target": "docs_runbooks_docker_infrastructure_remediation_3_peta_temuan_fix",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_remediation_rencana_remediasi_infrastruktur_docker_slara",
+      "target": "docs_runbooks_docker_infrastructure_remediation_4_detail_perubahan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L149",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_remediation_rencana_remediasi_infrastruktur_docker_slara",
+      "target": "docs_runbooks_docker_infrastructure_remediation_5_urutan_penerapan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L158",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_remediation_rencana_remediasi_infrastruktur_docker_slara",
+      "target": "docs_runbooks_docker_infrastructure_remediation_6_verifikasi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L173",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_remediation_rencana_remediasi_infrastruktur_docker_slara",
+      "target": "docs_runbooks_docker_infrastructure_remediation_7_item_terbuka",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L63",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_remediation_4_detail_perubahan",
+      "target": "docs_runbooks_docker_infrastructure_remediation_b1_qdrant_healthcheck_pakai_bash_dev_tcp",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L73",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_remediation_4_detail_perubahan",
+      "target": "docs_runbooks_docker_infrastructure_remediation_b2_override_healthcheck_app_di_dev",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L88",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_remediation_4_detail_perubahan",
+      "target": "docs_runbooks_docker_infrastructure_remediation_b3_nginx_dev_config_terpisah_opsi_a_dipilih",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L142",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_remediation_4_detail_perubahan",
+      "target": "docs_runbooks_docker_infrastructure_remediation_d1_h1_dokumentasi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L133",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_remediation_4_detail_perubahan",
+      "target": "docs_runbooks_docker_infrastructure_remediation_h3_prod_agent_copy_pnpm_workspace_yaml",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L108",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_remediation_4_detail_perubahan",
+      "target": "docs_runbooks_docker_infrastructure_remediation_s1_s2_dockerfile_dev_bake_source",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/docker-infrastructure-remediation.md",
+      "source_location": "L122",
+      "weight": 1.0,
+      "source": "docs_runbooks_docker_infrastructure_remediation_4_detail_perubahan",
+      "target": "docs_runbooks_docker_infrastructure_remediation_s3_vite_host_binding_via_config",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/health-check-runbook.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "docs_runbooks_health_check_runbook",
+      "target": "docs_runbooks_health_check_runbook_slara_health_check_runbook",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/health-check-runbook.md",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "docs_runbooks_health_check_runbook_slara_health_check_runbook",
+      "target": "docs_runbooks_health_check_runbook_deteksi_health_status_semua_service",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/health-check-runbook.md",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "docs_runbooks_health_check_runbook_slara_health_check_runbook",
+      "target": "docs_runbooks_health_check_runbook_docker_healthcheck_config_docker_compose_yml",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/health-check-runbook.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "docs_runbooks_health_check_runbook_slara_health_check_runbook",
+      "target": "docs_runbooks_health_check_runbook_health_endpoints_per_service",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/health-check-runbook.md",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "docs_runbooks_health_check_runbook_slara_health_check_runbook",
+      "target": "docs_runbooks_health_check_runbook_run_docker_compose_dev",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/health-check-runbook.md",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "docs_runbooks_health_check_runbook_slara_health_check_runbook",
+      "target": "docs_runbooks_health_check_runbook_script_health_check_cepat",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/health-check-runbook.md",
+      "source_location": "L77",
+      "weight": 1.0,
+      "source": "docs_runbooks_health_check_runbook_slara_health_check_runbook",
+      "target": "docs_runbooks_health_check_runbook_startup_order_berdasarkan_depends_on",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/runbooks/health-check-runbook.md",
+      "source_location": "L93",
+      "weight": 1.0,
+      "source": "docs_runbooks_health_check_runbook_slara_health_check_runbook",
+      "target": "docs_runbooks_health_check_runbook_troubleshooting",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/Readme.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_readme",
+      "target": "docs_specifications_platform_readme_specifications_platform",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/Readme.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_readme",
+      "target": "docs_specifications_platform_spec_001_docker_dev_startup_health",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_spec_001_docker_dev_startup_health",
+      "target": "docs_specifications_platform_spec_001_docker_dev_startup_health_spec_001_docker_dev_stack_startup_health_remediation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L204",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_spec_001_docker_dev_startup_health_spec_001_docker_dev_stack_startup_health_remediation",
+      "target": "docs_specifications_platform_spec_001_docker_dev_startup_health_10_kontrak_yang_terdampak",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_spec_001_docker_dev_startup_health_spec_001_docker_dev_stack_startup_health_remediation",
+      "target": "docs_specifications_platform_spec_001_docker_dev_startup_health_1_problem_statement",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_spec_001_docker_dev_startup_health_spec_001_docker_dev_stack_startup_health_remediation",
+      "target": "docs_specifications_platform_spec_001_docker_dev_startup_health_2_root_cause_analysis_rantai_kausal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L43",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_spec_001_docker_dev_startup_health_spec_001_docker_dev_stack_startup_health_remediation",
+      "target": "docs_specifications_platform_spec_001_docker_dev_startup_health_3_goals",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L51",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_spec_001_docker_dev_startup_health_spec_001_docker_dev_stack_startup_health_remediation",
+      "target": "docs_specifications_platform_spec_001_docker_dev_startup_health_4_non_goals",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L59",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_spec_001_docker_dev_startup_health_spec_001_docker_dev_stack_startup_health_remediation",
+      "target": "docs_specifications_platform_spec_001_docker_dev_startup_health_5_desain_daftar_fix",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L142",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_spec_001_docker_dev_startup_health_spec_001_docker_dev_stack_startup_health_remediation",
+      "target": "docs_specifications_platform_spec_001_docker_dev_startup_health_6_urutan_implementasi_dependency_order",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L156",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_spec_001_docker_dev_startup_health_spec_001_docker_dev_stack_startup_health_remediation",
+      "target": "docs_specifications_platform_spec_001_docker_dev_startup_health_7_verification_plan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L186",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_spec_001_docker_dev_startup_health_spec_001_docker_dev_stack_startup_health_remediation",
+      "target": "docs_specifications_platform_spec_001_docker_dev_startup_health_8_success_metrics",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L194",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_spec_001_docker_dev_startup_health_spec_001_docker_dev_stack_startup_health_remediation",
+      "target": "docs_specifications_platform_spec_001_docker_dev_startup_health_9_open_questions_unverified_perlu_runtime_konfirmasi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L211",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_spec_001_docker_dev_startup_health_spec_001_docker_dev_stack_startup_health_remediation",
+      "target": "docs_specifications_platform_spec_001_docker_dev_startup_health_catatan_graphify_freshness",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L63",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_spec_001_docker_dev_startup_health_5_desain_daftar_fix",
+      "target": "docs_specifications_platform_spec_001_docker_dev_startup_health_5_1_blocking_wajib_duluan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L108",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_spec_001_docker_dev_startup_health_5_desain_daftar_fix",
+      "target": "docs_specifications_platform_spec_001_docker_dev_startup_health_5_2_silent_risiko_laten",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L121",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_spec_001_docker_dev_startup_health_5_desain_daftar_fix",
+      "target": "docs_specifications_platform_spec_001_docker_dev_startup_health_5_3_drift_dokumentasi_git",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L131",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_spec_001_docker_dev_startup_health_5_desain_daftar_fix",
+      "target": "docs_specifications_platform_spec_001_docker_dev_startup_health_5_4_hygiene",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L65",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_spec_001_docker_dev_startup_health_5_1_blocking_wajib_duluan",
+      "target": "docs_specifications_platform_spec_001_docker_dev_startup_health_fix_b1_qdrant_healthcheck_tanpa_wget",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L79",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_spec_001_docker_dev_startup_health_5_1_blocking_wajib_duluan",
+      "target": "docs_specifications_platform_spec_001_docker_dev_startup_health_fix_b2_override_healthcheck_app_di_dev_overlay",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L101",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_spec_001_docker_dev_startup_health_5_1_blocking_wajib_duluan",
+      "target": "docs_specifications_platform_spec_001_docker_dev_startup_health_fix_b3_strategi_nginx_dev_butuh_keputusan_tech_lead",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L110",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_spec_001_docker_dev_startup_health_5_2_silent_risiko_laten",
+      "target": "docs_specifications_platform_spec_001_docker_dev_startup_health_fix_s1_s2_dockerfile_dev_data_ai_hanya_copy_manifest",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L114",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_spec_001_docker_dev_startup_health_5_2_silent_risiko_laten",
+      "target": "docs_specifications_platform_spec_001_docker_dev_startup_health_fix_s3_binding_host_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L123",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_spec_001_docker_dev_startup_health_5_3_drift_dokumentasi_git",
+      "target": "docs_specifications_platform_spec_001_docker_dev_startup_health_fix_d1_runbook_tidak_mencerminkan_check_health_sh_aktual",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md",
+      "source_location": "L127",
+      "weight": 1.0,
+      "source": "docs_specifications_platform_spec_001_docker_dev_startup_health_5_3_drift_dokumentasi_git",
+      "target": "docs_specifications_platform_spec_001_docker_dev_startup_health_fix_d2_check_health_sh_tidak_ter_commit",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "infra/README.md",
       "source_location": "L1",
       "weight": 1.0,
@@ -8112,7 +10054,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "infra/README.md",
-      "source_location": "L87",
+      "source_location": "L100",
       "weight": 1.0,
       "source": "infra_readme_slara_infra_docker",
       "target": "infra_readme_vs_code_dev_containers",
@@ -8121,12 +10063,73 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "infra/README.md",
+      "source_location": "L87",
+      "weight": 1.0,
+      "source": "infra_readme_health_check",
+      "target": "infra_readme_health_check_script",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "infra/check-health.sh",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "infra_check_health",
+      "target": "infra_check_health_hit",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "infra/check-health.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "infra_check_health",
+      "target": "infra_check_health_sh__entry",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "infra/check-health.sh",
+      "source_location": "L65",
+      "weight": 1.0,
+      "context": "call",
+      "source": "infra_check_health_sh__entry",
+      "target": "infra_check_health_hit",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/agent/src/index.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "services_agent_src_index",
+      "target": "services_agent_src_index_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/data/cmd/api/main.go",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "services_data_cmd_api_main",
+      "target": "services_data_cmd_api_main_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "services/ai/main.py",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "services_ai_main",
-      "target": "services_ai_main_health",
-      "confidence_score": 1.0
+      "target": "services_ai_main_health"
     },
     {
       "relation": "contains",
@@ -12409,16 +14412,6 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "services/agent/src/index.ts",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_agent_src_index",
-      "target": "services_agent_src_index_app"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
       "source_file": "services/agent/tsconfig.json",
       "source_location": "L2",
       "weight": 1.0,
@@ -12525,16 +14518,6 @@
       "confidence_score": 1.0,
       "source": "services_agent_tsconfig_compileroptions",
       "target": "services_agent_tsconfig_compileroptions_verbatimmodulesyntax"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "services/data/cmd/api/main.go",
-      "source_location": "L8",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_data_cmd_api_main",
-      "target": "services_data_cmd_api_main_main"
     },
     {
       "relation": "contains",
@@ -17005,5 +18988,5 @@
       "source_file": "infra/docker-compose.yml"
     }
   ],
-  "built_at_commit": "ac82492c49dafe2f748f3c7b6cbddc43309203d9"
+  "built_at_commit": "c4f174f554d1fbd0f39b22ac7d6567b610416584"
 }

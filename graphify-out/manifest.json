@@ -1,8 +1,8 @@
 {
   ".opencode/opencode.json": {
-    "mtime": 1783448540.3195264,
-    "ast_hash": "abcc8b9dcd80bca5f9dde6d9f0c3ae79",
-    "semantic_hash": "abcc8b9dcd80bca5f9dde6d9f0c3ae79"
+    "mtime": 1784024490.4134436,
+    "ast_hash": "e5f74d14a81702b55bdf53b33ec991d7",
+    "semantic_hash": ""
   },
   ".opencode/plugins/graphify.js": {
     "mtime": 1783448540.3195264,
@@ -35,9 +35,9 @@
     "semantic_hash": "11267f3797774e3032c93a934b1a3bd1"
   },
   "apps/app/vite.config.ts": {
-    "mtime": 1783440061.51674,
-    "ast_hash": "884386922abc8e8141a7ef050ef15af2",
-    "semantic_hash": "884386922abc8e8141a7ef050ef15af2"
+    "mtime": 1784033436.586743,
+    "ast_hash": "9824497905d6e5cf43d0590f9914f1b1",
+    "semantic_hash": ""
   },
   "services/agent/package.json": {
     "mtime": 1784023043.6964872,
@@ -45,9 +45,9 @@
     "semantic_hash": ""
   },
   "services/agent/src/index.ts": {
-    "mtime": 1783056326.0,
-    "ast_hash": "ee5f68093e2ee9daae9b86b17fea4baa",
-    "semantic_hash": "ee5f68093e2ee9daae9b86b17fea4baa"
+    "mtime": 1784026269.8062901,
+    "ast_hash": "549a4b55969bee18bac0a868049cfb60",
+    "semantic_hash": ""
   },
   "services/agent/tsconfig.json": {
     "mtime": 1783056326.0,
@@ -65,9 +65,9 @@
     "semantic_hash": ""
   },
   "services/data/cmd/api/main.go": {
-    "mtime": 1783443613.602132,
-    "ast_hash": "2b531113861c945710f712d55922a96c",
-    "semantic_hash": "2b531113861c945710f712d55922a96c"
+    "mtime": 1784026266.1552947,
+    "ast_hash": "6deebe19f7e1d690d64cc233e7c6411e",
+    "semantic_hash": ""
   },
   "services/data/go.mod": {
     "mtime": 1783443154.8925226,
@@ -125,8 +125,8 @@
     "semantic_hash": ""
   },
   "infra/docker-compose.yml": {
-    "mtime": 1784021454.3661013,
-    "ast_hash": "d076b23671445c5ace7a059d776437bd",
+    "mtime": 1784033344.4360602,
+    "ast_hash": "1e993c4248f2072ea7a043d95ca51620",
     "semantic_hash": ""
   },
   "services/agent/Readme.md": {
@@ -485,8 +485,8 @@
     "semantic_hash": ""
   },
   ".claude/settings.local.json": {
-    "mtime": 1784020633.8424826,
-    "ast_hash": "a01bfa8b26110d56ae8c0879e777dc56",
+    "mtime": 1784026333.2602396,
+    "ast_hash": "e0906aae803f6f1cd6c003dac2e947f3",
     "semantic_hash": ""
   },
   "apps/app/app/components/AgentNetwork.tsx": {
@@ -605,8 +605,8 @@
     "semantic_hash": ""
   },
   "infra/docker-compose.dev.yml": {
-    "mtime": 1784020478.1028388,
-    "ast_hash": "da007a7f19d3ad73cd84fefb984b6518",
+    "mtime": 1784033367.7797282,
+    "ast_hash": "11f112b1efedb3c60f611622be3b7372",
     "semantic_hash": ""
   },
   "infra/docker-compose.prod.yml": {
@@ -660,8 +660,8 @@
     "semantic_hash": ""
   },
   "infra/README.md": {
-    "mtime": 1784020868.7875896,
-    "ast_hash": "bc13f45055e436a75079576f1c139961",
+    "mtime": 1784033499.7607534,
+    "ast_hash": "d0199392cd37b7350b2cd341726b7c4c",
     "semantic_hash": ""
   },
   "services/ai/models/m1_eta_lightgbm.txt": {
@@ -672,6 +672,66 @@
   "services/agent/pnpm-workspace.yaml": {
     "mtime": 1784023097.7274797,
     "ast_hash": "a1f5d1cb1360039768a7a5df12576f08",
+    "semantic_hash": ""
+  },
+  ".opencode/package.json": {
+    "mtime": 1784024504.070728,
+    "ast_hash": "b597387321616f5d7d7680f907bfaec0",
+    "semantic_hash": ""
+  },
+  "infra/check-health.sh": {
+    "mtime": 1784026439.8762708,
+    "ast_hash": "c4302abf2c89fdcc81356b52eaa32690",
+    "semantic_hash": ""
+  },
+  "docs/architecture/adr/0003-gateway-dev-mode-strategy.md": {
+    "mtime": 1784033149.28334,
+    "ast_hash": "219c6989b2aa4b5c1f0dbe2fc26bcf37",
+    "semantic_hash": ""
+  },
+  "docs/architecture/adr/Readme.md": {
+    "mtime": 1784033181.1889186,
+    "ast_hash": "fd8e3a72b8587ed10a599d39ed7a4b5d",
+    "semantic_hash": ""
+  },
+  "docs/architecture/diagrams/service-routing.md": {
+    "mtime": 1784026296.6552618,
+    "ast_hash": "d364c1372baa37e2b134758870795031",
+    "semantic_hash": ""
+  },
+  "docs/progress/plan/Readme.md": {
+    "mtime": 1784033192.8791792,
+    "ast_hash": "3ea672a9f2409774606b61982b0cb8ac",
+    "semantic_hash": ""
+  },
+  "docs/progress/plan/sprint-2026-07-b.md": {
+    "mtime": 1784033437.942933,
+    "ast_hash": "95e87ed6548ea1122ec62397b5e30708",
+    "semantic_hash": ""
+  },
+  "docs/runbooks/docker-infrastructure-audit.md": {
+    "mtime": 1784028422.749744,
+    "ast_hash": "c3c2ca1b2c11cdb8b076a940dd2e6286",
+    "semantic_hash": ""
+  },
+  "docs/runbooks/docker-infrastructure-remediation.md": {
+    "mtime": 1784033420.5554318,
+    "ast_hash": "060b5ee92b10380b158997f606371237",
+    "semantic_hash": ""
+  },
+  "docs/runbooks/health-check-runbook.md": {
+    "mtime": 1784033483.3488274,
+    "ast_hash": "f8c7703f5e05d03a3d2de68ead0b3bb0",
+    "semantic_hash": ""
+  },
+  "docs/specifications/platform/Readme.md": {
+    "mtime": 1784033174.1983962,
+    "ast_hash": "ebac7cba5b4b73e3316ae9c67ec72349",
+    "semantic_hash": ""
+  },
+  "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md": {
+    "mtime": 1784033133.4048018,
+    "ast_hash": "4f0ecfb4faafe20984e319e968474415",
     "semantic_hash": ""
   }
 }

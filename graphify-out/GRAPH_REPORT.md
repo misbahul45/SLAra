@@ -1,16 +1,16 @@
 # Graph Report - SLAra  (2026-07-14)
 
 ## Corpus Check
-- 130 files · ~12,289,986 words
+- 142 files · ~12,297,344 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 802 nodes · 875 edges · 70 communities (55 shown, 15 thin omitted)
+- 904 nodes · 970 edges · 70 communities (55 shown, 15 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `ac82492c`
+- Built from commit: `c4f174f5`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -77,11 +77,11 @@
 3. `Framework Mode` - 13 edges
 4. `📚 SLAra — Documentation Hub` - 13 edges
 5. `SLAra AI — Model Interaction Map (M1–M6)` - 13 edges
-6. `M1 — ETA Prediction & SLA Risk Tier` - 12 edges
-7. `M2 — Hub Congestion / Dwell-Time Forecast` - 12 edges
-8. `M4 — Route Optimization Engine (NSGA-II)` - 12 edges
-9. `M5 — Explainability Layer (SHAP)` - 12 edges
-10. `🗺️ SLAra AI — Next Training Plan (Post-M1)` - 12 edges
+6. `SPEC-001: Docker Dev Stack — Startup & Health Remediation` - 12 edges
+7. `M1 — ETA Prediction & SLA Risk Tier` - 12 edges
+8. `M2 — Hub Congestion / Dwell-Time Forecast` - 12 edges
+9. `M4 — Route Optimization Engine (NSGA-II)` - 12 edges
+10. `M5 — Explainability Layer (SHAP)` - 12 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `EtaBandProps` --references--> `RiskTier`  [EXTRACTED]
@@ -92,8 +92,8 @@
   apps/app/app/components/OperatorPanel.tsx → apps/app/app/lib/types.ts
 - `RouteCardsProps` --references--> `RouteOption`  [EXTRACTED]
   apps/app/app/components/RouteCards.tsx → apps/app/app/lib/types.ts
-- `RouteMapProps` --references--> `RouteOption`  [EXTRACTED]
-  apps/app/app/components/RouteMap.tsx → apps/app/app/lib/types.ts
+- `MiniMapProps` --references--> `MapMarker`  [EXTRACTED]
+  apps/app/app/components/MiniMap.tsx → apps/app/app/lib/types.ts
 
 ## Import Cycles
 - 1-file cycle: `apps/app/app/routes.ts -> apps/app/app/routes.ts`
@@ -113,8 +113,8 @@ Cohesion: 0.13
 Nodes (14): dependencies, hono, @hono/node-server, devDependencies, tsx, @types/node, typescript, name (+6 more)
 
 ### Community 2 - "Kafka Event Schemas"
-Cohesion: 0.29
-Nodes (6): AI Models (cached, not baked into image), Config, Health check, Run, SLAra — Infra (Docker), VS Code Dev Containers
+Cohesion: 0.25
+Nodes (7): AI Models (cached, not baked into image), Config, Health check, Health Check Script, Run, SLAra — Infra (Docker), VS Code Dev Containers
 
 ### Community 3 - "compilerOptions"
 Cohesion: 0.17
@@ -153,8 +153,8 @@ Cohesion: 0.05
 Nodes (40): 10. Risiko & Mitigasi, 11. Acceptance Criteria (untuk demo kompetisi), 1. Ringkasan Eksekutif, 2.1 Problem Statement, 2.2 Tiga Objective (Final), 2.3 Constraint (Bukan Objective), 2.4 Mengapa 3 Objective (Bukan 4 atau 5), 2. Formulasi Matematis (+32 more)
 
 ### Community 23 - "main.go"
-Cohesion: 0.11
-Nodes (29): ApiError, decide(), getDashboard(), getFleet(), getKpi(), getShipments(), request(), resolve() (+21 more)
+Cohesion: 0.05
+Nodes (53): ActiveRecommendationCard(), SEVERITY_BG, DashboardKpis(), svg, MiniMapProps, ApiError, decide(), getDashboard() (+45 more)
 
 ### Community 25 - "M5 — Explainability Layer (SHAP)"
 Cohesion: 0.06
@@ -169,8 +169,8 @@ Cohesion: 0.05
 Nodes (38): 10. Acceptance Criteria (untuk demo kompetisi), 1. Ringkasan Eksekutif, 2.1 Node Design — 6 Agent, 2.2 Detail per Node, 2.3 Edge — Conditional Flow, 2.4 State Schema, 2. Arsitektur LangGraph, 3.1 Formula Utama (+30 more)
 
 ### Community 28 - "3.3 Definisi `model_confidence` per Komponen"
-Cohesion: 0.13
-Nodes (12): ConfidenceComponent, Decision, DecisionStatus, RecMetric, ResolveAction, ShapDirection, ShapFeature, SlaType (+4 more)
+Cohesion: 0.05
+Nodes (35): 1. Ringkasan, 2. Tabel Temuan, 3. Detail Per Temuan, 4. Diagram Topologi, 5. Saran Perbaikan, 6. Item Terbuka / UNVERIFIED, Audit Infrastruktur Docker — SLAra, B1 — Qdrant healthcheck: `wget` tidak ditemukan (+27 more)
 
 ### Community 29 - "4. Operator Genetik"
 Cohesion: 0.09
@@ -205,8 +205,8 @@ Cohesion: 0.22
 Nodes (11): ApprovalIcon(), base, DashboardIcon(), FleetIcon(), IconProps, KpiIcon(), LogoMark(), RecommendationIcon() (+3 more)
 
 ### Community 37 - "EtaBand.tsx"
-Cohesion: 0.29
-Nodes (6): EtaBandProps, FilterTabsProps, TierFilter, TIER_BADGE_CLASS, TIER_HEX, RiskTier
+Cohesion: 0.09
+Nodes (20): EtaBand(), EtaBandProps, FilterTabsProps, TierFilter, KpiItem, OperatorPanelProps, idr, RouteCardsProps (+12 more)
 
 ### Community 38 - "Welcome to React Router!"
 Cohesion: 0.18
@@ -221,12 +221,12 @@ Cohesion: 0.20
 Nodes (9): Data Mode, Declarative Mode, Framework Mode, Identify the Mode, Mode Migration Doc Index, React Router, RSC Framework and RSC Data Modes, Skill References (+1 more)
 
 ### Community 41 - "ConfidencePanel.tsx"
-Cohesion: 0.29
-Nodes (9): arc(), ConfidencePanel(), Gauge(), humanize(), ORDER, polar(), SEG_COLOR, ConfidenceBreakdown (+1 more)
+Cohesion: 0.33
+Nodes (8): arc(), ConfidencePanel(), Gauge(), humanize(), ORDER, polar(), SEG_COLOR, ConfidenceBreakdown
 
 ### Community 42 - "RouteCards.tsx"
-Cohesion: 0.27
-Nodes (5): OperatorPanelProps, idr, RouteCardsProps, TierBadge(), RouteOption
+Cohesion: 0.08
+Nodes (24): specifications/platform, 10. Kontrak yang Terdampak, 1. Problem Statement, 2. Root Cause Analysis (Rantai Kausal), 3. Goals, 4. Non-Goals, 5.1 Blocking (wajib duluan), 5.2 Silent (risiko laten) (+16 more)
 
 ### Community 43 - "React Server Components (RSC)"
 Cohesion: 0.22
@@ -245,27 +245,27 @@ Cohesion: 0.25
 Nodes (7): Declarative Mode, Declarative Router Shape, Mode Boundary, Navigation, Read the Local Docs by Mode, Routing, URL Values
 
 ### Community 47 - "RouteMap.tsx"
-Cohesion: 0.38
-Nodes (4): RouteMapProps, DestinationRef, HubRef, LatLng
+Cohesion: 0.22
+Nodes (7): progress/plan, Dependensi & Urutan, Exit Criteria (Sprint Done), Fokus, Hasil Retro, Komitmen, Sprint 2026-07-B (14–25 Juli)
 
 ### Community 48 - "ActiveRecommendationCard.tsx"
-Cohesion: 0.33
-Nodes (4): ActiveRecommendationCard(), SEVERITY_BG, ActiveRecommendation, Severity
+Cohesion: 0.22
+Nodes (8): Deteksi Health Status Semua Service, Docker Healthcheck Config (docker-compose.yml), Health Endpoints per Service, Run Docker Compose (Dev), Script Health Check Cepat, SLAra — Health Check Runbook, Startup Order (berdasarkan depends_on), Troubleshooting
 
 ### Community 49 - "DashboardKpis.tsx"
-Cohesion: 0.33
-Nodes (4): DashboardKpis(), svg, DashboardKpi, KpiIconKind
+Cohesion: 0.25
+Nodes (6): ADR-0003: Strategi Gateway di Dev Mode, Alternatif yang dipertimbangkan, Keputusan, Konsekuensi, Konteks, architecture/adr
 
 ### Community 50 - "ShipmentTable.tsx"
-Cohesion: 0.40
-Nodes (4): EtaBand(), COLUMNS, ShipmentTableProps, Shipment
+Cohesion: 0.33
+Nodes (5): Internal Ports, Service Dependencies, SLAra — Service Routing Diagram, Traffic Flow, WebSocket
 
 ### Community 53 - "Checkpoint"
 Cohesion: 0.83
 Nodes (3): Checkpoint, Shipment, Time
 
 ## Knowledge Gaps
-- **481 isolated node(s):** `Config`, `Run`, `AI Models (cached, not baked into image)`, `Health check`, `VS Code Dev Containers` (+476 more)
+- **554 isolated node(s):** `$schema`, `plugin`, `Konteks`, `Keputusan`, `Alternatif yang dipertimbangkan` (+549 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **15 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -273,11 +273,11 @@ Nodes (3): Checkpoint, Shipment, Time
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `🗺️ SLAra AI — Next Training Plan (Post-M1)` connect `🗺️ SLAra AI — Next Training Plan (Post-M1)` to `5. M4 — Route Optimization (P0, NSGA-II)`, `6. M6 — Multi-Agent Orchestration (P1, LangGraph)`?**
-  _High betweenness centrality (0.007) - this node is a cross-community bridge._
+  _High betweenness centrality (0.005) - this node is a cross-community bridge._
 - **Why does `5. M4 — Route Optimization (P0, NSGA-II)` connect `5. M4 — Route Optimization (P0, NSGA-II)` to `🗺️ SLAra AI — Next Training Plan (Post-M1)`?**
-  _High betweenness centrality (0.003) - this node is a cross-community bridge._
-- **What connects `Config`, `Run`, `AI Models (cached, not baked into image)` to the rest of the system?**
-  _481 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _High betweenness centrality (0.002) - this node is a cross-community bridge._
+- **What connects `$schema`, `plugin`, `Konteks` to the rest of the system?**
+  _554 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `compilerOptions` be split into smaller, more focused modules?**
   _Cohesion score 0.1111111111111111 - nodes in this community are weakly interconnected._
 - **Should `package.json` be split into smaller, more focused modules?**
