@@ -13,3 +13,7 @@ __pycache__
 .env.*
 Dockerfile*
 Readme.md
+
+# Models are mounted as a volume, not baked into the image.
+# Keeps image small and avoids rebuilds when models are added.
+models/

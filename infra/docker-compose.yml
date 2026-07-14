@@ -58,6 +58,12 @@ services:
     container_name: slara_ai
     env_file:
       - ../.env
+    environment:
+      - MODEL_DIR=/app/models
+    volumes:
+      # Model cache: host dir mounted into container (read-only).
+      # Add models by dropping files here, no image rebuild needed.
+      - ../services/ai/models:/app/models:ro
     depends_on:
       kafka:
         condition: service_healthy

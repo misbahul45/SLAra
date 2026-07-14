@@ -1,0 +1,30 @@
+{
+  "name": "SLAra · AI (FastAPI + uv)",
+  "dockerComposeFile": [
+    "../../../infra/docker-compose.yml",
+    "../../../infra/docker-compose.dev.yml"
+  ],
+  "service": "ai",
+  "workspaceFolder": "/app",
+  "remoteUser": "root",
+  "shutdownAction": "none",
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/app,type=bind,consistency=cached"
+  ],
+  "postCreateCommand": "uv sync",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "ms-azuretools.vscode-docker"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/app/.venv/bin/python",
+        "python.terminal.activateEnvironment": true,
+        "[python]": { "editor.defaultFormatter": "charliermarsh.ruff" }
+      }
+    }
+  }
+}

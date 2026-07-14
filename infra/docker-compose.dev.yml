@@ -49,6 +49,7 @@ services:
           initial_sync: true
           ignore:
             - .venv/
+            - models/
         - action: rebuild
           path: ../services/ai/pyproject.toml
         - action: rebuild
