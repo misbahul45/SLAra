@@ -65,7 +65,13 @@
       "Bash(git config *)",
       "Bash(git rm *)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(curl -s -X POST localhost:8000/internal/m3/carbon -H \"Content-Type: application/json\" -d '{\"distance_km\":14.2,\"vehicle_type\":\"MOTORCYCLE\",\"load_kg\":8.5}')",
+      "Bash(curl -s \"localhost:8000/internal/m4/routes?scenario=jabodetabek_urban_sameday\")",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('cs_m4:',d.get\\('cs_m4'\\)\\); print\\('scenario:',d['scenario']['id']\\); print\\('candidates:',len\\(d['candidates']\\)\\); print\\('top keys:',list\\(d.keys\\(\\)\\)\\)\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"localhost:8000/internal/m4/routes?scenario=tidak_ada\")",
+      "Bash(curl -s -X POST localhost:8000/internal/m5/explain -H \"Content-Type: application/json\" -d '{\"distance_km\":32.0,\"weather_severity\":1,\"traffic_index\":1.3,\"is_weekend\":0,\"vehicle_type_encoded\":1,\"pickup_hour\":17,\"hub_dwell_time_predicted\":14.0,\"promised_deadline\":85.0}')",
+      "Bash(curl -s -X POST localhost:8000/internal/m1/eta -H \"Content-Type: application/json\" -d '{\"distance_km\":6.0,\"weather_severity\":0,\"traffic_index\":0.8,\"is_weekend\":0,\"vehicle_type_encoded\":0,\"pickup_hour\":10,\"hub_dwell_time_predicted\":7.0,\"promised_deadline\":55.0}')"
     ]
   }
 }

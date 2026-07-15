@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "SLAra",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

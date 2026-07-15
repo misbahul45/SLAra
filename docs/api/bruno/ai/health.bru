@@ -1,0 +1,27 @@
+meta {
+  name: Health
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{aiBaseUrl}}/health
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.models.m1.loaded: eq true
+  res.body.models.m2.mode: eq FULL
+  res.body.models.m4.loaded: eq true
+  res.body.models.m5.additivity_ok: eq true
+}
+
+docs {
+  Sanity check pertama sebelum request lain. Startup butuh ~25-37 detik (init SHAP
+  TreeExplainer) — kalau connection refused, tunggu log "Startup selesai" dulu.
+
+  m2.mode HARUS "FULL". Kalau "DEGRADED", artifacts M2 tidak terbaca di
+  services/ai/models/m2/ + configs/m2/ (lihat docs/specifications/ai/serving.md §3.2).
+}

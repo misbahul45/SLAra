@@ -1,0 +1,37 @@
+meta {
+  name: M2 - Dwell (congested)
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{aiBaseUrl}}/internal/m2/dwell
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "hub_id": "HUB-CGK-02",
+    "condition": "congested"
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.m2_degraded: eq false
+}
+
+docs {
+  Pasangan dari m2-dwell-normal.bru. INI TES PALING PENTING untuk M2.
+
+  Hasil terverifikasi 15 Jul 2026: dwell_p50_minutes 29.13 · dwell_p90_minutes 95.21
+  · queue_length 19 · dock_utilization 0.91 · m2_degraded false.
+
+  Yang dibuktikan: congested (29.13) HARUS > normal (16.09) — di sini +81%.
+
+  Kenapa ini cara membedakan FULL vs DEGRADED tanpa lihat log: di mode DEGRADED, M2
+  jatuh ke historical median hub dan MENGABAIKAN `condition`, sehingga normal dan
+  congested menghasilkan angka IDENTIK. Kalau dua request ini mengembalikan nilai yang
+  sama, M2 sedang degraded walau tidak ada error.
+}

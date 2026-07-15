@@ -1,0 +1,37 @@
+meta {
+  name: M4 - Routes (Pareto)
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{aiBaseUrl}}/internal/m4/routes?scenario=jabodetabek_urban_sameday
+  body: none
+  auth: none
+}
+
+params:query {
+  scenario: jabodetabek_urban_sameday
+}
+
+assert {
+  res.status: eq 200
+  res.body.cs_m4: eq 0.996
+}
+
+docs {
+  PERHATIAN: ini GET + query param, BUKAN POST + body. Kontrak §B asli menulis POST —
+  implementasi menyimpang karena M4 di-serve precomputed (tidak ada input untuk
+  dioptimasi saat request). Lihat ADR-004 + kontrak §B-bis. M6 wajib ikut bentuk ini.
+
+  Response: candidates[] (R-A Fastest / R-B Balanced / R-C Greenest) + geometry,
+  cs_m4 (0.996 — masuk confidence M6 bobot 0.25), convergence HV series untuk chart FE,
+  dan stop_arrivals per kandidat (agent pakai ini untuk ETA per-shipment).
+
+  Skenario yang TERSEDIA HANYA `jabodetabek_urban_sameday`. Scenario lain -> 404
+  (kegagalan nyata, bukan degradasi). Coba `?scenario=tidak_ada` untuk melihat perilaku
+  error 404-nya.
+
+  Pareto set TIDAK berubah walau traffic/cuaca/dwell berubah — jangan dinarasikan
+  sebagai rute yang beradaptasi real-time (ADR-004 §Batas).
+}

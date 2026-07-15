@@ -1,0 +1,50 @@
+meta {
+  name: M5 - Explain (SHAP)
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{aiBaseUrl}}/internal/m5/explain
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "distance_km": 32.0,
+    "weather_severity": 1,
+    "traffic_index": 1.3,
+    "is_weekend": 0,
+    "vehicle_type_encoded": 1,
+    "pickup_hour": 17,
+    "hub_dwell_time_predicted": 14.0,
+    "promised_deadline": 85.0
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.additivity_ok: eq true
+  res.body.model_explained: eq m1_eta_v2_p90
+}
+
+docs {
+  Fitur request IDENTIK dengan /internal/m1/eta — M5 menjelaskan prediksi M1, jadi ia
+  butuh input yang sama persis. Payload ini = golden case #2 (CRITICAL, eta_p90 ~137.8),
+  sengaja dipilih karena M5 memang hanya dipanggil untuk WARNING/CRITICAL.
+
+  Yang dijelaskan adalah model P90 (`m1_eta_v2_p90`), BUKAN P50: tier & slack ditentukan
+  P90, jadi "kenapa berisiko" == "kenapa P90 besar". prediction_min di response = P90
+  MENTAH (tanpa conformal delta +0.83) — delta itu offset konstan, tidak mengubah
+  atribusi SHAP. Jadi wajar kalau prediction_min sedikit beda dengan eta_p90_min dari
+  /internal/m1/eta.
+
+  Call pertama ~230 ms (lebih lambat dari endpoint lain — TreeExplainer warm-up).
+
+  shap_top5: hour_sin + hour_cos sudah digabung jadi satu label `hour_of_day`.
+  additivity_ok HARUS true: base_value_min + sum(shap) ~ prediction_min.
+
+  Kebijakan lazy (hanya panggil untuk WARNING/CRITICAL) ada di M6, BUKAN di endpoint ini
+  — endpoint ini akan tetap menjawab walau tier SAFE.
+}
