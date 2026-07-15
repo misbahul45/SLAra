@@ -1,0 +1,56 @@
+version: m2_v1.0.1-reproduced
+features:
+- queue_length_current
+- dock_utilization_pct
+- incoming_shipment_rate_last_1h
+- incoming_shipment_rate_last_15m
+- avg_service_time_last_1h
+- dwell_lag_1h
+- dwell_lag_24h
+- dwell_lag_168h
+- dwell_rolling_mean_6h
+- dwell_rolling_std_6h
+- queue_rolling_max_3h
+- hour_of_day_sin
+- hour_of_day_cos
+- day_of_week_sin
+- day_of_week_cos
+- is_weekend
+- is_peak_hour
+- hub_id_target_encoded
+- hub_capacity
+- hub_num_docks
+- weather_severity_score
+alphas:
+  p50: 0.5
+  p90: 0.9
+best_params_source: optuna notebook FASE 9
+metrics_test:
+  mae_p50: 7.156
+  pinball_p50: !!python/object/apply:numpy._core.multiarray.scalar
+  - &id001 !!python/object/apply:numpy.dtype
+    args:
+    - f8
+    - false
+    - true
+    state: !!python/tuple
+    - 3
+    - <
+    - null
+    - null
+    - null
+    - -1
+    - -1
+    - 0
+  - !!binary |
+    ObTIdr6fDEA=
+  pinball_p90: !!python/object/apply:numpy._core.multiarray.scalar
+  - *id001
+  - !!binary |
+    XrpJDAIrAUA=
+  coverage_p90_pct: !!python/object/apply:numpy._core.multiarray.scalar
+  - *id001
+  - !!binary |
+    j8L1KFxvVkA=
+note: retrained from scratch; FE direkonstruksi dari spec FASE 4 (cell asli hilang
+  di export)
