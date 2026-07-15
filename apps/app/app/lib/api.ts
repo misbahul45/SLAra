@@ -18,13 +18,24 @@ import type {
   ShipmentsResponse,
 } from "./types";
 
-// Points at the `agent` service (M6, :3000) — NOT ai:8000. The agent owns the four
-// FE-facing endpoints; it fans out to ai internally. VITE_API_BASE_URL is the older
-// name and is still honoured so existing .env files keep working.
-const BASE_URL =
+// Talks to the `agent` service (M6, :3000) — NOT ai:8000. The agent owns the four
+// FE-facing endpoints and fans out to ai internally.
+//
+// The base differs by side, and it has to:
+//   SSR     — fetch runs in Node, where a relative URL has no origin to resolve
+//             against, so it must be absolute.
+//   browser — must stay same-origin and go through the Vite proxy (vite.config.ts),
+//             otherwise the POSTs trip CORS preflight against :3000. In production
+//             the nginx gateway plays the proxy's role.
+// VITE_API_BASE_URL is the older name, still honoured so existing .env files work.
+const SSR_BASE =
   import.meta.env.VITE_API_BASE ??
   import.meta.env.VITE_API_BASE_URL ??
   "http://localhost:3000/api/v1";
+
+const BROWSER_BASE = import.meta.env.VITE_API_BASE_BROWSER ?? "/api/v1";
+
+const BASE_URL = typeof window === "undefined" ? SSR_BASE : BROWSER_BASE;
 
 /** Thrown for non-2xx responses; carries the parsed error envelope when present. */
 export class ApiError extends Error {
