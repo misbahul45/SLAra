@@ -1,16 +1,16 @@
 # Graph Report - SLAra  (2026-07-16)
 
 ## Corpus Check
-- 174 files · ~14,134,803 words
+- 174 files · ~14,135,947 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1238 nodes · 1439 edges · 106 communities (87 shown, 19 thin omitted)
+- 1239 nodes · 1433 edges · 105 communities (86 shown, 19 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 3 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `42e95695`
+- Built from commit: `f4e18f8a`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -87,7 +87,6 @@
 - [[_COMMUNITY__features|_features]]
 - [[_COMMUNITY_ADR-001 — Demo transport gateway-first dengan fallback direct-port|ADR-001 — Demo transport: gateway-first dengan fallback direct-port]]
 - [[_COMMUNITY_ADR-004 — M4 di-serve precomputed untuk demo (NSGA-II tetap engine aslinya)|ADR-004 — M4 di-serve precomputed untuk demo (NSGA-II tetap engine aslinya)]]
-- [[_COMMUNITY_CLAUDE|CLAUDE.md]]
 - [[_COMMUNITY_ADR-003 — Kafka, Neo4j, Qdrant, Mongo-penuh, dan `data` service di luar demo path|ADR-003 — Kafka, Neo4j, Qdrant, Mongo-penuh, dan `data` service di luar demo path]]
 - [[_COMMUNITY_4. M5 — SHAP Explainability (P2, On-Demand)|4. M5 — SHAP Explainability (P2, On-Demand)]]
 - [[_COMMUNITY_Pipeline M4|Pipeline M4]]
@@ -111,14 +110,14 @@
 ## God Nodes (most connected - your core abstractions)
 1. `compilerOptions` - 15 edges
 2. `AGENTS.md — SLAra Project Instructions` - 13 edges
-3. `Framework Mode` - 13 edges
-4. `📚 SLAra — Documentation Hub` - 13 edges
-5. `SLAra AI — Model Interaction Map (M1–M6)` - 13 edges
-6. `M1 — ETA Prediction & SLA Risk Tier` - 12 edges
-7. `M2 — Hub Congestion / Dwell-Time Forecast` - 12 edges
-8. `M4 — Route Optimization Engine (NSGA-II)` - 12 edges
-9. `M5 — Explainability Layer (SHAP)` - 12 edges
-10. `🗺️ SLAra AI — Next Training Plan (Post-M1)` - 12 edges
+3. `SPEC-001: Docker Dev Stack — Startup & Health Remediation` - 13 edges
+4. `Framework Mode` - 13 edges
+5. `📚 SLAra — Documentation Hub` - 13 edges
+6. `SLAra AI — Model Interaction Map (M1–M6)` - 13 edges
+7. `M1 — ETA Prediction & SLA Risk Tier` - 12 edges
+8. `M2 — Hub Congestion / Dwell-Time Forecast` - 12 edges
+9. `M4 — Route Optimization Engine (NSGA-II)` - 12 edges
+10. `M5 — Explainability Layer (SHAP)` - 12 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `explain()` --calls--> `_features()`  [INFERRED]
@@ -139,7 +138,7 @@
 - **SLAra Microservices Mesh** — services_agent, services_data, services_ai, infra_kafka [EXTRACTED 1.00]
 - **Infrastructure Layer** — infra_mongodb, infra_neo4j, infra_redis, infra_qdrant, infra_kafka [EXTRACTED 1.00]
 
-## Communities (106 total, 19 thin omitted)
+## Communities (105 total, 19 thin omitted)
 
 ### Community 0 - "compilerOptions"
 Cohesion: 0.11
@@ -182,8 +181,8 @@ Cohesion: 0.07
 Nodes (27): AgentNetwork(), STATUS_COLOR, STATUS_LABEL, PlanComparison(), TONE_TEXT, AgentNode, AgentStatus, ApprovalMetric (+19 more)
 
 ### Community 13 - "AGENTS.md — SLAra Project Instructions"
-Cohesion: 0.08
-Nodes (23): Agent (TypeScript / Hono), AGENTS.md — SLAra Project Instructions, AI Agents Capability (untuk agent yg kerja di repo ini), AI (Python / FastAPI), Architecture Map, Build & Run Commands, Codebase Understanding — WAJIB baca `graphify-out/` dulu, Common Gotchas (+15 more)
+Cohesion: 0.06
+Nodes (30): Agent (TypeScript / Hono), AGENTS.md — SLAra Project Instructions, AI Agents Capability (untuk agent yg kerja di repo ini), AI (Python / FastAPI), Architecture Map, Build & Run Commands, Codebase Understanding — WAJIB baca `graphify-out/` dulu, Common Gotchas (+22 more)
 
 ### Community 17 - "__init__.py"
 Cohesion: 0.11
@@ -282,8 +281,8 @@ Cohesion: 0.08
 Nodes (26): Action, ApprovalDetailPanel(), ConfidenceBreakdown(), ORDER, arc(), ConfidencePanel(), Gauge(), humanize() (+18 more)
 
 ### Community 42 - "RouteCards.tsx"
-Cohesion: 0.08
-Nodes (24): specifications/platform, 10. Kontrak yang Terdampak, 1. Problem Statement, 2. Root Cause Analysis (Rantai Kausal), 3. Goals, 4. Non-Goals, 5.1 Blocking (wajib duluan), 5.2 Silent (risiko laten) (+16 more)
+Cohesion: 0.07
+Nodes (25): specifications/platform, 10. Kontrak yang Terdampak, 11. Perubahan Compose 2026-07-16 (post-spec, diluar scope asli), 1. Problem Statement, 2. Root Cause Analysis (Rantai Kausal), 3. Goals, 4. Non-Goals, 5.1 Blocking (wajib duluan) (+17 more)
 
 ### Community 43 - "React Server Components (RSC)"
 Cohesion: 0.22
@@ -377,12 +376,8 @@ Nodes (7): ADR-001 — Demo transport: gateway-first dengan fallback direct-port
 Cohesion: 0.25
 Nodes (8): ADR-004 — M4 di-serve precomputed untuk demo (NSGA-II tetap engine aslinya), Alasan, Alternatif yang ditolak, Angka yang di-serve (aktual, dari M4_RESULTS.md), Batas precomputed (jujur — WAJIB dipahami sebelum dipakai/dinarasikan), Jalur ke real-time (final), Keputusan, Konteks
 
-### Community 82 - "CLAUDE.md"
-Cohesion: 0.29
-Nodes (7): Before exploring the codebase — read `graphify-out/` first, CLAUDE.md, Intended runtime topology (target), Notes for working here, ⚠️ Reality vs. target architecture, Run commands (per service — verified against package.json / pyproject / go.mod), What actually exists
-
 ### Community 83 - "ADR-003 — Kafka, Neo4j, Qdrant, Mongo-penuh, dan `data` service di luar demo path"
-Cohesion: 0.29
+Cohesion: 0.25
 Nodes (7): ADR-003 — Kafka, Neo4j, Qdrant, Mongo-penuh, dan `data` service di luar demo path, Alasan, Alternatif yang ditolak, Jalur ke production (urutan yang disarankan), Keputusan, Konsekuensi, Konteks
 
 ### Community 84 - "4. M5 — SHAP Explainability (P2, On-Demand)"
@@ -434,15 +429,17 @@ Cohesion: 0.50
 Nodes (4): 8. Resource Requirements, Compute, Data, Dependencies (pip install)
 
 ## Knowledge Gaps
-- **689 isolated node(s):** `$schema`, `plugin`, `@opencode-ai/plugin`, `STATUS_COLOR`, `STATUS_LABEL` (+684 more)
+- **690 isolated node(s):** `Project Overview`, `Architecture Map`, `Repo Structure`, `Codebase Understanding — WAJIB baca `graphify-out/` dulu`, `Inisialisasi penuh (semua services + infra)` (+685 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **19 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **What connects `$schema`, `plugin`, `@opencode-ai/plugin` to the rest of the system?**
-  _702 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Why does `ML Model Registry` connect `init_env.py` to `ADR-004-m4-precomputed.md`?**
+  _High betweenness centrality (0.004) - this node is a cross-community bridge._
+- **What connects `Project Overview`, `Architecture Map`, `Repo Structure` to the rest of the system?**
+  _703 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `compilerOptions` be split into smaller, more focused modules?**
   _Cohesion score 0.1111111111111111 - nodes in this community are weakly interconnected._
 - **Should `package.json` be split into smaller, more focused modules?**
@@ -453,5 +450,3 @@ _Questions this graph is uniquely positioned to answer:_
   _Cohesion score 0.09523809523809523 - nodes in this community are weakly interconnected._
 - **Should `dependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.05405405405405406 - nodes in this community are weakly interconnected._
-- **Should `home.tsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.11904761904761904 - nodes in this community are weakly interconnected._

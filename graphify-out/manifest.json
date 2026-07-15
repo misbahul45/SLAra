@@ -70,13 +70,13 @@
     "semantic_hash": "e1f41a34b3cd38a7d6b7dee58d6cd251"
   },
   "AGENTS.md": {
-    "mtime": 1784127527.96515,
-    "ast_hash": "7f1c01cb74bbc7914fdf289e610effbf",
+    "mtime": 1784155317.0466392,
+    "ast_hash": "38d90cff042558205888094aad6b35eb",
     "semantic_hash": ""
   },
   "Readme.md": {
-    "mtime": 1784127527.96515,
-    "ast_hash": "46ce6e18cd0b864d8b2bc0fb09b08ce6",
+    "mtime": 1784155206.0738075,
+    "ast_hash": "3be71e3180814900e2ce17b560f6b044",
     "semantic_hash": ""
   },
   "apps/app/.agents/skills/react-router/SKILL.md": {
@@ -110,8 +110,8 @@
     "semantic_hash": ""
   },
   "claude.md": {
-    "mtime": 1784127527.9781513,
-    "ast_hash": "81df654c62c0de8d62d6585bfbe7501d",
+    "mtime": 1784155345.8718162,
+    "ast_hash": "41b34928e183b9472ee00a8d3978f60e",
     "semantic_hash": ""
   },
   "docs/Readme.md": {
@@ -120,8 +120,8 @@
     "semantic_hash": ""
   },
   "infra/docker-compose.yml": {
-    "mtime": 1784127528.0151548,
-    "ast_hash": "045cd7df2808a05ee77d575dab08ff4f",
+    "mtime": 1784154923.467876,
+    "ast_hash": "72db4daaa02d57cf2e45937526298662",
     "semantic_hash": ""
   },
   "services/agent/Readme.md": {
@@ -594,14 +594,9 @@
     "ast_hash": "79b995a63cbb91ab7f5890b9fa000ded",
     "semantic_hash": ""
   },
-  "infra/docker-compose.dev.yml": {
-    "mtime": 1784127528.0151548,
-    "ast_hash": "11f112b1efedb3c60f611622be3b7372",
-    "semantic_hash": ""
-  },
   "infra/docker-compose.prod.yml": {
-    "mtime": 1784127528.0151548,
-    "ast_hash": "32b4902415f1e8e7b5fd1c981995188c",
+    "mtime": 1784154907.1223426,
+    "ast_hash": "7668af8515ada1cdf35446fef0c1c910",
     "semantic_hash": ""
   },
   ".devcontainer/devcontainer.json": {
@@ -635,8 +630,8 @@
     "semantic_hash": ""
   },
   "infra/README.md": {
-    "mtime": 1784127528.0141547,
-    "ast_hash": "ea6d7b00dd89e636baa293d4b59e1c82",
+    "mtime": 1784155194.0621502,
+    "ast_hash": "3cc500187efcc2362ecfc25f88c236e6",
     "semantic_hash": ""
   },
   "services/agent/pnpm-workspace.yaml": {
@@ -655,8 +650,8 @@
     "semantic_hash": ""
   },
   "docs/architecture/adr/0003-gateway-dev-mode-strategy.md": {
-    "mtime": 1784127527.9801517,
-    "ast_hash": "219c6989b2aa4b5c1f0dbe2fc26bcf37",
+    "mtime": 1784155076.4395084,
+    "ast_hash": "ed3d3640fc0d9ba27c1116c3a6336454",
     "semantic_hash": ""
   },
   "docs/architecture/adr/Readme.md": {
@@ -665,8 +660,8 @@
     "semantic_hash": ""
   },
   "docs/architecture/diagrams/service-routing.md": {
-    "mtime": 1784127527.9811516,
-    "ast_hash": "d364c1372baa37e2b134758870795031",
+    "mtime": 1784154849.5039876,
+    "ast_hash": "0c54530ad0ff066d59d87b1986b25d4d",
     "semantic_hash": ""
   },
   "docs/progress/plan/Readme.md": {
@@ -675,23 +670,23 @@
     "semantic_hash": ""
   },
   "docs/progress/plan/sprint-2026-07-b.md": {
-    "mtime": 1784127527.9841518,
-    "ast_hash": "95e87ed6548ea1122ec62397b5e30708",
+    "mtime": 1784155064.8868382,
+    "ast_hash": "7d9a83f5727055614b88fc95e2453bc7",
     "semantic_hash": ""
   },
   "docs/runbooks/docker-infrastructure-audit.md": {
-    "mtime": 1784127527.9841518,
-    "ast_hash": "c3c2ca1b2c11cdb8b076a940dd2e6286",
+    "mtime": 1784155058.6340168,
+    "ast_hash": "08227c8ca4301774c52dd5841f9c6975",
     "semantic_hash": ""
   },
   "docs/runbooks/docker-infrastructure-remediation.md": {
-    "mtime": 1784127527.985152,
-    "ast_hash": "060b5ee92b10380b158997f606371237",
+    "mtime": 1784154914.7331252,
+    "ast_hash": "a41ce789fed5b788e62a1ded214d3a9f",
     "semantic_hash": ""
   },
   "docs/runbooks/health-check-runbook.md": {
-    "mtime": 1784127527.985152,
-    "ast_hash": "f8c7703f5e05d03a3d2de68ead0b3bb0",
+    "mtime": 1784154982.4291925,
+    "ast_hash": "2950f28bd625983309aff71f9fcf8a41",
     "semantic_hash": ""
   },
   "docs/specifications/platform/Readme.md": {
@@ -700,8 +695,8 @@
     "semantic_hash": ""
   },
   "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md": {
-    "mtime": 1784127527.9861522,
-    "ast_hash": "4f0ecfb4faafe20984e319e968474415",
+    "mtime": 1784155070.0766902,
+    "ast_hash": "a94689a9143f6981be35655f49cfe165",
     "semantic_hash": ""
   },
   "apps/app/app/components/ConfidenceBreakdown.tsx": {
@@ -815,8 +810,8 @@
     "semantic_hash": ""
   },
   "docs/architecture/adr/ADR-001-demo-transport.md": {
-    "mtime": 1784127527.9801517,
-    "ast_hash": "6ef6dde4b7bd8d557bd6629d109fad36",
+    "mtime": 1784155096.7259293,
+    "ast_hash": "0295622df55db416d39d5f4e06855477",
     "semantic_hash": ""
   },
   "docs/architecture/adr/ADR-002-m6-deterministic-core.md": {
@@ -870,8 +865,8 @@
     "semantic_hash": ""
   },
   "docs/progress/plan/SLARA_IMPLEMENTATION_PLAN.md": {
-    "mtime": 1784127527.9841518,
-    "ast_hash": "092e739f303d5e5a668ffbc6d8924de3",
+    "mtime": 1784155045.0164056,
+    "ast_hash": "45b2f77d4046ff6fe04e7bc55044c3b7",
     "semantic_hash": ""
   },
   "docs/specifications/ai/m4-route-optimization.md": {
@@ -937,6 +932,11 @@
   "services/ai/models/m2/m2_dwell_p90.txt": {
     "mtime": 1784127529.2442665,
     "ast_hash": "451b4dd6f63ce61b0508bf7fa8a978dc",
+    "semantic_hash": ""
+  },
+  "infra/docker-compose.override.yml": {
+    "mtime": 1784127528.0151548,
+    "ast_hash": "11f112b1efedb3c60f611622be3b7372",
     "semantic_hash": ""
   }
 }

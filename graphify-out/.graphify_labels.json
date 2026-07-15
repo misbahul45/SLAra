@@ -81,7 +81,6 @@
   "79": "_features",
   "80": "ADR-001 — Demo transport: gateway-first dengan fallback direct-port",
   "81": "ADR-004 — M4 di-serve precomputed untuk demo (NSGA-II tetap engine aslinya)",
-  "82": "CLAUDE.md",
   "83": "ADR-003 — Kafka, Neo4j, Qdrant, Mongo-penuh, dan `data` service di luar demo path",
   "84": "4. M5 — SHAP Explainability (P2, On-Demand)",
   "85": "Pipeline M4",
