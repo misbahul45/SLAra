@@ -1,0 +1,25 @@
+version: 2.1.0-dual-quantile-conformal
+features:
+- distance_km
+- weather_severity
+- traffic_index
+- is_weekend
+- vehicle_type_encoded
+- hour_sin
+- hour_cos
+- dist_traffic_interaction
+- dist_weather_interaction
+- hub_dwell_time_predicted
+alphas:
+  p50: 0.5
+  p90: 0.9
+conformal_delta_p90: 0.83
+models:
+- m1_eta_v2_p50.txt
+- m1_eta_v2_p90.txt
+inference_note: p90_final = max(p50,p90_raw) + conformal_delta
+buffers_final:
+  same_day: 10
+  express: 25
+  standard: 60
+caveat_m2: hub_dwell dari fallback lokal, BUKAN output M2

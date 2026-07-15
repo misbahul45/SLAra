@@ -1,0 +1,11 @@
+safe_min_slack_minutes: 15
+critical_max_slack_minutes: -30
+conformal_delta_p90_minutes: 0.83
+calibration: bounded grid cost 3:1 + CQR conformal offset (val set)
+bounds:
+  safe:
+  - 15
+  - 40
+  critical:
+  - -30
+  - -15

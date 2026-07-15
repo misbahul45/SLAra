@@ -1,0 +1,22 @@
+global:
+  coverage_P90: 0.8974
+  model_confidence: 0.9974
+per_hub:
+  HUB-JOG-01:
+    coverage_p90_rolling_7d: 0.9024
+    model_confidence_m2: 0.9976
+  HUB-CGK-02:
+    coverage_p90_rolling_7d: 0.9014
+    model_confidence_m2: 0.9986
+  HUB-BDG-01:
+    coverage_p90_rolling_7d: 0.8912
+    model_confidence_m2: 0.9912
+  HUB-CGK-01:
+    coverage_p90_rolling_7d: 0.8869
+    model_confidence_m2: 0.9869
+  HUB-SBY-01:
+    coverage_p90_rolling_7d: 0.9179
+    model_confidence_m2: 0.9821
+  HUB-SMG-01:
+    coverage_p90_rolling_7d: 0.8934
+    model_confidence_m2: 0.9934
