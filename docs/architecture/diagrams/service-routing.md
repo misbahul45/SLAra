@@ -35,28 +35,33 @@ Browser / Client
 
 ## Service Dependencies
 
-| Service | Depends On |
-|---------|-----------|
-| gateway | agent, data, ai, app (all healthy) |
-| agent   | qdrant, redis, kafka |
-| data    | mongodb, neo4j, redis, kafka |
-| ai      | kafka, redis |
-| app     | — (standalone frontend) |
+> Per 2026-07-16, `mongodb`, `neo4j`, `redis`, dan `qdrant` **di-disable** (dikomentari) di
+> `infra/docker-compose.yml` dan `infra/docker-compose.prod.yml` — sejalan dengan ADR-003 (demo path
+> hanya butuh `gateway`, `agent`, `ai`, `app`, `kafka`). `depends_on` ke keempat service itu juga
+> di-disable, sehingga baris di bawah mencerminkan **topologi demo**, bukan full stack.
+
+| Service | Depends On (full stack) | Depends On (demo path, aktif) |
+|---------|-------------------------|-------------------------------|
+| gateway | agent, data, ai, app (all healthy) | agent, data, ai, app (all healthy) |
+| agent   | qdrant, redis, kafka    | kafka |
+| data    | mongodb, neo4j, redis, kafka | kafka |
+| ai      | kafka, redis            | kafka |
+| app     | — (standalone frontend) | — (standalone frontend) |
 
 ## Internal Ports
 
-| Container | Internal Port | External Port (dev) | Protocol |
-|-----------|--------------|---------------------|----------|
-| gateway   | 80           | 80                  | HTTP     |
-| agent     | 3000         | 3000                | HTTP/WS  |
-| data      | 8081         | 8081                | HTTP     |
-| ai        | 8000         | 8000                | HTTP     |
-| app       | 3000 (prod) / 5173 (dev) | 5173 (dev) | HTTP |
-| mongodb   | 27017        | 27017               | TCP      |
-| neo4j     | 7474/7687    | 7474/7687           | HTTP/Bolt|
-| redis     | 6379         | 6379                | TCP      |
-| qdrant    | 6333         | 6333                | HTTP     |
-| kafka     | 9092/9093    | 9092                | TCP      |
+| Container | Internal Port | External Port (dev) | Protocol | Status demo |
+|-----------|--------------|---------------------|----------|-------------|
+| gateway   | 80           | 80                  | HTTP     | aktif |
+| agent     | 3000         | 3000                | HTTP/WS  | aktif |
+| data      | 8081         | 8081                | HTTP     | aktif |
+| ai        | 8000         | 8000                | HTTP     | aktif |
+| app       | 3000 (prod) / 5173 (dev) | 5173 (dev) | HTTP | aktif |
+| kafka     | 9092/9093    | 9092                | TCP      | aktif |
+| mongodb   | 27017        | 27017               | TCP      | 🔴 disabled (komentar) |
+| neo4j     | 7474/7687    | 7474/7687           | HTTP/Bolt| 🔴 disabled (komentar) |
+| redis     | 6379         | 6379                | TCP      | 🔴 disabled (komentar) |
+| qdrant    | 6333         | 6333                | HTTP     | 🔴 disabled (komentar) |
 
 ## WebSocket
 

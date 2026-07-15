@@ -180,7 +180,8 @@ cp .env.example .env   # isi nilai real; .env di-gitignore
 
 ```bash
 cd infra
-docker compose -f docker-compose.yml -f docker-compose.dev.yml watch
+docker compose -f docker-compose.yml -f docker-compose.override.yml watch
+# atau cukup: docker compose watch  (override auto-merge)
 ```
 Edit kode = reload instan. Edit `package.json`/`go.mod`/`pyproject.toml` (atau lockfile) = container rebuild otomatis.
 Dashboard dev: `http://localhost:5173`. API lewat gateway: `http://localhost/api/...`.

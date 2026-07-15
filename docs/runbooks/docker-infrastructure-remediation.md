@@ -40,8 +40,8 @@ Sisa yang **belum** ditangani = fokus remediasi ini (B1, B2, B3, S1, S2, S3, H1,
 | # | Temuan | Fix | File yang disentuh |
 |---|--------|-----|--------------------|
 | B1 | qdrant healthcheck `wget` tidak ada di image | Ganti probe ke bash `/dev/tcp` | `infra/docker-compose.yml` |
-| B2 | dev `app` healthcheck cek port 3000, Vite di 5173 | Override healthcheck `app` ke port 5173 di dev | `infra/docker-compose.dev.yml` |
-| B3 | nginx dev upstream `app:3000`, dev app di 5173 | `nginx.dev.conf` (upstream 5173) + volume override gateway | `services/gateway/nginx.dev.conf`, `infra/docker-compose.dev.yml` |
+| B2 | dev `app` healthcheck cek port 3000, Vite di 5173 | Override healthcheck `app` ke port 5173 di dev | `infra/docker-compose.override.yml` |
+| B3 | nginx dev upstream `app:3000`, dev app di 5173 | `nginx.dev.conf` (upstream 5173) + volume override gateway | `services/gateway/nginx.dev.conf`, `infra/docker-compose.override.yml` |
 | S1 | `data/Dockerfile.dev` manifest-only, `.air.toml` tidak ada di image | Tambah `COPY . .` sesudah `go mod download` | `services/data/Dockerfile.dev` |
 | S2 | `ai/Dockerfile.dev` manifest-only, `main.py` tidak ada di image | Tambah `COPY . .` sesudah `uv sync` | `services/ai/Dockerfile.dev` |
 | S3 | `--host` flag Vite belum pasti diteruskan | Set `server.host` di `vite.config.ts`, sederhanakan CMD | `apps/app/vite.config.ts`, `apps/app/Dockerfile.dev` |
@@ -76,7 +76,7 @@ Base compose cek port 3000 (benar untuk prod: `react-router-serve`). Dev Vite di
 `node:24-alpine` (`apps/app/Dockerfile.dev`) punya `wget`.
 
 ```yaml
-# infra/docker-compose.dev.yml — app
+# infra/docker-compose.override.yml — app
 healthcheck:
   test: ["CMD-SHELL", "wget -q --spider http://localhost:5173/ || exit 1"]
   interval: 10s
@@ -97,7 +97,7 @@ upstream app_service { server app:5173; }
 ```
 
 ```yaml
-# infra/docker-compose.dev.yml — gateway
+# infra/docker-compose.override.yml — gateway
 gateway:
   volumes:
     - ../services/gateway/nginx.dev.conf:/etc/nginx/nginx.conf:ro
@@ -160,15 +160,16 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 ```bash
 cd infra
 # validasi schema resolved dev + prod
-docker compose -f docker-compose.yml -f docker-compose.dev.yml config >/dev/null
+docker compose -f docker-compose.yml -f docker-compose.override.yml config >/dev/null
 docker compose -f docker-compose.yml -f docker-compose.prod.yml config >/dev/null
 
 # runtime (opsional, butuh Docker daemon)
-docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build --watch
+docker compose -f docker-compose.yml -f docker-compose.override.yml up --build --watch
 bash check-health.sh
 ```
 
-Target akhir: semua 10 container `healthy`, `check-health.sh` semua pass.
+Target akhir: semua container demo path (`gateway`, `agent`, `data`, `ai`, `app`, `kafka`) `healthy`,
+`check-health.sh` semua pass. (`mongodb`/`neo4j`/`redis`/`qdrant` sengaja di-disable — lihat ADR-003.)
 
 ## 7. Item Terbuka
 

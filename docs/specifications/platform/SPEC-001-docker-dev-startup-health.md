@@ -11,13 +11,20 @@
 
 Stack SLAra **tidak bisa di-boot end-to-end lewat Docker Compose di dev mode**. Saat ini hanya container infra yang tidak bergantung pada `app` (`mongodb`, `redis`, `kafka`) yang mencapai `healthy`; `qdrant` permanen `unhealthy`; dan `neo4j`, `data`, `ai`, `agent`, `app`, `gateway` tidak pernah jalan sebagai satu kesatuan yang koheren.
 
+> **Update 2026-07-16:** Asumsi "full 10-container stack" di spec ini **sudah tidak berlaku** untuk demo
+> path. `infra/docker-compose.yml` sekarang **meng-disable** (mengomentari) `mongodb`, `neo4j`, `redis`,
+> dan `qdrant` beserta `depends_on`-nya — sejalan dengan ADR-003. File `docker-compose.dev.yml` juga
+> **diganti** menjadi `docker-compose.override.yml` (konten identik, nama disesuaikan ke konvensi
+> Compose default override). Dokumen ini tetap valid sebagai catatan root-cause historis; target boot
+> yang realistis kini adalah **topologi demo** (gateway, agent, data, ai, app, kafka). Lihat §11.
+
 Audit statik + dinamik (2026-07-14) menemukan **3 Blocking · 3 Silent · 2 Drift · 4 Hygiene**. Blocker-nya saling mengunci (cascade), sehingga gateway tidak pernah start — dan tanpa gateway, alur `app → gateway → {agent,data,ai}` tidak bisa diverifikasi sama sekali.
 
 ---
 
 ## 2. Root Cause Analysis (Rantai Kausal)
 
-Berdasarkan pembacaan langsung `infra/docker-compose.yml`, `infra/docker-compose.dev.yml`, `apps/app/Dockerfile.dev`, `services/gateway/nginx.conf`:
+Berdsarkan pembacaan langsung `infra/docker-compose.yml`, `infra/docker-compose.override.yml` (pengganti `docker-compose.dev.yml`), `apps/app/Dockerfile.dev`, `services/gateway/nginx.conf`:
 
 ```
 [B1] qdrant healthcheck pakai `wget` ── TIDAK ada di qdrant/qdrant:latest
@@ -42,8 +49,11 @@ Berdasarkan pembacaan langsung `infra/docker-compose.yml`, `infra/docker-compose
 
 ## 3. Goals
 
-- Seluruh 10 container (`gateway`, `agent`, `data`, `ai`, `app`, `mongodb`, `neo4j`, `redis`, `qdrant`, `kafka`) mencapai status `healthy` di dev mode via:
-  `docker compose -f docker-compose.yml -f docker-compose.dev.yml watch`
+- Seluruh container demo path (`gateway`, `agent`, `data`, `ai`, `app`, `kafka`) mencapai status `healthy` di dev mode via:
+  `docker compose -f docker-compose.yml -f docker-compose.override.yml watch`
+
+  > **Catatan 2026-07-16:** `mongodb`, `neo4j`, `redis`, `qdrant` **tidak lagi** di-boot di demo path
+  > (di-disable di base compose). Target "10/10 healthy" sudah tidak relevan; lihat §11.
 - `gateway` dapat me-route `/` dan `/api/*` tanpa 502.
 - Healthcheck tiap service memvalidasi port/protokol yang **sesuai dengan image & mode** (dev vs prod).
 - Dokumentasi health-check konsisten dengan script aktual (`infra/check-health.sh`).
@@ -77,7 +87,7 @@ Setiap fix mencantumkan **lokasi file** dan **keputusan**. Semua perubahan berad
 - Dampak: membuka jalur `qdrant → agent → gateway`.
 
 #### Fix B2 — Override healthcheck `app` di dev overlay
-- Lokasi: tambah block `app:` di `infra/docker-compose.dev.yml` (saat ini cuma punya `build`+`ports`+`develop`, tanpa `healthcheck`).
+- Lokasi: tambah block `app:` di `infra/docker-compose.override.yml` (pengganti `docker-compose.dev.yml`; saat ini cuma punya `build`+`ports`+`develop`, tanpa `healthcheck`).
 - Keputusan: dev healthcheck cek `:5173` (base image `apps/app/Dockerfile.dev:1` = `node:24-alpine` punya `wget`):
   ```yaml
   app:
@@ -101,7 +111,7 @@ Setiap fix mencantumkan **lokasi file** dan **keputusan**. Semua perubahan berad
 #### Fix B3 — Strategi nginx dev (BUTUH KEPUTUSAN TECH LEAD)
 - Lokasi: `services/gateway/nginx.conf:16-20` (`upstream app_service { server app:3000; }`).
 - Masalah: dev `app` di `:5173` → proxy `/` 502. Dua opsi (lihat `docs/architecture/adr/0003-gateway-dev-mode-strategy.md`):
-  - **Opsi A (direkomendasikan):** buat `services/gateway/nginx.dev.conf` dengan `upstream app_service { server app:5173; }` dan override volume mount di `docker-compose.dev.yml`.
+  - **Opsi A (direkomendasikan):** buat `services/gateway/nginx.dev.conf` dengan `upstream app_service { server app:5173; }` dan override volume mount di `docker-compose.override.yml`.
   - **Opsi B:** karena dev dashboard diakses langsung di `:5173` (HMR), lepas `app` dari `depends_on` gateway di dev overlay + nginx stub `location / { return 200; }` agar gateway healthcheck tidak bergantung proxy ke app.
 - Keputusan saat ini: **Opsi A** (menjaga gateway tetap berfungsi penuh di dev untuk smoke-test routing). Final ditetapkan via ADR-0003.
 
@@ -159,7 +169,7 @@ Setelah implementasi B1–B3 + S3:
 
 ```bash
 cd infra
-docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
+docker compose -f docker-compose.yml -f docker-compose.override.yml up -d --build
 # tunggu startup order selesai
 docker ps --format "table {{.Names}}\t{{.Status}}" | grep slara
 # semua 10 baris harus (healthy)
@@ -178,14 +188,16 @@ bash infra/check-health.sh --gateway-only
 
 Cek khusus U4 (S1/S2 race):
 ```bash
-docker compose -f docker-compose.yml -f docker-compose.dev.yml up --watch
+docker compose -f docker-compose.yml -f docker-compose.override.yml up --watch
 docker logs slara_data --tail 30   # cari "file not found" / "module not found"
 docker logs slara_ai   --tail 30
 ```
 
 ## 8. Success Metrics
 
-- 🟢 10/10 container `healthy` di dev mode.
+- 🟢 Container demo path (`gateway`, `agent`, `data`, `ai`, `app`, `kafka`) `healthy` di dev mode.
+  > **Update 2026-07-16:** target "10/10" sudah tidak relevan — `mongodb`/`neo4j`/`redis`/`qdrant`
+  > di-disable di base compose (ADR-003). Lihat §11.
 - 🟢 `GET http://localhost/` (gateway) mengembalikan 200, bukan 502.
 - 🟢 `infra/check-health.sh --gateway-only` = all pass.
 - 🟢 `qdrant` tidak lagi `unhealthy` (FailingStreak reset).
@@ -205,6 +217,32 @@ docker logs slara_ai   --tail 30
 
 - Tidak ada perubahan kontrak REST/Kafka. Health endpoint di `docs/runbooks/health-check-runbook.md:3-11` tetap menjadi kontrak health tiap service (tidak berubah).
 - Catatan: healthcheck `app` berubah dari `:3000` → `:5173` **hanya di dev overlay**, prod tetap `:3000` (`apps/app/Dockerfile:22` + `react-router-serve`). Tidak ada breaking change ke kontrak eksternal.
+
+---
+
+## 11. Perubahan Compose 2026-07-16 (post-spec, diluar scope asli)
+
+Implementasi nyata menyimpang dari beberapa asumsi spec ini. Dicatat di sini supaya tidak dibaca sebagai
+kelalaian:
+
+1. **`docker-compose.dev.yml` → `docker-compose.override.yml`.** File overlay dev di-rename ke nama
+   default Compose (`override` otomatis di-merge tanpa flag `-f`). Konten identik. Seluruh perintah di
+   §7 kini pakai `-f docker-compose.override.yml` (atau tanpa flag sama sekali).
+2. **`mongodb` / `neo4j` / `redis` / `qdrant` di-disable (dikomentari)** di `docker-compose.yml` base
+   **dan** `docker-compose.prod.yml`. `depends_on` ke keempat service itu juga di-disable. Ini mengadopsi
+   ADR-003 secara struktural: demo path hanya butuh `gateway`, `agent`, `data`, `ai`, `app`, `kafka`.
+3. **Dampak ke target success:** "10/10 healthy" (§8) sudah tidak relevan. Target realistis = 6 container
+   demo path `healthy`. B1 (qdrant) kini **tidak lagi memblokir** karena qdrant sendiri di-disable — jalur
+   cascading `qdrant → agent → gateway` hilang dari demo path.
+4. **B2/B3 tetap relevan** (masalah port `app` 5173 dan nginx upstream dev) dan diselesaikan lewat
+   `docker-compose.override.yml` + `nginx.dev.conf` seperti direncanakan.
+
+| Item spec | Status pasca 2026-07-16 |
+|---|---|
+| B1 (qdrant healthcheck) | Termitigasi oleh disable qdrant (bukan oleh fix probe) |
+| B2 (app healthcheck 5173) | ✅ selesai di `docker-compose.override.yml` |
+| B3 (nginx dev upstream) | ✅ selesai via `nginx.dev.conf` + override volume |
+| Target 10/10 healthy | ⚠️ diganti 6/6 demo path |
 
 ---
 

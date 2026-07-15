@@ -170,14 +170,25 @@ Semua env var disimpan di **satu file root `.env`**, **JANGAN PERNAH** commit fi
 Tiap service di compose baca file itu via `env_file: ../.env`. Template `.env.example` WAJIB di-commit dan di-update setiap kali ada env baru.
 
 Daftar env yang dipakai (semua di root `.env`):
-- Agent: OPENAI_API_KEY / GEMINI_API_KEY, QDRANT_URL, REDIS_URL, KAFKA_BROKERS
-- Data: MONGO_URI, NEO4J_*, REDIS_URL, KAFKA_BROKERS, JWT_SECRET
+- Agent: OPENAI_API_KEY / GEMINI_API_KEY, QDRANT_URL (+ QDRANT_API_KEY), REDIS_URL, KAFKA_BROKERS
+- Data: MONGO_URI, NEO4J_URI (+ NEO4J_USER/PASSWORD), REDIS_URL, KAFKA_BROKERS, JWT_SECRET
 - AI: KAFKA_BROKERS, MODEL_REGISTRY_URL, REDIS_URL
+
+> **Update 2026-07-16 — env beralih ke managed cloud.** `.env.example` kini memakai **MongoDB Atlas,
+> Neo4j AuraDB, Redis Cloud/Upstash, Qdrant Cloud, Kafka Cloud** (Upstash/Aiven/Confluent) bukan
+> container lokal. Implikasi:
+> - URI wajib pakai skema TLS: `mongodb+srv://`, `neo4j+s://`, `rediss://`, `https://` (Qdrant), dan
+>   Kafka pakai `SASL_SSL` (`KAFKA_SASL_USERNAME/PASSWORD/MECHANISM/SECURITY_PROTOCOL`).
+> - `NEO4J_AUTH` lokal sudah tidak dipakai (ganti `NEO4J_URI` + `NEO4J_USER`/`NEO4J_PASSWORD` dari Aura).
+> - Layanan ini **di-disable di compose** (ADR-003) — env di atas hanya relevan saat `data`/RAG path
+>   diaktifkan kembali menuju production. Demo path tidak membutuhkannya.
 
 ## Common Gotchas
 
 1. **Alpine vs host**: Pakai `docker compose exec` buat install dep — host lo beda libc.
-2. **Kafka advertised listener**: Selalu `kafka:9092` (bukan `localhost`). Ini udah di-set di compose.
+2. **Kafka listener**: Kalau pakai container lokal, advertised listener = `kafka:9092` (bukan `localhost`).
+   Kalau pakai **Kafka Cloud** (default di `.env.example` sekarang), broker butuh `SASL_SSL` + auth —
+   lihat `.env.example` section Kafka Cloud.
 3. **Nginx WebSocket**: Default `nginx.conf` udah support WS (HTTP/1.1 + Upgrade). Jangan lupa flush cache Nginx kalau ubah config.
 4. **Air tmp/ folder**: Wajib di-ignore di `.gitignore` (sudah).
 5. **Qdrant snapshot**: Backup pakai `qdrant-cli` atau `curl :6333/snapshots`, jangan commit vector db ke git.

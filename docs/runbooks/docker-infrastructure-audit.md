@@ -10,7 +10,16 @@
 
 ## 1. Ringkasan
 
-Stack SLAra terdiri dari 10 service yang didefinisikan di tiga file Compose (`docker-compose.yml` base + `docker-compose.dev.yml` / `docker-compose.prod.yml` overlay). Audit ini memeriksa konfigurasi Dockerfile, healthcheck, `develop.watch`, port, dan konsistensi lintas file.
+Stack SLAra terdiri dari 10 service yang didefinisikan di tiga file Compose (`docker-compose.yml` base + `docker-compose.dev.yml` (kini `docker-compose.override.yml`) / `docker-compose.prod.yml` overlay). Audit ini memeriksa konfigurasi Dockerfile, healthcheck, `develop.watch`, port, dan konsistensi lintas file.
+
+> **Status pasca-2026-07-16 (update):** Audit ini adalah *snapshot* 2026-07-14 dan **tidak lagi mencerminkan
+> state compose terkini**. Sejak 2026-07-16, `mongodb`, `neo4j`, `redis`, dan `qdrant` **di-disable**
+> (dikomentari) di `docker-compose.yml` + `docker-compose.prod.yml`, dan overlay dev di-rename menjadi
+> `docker-compose.override.yml`. Akibatnya: (a) B1 (qdrant) tidak lagi memblokir karena qdrant sendiri
+> dimatikan; (b) target "10 container" sudah tidak relevan — demo path hanya 6 container
+> (`gateway`, `agent`, `data`, `ai`, `app`, `kafka`). Temuan B2/B3 tetap valid dan diselesaikan lewat
+> `docker-compose.override.yml` + `nginx.dev.conf`. Layanan yang di-disable tetap bagian dari jalan ke
+> production (lihat ADR-003).
 
 **Kondisi runtime saat audit:**
 
@@ -38,10 +47,10 @@ Stack SLAra terdiri dari 10 service yang didefinisikan di tiga file Compose (`do
 | # | Service | Layer | Temuan | Evidence | Severity | Verifikasi |
 |---|---------|-------|--------|----------|----------|------------|
 | B1 | qdrant | Compose/Runtime | Healthcheck pakai `wget` — tidak ada di image `qdrant/qdrant:latest` | `docker-compose.yml:175`; `docker inspect slara_qdrant` → `"/bin/sh: 1: wget: not found"`, FailingStreak=311 | **Blocking** | Statik + Runtime |
-| B2 | app | Compose/Build | Healthcheck base compose cek port 3000 tapi dev Dockerfile EXPOSE 5173 — dev overlay tidak override healthcheck | `docker-compose.yml:109`; `apps/app/Dockerfile.dev:11-13`; `docker-compose.dev.yml` (tidak ada healthcheck override) | **Blocking** | Statik |
+| B2 | app | Compose/Build | Healthcheck base compose cek port 3000 tapi dev Dockerfile EXPOSE 5173 — dev overlay tidak override healthcheck | `docker-compose.yml:109`; `apps/app/Dockerfile.dev:11-13`; `docker-compose.override.yml` (tidak ada healthcheck override) | **Blocking** | Statik |
 | B3 | gateway | Compose/Config | nginx upstream `app_service → app:3000` tapi di dev app jalan di 5173 → gateway healthcheck (`/`) dapat 502 → gateway unhealthy (cascading dari B2) | `services/gateway/nginx.conf:18-20`; `docker-compose.yml:30` | **Blocking** | Statik |
-| S1 | data | Build | `Dockerfile.dev` hanya copy `go.mod go.sum`, tidak ada `COPY . .` → `.air.toml` tidak ada di image. Bergantung pada `develop.watch initial_sync: true` agar CMD `air -c .air.toml` tidak langsung gagal | `services/data/Dockerfile.dev:1-13`; `docker-compose.dev.yml:27-33` | **Silent** | Statik |
-| S2 | ai | Build | `Dockerfile.dev` hanya copy `pyproject.toml uv.lock`, tidak ada `COPY . .` → `main.py` tidak ada di image. Bergantung pada `develop.watch initial_sync: true` agar `uvicorn main:app` tidak gagal | `services/ai/Dockerfile.dev:1-11`; `docker-compose.dev.yml:45-56` | **Silent** | Statik |
+| S1 | data | Build | `Dockerfile.dev` hanya copy `go.mod go.sum`, tidak ada `COPY . .` → `.air.toml` tidak ada di image. Bergantung pada `develop.watch initial_sync: true` agar CMD `air -c .air.toml` tidak langsung gagal | `services/data/Dockerfile.dev:1-13`; `docker-compose.override.yml:27-33` | **Silent** | Statik |
+| S2 | ai | Build | `Dockerfile.dev` hanya copy `pyproject.toml uv.lock`, tidak ada `COPY . .` → `main.py` tidak ada di image. Bergantung pada `develop.watch initial_sync: true` agar `uvicorn main:app` tidak gagal | `services/ai/Dockerfile.dev:1-11`; `docker-compose.override.yml:45-56` | **Silent** | Statik |
 | S3 | app | Build | CMD `pnpm run dev -- --host 0.0.0.0` mengirim flag ke `react-router dev` — belum terverifikasi apakah flag diteruskan ke Vite. Jika tidak, container listen di 127.0.0.1:5173 (tidak reachable dari docker network). `vite.config.ts` tidak punya `server.host` | `apps/app/Dockerfile.dev:13`; `apps/app/package.json:9`; `apps/app/vite.config.ts` | **Silent** | Statik (UNVERIFIED runtime) |
 | D1 | — | Docs | `docs/runbooks/health-check-runbook.md` (baris 49–73) mendokumentasikan script boilerplate sederhana (3-service curl loop). Script aktual di `infra/check-health.sh` jauh lebih lengkap (color output, timing, 3 mode, gateway check, docker health parsing, summary). Runbook stale | `docs/runbooks/health-check-runbook.md:49-73`; `infra/check-health.sh:1-121` | **Drift** | Statik |
 | D2 | — | Git | `infra/check-health.sh` tidak di-commit ke git (`?? infra/check-health.sh` di git status) — script hilang setelah fresh clone | git status sesi ini | **Drift** | Runtime |
@@ -109,7 +118,7 @@ CMD ["pnpm", "run", "dev", "--", "--host", "0.0.0.0"]
 "dev": "react-router dev"
 ```
 
-`react-router dev` (wrapper Vite) listen di port 5173. Healthcheck di base compose cek port 3000. `docker-compose.dev.yml` tidak ada override healthcheck untuk `app`. Di prod, `apps/app/Dockerfile:22` (`EXPOSE 3000`) dan `CMD react-router-serve` memang serve di 3000 — healthcheck benar untuk prod. Di dev: salah port.
+`react-router dev` (wrapper Vite) listen di port 5173. Healthcheck di base compose cek port 3000. `docker-compose.override.yml` tidak ada override healthcheck untuk `app`. Di prod, `apps/app/Dockerfile:22` (`EXPOSE 3000`) dan `CMD react-router-serve` memang serve di 3000 — healthcheck benar untuk prod. Di dev: salah port.
 
 **Dampak:** `app` tidak pernah `healthy` di dev mode → `gateway` (depends_on `app: service_healthy`, `docker-compose.yml:27-28`) tidak pernah start.
 
@@ -167,7 +176,7 @@ CMD ["uv", "run", "uvicorn", "main:app", ...]   # main.py tidak ada di image
 
 **Mitigasi yang ada:**
 ```yaml
-# infra/docker-compose.dev.yml:25-36 (data)
+# infra/docker-compose.override.yml:25-36 (data)
 develop:
   watch:
     - action: sync
@@ -213,16 +222,20 @@ Baris 49–73 di `docs/runbooks/health-check-runbook.md` menampilkan script boil
 
 ## 4. Diagram Topologi
 
-Strict dari output `docker compose -f docker-compose.yml -f docker-compose.dev.yml config` — hanya edge yang ada di `depends_on`. Port adalah host-exposed port dari resolved config.
+Strict dari output `docker compose -f docker-compose.yml -f docker-compose.override.yml config` — hanya edge yang ada di `depends_on`. Port adalah host-exposed port dari resolved config.
+
+> **Update 2026-07-16:** Diagram di bawah merepresentasikan *full stack* saat audit (2026-07-14). Di state
+> compose terkini, node `mongodb`/`neo4j`/`redis`/`qdrant` **di-disable** (komentar) beserta edge
+> `service_healthy`-nya, sehingga `agent`/`data`/`ai` kini hanya bergantung ke `kafka`. Lihat ADR-003.
 
 ```mermaid
 flowchart TD
   subgraph "Layer 1 — Infra (no deps)"
-    mongodb["mongodb\n:27017"]
-    neo4j["neo4j\n:7474 :7687"]
-    redis["redis\n:6379"]
-    qdrant["qdrant\n:6333 :6334\n⚠️ UNHEALTHY"]
-    kafka["kafka\n:9092"]
+    kafka["kafka\n:9092 ✅ aktif"]
+    mongodb["mongodb\n:27017\n🔴 disabled"]
+    neo4j["neo4j\n:7474 :7687\n🔴 disabled"]
+    redis["redis\n:6379\n🔴 disabled"]
+    qdrant["qdrant\n:6333 :6334\n🔴 disabled"]
   end
 
   subgraph "Layer 2 — App Services"
@@ -285,10 +298,10 @@ test: ["CMD-SHELL", "bash -c 'echo -e \"GET /healthz HTTP/1.0\\r\\n\\r\\n\" >/de
 
 ---
 
-### Fix B2 — Override healthcheck `app` di `docker-compose.dev.yml`
+### Fix B2 — Override healthcheck `app` di `docker-compose.override.yml`
 
 ```yaml
-# infra/docker-compose.dev.yml — tambah block healthcheck untuk app service
+# infra/docker-compose.override.yml — tambah block healthcheck untuk app service
 app:
   build:
     context: ../apps/app
@@ -312,10 +325,10 @@ app:
 
 ### Fix B3 — Pisahkan nginx config untuk dev mode (Opsi A)
 
-Buat file `services/gateway/nginx.dev.conf` dengan upstream `app_service → app:5173`, lalu override volume mount di `docker-compose.dev.yml`:
+Buat file `services/gateway/nginx.dev.conf` dengan upstream `app_service → app:5173`, lalu override volume mount di `docker-compose.override.yml`:
 
 ```yaml
-# infra/docker-compose.dev.yml — tambah volume override untuk gateway
+# infra/docker-compose.override.yml — tambah volume override untuk gateway
 gateway:
   volumes:
     - ../services/gateway/nginx.dev.conf:/etc/nginx/nginx.conf:ro
@@ -328,7 +341,7 @@ upstream app_service {
 }
 ```
 
-Opsi B (lebih sederhana): jika gateway memang tidak dipakai di dev (developer akses 5173 langsung), hapus `app` dari `depends_on` gateway di `docker-compose.dev.yml` override dan tambah nginx stub `location / { return 200 "ok"; }` agar gateway healthcheck tidak tergantung proxy ke app.
+Opsi B (lebih sederhana): jika gateway memang tidak dipakai di dev (developer akses 5173 langsung), hapus `app` dari `depends_on` gateway di `docker-compose.override.yml` override dan tambah nginx stub `location / { return 200 "ok"; }` agar gateway healthcheck tidak tergantung proxy ke app.
 
 ---
 
@@ -415,5 +428,5 @@ Jalankan `docker compose pull` setelah update untuk fetch pinned images.
 | U1 | **S3 (app host binding)** — apakah `react-router dev` meneruskan `--host` ke Vite? | Jalankan `docker exec slara_app ss -tlnp` atau `netstat -tlnp` setelah app container running, cek apakah 5173 bind di `0.0.0.0` atau `127.0.0.1` |
 | U2 | **H4 (Python 3.14, Go 1.25)** — apakah image tag ini tersedia di Docker Hub per 2026-07-14? | `docker pull python:3.14-slim && docker pull golang:1.25-alpine` — konfirmasi pull sukses |
 | U3 | **Implicit dependency agent → ai** — apakah agent service memanggil ai via HTTP di application code? | Grep `services/agent/src/` untuk URL/env yang reference `AI_PORT` atau `http://ai:8000` |
-| U4 | **S1/S2 race condition** — apakah `initial_sync` Compose v5.3.0 selesai sebelum CMD start di praktiknya? | Jalankan `docker compose -f docker-compose.yml -f docker-compose.dev.yml up --watch` dan cek `docker logs slara_data` dan `docker logs slara_ai` untuk error "file not found" atau "module not found" di startup |
+| U4 | **S1/S2 race condition** — apakah `initial_sync` Compose v5.3.0 selesai sebelum CMD start di praktiknya? | Jalankan `docker compose -f docker-compose.yml -f docker-compose.override.yml up --watch` dan cek `docker logs slara_data` dan `docker logs slara_ai` untuk error "file not found" atau "module not found" di startup |
 | U5 | **Fix B3 pilihan opsi** — apakah gateway perlu berjalan di dev mode atau oke akses service langsung? | Keputusan arsitektur oleh tech lead — tentukan Opsi A (nginx.dev.conf) vs Opsi B (bypass app dependency) |

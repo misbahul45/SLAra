@@ -4,8 +4,8 @@ Compose layering:
 
 | File | Purpose |
 |------|---------|
-| `docker-compose.yml` | Base: services, networks, volumes, infra (mongo/neo4j/redis/qdrant/kafka), env, healthchecks. No build. |
-| `docker-compose.dev.yml` | Dev override: `Dockerfile.dev`, host ports, `develop.watch` hot reload. |
+| `docker-compose.yml` | Base: services, networks, volumes, infra (kafka + mongo/neo4j/redis/qdrant **dikomentari/disabled**), env, healthchecks. No build. |
+| `docker-compose.override.yml` | Dev override (auto-merged, tidak perlu flag `-f`): `Dockerfile.dev`, host ports, `develop.watch` hot reload. Pengganti `docker-compose.dev.yml`. |
 | `docker-compose.prod.yml` | Prod override: `Dockerfile` (multi-stage), `restart: unless-stopped`. |
 
 Base file alone does not build app services — always combine with dev or prod.
@@ -41,7 +41,8 @@ Run from `infra/`.
 
 **Dev** (hot reload):
 ```bash
-docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build --watch
+docker compose -f docker-compose.yml -f docker-compose.override.yml up --build --watch
+# atau cukup: docker compose up --build --watch  (override auto-merge)
 ```
 
 **Prod**:
@@ -51,8 +52,8 @@ docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d
 
 **Stop** / **wipe volumes**:
 ```bash
-docker compose -f docker-compose.yml -f docker-compose.dev.yml down
-docker compose -f docker-compose.yml -f docker-compose.dev.yml down -v   # also deletes DB/model data
+docker compose -f docker-compose.yml -f docker-compose.override.yml down
+docker compose -f docker-compose.yml -f docker-compose.override.yml down -v   # also deletes DB/model data
 ```
 
 Logs / rebuild one service:
@@ -85,7 +86,7 @@ Models live in `../services/ai/models/` on the host and are **bind-mounted** int
 - M2 is **degraded-tolerant**: missing `models/m2/` → serves historical median with `m2_degraded: true`
   instead of failing. Confirm which mode you got via `/health` → `models.m2.mode` (`FULL` | `DEGRADED`).
 
-Data persistence: named volumes `mongo_data`, `neo4j_data`, `redis_data`, `qdrant_data`, `kafka_data` survive `down` (removed only with `down -v`).
+Data persistence: named volumes `mongo_data`, `neo4j_data`, `redis_data`, `qdrant_data`, `kafka_data` survive `down` (removed only with `down -v`). **Catatan:** `mongo_data`/`neo4j_data`/`redis_data`/`qdrant_data` saat ini **dikomentari** di base compose (service-nya disabled per ADR-003) — volume hanya dibuat kalau service terkait diaktifkan kembali.
 
 ## Health check
 

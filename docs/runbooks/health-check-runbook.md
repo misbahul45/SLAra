@@ -19,17 +19,23 @@ Infra services pakai Docker healthcheck internal — tidak expose HTTP health en
 cd infra
 
 # Jalankan semua service dengan hot-reload
-docker compose -f docker-compose.yml -f docker-compose.dev.yml watch
+docker compose -f docker-compose.yml -f docker-compose.override.yml watch
 
 # Atau tanpa watch (background)
-docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+docker compose -f docker-compose.yml -f docker-compose.override.yml up -d
 ```
+
+> **Update 2026-07-16:** `docker-compose.dev.yml` di-rename menjadi `docker-compose.override.yml`
+> (auto-merge tanpa flag `-f`). `mongodb`/`neo4j`/`redis`/`qdrant` **di-disable** di base compose
+> (lihat ADR-003) — perintah di atas hanya menaikkan topologi demo (6 container: gateway, agent, data,
+> ai, app, kafka). Untuk menaikkan full stack, buka komentar blok layanan tersebut di
+> `infra/docker-compose.yml`.
 
 ## Deteksi Health Status Semua Service
 
 ```bash
 # Lihat status health seluruh container
-docker compose -f docker-compose.yml -f docker-compose.dev.yml ps
+docker compose -f docker-compose.yml -f docker-compose.override.yml ps
 
 # Ringkasan: hanya tampilkan status health
 docker ps --format "table {{.Names}}\t{{.Status}}" | grep slara
@@ -68,22 +74,26 @@ Healthcheck sudah dikonfigurasi di `infra/docker-compose.yml`:
 | data    | `wget -q --spider http://localhost:8081/health` | 10s | 10 | 20s |
 | ai      | `wget -q --spider http://localhost:8000/health` | 10s | 10 | 30s |
 | app     | `wget -q --spider http://localhost:3000/` | 10s | 10 | 30s |
-| mongodb | `mongosh --eval "db.runCommand({ ping: 1 }).ok"` | 5s | 10 | 10s |
-| neo4j   | `wget -q --spider http://localhost:7474` | 10s | 15 | 30s |
-| redis   | `redis-cli ping` | 5s | 10 | — |
-| qdrant  | `wget -q --spider http://localhost:6333/healthz` | 5s | 10 | 10s |
 | kafka   | `kafka-topics.sh --bootstrap-server localhost:9092 --list` | 10s | 15 | 30s |
+| mongodb 🔴 | `mongosh --eval "db.runCommand({ ping: 1 }).ok"` | 5s | 10 | 10s | *(disabled — dikomentari di compose)* |
+| neo4j 🔴 | `wget -q --spider http://localhost:7474` | 10s | 15 | 30s | *(disabled — dikomentari di compose)* |
+| redis 🔴 | `redis-cli ping` | 5s | 10 | — | *(disabled — dikomentari di compose)* |
+| qdrant 🔴 | `wget -q --spider http://localhost:6333/healthz` | 5s | 10 | 10s | *(disabled — dikomentari di compose)* |
+
+> 🔴 = service di-disable di `infra/docker-compose.yml` + `infra/docker-compose.prod.yml` per 2026-07-16
+> (ADR-003). Baris healthcheck-nya tetap ada di file tapi dalam komentar; buka komentar untuk
+> mengaktifkan kembali full stack.
 
 ## Startup Order (berdasarkan depends_on)
 
 ```
 Layer 1 (infra, no deps):
-  mongodb, neo4j, redis, qdrant, kafka
+  kafka   ← (mongodb, neo4j, redis, qdrant DI-NONAKTIFKAN per ADR-003)
 
 Layer 2 (app services, tunggu infra healthy):
-  agent   ← qdrant, redis, kafka
-  data    ← mongodb, neo4j, redis, kafka
-  ai      ← kafka, redis
+  agent   ← kafka            (qdrant, redis disabled)
+  data    ← kafka            (mongodb, neo4j, redis disabled)
+  ai      ← kafka            (redis disabled)
   app     ← (standalone)
 
 Layer 3 (gateway, tunggu semua app healthy):

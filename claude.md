@@ -11,7 +11,7 @@ AGENTS.md describes the **intended** end state. The repo is **no longer** a pure
 | AGENTS.md claims | Actual state |
 |---|---|
 | pnpm workspaces monorepo | No root `pnpm-workspace.yaml` / root `package.json`. Each JS service (`services/agent`, `apps/app`) has its own `pnpm-lock.yaml` and is installed independently. |
-| `cd infra && docker compose watch` boots everything | **Superseded.** Compose is now split base + override. Dev: `docker compose -f docker-compose.yml -f docker-compose.dev.yml watch`. Prod: `... -f docker-compose.prod.yml up -d --build`. Each service has `Dockerfile` (prod) + `Dockerfile.dev`. Env lives in a single root `.env` (`env_file: ../.env`); `infra/environments/` no longer exists. |
+| `cd infra && docker compose watch` boots everything | **Superseded.** Compose is now split base + override. Dev: `docker compose -f docker-compose.yml -f docker-compose.override.yml watch` (override auto-merges, flag opsional). Prod: `... -f docker-compose.prod.yml up -d --build`. Each service has `Dockerfile` (prod) + `Dockerfile.dev`. Env lives in a single root `.env` (`env_file: ../.env`); `infra/environments/` no longer exists. `mongodb`/`neo4j`/`redis`/`qdrant` are **disabled (commented out)** in both base and prod compose per [ADR-003](docs/architecture/adr/ADR-003-demo-scope-exclusions.md). |
 | Agent = Hono + LangGraph + RAG + MCP tools | 🔜 **Phase 3.** `services/agent/src/index.ts` is still a single-file Hono "Hello Hono!" on port 3000. No LangGraph/MCP/`src/adapters` yet — and LangGraph is **deliberately deferred**: M6 lands as a deterministic orchestration core in plain TS ([ADR-002](docs/architecture/adr/ADR-002-m6-deterministic-core.md)). |
 | AI = FastAPI + ML models | ✅ **Real & serving** (no longer the `Hello from ml!` stub). FastAPI on `app/main.py`, port 8000, models loaded once at startup (~25–37s — SHAP init, not a hang). See per-model rows below. |
 | — M1 (ETA) | ✅ **v2 artifacts** at `services/ai/models/m1/` + `configs/m1/`. `POST /internal/m1/eta`. Golden-tested (4 passed). **Fail-fast** if artifacts missing. |
@@ -45,7 +45,8 @@ SLAra/
 │   │   ├── experiments/      # m4_nsga2.py — evidence only, NOT runtime
 │   │   └── tests/            # golden test M1 + M5 additivity
 │   └── gateway/              # nginx.conf only
-├── infra/docker-compose.yml  # gateway + 3 services + mongo/neo4j/redis/qdrant/kafka (KRaft)
+├── infra/docker-compose.yml  # gateway + 3 services + kafka (KRaft); mongo/neo4j/redis/qdrant DISABLED (commented, ADR-003)
+├── infra/docker-compose.override.yml  # dev overlay (was docker-compose.dev.yml): Dockerfile.dev, watch, host ports
 ├── docs/
 │   ├── models/               # ML model specs M1–M6 + INTERACTION_MAP + evidence/M4_RESULTS.md
 │   ├── architecture/adr/     # ADR-001..004 (demo transport, M6 core, scope exclusions, M4 precomputed)
@@ -90,10 +91,10 @@ pnpm typecheck                  # react-router typegen && tsc
 
 ```
 apps/app (React) → Nginx gateway → { agent :3000, data :8081, ai :8000 }
-                                  ↘ Kafka (kafka:9092, KRaft) → { mongo, neo4j, redis, qdrant }
+                                  ↘ Kafka (cloud, SASL_SSL) → { mongo(Atlas), neo4j(Aura), redis(Cloud), qdrant(Cloud) }
 ```
 
-Ports and the Kafka advertised listener (`kafka:9092`, never `localhost`) are already set in `infra/docker-compose.yml` and are the contract to build toward.
+> **Update 2026-07-16:** Env beralih ke **managed cloud** (Atlas/Aura/Upstash/Qdrant Cloud/Kafka Cloud) per `.env.example`. Skema URI wajib TLS (`mongodb+srv://`, `neo4j+s://`, `rediss://`, `https://`) dan Kafka `SASL_SSL`. Di compose, `mongo/neo4j/redis/qdrant` **disabled** (ADR-003); hanya `kafka` service lokal yang masih ada tapi sebenarnya tidak dipakai demo path. Ports & the broker URL live in `.env` (not hardcoded in compose).
 
 ## Before exploring the codebase — read `graphify-out/` first
 

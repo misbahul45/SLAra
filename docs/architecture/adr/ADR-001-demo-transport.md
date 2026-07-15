@@ -21,6 +21,10 @@ Tapi audit Docker 14 Jul menemukan rantai kegagalan yang menyentuh persis jalur 
 Artinya: satu healthcheck salah di dependency yang **bukan bagian demo path** bisa menjatuhkan
 seluruh demo. Waktu efektif tersisa ~2.5 hari kerja, solo.
 
+> **Update 2026-07-16:** Rantai B1 (qdrant→agent→gateway) kini **dihilangkan secara struktural** —
+> `qdrant` (beserta `mongodb`/`neo4j`/`redis`) **di-disable** di `docker-compose.yml` + `docker-compose.prod.yml`
+> (ADR-003). Jadi B1 tidak lagi memblokir; fallback direct-port tetap ada sebagai cadangan.
+
 ## Keputusan
 
 **Gateway-first, dengan fallback direct-port yang sudah disiapkan sebelum dibutuhkan.**

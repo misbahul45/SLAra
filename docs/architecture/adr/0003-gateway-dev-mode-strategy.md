@@ -18,10 +18,10 @@ Keputusan ini menentukan **cara memperbaiki B3** (lihat `docs/specifications/pla
 
 ## Keputusan
 
-**Pilih Opsi A:** sediakan `services/gateway/nginx.dev.conf` yang hanya mengubah upstream `app_service` ke `app:5173`, lalu override mount-nya di `infra/docker-compose.dev.yml`:
+**Pilih Opsi A:** sediakan `services/gateway/nginx.dev.conf` yang hanya mengubah upstream `app_service` ke `app:5173`, lalu override mount-nya di `infra/docker-compose.override.yml` (pengganti `docker-compose.dev.yml`):
 
 ```yaml
-# docker-compose.dev.yml
+# docker-compose.override.yml
 gateway:
   volumes:
     - ../services/gateway/nginx.dev.conf:/etc/nginx/nginx.conf:ro
@@ -50,7 +50,7 @@ Sebab pemilihan Opsi A di atas Opsi B:
 
 ## Konsekuensi
 
-- Positif: dev topology bisa di-boot utuh (10/10 healthy) dan gateway bisa diuji.
+- Positif: dev topology bisa di-boot utuh (demo path: `gateway`, `agent`, `data`, `ai`, `app`, `kafka` healthy) dan gateway bisa diuji. (`mongodb`/`neo4j`/`redis`/`qdrant` di-disable per ADR-003, sehingga "10/10" sudah tidak berlaku.)
 - Negatif: ada file config nginx kedua (`nginx.dev.conf`) yang harus dijaga sinkron dengan `nginx.conf` base (drift risk → butuh catatan di `services/gateway/` README).
 - Technical debt yang sengaja diambil: duplikasi sebagian nginx config antara `nginx.conf` dan `nginx.dev.conf`. Mitigasi: jaga delta minimal (hanya block `upstream app_service`).
 - Menutup U5 dari audit.

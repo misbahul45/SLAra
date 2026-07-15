@@ -63,8 +63,8 @@ Refactor HANYA yang membuka jalan demo. Semua di luar daftar ini = backlog final
 | # | Refactor | File | Sumber | Time-box |
 |---|---|---|---|---|
 | R1 | Qdrant healthcheck → bash `/dev/tcp` | `infra/docker-compose.yml:174` | Audit B1 | 5 mnt |
-| R2 | Override healthcheck `app` port 5173 di dev overlay | `infra/docker-compose.dev.yml` | Audit B2 | 10 mnt |
-| R3 | Gateway dev: **Opsi B** — lepas `app` dari `depends_on` gateway di dev + nginx stub `location / { return 200; }`; dashboard diakses langsung :5173 | `docker-compose.dev.yml`, `nginx.conf` | Audit B3/U5 (keputusan diambil di sini) | 15 mnt |
+| R2 | Override healthcheck `app` port 5173 di dev overlay | `infra/docker-compose.override.yml` | Audit B2 | 10 mnt |
+| R3 | Gateway dev: **Opsi A** (diputus di ADR-0003) — `nginx.dev.conf` upstream `app:5173` + volume override di `docker-compose.override.yml` | `infra/docker-compose.override.yml`, `nginx.dev.conf` | Audit B3/U5 | 15 mnt |
 | R4 | `server.host: "0.0.0.0"` di `vite.config.ts`, hapus flag CLI | `apps/app/vite.config.ts`, `Dockerfile.dev` | Audit S3 | 5 mnt |
 | R5 | Commit `infra/check-health.sh` + dokumentasikan di `infra/README.md` | — | Audit D2/H1 | 10 mnt |
 | R6 | Struktur `services/ai`: `app/main.py`, `app/api/internal.py`, `app/ml/{m1,m2,m3,m5}.py`, `app/core/artifacts.py`, `models/{m1,m2}/`, `configs/` — sesuai konvensi AGENTS.md | `services/ai/*` | AGENTS.md §Per Service | 30 mnt (bersama Phase 2) |
@@ -110,7 +110,12 @@ Refactor HANYA yang membuka jalan demo. Semua di luar daftar ini = backlog final
 - `docs/progress/ml/model-registry.md` — entri M1 v2 (7/7, metrik, δ conformal) + M2 (9/9, metrik) sesuai kewajiban AGENTS.md "Update ML model"
 
 **Claude Code prompt:**
-> "Baca report.md (audit Docker) §5 dan AGENTS.md. Kerjakan: (1) fix B1 qdrant healthcheck pakai bash /dev/tcp persis resep audit; (2) tambah healthcheck override app port 5173 di docker-compose.dev.yml; (3) Opsi B gateway dev: hapus app dari depends_on gateway di dev overlay + nginx stub location /; (4) tambah server.host 0.0.0.0 di vite.config.ts dan hapus flag --host dari Dockerfile.dev; (5) git add infra/check-health.sh + section pemakaian di infra/README.md. Jangan ubah hal lain. Setelah itu jalankan docker compose config untuk validasi schema, lalu buat 4 file ADR di docs/architecture/adr/ dengan isi berikut: [tempel ringkasan ADR di atas]."
+> "Baca report.md (audit Docker) §5 dan AGENTS.md. Kerjakan: (1) fix B1 qdrant healthcheck pakai bash /dev/tcp persis resep audit; (2) tambah healthcheck override app port 5173 di docker-compose.override.yml; (3) Opsi A gateway dev (ADR-0003): nginx.dev.conf upstream app:5173 + volume override di docker-compose.override.yml; (4) tambah server.host 0.0.0.0 di vite.config.ts dan hapus flag --host dari Dockerfile.dev; (5) git add infra/check-health.sh + section pemakaian di infra/README.md. Jangan ubah hal lain. Setelah itu jalankan docker compose config untuk validasi schema, lalu buat 4 file ADR di docs/architecture/adr/ dengan isi berikut: [tempel ringkasan ADR di atas]."
+
+> **Catatan implementasi aktual (pasca-plan):** R1 (qdrant healthcheck) **tidak** diterapkan sebagai fix
+> probe — sebagai gantinya `qdrant` **di-disable** bersama `mongodb`/`neo4j`/`redis` di `docker-compose.yml`
+> + `docker-compose.prod.yml` (ADR-003). File `docker-compose.dev.yml` di-rename jadi
+> `docker-compose.override.yml`. R2/R3/R4/R5 diterapkan sesuai.
 
 ---
 

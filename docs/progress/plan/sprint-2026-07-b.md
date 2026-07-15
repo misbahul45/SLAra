@@ -3,7 +3,7 @@
 
 ## Fokus
 
-Remediasi **startup & health Docker dev stack** agar 10/10 container `healthy` dan `gateway` bisa di-boot. Mengikuti `docs/specifications/platform/SPEC-001-docker-dev-startup-health.md` dan keputusan `docs/architecture/adr/0003-gateway-dev-mode-strategy.md`.
+Remediasi **startup & health Docker dev stack** agar demo path (`gateway`, `agent`, `data`, `ai`, `app`, `kafka`) `healthy` dan `gateway` bisa di-boot. `mongodb`/`neo4j`/`redis`/`qdrant` di-disable per ADR-003 (bukan lagi 10/10 container). Mengikuti `docs/specifications/platform/SPEC-001-docker-dev-startup-health.md` dan keputusan `docs/architecture/adr/0003-gateway-dev-mode-strategy.md`.
 
 Fase ini **hanya planning + dokumentasi** (analysing → planning). Implementasi kode (Dockerfile/compose/nginx) dilakukan setelah spec & ADR di-review.
 
@@ -33,7 +33,7 @@ Fase ini **hanya planning + dokumentasi** (analysing → planning). Implementasi
 
 ## Exit Criteria (Sprint Done)
 
-- 🟢 `docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build` → 10/10 `healthy`.
+- 🟢 `docker compose -f docker-compose.yml -f docker-compose.override.yml up -d --build` → demo path `healthy` (6/6: gateway, agent, data, ai, app, kafka). `mongodb`/`neo4j`/`redis`/`qdrant` di-disable per ADR-003.
 - 🟢 `curl -s http://localhost/` → 200 (bukan 502).
 - 🟢 `bash infra/check-health.sh --gateway-only` → all pass.
 - 🟢 ADR-0003 → Accepted.
