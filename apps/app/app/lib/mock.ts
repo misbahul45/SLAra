@@ -127,7 +127,9 @@ export async function resolve(
   return {
     shipment_id: shipmentId,
     decision_status: request.action === "APPROVE" ? "APPROVED" : "REJECTED",
-    executed_route_id: request.route_id,
+    // Mirrors the agent: REJECT executes nothing, so there is no route.
+    executed_route_id:
+      request.action === "APPROVE" ? (request.route_id ?? null) : null,
     resolved_at: new Date().toISOString(),
   };
 }

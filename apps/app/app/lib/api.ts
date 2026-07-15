@@ -18,8 +18,13 @@ import type {
   ShipmentsResponse,
 } from "./types";
 
+// Points at the `agent` service (M6, :3000) — NOT ai:8000. The agent owns the four
+// FE-facing endpoints; it fans out to ai internally. VITE_API_BASE_URL is the older
+// name and is still honoured so existing .env files keep working.
 const BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000/api/v1";
+  import.meta.env.VITE_API_BASE ??
+  import.meta.env.VITE_API_BASE_URL ??
+  "http://localhost:3000/api/v1";
 
 /** Thrown for non-2xx responses; carries the parsed error envelope when present. */
 export class ApiError extends Error {

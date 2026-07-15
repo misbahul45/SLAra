@@ -1,24 +1,56 @@
-// Data facade — the ONLY module UI/loaders import for data. It picks the mock or the
-// real adapter from VITE_USE_MOCK, so swapping to the live backend is a one-env-var change.
-// Defaults to mock: real is used only when VITE_USE_MOCK is explicitly "false".
+// Data facade — the ONLY module UI/loaders import for data.
+//
+// Phase 4 is a PARTIAL cutover, so the switch is per-view, not global:
+//
+//   LIVE (agent :3000)  shipments · kpi · decide · resolve   <- the demo flow
+//   MOCK (local JSON)   dashboard · fleet · recommendation · optimization ·
+//                       approvals · executionKpi
+//
+// VITE_USE_MOCK=false flips only the live group; the mock group stays on fixtures
+// either way, because the agent does not serve those endpoints yet. Setting
+// VITE_USE_MOCK=true forces everything back to fixtures (offline demo fallback).
 
 import * as mock from "./mock";
 import * as api from "./api";
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK !== "false";
 
-const adapter = USE_MOCK ? mock : api;
+/** Views the agent actually serves. Mocked only when explicitly forced offline. */
+const live = USE_MOCK ? mock : api;
 
-export const getKpi = adapter.getKpi;
-export const getDashboard = adapter.getDashboard;
-export const getFleet = adapter.getFleet;
-export const getRecommendation = adapter.getRecommendation;
-export const getOptimization = adapter.getOptimization;
-export const getApprovals = adapter.getApprovals;
-export const getExecutionKpi = adapter.getExecutionKpi;
-export const getShipments = adapter.getShipments;
-export const decide = adapter.decide;
-export const resolve = adapter.resolve;
+/**
+ * Real /decide latency is 20-400ms — fast enough that the spinner can flash by
+ * unseen on video. Hold the pending state to a floor so the loading -> result
+ * transition is legible. This delays the UI only; it never touches the reported
+ * latency_ms, which stays the agent's own measurement.
+ */
+const SPINNER_FLOOR_MS = 400;
 
-/** Which adapter is live — handy for a dev badge / console sanity check. */
+async function notFasterThan<T>(ms: number, work: Promise<T>): Promise<T> {
+  const [result] = await Promise.all([
+    work,
+    new Promise((r) => setTimeout(r, ms)),
+  ]);
+  return result;
+}
+
+// ── live group ──────────────────────────────────────────────────────────────────
+export const getShipments = live.getShipments;
+export const getKpi = live.getKpi;
+
+export const decide: typeof live.decide = (shipmentId) =>
+  notFasterThan(SPINNER_FLOOR_MS, live.decide(shipmentId));
+
+export const resolve: typeof live.resolve = (shipmentId, body) =>
+  notFasterThan(SPINNER_FLOOR_MS, live.resolve(shipmentId, body));
+
+// ── mock group (agent does not serve these yet) ─────────────────────────────────
+export const getDashboard = mock.getDashboard;
+export const getFleet = mock.getFleet;
+export const getRecommendation = mock.getRecommendation;
+export const getOptimization = mock.getOptimization;
+export const getApprovals = mock.getApprovals;
+export const getExecutionKpi = mock.getExecutionKpi;
+
+/** Which adapter the live group uses — handy for a dev badge / console check. */
 export const dataSource: "mock" | "api" = USE_MOCK ? "mock" : "api";

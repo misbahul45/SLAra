@@ -88,6 +88,8 @@ export interface ConfidenceComponent {
   value: number;
   weight: number;
   label: string;
+  /** Sub-terms the agent exposes for conf_m1/conf_m2 (ADR-005). Absent on the others. */
+  detail?: Record<string, number>;
 }
 
 /** Five weighted components; `confidence = Σ(value × weight)`. */
@@ -99,6 +101,10 @@ export interface ConfidenceBreakdown {
   audit_validity: ConfidenceComponent;
 }
 
+/**
+ * Plan-level metrics for one M4 tour scenario — NOT per-shipment. Matches the
+ * Figma "Pareto Plan Comparison". Live per-shipment risk lives in DecideResponse.eta.
+ */
 export interface RouteOption {
   route_id: string;
   label: string;
@@ -109,6 +115,10 @@ export interface RouteOption {
   co2_kg: number;
   distance_km: number;
   geometry: LatLng[];
+  /** Share of tour stops arriving late at P90. Null when the scenario omits it. */
+  late_share_p90?: number | null;
+  /** SLA risk of the whole tour (drives selection order). */
+  tour_sla_risk?: number;
 }
 
 export interface ShapFeature {
@@ -117,19 +127,45 @@ export interface ShapFeature {
   direction: ShapDirection;
 }
 
+/** Live per-shipment ETA from M1, with M2 dwell injected at serving time. */
+export interface DecideEta {
+  p50_min: number;
+  p90_min: number;
+  risk_tier: RiskTier;
+  slack_p90_min: number;
+  /** Null when M3 is unreachable (failure cascade: carbon is not in the formula). */
+  co2_kg: number | null;
+  dwell_source: "m2_live" | "fallback";
+}
+
+/** Live hub state from M2. Null when M2 is unreachable (degraded path). */
+export interface DecideHub {
+  hub_id: string;
+  dwell_p50_min: number;
+  dwell_p90_min: number;
+  queue: { queue_length: number; truck_count: number; dock_utilization: number };
+  dwell_above_threshold: boolean;
+}
+
 export interface DecideResponse {
   shipment_id: string;
   decided_at: string;
   decision: Decision;
   confidence: number;
   threshold: number;
-  confidence_breakdown: ConfidenceBreakdown;
-  primary_uncertainty_driver: string;
-  selected_route_id: string;
+  /** Null only on forced escalation (M1/M4 down) — render the banner, not the gauge. */
+  confidence_breakdown: ConfidenceBreakdown | null;
+  /** Null when AUTO_EXECUTE: there is no uncertainty to attribute. */
+  primary_uncertainty_driver: string | null;
+  eta: DecideEta | null;
+  hub: DecideHub | null;
+  selected_route_id: string | null;
   routes: RouteOption[];
-  /** Non-null only when the selected route is WARNING|CRITICAL (M5 lazy). */
+  /** Non-null only when the tier is WARNING|CRITICAL (M5 lazy). */
   shap_top5: ShapFeature[] | null;
   explanation: string;
+  /** Names of models that degraded during this decision; null when all healthy. */
+  degraded: string[] | null;
   latency_ms: number;
 }
 
@@ -137,14 +173,16 @@ export interface DecideResponse {
 
 export interface ResolveRequest {
   action: ResolveAction;
-  route_id: string;
+  /** Required for APPROVE (the route the operator picked); omitted for REJECT. */
+  route_id?: string;
   operator_note?: string;
 }
 
 export interface ResolveResponse {
   shipment_id: string;
   decision_status: DecisionStatus;
-  executed_route_id: string;
+  /** Null after REJECT — nothing was executed. */
+  executed_route_id: string | null;
   resolved_at: string;
 }
 

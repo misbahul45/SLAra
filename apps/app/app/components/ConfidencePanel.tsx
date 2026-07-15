@@ -108,10 +108,27 @@ export function ConfidencePanel({ result }: { result: DecideResponse }) {
     ? "border-safe/40 bg-safe/10 text-safe"
     : "border-warning/40 bg-warning/10 text-warning";
 
+  // Forced escalation (M1/M4 down) carries no breakdown — there is nothing to score.
+  const breakdown = result.confidence_breakdown;
+  if (!breakdown) {
+    return (
+      <div className="space-y-2 rounded border border-line bg-surface/40 p-4">
+        <div className="text-xs uppercase tracking-wide text-muted">
+          Decision confidence
+        </div>
+        <p className="text-sm text-warning">
+          Forced escalation — a critical model was unavailable, so no confidence
+          was computed.
+        </p>
+        <p className="text-sm text-muted">{result.explanation}</p>
+      </div>
+    );
+  }
+
   // Contributions in axis order; cumulative offset drives the stacked bar.
   let offset = 0;
   const segments = ORDER.map((key) => {
-    const c = result.confidence_breakdown[key];
+    const c = breakdown[key];
     const contribution = c.value * c.weight;
     const seg = { key, c, contribution, left: offset };
     offset += contribution;
@@ -141,7 +158,7 @@ export function ConfidencePanel({ result }: { result: DecideResponse }) {
         <div className="rounded border border-warning/30 bg-warning/5 px-3 py-2 text-sm">
           <span className="text-muted">Primary uncertainty driver: </span>
           <span className="font-medium text-warning">
-            {humanize(result.primary_uncertainty_driver)}
+            {humanize(result.primary_uncertainty_driver ?? "unknown")}
           </span>
         </div>
       )}
