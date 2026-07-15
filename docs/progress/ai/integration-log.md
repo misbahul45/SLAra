@@ -22,6 +22,18 @@ Sumber staging: `_incoming/` (dihapus di akhir integrasi — isinya sudah pindah
 | `m1v2_artifacts/models/*` | `services/ai/models/m1/` | sudah identik dengan yang ter-commit (checksum SAMA) |
 | `m4_artifacts/M4_RESULTS.md` | `docs/models/evidence/M4_RESULTS.md` | bukti hasil |
 | `m4_artifacts/m4_nsga2.py` | `services/ai/experiments/m4_nsga2.py` | **bukti engine, bukan runtime path** (ADR-004) |
+| `m1v2_artifacts/m1_v2_inference.py` | `services/ai/experiments/m1_v2_inference.py` | **referensi golden test** — sumber kebenaran nilai expected |
+| `m2_artifacts/m2_reproduce.py` | `services/ai/experiments/m2_reproduce.py` | skrip reproduksi M2 |
+| `m1v2_artifacts/results_summary.json` | `docs/models/evidence/M1_v2_results_summary.json` | sumber angka registry M1 |
+| `m2_artifacts/results_summary.json` | `docs/models/evidence/M2_results_summary.json` | sumber angka registry M2 |
+| `m2_artifacts/README.md` | `docs/models/evidence/M2_ARTIFACTS_REPRODUCTION.md` | provenance: artifacts M2 = **reproduksi**, bukan run asli |
+
+> **Catatan deviasi:** 5 baris terakhir **tidak** ada di instruksi (paket `m1v2_artifacts` &
+> `m2_artifacts` baru masuk setelah tugas ditulis). Instruksi menyuruh menghapus `_incoming/`, tapi
+> kelimanya adalah **bukti/provenance** sekelas `m4_nsga2.py` yang justru diminta disimpan —
+> `m1_v2_inference.py` malah acuan kebenaran golden test, dan dua `results_summary.json` adalah
+> sumber angka yang ditulis ke registry. Menghapusnya = kehilangan jejak asal semua metrik. Jadi
+> dipindahkan sebagai evidence, bukan dibuang.
 
 ### Scaffold lama yang dihapus
 `main.py` (root), `app/config/init_model.py`, `app/config/init_env.py`, `Readme.md` (tree aspiratif).
@@ -183,7 +195,54 @@ Diverifikasi dengan menjalankan perintah itu di dalam `python:3.12-slim` terhada
 Cek `"mode":"FULL"` itu penting: M2 degraded-tolerant, jadi `status: ok` **tetap** muncul walau M2
 mati — tanpa cek mode, DEGRADED lolos tanpa kelihatan.
 
-## 5. Yang perlu diperhatikan berikutnya
+## 6. 🐞 BUG DITEMUKAN (belum diperbaiki — perlu keputusan)
+
+Ditemukan saat cross-check angka registry terhadap artifacts asli di `_incoming`, **bukan** dari
+gate verifikasi Step 2 — gate itu lolos semua karena hanya menguji mode FULL & perbandingan dwell,
+sementara bug ini ada di jalur config.
+
+**Semua nilai per-hub di config M2 diabaikan diam-diam.** `_cfg_lookup()` di `app/ml/m2.py` hanya
+mengerti yaml berkunci `hubs`, sedangkan artifacts M2 memakai `per_hub` → setiap lookup meleset ke
+fallback tanpa error, tanpa warning.
+
+Dibuktikan langsung terhadap file yaml yang di-serve (`HUB-CGK-02`):
+
+| Config | Nilai per-hub di yaml | Yang dipakai serving | Asal nilai |
+|---|---|---|---|
+| `hub_target_encoding` | 13.128 | 13.248 | `global_mean` |
+| `hub_historical_median` | 10.796 | 10.816 | `global` |
+| `coverage_P90` | 0.9014 | **0.896** | **hardcoded di m2.py** |
+| `model_confidence` (`conf_m2`) | 0.9986 | **0.95** | **hardcoded di m2.py** |
+
+Untuk `coverage_confidence.yaml` bahkan dobel meleset: blok `global`-nya memakai kunci
+`coverage_P90`/`model_confidence`, sedangkan kode mencari `coverage_p90_rolling_7d`/
+`model_confidence_m2` di dalam blok, lalu `global_coverage_p90`/`global_model_confidence` di
+top-level. Tidak satu pun cocok → jatuh ke default hardcoded.
+
+**Kenapa berbahaya:** `0.896` **persis sama** dengan coverage run asli (89.6%) yang tertulis di plan
+& brief. Jadi angka default itu *terlihat benar* dan cocok dengan dokumen — padahal ia bukan hasil
+ukur, dan artifacts yang benar-benar di-serve mengukur **89.74%** (reproduksi). Bug ini lolos justru
+karena kebetulan angkanya "match".
+
+**Dampak nyata:**
+1. `conf_m2` → formula confidence M6 (bobot 0.15) memakai **0.95**, bukan 0.9986.
+2. Fitur ke-18 `hub_id_target_encoded` meleset (13.248 vs 13.128) → **angka dwell 16.09 / 29.13 yang
+   diverifikasi di §3 dihitung dengan nilai fitur yang salah**. Arah kesimpulan (congested > normal)
+   tetap valid — itu digerakkan telemetry, bukan encoding.
+3. `m2_degraded` tetap `false`, `/health` tetap `FULL` → **gagalnya senyap**.
+
+Catatan: `README` paket m2_artifacts mengklaim *"loader serving sudah di-patch utk ini"* — klaim itu
+**tidak benar** untuk kode yang dikirim.
+
+Bonus mismatch di jalur yang sama: `hub_historical_median.yaml` menyediakan
+`fallback_multiplier_p90: 1.4`, tapi `m2.py` menghardcode `p90 = hist_median * 1.8` di mode degraded.
+
+**Tidak diperbaiki di sini** karena: (a) di luar daftar tugas integrasi, (b) memperbaikinya mengubah
+angka dwell yang sudah diverifikasi dan didokumentasikan, (c) instruksi eksplisit — model/test tidak
+disentuh, temuan dilaporkan. Perbaikannya kecil (`_cfg_lookup` mengenali `per_hub` + samakan nama
+kunci coverage), tapi **wajib disertai verifikasi ulang §3**.
+
+## 7. Yang perlu diperhatikan berikutnya
 
 - Verifikasi semua di atas dijalankan **di host**, belum di dalam container.
 - `neo4j` healthcheck juga pakai `wget` dan image-nya Debian-based — **belum diverifikasi** (image
