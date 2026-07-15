@@ -1,0 +1,21 @@
+{
+  "mae_p50": 4.44,
+  "coverage_p90_pct": 90.1,
+  "f1_critical": 0.896,
+  "recall_critical": 0.99,
+  "base_rate_critical_pct": 12.7,
+  "gap_ml_vs_rule_pts": 24.1,
+  "latency_p95_ms": 2.16,
+  "thresholds": {
+    "safe": 15,
+    "critical": -30
+  },
+  "conformal_delta": 0.83,
+  "conf_m1_mean": 0.938,
+  "tier_distribution_test": {
+    "SAFE": "50.1%",
+    "WARNING": "37.2%",
+    "CRITICAL": "12.7%"
+  },
+  "all_passed": true
+}
