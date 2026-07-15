@@ -37,12 +37,17 @@ DEGRADED_CONFIDENCE = 0.50
 
 
 def _cfg_lookup(d: dict, hub_id: str, key_global: str, default):
-    """Toleran terhadap dua bentuk yaml: flat {hub: val} atau {'hubs': {...}, 'global': val}."""
+    """Toleran terhadap bentuk yaml: {'per_hub': {...}}, {'hubs': {...}}, atau flat {hub: val},
+    dengan fallback global (key_global -> 'global' -> default) kalau hub tidak terdaftar."""
     if not d:
         return default
-    if "hubs" in d:
-        return d["hubs"].get(hub_id, d.get(key_global, d.get("global", default)))
-    return d.get(hub_id, d.get(key_global, d.get("global", default)))
+    for hubs_key in ("per_hub", "hubs"):
+        block = d.get(hubs_key)
+        if isinstance(block, dict) and hub_id in block:
+            return block[hub_id]
+    if hub_id in d:
+        return d[hub_id]
+    return d.get(key_global, d.get("global", default))
 
 
 def _resolve_telemetry(hub_id: str, condition: str, overrides: Optional[dict]) -> dict:
@@ -71,11 +76,12 @@ def predict(hub_id: str, condition: str = "normal", overrides: Optional[dict] = 
                          columns=FEATURE_COLS_M2)
         p50 = float(ART.m2_p50.predict(X)[0])
         p90 = max(p50, float(ART.m2_p90.predict(X)[0]))  # non-crossing
+        # per_hub pakai key *_rolling_7d/_m2; blok global pakai coverage_P90/model_confidence
         conf_block = _cfg_lookup(ART.m2_confidence, hub_id, "global", {}) or {}
         coverage = float(conf_block.get("coverage_p90_rolling_7d",
-                                        ART.m2_confidence.get("global_coverage_p90", 0.896)))
+                                        conf_block.get("coverage_P90", 0.896)))
         confidence = float(conf_block.get("model_confidence_m2",
-                                          ART.m2_confidence.get("global_model_confidence", 0.95)))
+                                          conf_block.get("model_confidence", 0.95)))
         degraded = False
         version = "m2_v1.0.0-lightgbm-quantile"
     else:
