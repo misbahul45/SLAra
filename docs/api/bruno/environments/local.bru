@@ -1,0 +1,17 @@
+vars {
+  aiBaseUrl: http://localhost:8000
+  agentBaseUrl: http://localhost:3000
+  gatewayBaseUrl: http://localhost
+}
+
+docs {
+  Environment lokal (dev di host).
+
+  HANYA base URL & nama variable di sini — JANGAN PERNAH commit token/API key/secret
+  asli (AGENTS.md §Common Gotchas #9). Endpoint internal M1-M5 saat ini tidak butuh auth.
+  Kalau nanti butuh, deklarasikan namanya di blok `vars:secret` dan isi nilainya lewat
+  runtime variable dari .env lokal — bukan di file ini.
+
+  aiBaseUrl      : direct-port ke ai service (jalur fallback ADR-001)
+  gatewayBaseUrl : lewat nginx gateway (jalur utama ADR-001)
+}

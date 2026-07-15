@@ -6,18 +6,28 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## ⚠️ Reality vs. target architecture
 
-AGENTS.md describes the **intended** end state. The repo is currently an early scaffold — a large share of what AGENTS.md documents does **not exist yet**. Verify before relying on it:
+AGENTS.md describes the **intended** end state. The repo is **no longer** a pure scaffold — the `ai` service is real as of 15 Jul 2026 — but much of AGENTS.md still doesn't exist. Verify before relying on it:
 
 | AGENTS.md claims | Actual state |
 |---|---|
 | pnpm workspaces monorepo | No root `pnpm-workspace.yaml` / root `package.json`. Each JS service (`services/agent`, `apps/app`) has its own `pnpm-lock.yaml` and is installed independently. |
 | `cd infra && docker compose watch` boots everything | **Superseded.** Compose is now split base + override. Dev: `docker compose -f docker-compose.yml -f docker-compose.dev.yml watch`. Prod: `... -f docker-compose.prod.yml up -d --build`. Each service has `Dockerfile` (prod) + `Dockerfile.dev`. Env lives in a single root `.env` (`env_file: ../.env`); `infra/environments/` no longer exists. |
-| Agent = Hono + LangGraph + RAG + MCP tools | `services/agent/src/index.ts` is a single-file Hono "Hello Hono!" on port 3000. No LangGraph/MCP/`src/adapters` yet. |
-| AI = FastAPI + ML models | `services/ai/main.py` is a `print("Hello from ml!")` stub. No FastAPI app, no `app/`/`ml/` folders. |
-| `shared/`, `docs/architecture`, `docs/specifications`, `docs/contracts`, `docs/progress`, `docs/api/bruno` | None exist. The only real docs are in `docs/models/` (see below). |
-| Data exposes gRPC | Go service is REST-only (Gin). No protobuf/gRPC in the tree. |
+| Agent = Hono + LangGraph + RAG + MCP tools | 🔜 **Phase 3.** `services/agent/src/index.ts` is still a single-file Hono "Hello Hono!" on port 3000. No LangGraph/MCP/`src/adapters` yet — and LangGraph is **deliberately deferred**: M6 lands as a deterministic orchestration core in plain TS ([ADR-002](docs/architecture/adr/ADR-002-m6-deterministic-core.md)). |
+| AI = FastAPI + ML models | ✅ **Real & serving** (no longer the `Hello from ml!` stub). FastAPI on `app/main.py`, port 8000, models loaded once at startup (~25–37s — SHAP init, not a hang). See per-model rows below. |
+| — M1 (ETA) | ✅ **v2 artifacts** at `services/ai/models/m1/` + `configs/m1/`. `POST /internal/m1/eta`. Golden-tested (4 passed). **Fail-fast** if artifacts missing. |
+| — M2 (hub dwell) | ✅ **FULL mode** — artifacts at `services/ai/models/m2/` + `configs/m2/`. `POST /internal/m2/dwell`. **Degraded-tolerant**: without artifacts it silently serves historical median (`m2_degraded: true`) instead of failing. |
+| — M4 (route opt) | ✅ **Precomputed** Pareto at `services/ai/data/pareto_routes_jabodetabek_urban.json`, served via **`GET`** `/internal/m4/routes?scenario=…` ([ADR-004](docs/architecture/adr/ADR-004-m4-precomputed.md)). NSGA-II engine kept as evidence at `services/ai/experiments/m4_nsga2.py` — **not a runtime path**. One scenario only; unknown scenario → 404. |
+| — M3 / M5 | ✅ M3 rule-based carbon; M5 SHAP TreeExplainer on **M1 P90** (additivity checked at startup, fail-fast). |
+| FE wiring | 🔜 **Phase 4.** `apps/app` is still 100% mock by design. The 4 FE-facing endpoints (contract §A) are M6's job in `agent`, not `ai`. |
+| `shared/`, `docs/architecture`, `docs/specifications`, `docs/contracts`, `docs/progress`, `docs/api/bruno` | Partially real now: `docs/{architecture/adr,specifications/ai,contracts,progress,api/bruno}` exist (see below). **`shared/` still does not exist** — no Kafka event schemas. |
+| Data exposes gRPC | Go service is REST-only (Gin). No protobuf/gRPC in the tree. **Out of the demo path entirely** ([ADR-003](docs/architecture/adr/ADR-003-demo-scope-exclusions.md)). |
+| Kafka / Neo4j / Qdrant / Mongo event-driven platform | Declared in compose, **not used by the demo path** — deliberate, see [ADR-003](docs/architecture/adr/ADR-003-demo-scope-exclusions.md). Shipments are served from static JSON by `agent`. Don't narrate Kafka as live. |
 
 When AGENTS.md and the filesystem disagree, **the filesystem wins** — and flag the drift to the user.
+
+> **Known contract drift:** `docs/contracts/rest/v1.md` §B (written before the service existed) says
+> `POST /internal/m4/routes` and `dwell_p50_min`. The implementation uses **GET** + query and
+> `dwell_p50_minutes`. §B-bis in that file records the actual shape and is **normative for M6**.
 
 ## What actually exists
 
@@ -25,16 +35,30 @@ When AGENTS.md and the filesystem disagree, **the filesystem wins** — and flag
 SLAra/
 ├── apps/app/                 # React Router v8 (framework mode) starter — React 19, Tailwind v4, Vite 8
 ├── services/
-│   ├── agent/                # Hono (Node 22 + tsx). Single src/index.ts. Port 3000
+│   ├── agent/                # Hono (Node 22 + tsx). Single src/index.ts. Port 3000 — M6 lands here (Phase 3)
 │   ├── data/                 # Go 1.25 + Gin. cmd/api/main.go + internal/database/entities. Port 8081
-│   ├── ai/                   # Python + uv. main.py stub. Port 8000
+│   ├── ai/                   # FastAPI + uv — REAL, serving M1–M5. Port 8000
+│   │   ├── app/{main,schemas}.py, app/api/internal.py, app/core/artifacts.py, app/ml/{m1,m2,m3,m5}.py
+│   │   ├── models/{m1,m2}/   # LightGBM boosters (NOTE: .dockerignore excludes models/ — mounted as volume)
+│   │   ├── configs/{m1,m2}/  # thresholds, target encoding, historical median, coverage
+│   │   ├── data/             # pareto_routes_*.json (M4), hub_telemetry.json (mock, 3 hubs × 2 conditions)
+│   │   ├── experiments/      # m4_nsga2.py — evidence only, NOT runtime
+│   │   └── tests/            # golden test M1 + M5 additivity
 │   └── gateway/              # nginx.conf only
-├── infra/docker-compose.yml  # gateway + 3 services + mongo/neo4j/redis/qdrant/kafka (KRaft). Not runnable yet — see table above
-├── docs/models/              # THE real content: ML model specs M1–M6 + INTERACTION_MAP + plan
+├── infra/docker-compose.yml  # gateway + 3 services + mongo/neo4j/redis/qdrant/kafka (KRaft)
+├── docs/
+│   ├── models/               # ML model specs M1–M6 + INTERACTION_MAP + evidence/M4_RESULTS.md
+│   ├── architecture/adr/     # ADR-001..004 (demo transport, M6 core, scope exclusions, M4 precomputed)
+│   ├── contracts/            # rest/v1.md (FROZEN) + CHANGELOG.md
+│   ├── specifications/ai/    # serving.md, m4-route-optimization.md
+│   ├── progress/             # ml/model-registry.md, ai/{tracker,integration-log}.md, plan/
+│   └── api/bruno/ai/         # 7 Bruno requests covering every §B endpoint
 └── graphify-out/             # generated codebase graph (graph.json, GRAPH_REPORT.md, manifest.json)
 ```
 
-The most substantive code today is the **Go `data` service's domain entities** (`services/data/internal/database/entities/`: driver, geo, hub, route, shipment, traffic, vehicle, weather) and the **ML design docs** in `docs/models/`.
+The most substantive code today is the **`ai` service** (`services/ai/app/`) plus the **Go `data` service's domain entities** (`services/data/internal/database/entities/`: driver, geo, hub, route, shipment, traffic, vehicle, weather) and the **ML design docs** in `docs/models/`.
+
+**Start here:** [`docs/progress/ai/integration-log.md`](docs/progress/ai/integration-log.md) (what moved where + why the deviations) → [`docs/specifications/ai/serving.md`](docs/specifications/ai/serving.md) (how serving works) → [`docs/progress/ml/model-registry.md`](docs/progress/ml/model-registry.md) (real metrics).
 
 ## Run commands (per service — verified against package.json / pyproject / go.mod)
 
@@ -48,9 +72,11 @@ go run ./cmd/api                # http://localhost:8081
 go test ./...                   # (no _test.go files present yet)
 go build ./...
 
-# AI (Python) — services/ai
-uv run python main.py           # currently just prints a stub message
+# AI (Python) — services/ai   ← Python 3.12 ONLY (not 3.14: shap→numba/llvmlite)
 uv sync                         # install deps from uv.lock
+uv run pytest tests/ -q         # → 4 passed (3 golden M1 + health/M5 additivity)
+uv run uvicorn app.main:app --port 8000   # wait ~25–37s for "Startup selesai" (SHAP init)
+curl localhost:8000/health      # m2.mode MUST be FULL — DEGRADED = M2 artifacts unreadable
 
 # Dashboard — apps/app
 pnpm install && pnpm dev        # react-router dev

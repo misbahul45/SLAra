@@ -1,0 +1,35 @@
+meta {
+  name: M2 - Dwell (normal)
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{aiBaseUrl}}/internal/m2/dwell
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "hub_id": "HUB-CGK-02",
+    "condition": "normal"
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.m2_degraded: eq false
+}
+
+docs {
+  Pasangan dari m2-dwell-congested.bru — JALANKAN KEDUANYA, angkanya baru bermakna
+  kalau dibandingkan.
+
+  Hasil terverifikasi 15 Jul 2026: dwell_p50_minutes 16.09 · dwell_p90_minutes 34.07
+  · queue_length 4 · dock_utilization 0.38 · m2_degraded false.
+
+  Telemetry diambil dari services/ai/data/hub_telemetry.json berdasarkan
+  (hub_id, condition). `overrides` opsional untuk menimpa fitur tertentu.
+  model_confidence di response = conf_m2 yang dipakai formula confidence M6 (bobot 0.15).
+}
