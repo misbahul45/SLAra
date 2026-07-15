@@ -104,3 +104,9 @@ Per AGENTS.md, `graphify-out/` holds a generated dependency/module graph and is 
 - **Bilingual docs.** AGENTS.md and most docs are written in Indonesian. Match the surrounding language when editing docs; code and identifiers stay English.
 - **Two overlapping instruction files.** `AGENTS.md` and this `claude.md`/`CLAUDE.md` exist side by side (on Windows the latter two are the same file). Keep this file focused on *current reality + run commands*; push convention/policy changes into AGENTS.md so they don't drift apart again.
 - **Don't merge to `main` directly** — everything goes through PR review (AGENTS.md rule).
+- **`services/ai` is Python 3.12, and `numpy` is pinned `<2.5` on purpose.** Modern `numba` (needed by `shap`) requires `numpy<2.5`; without the bound, uv picks numpy 2.5.1, backtracks numba to 0.53.1 (2021, no 3.12 wheel) and the build fails with a misleading "only versions >=3.6,<3.10 are supported". Don't "fix" it by loosening numpy or downgrading shap — see [integration log §D3](docs/progress/ai/integration-log.md). macOS Intel contributors will still hit this (numba 0.66 dropped those wheels).
+- **Honesty rules for the demo narrative** (all recorded as ADRs, don't overclaim):
+  - Kafka/Neo4j/Qdrant/`data` service are **scaffolded, not live** in the demo path ([ADR-003](docs/architecture/adr/ADR-003-demo-scope-exclusions.md)).
+  - M6 is a **deterministic core**, not LangGraph ([ADR-002](docs/architecture/adr/ADR-002-m6-deterministic-core.md)).
+  - M4 routes are **precomputed** — they do **not** adapt to live traffic/weather/dwell ([ADR-004](docs/architecture/adr/ADR-004-m4-precomputed.md)). M4's −53.2% SLA-risk comes from **one** scenario; the M4 design (§7.3) asks for three before generalizing.
+  - M1's `hub_dwell_time_predicted` was **trained on a fallback generator, not M2 output** — the M2→M1 link is a *serving-time* contract.
