@@ -37,6 +37,15 @@ Bruno collection: [`docs/api/bruno/ai/`](../../api/bruno/ai/) — 6 request menu
 Sebuah endpoint DONE kalau: (1) diimplementasi sesuai kontrak §B-bis, (2) punya bukti observasi nyata
 (test/curl), (3) punya request Bruno, (4) tercatat di sini + registry.
 
+## 🐞 Bug terbuka
+
+| Bug | Dampak | Status |
+|---|---|---|
+| **Config per-hub M2 diabaikan diam-diam** — `_cfg_lookup()` mengerti kunci `hubs`, artifacts memakai `per_hub` | `conf_m2` = **0.95** hardcoded (bukan 0.9986); `coverage_P90` = **0.896** hardcoded (bukan 0.9014); `hub_id_target_encoded` = 13.248 (bukan 13.128) → dwell sedikit bergeser. **Senyap**: `m2_degraded` tetap false, mode tetap FULL | 🔴 **Terbuka** — perlu keputusan. Fix kecil tapi mengubah angka dwell terverifikasi → wajib re-verifikasi. Detail: [integration log §6](integration-log.md) |
+
+Endpoint M2 tetap ditandai DONE: ia melayani request, mode FULL, dan link congested>normal terbukti.
+Yang salah adalah **nilai confidence/coverage yang dilaporkan**, bukan ketersediaan endpoint.
+
 ## Yang BELUM (sadar, tercatat)
 
 | Item | Status | Catatan |

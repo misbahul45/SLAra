@@ -76,14 +76,48 @@ Golden test (`services/ai/tests/test_golden_m1.py`): output endpoint == `m1_v2_i
   `configs/m2/{hub_target_encoding,hub_historical_median,coverage_confidence}.yaml`
 - **Arsitektur:** LightGBM dual-quantile, 21 fitur, non-crossing enforce (`p90 = max(p50, p90)`)
 
+> ⚠️ **Provenance: artifacts yang di-serve adalah REPRODUKSI (15 Jul 2026), bukan run asli.**
+> Simulator M/M/c VERBATIM (seed 42), tapi **feature engineering direkonstruksi dari spec FASE 4
+> karena cell kode asli hilang saat export .ipynb**. Validasi reproduksi vs run asli ada di
+> [`M2_ARTIFACTS_REPRODUCTION.md`](../../models/evidence/M2_ARTIFACTS_REPRODUCTION.md).
+
 ### Metrik
 
-| Metrik | Nilai |
-|---|---|
-| Coverage P90 | **89.6%** |
-| Pinball loss P50 | **3.58** |
-| Latency | ~3 ms |
-| `model_confidence` (= `conf_m2`) | 0.95 (FULL) · 0.50 (DEGRADED) |
+| Metrik | Run asli | **Reproduksi (yang di-serve)** |
+|---|---|---|
+| Coverage P90 | 89.6% | **89.74%** (band 88–92 ✓) |
+| Pinball loss P50 | 3.58 | **3.578** |
+| Global `model_confidence` | 0.9979 | **0.9974** |
+| MAE P50 | — | 7.156 |
+| Pinball P90 | — | 2.146 |
+| Latency | ~3 ms | ~3–7 ms |
+
+Sumber angka: [`M2_results_summary.json`](../../models/evidence/M2_results_summary.json).
+
+> 🐞 **BUG AKTIF — angka `coverage_P90` & `model_confidence` di response TIDAK diambil dari config.**
+> Yang benar-benar keluar dari `/internal/m2/dwell` saat ini: `coverage_P90: 0.896` dan
+> `model_confidence: 0.95` — keduanya **default hardcoded di `app/ml/m2.py`**, bukan nilai per-hub
+> dari `coverage_confidence.yaml` (`HUB-CGK-02`: 0.9014 / 0.9986).
+>
+> Sebabnya: `_cfg_lookup()` hanya mengerti yaml berkunci `hubs`, sedangkan artifacts memakai
+> `per_hub` → lookup meleset diam-diam ke fallback. Semua config M2 kena:
+>
+> | Config | Nilai per-hub | Yang dipakai serving |
+> |---|---|---|
+> | `hub_target_encoding` | 13.128 | 13.248 (`global_mean`) |
+> | `hub_historical_median` | 10.796 | 10.816 (`global`) |
+> | `coverage_P90` | 0.9014 | **0.896** (hardcoded) |
+> | `model_confidence` | 0.9986 | **0.95** (hardcoded) |
+>
+> **Kenapa ini lolos review:** `0.896` kebetulan **persis sama** dengan coverage run asli (89.6%)
+> yang tertulis di plan — jadi angkanya *terlihat benar*. Padahal itu default, bukan hasil ukur.
+>
+> **Dampak:** `conf_m2` masuk formula confidence M6 (bobot 0.15) → M6 memakai 0.95, bukan 0.9986.
+> Fitur `hub_id_target_encoded` juga meleset (13.248 vs 13.128) → prediksi dwell sedikit bergeser.
+> `m2_degraded` tetap `false` dan mode tetap `FULL` — **gagalnya senyap**.
+>
+> Belum diperbaiki: memperbaikinya mengubah angka dwell yang sudah diverifikasi, dan itu di luar
+> scope tugas integrasi ini. Lihat [integration log §6](../ai/integration-log.md).
 
 ### Mode degraded (teruji)
 

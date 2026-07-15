@@ -1,9 +1,0 @@
-per_hub:
-  HUB-BDG-01: 10.615
-  HUB-CGK-01: 11.011
-  HUB-CGK-02: 10.796
-  HUB-JOG-01: 10.838
-  HUB-SBY-01: 10.637
-  HUB-SMG-01: 10.672
-global: 10.816
-fallback_multiplier_p90: 1.4

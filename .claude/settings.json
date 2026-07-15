@@ -74,7 +74,14 @@
       "Bash(curl -s -X POST localhost:8000/internal/m1/eta -H \"Content-Type: application/json\" -d '{\"distance_km\":6.0,\"weather_severity\":0,\"traffic_index\":0.8,\"is_weekend\":0,\"vehicle_type_encoded\":0,\"pickup_hour\":10,\"hub_dwell_time_predicted\":7.0,\"promised_deadline\":55.0}')",
       "Bash(git check-ignore *)",
       "Bash(docker --version)",
-      "Bash(docker compose *)"
+      "Bash(docker compose *)",
+      "Bash(bash infra/check-health.sh --direct-only)",
+      "Bash(awk '{print $NF}')",
+      "Bash(cp \"_incoming/m1v2_artifacts \\(1\\)/m1v2_artifacts/m1_v2_inference.py\" services/ai/experiments/m1_v2_inference.py)",
+      "Bash(cp \"_incoming/m2_artifacts/m2_artifacts/m2_reproduce.py\" services/ai/experiments/m2_reproduce.py)",
+      "Bash(cp \"_incoming/m1v2_artifacts \\(1\\)/m1v2_artifacts/results_summary.json\" docs/models/evidence/M1_v2_results_summary.json)",
+      "Bash(cp \"_incoming/m2_artifacts/m2_artifacts/results_summary.json\" docs/models/evidence/M2_results_summary.json)",
+      "Bash(cp \"_incoming/m2_artifacts/m2_artifacts/README.md\" docs/models/evidence/M2_ARTIFACTS_REPRODUCTION.md)"
     ]
   }
 }

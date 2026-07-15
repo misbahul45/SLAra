@@ -1,8 +1,0 @@
-per_hub:
-  HUB-BDG-01: 13.022
-  HUB-CGK-01: 13.443
-  HUB-CGK-02: 13.128
-  HUB-JOG-01: 13.135
-  HUB-SBY-01: 13.263
-  HUB-SMG-01: 13.371
-global_mean: 13.248
