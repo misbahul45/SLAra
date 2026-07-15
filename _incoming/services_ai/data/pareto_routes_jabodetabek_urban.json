@@ -1,0 +1,895 @@
+{
+ "scenario": {
+  "id": "jabodetabek_urban_sameday",
+  "hub": {
+   "id": "HUB-CGK-02",
+   "name": "Hub Cibitung",
+   "lat": -6.2606,
+   "lng": 107.081
+  },
+  "n_stops": 16,
+  "vehicle": "VAN",
+  "weather": "light_rain",
+  "max_tour_min": 480.0,
+  "stops": [
+   {
+    "idx": 0,
+    "lat": -6.22939,
+    "lng": 107.08764,
+    "load_kg": 16.4,
+    "deadline_min": 400.0
+   },
+   {
+    "idx": 1,
+    "lat": -6.27295,
+    "lng": 107.01893,
+    "load_kg": 18.0,
+    "deadline_min": 200.0
+   },
+   {
+    "idx": 2,
+    "lat": -6.21838,
+    "lng": 107.12587,
+    "load_kg": 21.4,
+    "deadline_min": 200.0
+   },
+   {
+    "idx": 3,
+    "lat": -6.23934,
+    "lng": 107.09843,
+    "load_kg": 11.6,
+    "deadline_min": 177.0
+   },
+   {
+    "idx": 4,
+    "lat": -6.31776,
+    "lng": 107.11613,
+    "load_kg": 9.5,
+    "deadline_min": 265.0
+   },
+   {
+    "idx": 5,
+    "lat": -6.20317,
+    "lng": 107.05963,
+    "load_kg": 21.6,
+    "deadline_min": 279.0
+   },
+   {
+    "idx": 6,
+    "lat": -6.23105,
+    "lng": 107.1459,
+    "load_kg": 12.9,
+    "deadline_min": 412.0
+   },
+   {
+    "idx": 7,
+    "lat": -6.22781,
+    "lng": 107.13504,
+    "load_kg": 28.4,
+    "deadline_min": 357.0
+   },
+   {
+    "idx": 8,
+    "lat": -6.31335,
+    "lng": 107.11897,
+    "load_kg": 20.3,
+    "deadline_min": 294.0
+   },
+   {
+    "idx": 9,
+    "lat": -6.27145,
+    "lng": 107.03725,
+    "load_kg": 34.1,
+    "deadline_min": 365.0
+   },
+   {
+    "idx": 10,
+    "lat": -6.2818,
+    "lng": 107.07534,
+    "load_kg": 29.5,
+    "deadline_min": 155.0
+   },
+   {
+    "idx": 11,
+    "lat": -6.20952,
+    "lng": 107.01613,
+    "load_kg": 15.9,
+    "deadline_min": 175.0
+   },
+   {
+    "idx": 12,
+    "lat": -6.2463,
+    "lng": 107.0316,
+    "load_kg": 34.1,
+    "deadline_min": 354.0
+   },
+   {
+    "idx": 13,
+    "lat": -6.22304,
+    "lng": 107.10563,
+    "load_kg": 33.2,
+    "deadline_min": 340.0
+   },
+   {
+    "idx": 14,
+    "lat": -6.27236,
+    "lng": 107.11427,
+    "load_kg": 18.6,
+    "deadline_min": 323.0
+   },
+   {
+    "idx": 15,
+    "lat": -6.30046,
+    "lng": 107.14545,
+    "load_kg": 15.1,
+    "deadline_min": 392.0
+   }
+  ]
+ },
+ "objectives": [
+  "cost_idr",
+  "sla_risk (via M1 v2 P90)",
+  "co2_kg (M3 rule)"
+ ],
+ "constraints": [
+  "vehicle_capacity_600kg",
+  "tour_duration_p50<=480min"
+ ],
+ "tier_rule_tour": "SAFE <5% stop telat@P90 \u00b7 WARNING 5-20% \u00b7 CRITICAL >20%",
+ "baseline_distance_only_nn": {
+  "t50": 322.308,
+  "t90": 412.952,
+  "dist": 77.551,
+  "cost": 598983.529,
+  "co2": 15.913,
+  "risk": 0.183,
+  "late": 4,
+  "feasible": true,
+  "risk_tier": "CRITICAL",
+  "late_share_p90": 0.25
+ },
+ "candidates": [
+  {
+   "route_id": "R-A",
+   "label": "Fastest",
+   "eta_p50_min": 305.9,
+   "eta_p90_min": 392.3,
+   "risk_tier": "CRITICAL",
+   "late_share_p90": 0.25,
+   "stop_arrivals": [
+    {
+     "stop_idx": 10,
+     "arrival_p50_min": 31.2,
+     "arrival_p90_min": 38.9,
+     "deadline_min": 155.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 9,
+     "arrival_p50_min": 55.3,
+     "arrival_p90_min": 70.1,
+     "deadline_min": 365.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 1,
+     "arrival_p50_min": 68.4,
+     "arrival_p90_min": 88.2,
+     "deadline_min": 200.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 12,
+     "arrival_p50_min": 87.4,
+     "arrival_p90_min": 112.4,
+     "deadline_min": 354.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 11,
+     "arrival_p50_min": 105.9,
+     "arrival_p90_min": 136.0,
+     "deadline_min": 175.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 5,
+     "arrival_p50_min": 125.1,
+     "arrival_p90_min": 160.0,
+     "deadline_min": 279.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 0,
+     "arrival_p50_min": 142.9,
+     "arrival_p90_min": 183.5,
+     "deadline_min": 400.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 3,
+     "arrival_p50_min": 154.1,
+     "arrival_p90_min": 199.1,
+     "deadline_min": 177.0,
+     "late_p90": true
+    },
+    {
+     "stop_idx": 13,
+     "arrival_p50_min": 170.3,
+     "arrival_p90_min": 220.8,
+     "deadline_min": 340.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 2,
+     "arrival_p50_min": 188.6,
+     "arrival_p90_min": 245.5,
+     "deadline_min": 200.0,
+     "late_p90": true
+    },
+    {
+     "stop_idx": 7,
+     "arrival_p50_min": 201.5,
+     "arrival_p90_min": 262.5,
+     "deadline_min": 357.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 6,
+     "arrival_p50_min": 209.2,
+     "arrival_p90_min": 273.3,
+     "deadline_min": 412.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 14,
+     "arrival_p50_min": 231.3,
+     "arrival_p90_min": 300.6,
+     "deadline_min": 323.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 4,
+     "arrival_p50_min": 251.0,
+     "arrival_p90_min": 325.3,
+     "deadline_min": 265.0,
+     "late_p90": true
+    },
+    {
+     "stop_idx": 8,
+     "arrival_p50_min": 256.5,
+     "arrival_p90_min": 332.6,
+     "deadline_min": 294.0,
+     "late_p90": true
+    },
+    {
+     "stop_idx": 15,
+     "arrival_p50_min": 275.4,
+     "arrival_p90_min": 356.8,
+     "deadline_min": 392.0,
+     "late_p90": false
+    }
+   ],
+   "cost_idr": 604180,
+   "co2_kg": 16.06,
+   "distance_km": 78.3,
+   "sla_risk": 0.1731,
+   "late_stops_p90": 4,
+   "stop_order": [
+    10,
+    9,
+    1,
+    12,
+    11,
+    5,
+    0,
+    3,
+    13,
+    2,
+    7,
+    6,
+    14,
+    4,
+    8,
+    15
+   ],
+   "geometry": [
+    [
+     -6.2606,
+     107.081
+    ],
+    [
+     -6.2818,
+     107.07534
+    ],
+    [
+     -6.27145,
+     107.03725
+    ],
+    [
+     -6.27295,
+     107.01893
+    ],
+    [
+     -6.2463,
+     107.0316
+    ],
+    [
+     -6.20952,
+     107.01613
+    ],
+    [
+     -6.20317,
+     107.05963
+    ],
+    [
+     -6.22939,
+     107.08764
+    ],
+    [
+     -6.23934,
+     107.09843
+    ],
+    [
+     -6.22304,
+     107.10563
+    ],
+    [
+     -6.21838,
+     107.12587
+    ],
+    [
+     -6.22781,
+     107.13504
+    ],
+    [
+     -6.23105,
+     107.1459
+    ],
+    [
+     -6.27236,
+     107.11427
+    ],
+    [
+     -6.31776,
+     107.11613
+    ],
+    [
+     -6.31335,
+     107.11897
+    ],
+    [
+     -6.30046,
+     107.14545
+    ],
+    [
+     -6.2606,
+     107.081
+    ]
+   ],
+   "vs_baseline": {
+    "cost_pct": 0.9,
+    "sla_risk_pct": -5.3,
+    "co2_pct": 0.9
+   }
+  },
+  {
+   "route_id": "R-B",
+   "label": "Balanced",
+   "eta_p50_min": 326.5,
+   "eta_p90_min": 415.3,
+   "risk_tier": "WARNING",
+   "late_share_p90": 0.125,
+   "stop_arrivals": [
+    {
+     "stop_idx": 10,
+     "arrival_p50_min": 31.2,
+     "arrival_p90_min": 38.9,
+     "deadline_min": 155.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 9,
+     "arrival_p50_min": 55.3,
+     "arrival_p90_min": 70.1,
+     "deadline_min": 365.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 1,
+     "arrival_p50_min": 68.4,
+     "arrival_p90_min": 88.2,
+     "deadline_min": 200.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 12,
+     "arrival_p50_min": 87.4,
+     "arrival_p90_min": 112.4,
+     "deadline_min": 354.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 11,
+     "arrival_p50_min": 105.9,
+     "arrival_p90_min": 136.0,
+     "deadline_min": 175.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 5,
+     "arrival_p50_min": 125.1,
+     "arrival_p90_min": 160.0,
+     "deadline_min": 279.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 0,
+     "arrival_p50_min": 142.9,
+     "arrival_p90_min": 183.5,
+     "deadline_min": 400.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 3,
+     "arrival_p50_min": 154.1,
+     "arrival_p90_min": 199.1,
+     "deadline_min": 177.0,
+     "late_p90": true
+    },
+    {
+     "stop_idx": 13,
+     "arrival_p50_min": 170.3,
+     "arrival_p90_min": 220.8,
+     "deadline_min": 340.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 4,
+     "arrival_p50_min": 207.9,
+     "arrival_p90_min": 263.0,
+     "deadline_min": 265.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 8,
+     "arrival_p50_min": 213.4,
+     "arrival_p90_min": 270.4,
+     "deadline_min": 294.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 15,
+     "arrival_p50_min": 232.3,
+     "arrival_p90_min": 294.5,
+     "deadline_min": 392.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 14,
+     "arrival_p50_min": 250.8,
+     "arrival_p90_min": 317.8,
+     "deadline_min": 323.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 7,
+     "arrival_p50_min": 271.9,
+     "arrival_p90_min": 344.5,
+     "deadline_min": 357.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 6,
+     "arrival_p50_min": 279.6,
+     "arrival_p90_min": 355.3,
+     "deadline_min": 412.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 2,
+     "arrival_p50_min": 299.9,
+     "arrival_p90_min": 382.8,
+     "deadline_min": 200.0,
+     "late_p90": true
+    }
+   ],
+   "cost_idr": 640654,
+   "co2_kg": 18.13,
+   "distance_km": 87.9,
+   "sla_risk": 0.0855,
+   "late_stops_p90": 2,
+   "stop_order": [
+    10,
+    9,
+    1,
+    12,
+    11,
+    5,
+    0,
+    3,
+    13,
+    4,
+    8,
+    15,
+    14,
+    7,
+    6,
+    2
+   ],
+   "geometry": [
+    [
+     -6.2606,
+     107.081
+    ],
+    [
+     -6.2818,
+     107.07534
+    ],
+    [
+     -6.27145,
+     107.03725
+    ],
+    [
+     -6.27295,
+     107.01893
+    ],
+    [
+     -6.2463,
+     107.0316
+    ],
+    [
+     -6.20952,
+     107.01613
+    ],
+    [
+     -6.20317,
+     107.05963
+    ],
+    [
+     -6.22939,
+     107.08764
+    ],
+    [
+     -6.23934,
+     107.09843
+    ],
+    [
+     -6.22304,
+     107.10563
+    ],
+    [
+     -6.31776,
+     107.11613
+    ],
+    [
+     -6.31335,
+     107.11897
+    ],
+    [
+     -6.30046,
+     107.14545
+    ],
+    [
+     -6.27236,
+     107.11427
+    ],
+    [
+     -6.22781,
+     107.13504
+    ],
+    [
+     -6.23105,
+     107.1459
+    ],
+    [
+     -6.21838,
+     107.12587
+    ],
+    [
+     -6.2606,
+     107.081
+    ]
+   ],
+   "vs_baseline": {
+    "cost_pct": 7.0,
+    "sla_risk_pct": -53.2,
+    "co2_pct": 14.0
+   }
+  },
+  {
+   "route_id": "R-C",
+   "label": "Greenest",
+   "eta_p50_min": 311.8,
+   "eta_p90_min": 402.3,
+   "risk_tier": "CRITICAL",
+   "late_share_p90": 0.312,
+   "stop_arrivals": [
+    {
+     "stop_idx": 10,
+     "arrival_p50_min": 31.2,
+     "arrival_p90_min": 38.9,
+     "deadline_min": 155.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 9,
+     "arrival_p50_min": 55.3,
+     "arrival_p90_min": 70.1,
+     "deadline_min": 365.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 1,
+     "arrival_p50_min": 68.4,
+     "arrival_p90_min": 88.2,
+     "deadline_min": 200.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 12,
+     "arrival_p50_min": 87.4,
+     "arrival_p90_min": 112.4,
+     "deadline_min": 354.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 11,
+     "arrival_p50_min": 105.9,
+     "arrival_p90_min": 136.0,
+     "deadline_min": 175.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 5,
+     "arrival_p50_min": 125.1,
+     "arrival_p90_min": 160.0,
+     "deadline_min": 279.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 0,
+     "arrival_p50_min": 142.9,
+     "arrival_p90_min": 183.5,
+     "deadline_min": 400.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 3,
+     "arrival_p50_min": 154.1,
+     "arrival_p90_min": 199.1,
+     "deadline_min": 177.0,
+     "late_p90": true
+    },
+    {
+     "stop_idx": 13,
+     "arrival_p50_min": 170.3,
+     "arrival_p90_min": 220.8,
+     "deadline_min": 340.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 2,
+     "arrival_p50_min": 188.6,
+     "arrival_p90_min": 245.5,
+     "deadline_min": 200.0,
+     "late_p90": true
+    },
+    {
+     "stop_idx": 7,
+     "arrival_p50_min": 201.5,
+     "arrival_p90_min": 262.5,
+     "deadline_min": 357.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 6,
+     "arrival_p50_min": 209.2,
+     "arrival_p90_min": 273.3,
+     "deadline_min": 412.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 15,
+     "arrival_p50_min": 237.5,
+     "arrival_p90_min": 306.1,
+     "deadline_min": 392.0,
+     "late_p90": false
+    },
+    {
+     "stop_idx": 8,
+     "arrival_p50_min": 256.4,
+     "arrival_p90_min": 330.3,
+     "deadline_min": 294.0,
+     "late_p90": true
+    },
+    {
+     "stop_idx": 4,
+     "arrival_p50_min": 262.7,
+     "arrival_p90_min": 338.8,
+     "deadline_min": 265.0,
+     "late_p90": true
+    },
+    {
+     "stop_idx": 14,
+     "arrival_p50_min": 283.3,
+     "arrival_p90_min": 365.4,
+     "deadline_min": 323.0,
+     "late_p90": true
+    }
+   ],
+   "cost_idr": 566608,
+   "co2_kg": 15.16,
+   "distance_km": 73.2,
+   "sla_risk": 0.2149,
+   "late_stops_p90": 5,
+   "stop_order": [
+    10,
+    9,
+    1,
+    12,
+    11,
+    5,
+    0,
+    3,
+    13,
+    2,
+    7,
+    6,
+    15,
+    8,
+    4,
+    14
+   ],
+   "geometry": [
+    [
+     -6.2606,
+     107.081
+    ],
+    [
+     -6.2818,
+     107.07534
+    ],
+    [
+     -6.27145,
+     107.03725
+    ],
+    [
+     -6.27295,
+     107.01893
+    ],
+    [
+     -6.2463,
+     107.0316
+    ],
+    [
+     -6.20952,
+     107.01613
+    ],
+    [
+     -6.20317,
+     107.05963
+    ],
+    [
+     -6.22939,
+     107.08764
+    ],
+    [
+     -6.23934,
+     107.09843
+    ],
+    [
+     -6.22304,
+     107.10563
+    ],
+    [
+     -6.21838,
+     107.12587
+    ],
+    [
+     -6.22781,
+     107.13504
+    ],
+    [
+     -6.23105,
+     107.1459
+    ],
+    [
+     -6.30046,
+     107.14545
+    ],
+    [
+     -6.31335,
+     107.11897
+    ],
+    [
+     -6.31776,
+     107.11613
+    ],
+    [
+     -6.27236,
+     107.11427
+    ],
+    [
+     -6.2606,
+     107.081
+    ]
+   ],
+   "vs_baseline": {
+    "cost_pct": -5.4,
+    "sla_risk_pct": 17.6,
+    "co2_pct": -4.8
+   }
+  }
+ ],
+ "selection_weights_post_pareto": {
+  "note": "Pareto dulu, weights hanya utk memilih kandidat tampilan",
+  "fastest": "min t50",
+  "greenest": "min co2",
+  "balanced": "knee (min Chebyshev)"
+ },
+ "pareto_stats": {
+  "generations": 150,
+  "population": 120,
+  "pareto_solutions": 17,
+  "hypervolume": 0.6636,
+  "runtime_s": 13.2,
+  "engine": "DEAP 1.4 NSGA-II",
+  "seed": 42
+ },
+ "convergence_hv": [
+  1.331,
+  1.331,
+  1.331,
+  1.331,
+  0.8543,
+  0.8154,
+  0.744,
+  0.4152,
+  0.6827,
+  0.4472,
+  0.505,
+  0.5667,
+  0.4805,
+  0.5806,
+  0.6105,
+  0.6093,
+  0.6149,
+  0.6454,
+  0.6338,
+  0.6445,
+  0.6382,
+  0.6477,
+  0.6464,
+  0.6495,
+  0.6477,
+  0.6433,
+  0.6511,
+  0.6494,
+  0.6448,
+  0.662,
+  0.6495,
+  0.6516,
+  0.6608,
+  0.6732,
+  0.6628,
+  0.655,
+  0.6663,
+  0.6596,
+  0.6593,
+  0.6684,
+  0.6696,
+  0.67,
+  0.674,
+  0.6644,
+  0.6706,
+  0.6578,
+  0.669,
+  0.6707,
+  0.6572,
+  0.6619,
+  0.6636
+ ],
+ "cs_m4": 0.996,
+ "leg_eta_source": "M1 v2 dual-quantile (batch 420 pairs) + conformal delta"
+}
