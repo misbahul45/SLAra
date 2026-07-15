@@ -93,11 +93,14 @@ services:
       redis:
         condition: service_healthy
     healthcheck:
-      test: ["CMD-SHELL", "wget -q --spider http://localhost:8000/health || exit 1"]
+      # Image ai = python:3.12-slim: TIDAK punya wget maupun curl (kasus yang sama dgn B1 di
+      # qdrant, tapi ini di jalur demo). Pakai python stdlib — satu-satunya yang dijamin ada.
+      # Startup ~25-37s (init SHAP TreeExplainer) -> start_period 45s, bukan 30s.
+      test: ["CMD", "python3", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/health', timeout=3).status == 200 else 1)"]
       interval: 10s
       timeout: 5s
       retries: 10
-      start_period: 30s
+      start_period: 45s
     networks:
       - slara_net
 

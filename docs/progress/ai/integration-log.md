@@ -132,9 +132,63 @@ membedakannya tanpa lihat log.
 
 ---
 
-## 4. Yang perlu diperhatikan berikutnya
+## 4. Temuan infra (Step 4)
 
-- **`.dockerignore` mengecualikan `models/`** (by design: model di-mount sebagai volume, bukan
-  di-bake ke image). Karena `app/core/artifacts.py` **fail-fast** untuk M1/M4, container akan mati
-  saat startup kalau `infra/docker-compose.yml` tidak mount `./models`. Dicek di Step 4.
-- Verifikasi di atas dijalankan **di host**, belum di dalam container.
+**Mount `models/` — AMAN.** `.dockerignore` mengecualikan `models/` (by design: di-mount sebagai
+volume), dan `infra/docker-compose.yml` memang sudah mount `../services/ai/models:/app/models:ro`.
+Path cocok: di container `WORKDIR /app` → `BASE_DIR` resolve ke `/app` → `/app/models`. Fail-fast M1
+tidak akan kena. `configs/` & `data/` ikut ter-bake ke image (tidak ada di `.dockerignore`). ✅
+
+**Bug nyata yang ditemukan & diperbaiki: healthcheck `ai` (kelas yang sama dengan B1 qdrant).**
+
+```yaml
+# SEBELUM — selalu gagal
+test: ["CMD-SHELL", "wget -q --spider http://localhost:8000/health || exit 1"]
+```
+
+Image `ai` = `python:3.12-slim`, dan Debian slim **tidak punya `wget` maupun `curl`**. Dibuktikan:
+
+```
+$ docker run --rm python:3.12-slim sh -c 'which wget || echo "NO wget"; which curl || echo "NO curl"'
+NO wget
+NO curl
+```
+
+Dampaknya berantai persis seperti B1, tapi di jalur demo: healthcheck gagal selamanya → `ai` tidak
+pernah `healthy` → `gateway` (yang `depends_on` ai `service_healthy`) **tidak pernah start**. Ini
+tidak akan ketahuan dari `docker compose config` — schema-nya valid.
+
+```yaml
+# SESUDAH — pakai python stdlib (satu-satunya yang dijamin ada di image itu)
+test: ["CMD", "python3", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/health', timeout=3).status == 200 else 1)"]
+start_period: 45s   # naik dari 30s — startup 25-37s (init SHAP)
+```
+
+Diverifikasi dengan menjalankan perintah itu di dalam `python:3.12-slim` terhadap `/health` hidup → exit 0.
+
+**Aturan turunan:** cek tooling base image sebelum menulis healthcheck. Image alpine
+(agent/data/app/gateway/redis) punya busybox `wget`; image Debian `-slim` umumnya tidak.
+
+**Dokumentasi & skrip yang jadi salah gara-gara migrasi ini (ikut diperbaiki):**
+
+- `infra/README.md` — menyebut `MODEL_DIR` dibaca loader (sekarang **tidak**: `artifacts.py` resolve
+  dari root service, `MODEL_DIR` jadi vestigial) dan menyuruh daftar model di
+  `app/config/init_model.py` (file itu **sudah dihapus** bersama scaffold). Contoh output `/health`
+  juga sudah bentuk lama.
+- `infra/check-health.sh` — mengecek field `"models_loaded"` yang **tidak ada lagi** di `/health` baru.
+  Diganti cek `"mode":"FULL"` + `"additivity_ok":true` (byte-exact: FastAPI mengeluarkan JSON
+  **kompak tanpa spasi**, jadi pola `'"mode": "FULL"'` tidak akan match). Diverifikasi terhadap
+  service hidup: 3/3 check `ai` PASS.
+
+Cek `"mode":"FULL"` itu penting: M2 degraded-tolerant, jadi `status: ok` **tetap** muncul walau M2
+mati — tanpa cek mode, DEGRADED lolos tanpa kelihatan.
+
+## 5. Yang perlu diperhatikan berikutnya
+
+- Verifikasi semua di atas dijalankan **di host**, belum di dalam container.
+- `neo4j` healthcheck juga pakai `wget` dan image-nya Debian-based — **belum diverifikasi** (image
+  ~600MB, dan neo4j di luar demo path per ADR-003). Kalau nanti stack dinaikkan penuh dan `data`
+  tidak pernah healthy, curigai ini duluan.
+- `agent` healthcheck menembak `:3000/health`, padahal `agent` masih "Hello Hono!" tanpa route
+  `/health` → `agent` tidak akan pernah healthy → gateway ikut tertahan. Ini gap kode Phase 3,
+  bukan config.

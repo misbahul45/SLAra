@@ -65,7 +65,10 @@ if [ "$MODE" != "--gateway-only" ] && [ "$MODE" != "--docker-only" ]; then
   hit "agent /health"        "http://localhost:3000/health"  '"status":"ok"'
   hit "data  /health"        "http://localhost:8081/health"  '"status":"ok"'
   hit "ai    /health"        "http://localhost:8000/health"  '"status":"ok"'
-  hit "ai    /health (models)" "http://localhost:8000/health" '"models_loaded"'
+  # M2 degraded-tolerant: service tetap "ok" walau artifacts M2 hilang. Cek mode-nya eksplisit,
+  # kalau tidak, DEGRADED lolos tanpa kelihatan.
+  hit "ai    /health (m2 FULL)" "http://localhost:8000/health" '"mode":"FULL"'
+  hit "ai    /health (m5 additivity)" "http://localhost:8000/health" '"additivity_ok":true'
   hit "app   /"              "http://localhost:5173/"
 fi
 

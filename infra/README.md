@@ -70,8 +70,20 @@ Models live in `../services/ai/models/` on the host and are **bind-mounted** int
   ```bash
   docker compose ... restart ai
   ```
-- Loader reads `MODEL_DIR` (set to `/app/models` in compose); falls back to `app/../models` locally.
-- Register the file in `services/ai/app/config/init_model.py` (`Models` dict).
+- **The mount is mandatory, not an optimization.** M1 and M4 are **fail-fast**: without
+  `models/m1/*.txt` the container raises at startup and dies. Layout expected on the host:
+  ```
+  services/ai/models/m1/{m1_eta_v2_p50,m1_eta_v2_p90}.txt   # fail-fast
+  services/ai/models/m2/{m2_dwell_p50,m2_dwell_p90}.txt     # optional -> DEGRADED if absent
+  ```
+- `configs/` and `data/` are **baked into the image** (not in `.dockerignore`) — only `models/` is mounted.
+- **`MODEL_DIR` is vestigial.** The loader (`app/core/artifacts.py`) resolves paths relative to the
+  service root (`/app` in-container), not from `MODEL_DIR`. The env var still happens to point at the
+  same place, so nothing breaks — but changing it changes nothing either. There is no `Models` dict to
+  register anything in (`app/config/init_model.py` was removed with the scaffold); artifacts are
+  discovered by path.
+- M2 is **degraded-tolerant**: missing `models/m2/` → serves historical median with `m2_degraded: true`
+  instead of failing. Confirm which mode you got via `/health` → `models.m2.mode` (`FULL` | `DEGRADED`).
 
 Data persistence: named volumes `mongo_data`, `neo4j_data`, `redis_data`, `qdrant_data`, `kafka_data` survive `down` (removed only with `down -v`).
 
@@ -80,9 +92,34 @@ Data persistence: named volumes `mongo_data`, `neo4j_data`, `redis_data`, `qdran
 Each running stack: AI health at `GET /api/ai/health` (via gateway) or `GET http://localhost:8000/health` (direct):
 ```bash
 curl http://localhost:8000/health
-# {"status":"ok","service":"ai","models_loaded":["m1"],"models_total":5}
 ```
-`models_loaded` lists model keys with a loaded booster — use it to confirm the model mount worked.
+```json
+{ "status": "ok",
+  "models": {
+    "m1": { "loaded": true, "version": "2.1.0-dual-quantile-conformal", "thresholds": {...} },
+    "m2": { "loaded": true, "mode": "FULL" },
+    "m3": { "loaded": true, "type": "rule-based" },
+    "m4": { "loaded": true, "scenarios": ["jabodetabek_urban_sameday"] },
+    "m5": { "loaded": true, "additivity_ok": true, "explains": "m1_eta_v2_p90" } } }
+```
+
+What to look for:
+
+| Field | Expected | If not |
+|---|---|---|
+| `m2.mode` | `FULL` | `DEGRADED` = M2 artifacts unreadable (mount/name wrong). Service still answers — it won't error. |
+| `m5.additivity_ok` | `true` | SHAP attribution is wrong; startup should have already failed. |
+| `m1.loaded` / `m4.loaded` | `true` | Container should be dead already (fail-fast) — if you see `false`, something is very wrong. |
+
+**The ai container takes ~25–37s to become healthy** (SHAP TreeExplainer init on a 2000-tree model).
+That's why its `start_period` is 45s. Not a hang.
+
+> **Healthcheck gotcha (same class as the qdrant `wget` bug):** the ai image is `python:3.12-slim`,
+> which ships **neither `wget` nor `curl`**. Its healthcheck therefore uses `python3` + `urllib`
+> (stdlib). Don't "simplify" it back to `wget` — the check would fail forever, `ai` would never turn
+> healthy, and `gateway` (which `depends_on` ai `service_healthy`) would never start. Verify base-image
+> tooling before writing any healthcheck: alpine images (agent/data/app/gateway/redis) have busybox
+> `wget`; Debian `-slim` images generally do not.
 
 ### Health Check Script
 
