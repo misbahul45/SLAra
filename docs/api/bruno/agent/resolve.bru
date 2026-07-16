@@ -1,0 +1,32 @@
+meta {
+  name: Resolve SHP-2026-00403 (APPROVE)
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{agentBaseUrl}}/api/v1/shipments/SHP-2026-00403/resolve
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "action": "APPROVE",
+    "route_id": "R-B",
+    "operator_note": "reviewed via Bruno"
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.decision_status: eq APPROVED
+  res.body.executed_route_id: eq R-B
+}
+
+docs {
+  Human-in-the-loop: resolve eskalasi. action APPROVE membawa route_id yang
+  dipilih operator -> executed_route_id terisi. REJECT tidak mengeksekusi apa
+  pun (executed_route_id null). Prasyarat: shipment sudah ESCALATED (jalankan
+  decide-00403 dulu). Mengubah decision_status yang terbaca di GET /shipments.
+}

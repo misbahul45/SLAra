@@ -7,6 +7,38 @@ Breaking change **wajib** disertai ADR di `docs/architecture/adr/`.
 
 ---
 
+## [Unreleased] — 2026-07-16 · §A3 `/decide` diperluas (additive, **bukan breaking**)
+
+M6 diimplementasikan di `agent` (Phase 3). Response `POST /shipments/{id}/decide`
+diperluas dari bentuk §A3 asli. Semua tambahan **additive** — field lama tetap ada
+dengan makna sama, jadi tidak butuh ADR untuk breaking change. Bukti E2E di
+`docs/specifications/agent/m6-orchestration.md`.
+
+### Added (response `/decide`)
+- **Blok `eta`** `{p50_min, p90_min, risk_tier, slack_p90_min, co2_kg, dwell_source}`
+  — ETA live per-shipment (M1 + dwell M2 inject). `co2_kg` null kalau M3 gagal.
+- **Blok `hub`** `{hub_id, dwell_p50_min, dwell_p90_min, queue, dwell_above_threshold}`
+  — state hub M2; null kalau M2 degraded.
+- **`confidence_breakdown.*.detail`** — sub-term `conf_m1` (interval × deadline) &
+  `conf_m2` (model_health × situational), [ADR-005](../architecture/adr/ADR-005-conf-m1-v2.md).
+- **`degraded[]`** — daftar model terdegradasi saat decision; null kalau semua sehat.
+- **`latency_ms`** — latency M6 end-to-end (ukur agent).
+
+### Changed (semantik, bukan bentuk)
+- **`routes[]`** ditegaskan sebagai metrik **level-plan** (tur skenario M4), bukan
+  per-shipment. Risiko live per-shipment ada di blok `eta`. Field per-route bertambah
+  `late_share_p90`, `tour_sla_risk`.
+- **Nullability forced-escalate:** saat M1/M4 down, `confidence_breakdown`, `eta`,
+  `hub`, `selected_route_id` = null dan `primary_uncertainty_driver` =
+  `critical_model_unavailable`. `primary_uncertainty_driver` juga null saat AUTO_EXECUTE.
+
+### Notes
+- §A3 di `rest/v1.md` masih FROZEN sebagai baseline; perluasan ini superset yang
+  kompatibel. Request Bruno baru: `docs/api/bruno/agent/` (shipments, kpi,
+  decide-00400, decide-00403, resolve).
+
+---
+
 ## [v1] — 2026-07-15 · REST v1 · 🔒 FROZEN
 
 Entri pertama. Kontrak REST v1 masuk repo sebagai dokumen resmi.

@@ -1,0 +1,25 @@
+meta {
+  name: Shipments (enriched)
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{agentBaseUrl}}/api/v1/shipments
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.total: eq 12
+  res.body.shipments[0].eta_p50_min: isNumber
+  res.body.shipments[0].eta_p90_min: isNumber
+  res.body.shipments[0].risk_tier: isString
+}
+
+docs {
+  12 shipment Jabodetabek. eta_p50/eta_p90/risk_tier di-enrich LIVE lewat
+  M2 -> M1 -> M3 saat call pertama (lazy, sekali). Prasyarat: ai service UP
+  di :8000 (tunggu "Startup selesai").
+}

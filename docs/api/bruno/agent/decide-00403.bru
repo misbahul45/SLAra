@@ -1,0 +1,31 @@
+meta {
+  name: Decide SHP-2026-00403 (ESCALATE + SHAP)
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{agentBaseUrl}}/api/v1/shipments/SHP-2026-00403/decide
+  body: json
+  auth: none
+}
+
+body:json {
+  {}
+}
+
+assert {
+  res.status: eq 200
+  res.body.decision: eq ESCALATE
+  res.body.confidence: eq 0.686
+  res.body.primary_uncertainty_driver: eq deadline_pressure
+  res.body.shap_top5: isDefined
+  res.body.confidence_breakdown.conf_m1.detail.deadline_certainty: isNumber
+}
+
+docs {
+  Jalur kanonik ESCALATE. confidence 0.686 < 0.70 -> tier WARNING, jadi M5
+  dipanggil (shap_top5 terisi 5 item). Driver deadline_pressure karena
+  deadline_certainty < interval_certainty (ADR-005). Sub-term conf_m1 diekspos
+  di .detail. Hub HUB-CGK-02 congested (dwell P90 ~95.7m, queue 19).
+}

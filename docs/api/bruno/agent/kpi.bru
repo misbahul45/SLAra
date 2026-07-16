@@ -1,0 +1,25 @@
+meta {
+  name: KPI summary
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{agentBaseUrl}}/api/v1/kpi/summary
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.active_shipments: eq 12
+  res.body.tier_counts.SAFE: isNumber
+  res.body.on_time_rate_pct: isNull
+  res.body.co2_saved_today_kg: isNull
+}
+
+docs {
+  Agregat tier + auto-execute rate dari state agent. Field yang TIDAK diukur
+  (on_time_rate_pct, co2_saved_today_kg) dikembalikan null — FE render "—",
+  bukan angka palsu. auto_execute_rate_pct null sampai ada yang di-decide.
+}

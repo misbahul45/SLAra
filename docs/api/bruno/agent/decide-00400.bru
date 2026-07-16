@@ -1,0 +1,31 @@
+meta {
+  name: Decide SHP-2026-00400 (AUTO_EXECUTE)
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{agentBaseUrl}}/api/v1/shipments/SHP-2026-00400/decide
+  body: json
+  auth: none
+}
+
+body:json {
+  {}
+}
+
+assert {
+  res.status: eq 200
+  res.body.decision: eq AUTO_EXECUTE
+  res.body.confidence: eq 0.864
+  res.body.shap_top5: isNull
+  res.body.primary_uncertainty_driver: isNull
+  res.body.eta.dwell_source: eq m2_live
+}
+
+docs {
+  Jalur kanonik AUTO_EXECUTE. confidence 0.864 >= threshold 0.70 -> tier SAFE,
+  jadi M5 tidak dipanggil (shap_top5 null: "Model confident — explanation not
+  required"). Σ(value×weight) == confidence PERSIS — verifikasi dari
+  confidence_breakdown di layar.
+}
