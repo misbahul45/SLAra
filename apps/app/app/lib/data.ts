@@ -38,6 +38,9 @@ async function notFasterThan<T>(ms: number, work: Promise<T>): Promise<T> {
 export const getShipments = live.getShipments;
 export const getKpi = live.getKpi;
 
+/** M4 Pareto evidence, straight from the ai service. No mock counterpart. */
+export const getM4Routes = api.getM4Routes;
+
 export const decide: typeof live.decide = (shipmentId) =>
   notFasterThan(SPINNER_FLOOR_MS, live.decide(shipmentId));
 
@@ -45,10 +48,10 @@ export const resolve: typeof live.resolve = (shipmentId, body) =>
   notFasterThan(SPINNER_FLOOR_MS, live.resolve(shipmentId, body));
 
 // ── mock group (agent does not serve these yet) ─────────────────────────────────
+// recommendation + optimization are NOT here: those views are live now
+// (recommendation → /decide, optimization → getM4Routes above).
 export const getDashboard = mock.getDashboard;
 export const getFleet = mock.getFleet;
-export const getRecommendation = mock.getRecommendation;
-export const getOptimization = mock.getOptimization;
 export const getApprovals = mock.getApprovals;
 export const getExecutionKpi = mock.getExecutionKpi;
 

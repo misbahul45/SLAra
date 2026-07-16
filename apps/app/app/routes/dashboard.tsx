@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import type { Route } from "./+types/dashboard";
-import { getDashboard } from "~/lib/data";
+import { getDashboard, getKpi } from "~/lib/data";
+import { buildKpiCards } from "~/lib/kpi-cards";
 import { PageHeader } from "~/components/PageHeader";
 import { Clock } from "~/components/Clock";
 import { ProcessSteps } from "~/components/ProcessSteps";
@@ -16,11 +17,14 @@ export function meta(_: Route.MetaArgs) {
 }
 
 export async function loader(_: Route.LoaderArgs) {
-  return { data: await getDashboard() };
+  // KPI numbers come live from the agent; the rest of the page (process steps,
+  // map, event feed) is still fixture-backed.
+  const [data, kpi] = await Promise.all([getDashboard(), getKpi()]);
+  return { data, kpi };
 }
 
 export default function Dashboard({ loaderData }: Route.ComponentProps) {
-  const { data } = loaderData;
+  const { data, kpi } = loaderData;
 
   return (
     <div className="mx-auto max-w-[1500px] space-y-5">
@@ -31,7 +35,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
       />
 
       <ProcessSteps steps={data.process_steps} />
-      <DashboardKpis kpis={data.kpis} />
+      <DashboardKpis kpis={buildKpiCards(kpi)} />
 
       <section className="space-y-2">
         <h2 className="text-[22px] font-bold text-brand">Live Event Feed</h2>

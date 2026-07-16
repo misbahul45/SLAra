@@ -1,5 +1,6 @@
 import type { Route } from "./+types/impact";
-import { getExecutionKpi } from "~/lib/data";
+import { getExecutionKpi, getKpi } from "~/lib/data";
+import { buildKpiCards } from "~/lib/kpi-cards";
 import { PageHeader } from "~/components/PageHeader";
 import { RangeToggle } from "~/components/RangeToggle";
 import { DashboardKpis } from "~/components/DashboardKpis";
@@ -14,11 +15,14 @@ export function meta(_: Route.MetaArgs) {
 }
 
 export async function loader(_: Route.LoaderArgs) {
-  return { data: await getExecutionKpi() };
+  // KPI cards live from the agent; the M4 comparison below is fixture-backed but
+  // its numbers now come from the real vs_baseline (see execution.json _note).
+  const [data, kpi] = await Promise.all([getExecutionKpi(), getKpi()]);
+  return { data, kpi };
 }
 
 export default function Impact({ loaderData }: Route.ComponentProps) {
-  const { data } = loaderData;
+  const { data, kpi } = loaderData;
 
   return (
     <div className="mx-auto max-w-[1500px] space-y-5">
@@ -28,14 +32,16 @@ export default function Impact({ loaderData }: Route.ComponentProps) {
         right={<RangeToggle />}
       />
 
-      <DashboardKpis kpis={data.kpis} columns={4} />
+      <DashboardKpis kpis={buildKpiCards(kpi)} columns={4} />
 
       <div className="grid gap-5 lg:grid-cols-2">
         <section className="space-y-2">
           <h2 className="text-[22px] font-bold text-brand">
-            Before vs After – Plan A → Plan C
+            Baseline NN → M4 Balanced
           </h2>
-          <p className="text-[14px] text-ink/70">AI-optimized impact comparison</p>
+          <p className="text-[14px] text-ink/70">
+            Tour-level, one scenario — the only comparison we actually measured
+          </p>
           <BeforeAfter rows={data.before_after} />
         </section>
 

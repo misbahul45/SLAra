@@ -10,8 +10,7 @@ import type {
   ExecutionKpiData,
   FleetData,
   KpiSummary,
-  OptimizationResult,
-  RecommendationDetail,
+  M4RoutesResponse,
   ResolveRequest,
   ResolveResponse,
   ShipmentsQuery,
@@ -70,20 +69,39 @@ export function getKpi(): Promise<KpiSummary> {
   return request<KpiSummary>("/kpi/summary");
 }
 
+// M4 lives on the ai service, not the agent: /decide carries routes[] but not
+// pareto_stats/convergence_hv. Same isomorphic split as BASE_URL — SSR needs an
+// absolute origin, the browser goes through the Vite proxy (or nginx in prod).
+const AI_SSR_BASE = import.meta.env.VITE_AI_BASE ?? "http://localhost:8000";
+const AI_BASE = typeof window === "undefined" ? AI_SSR_BASE : "";
+
+export const M4_SCENARIO = "jabodetabek_urban_sameday";
+
+export async function getM4Routes(
+  scenario: string = M4_SCENARIO,
+): Promise<M4RoutesResponse> {
+  const res = await fetch(
+    `${AI_BASE}/internal/m4/routes?scenario=${encodeURIComponent(scenario)}`,
+    { headers: { "Content-Type": "application/json" } },
+  );
+  const data: unknown = await res.json().catch(() => null);
+  if (!res.ok) {
+    const body = data as ApiErrorBody | null;
+    throw new ApiError(
+      res.status,
+      body?.error?.message ?? `M4 routes failed: ${res.status}`,
+      body,
+    );
+  }
+  return data as M4RoutesResponse;
+}
+
 export function getDashboard(): Promise<DashboardData> {
   return request<DashboardData>("/dashboard/summary");
 }
 
 export function getFleet(): Promise<FleetData> {
   return request<FleetData>("/fleet/telemetry");
-}
-
-export function getRecommendation(): Promise<RecommendationDetail> {
-  return request<RecommendationDetail>("/recommendation/latest");
-}
-
-export function getOptimization(): Promise<OptimizationResult> {
-  return request<OptimizationResult>("/optimization/latest");
 }
 
 export function getApprovals(): Promise<ApprovalsData> {

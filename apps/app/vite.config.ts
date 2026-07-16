@@ -5,6 +5,9 @@ import { defineConfig } from "vite";
 // Agent (M6) untuk proxy dev. Di target topology, nginx gateway yang menyatukan
 // origin; di dev, proxy ini perannya sama.
 const AGENT_ORIGIN = process.env.AGENT_ORIGIN ?? "http://localhost:3000";
+// Route Optimization membaca pareto_stats + convergence_hv langsung dari ai:
+// agent tidak mem-passthrough /internal/m4/routes (decide hanya membawa routes[]).
+const AI_ORIGIN = process.env.AI_ORIGIN ?? "http://localhost:8000";
 
 export default defineConfig({
   plugins: [tailwindcss(), reactRouter()],
@@ -17,6 +20,10 @@ export default defineConfig({
     proxy: {
       "/api/v1": {
         target: AGENT_ORIGIN,
+        changeOrigin: true,
+      },
+      "/internal": {
+        target: AI_ORIGIN,
         changeOrigin: true,
       },
     },

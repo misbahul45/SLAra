@@ -9,8 +9,6 @@ import type {
   ExecutionKpiData,
   FleetData,
   KpiSummary,
-  OptimizationResult,
-  RecommendationDetail,
   ResolveRequest,
   ResolveResponse,
   Shipment,
@@ -24,21 +22,19 @@ import decide00400 from "~/mocks/decide-00400.json";
 import decide00403 from "~/mocks/decide-00403.json";
 import dashboardJson from "~/mocks/dashboard.json";
 import fleetJson from "~/mocks/fleet.json";
-import recommendationJson from "~/mocks/recommendation.json";
-import optimizationJson from "~/mocks/optimization.json";
 import approvalsJson from "~/mocks/approvals.json";
 import executionJson from "~/mocks/execution.json";
 
 // JSON imports widen literal unions (e.g. "SAFE" → string), so re-assert through
 // `unknown` to the contract types. The fixtures are authored to match the contract.
+// NOTE: recommendation/optimization fixtures were removed — those views are live now
+// (recommendation → /decide, optimization → /internal/m4/routes).
 const KPI = kpiJson as unknown as KpiSummary;
 const SHIPMENTS = shipmentsJson as unknown as ShipmentsResponse;
 const DECIDE_AUTO = decide00400 as unknown as DecideResponse;
 const DECIDE_ESCALATE = decide00403 as unknown as DecideResponse;
 const DASHBOARD = dashboardJson as unknown as DashboardData;
 const FLEET = fleetJson as unknown as FleetData;
-const RECOMMENDATION = recommendationJson as unknown as RecommendationDetail;
-const OPTIMIZATION = optimizationJson as unknown as OptimizationResult;
 const APPROVALS = approvalsJson as unknown as ApprovalsData;
 const EXECUTION = executionJson as unknown as ExecutionKpiData;
 
@@ -66,16 +62,6 @@ export async function getDashboard(): Promise<DashboardData> {
 export async function getFleet(): Promise<FleetData> {
   await delay();
   return clone(FLEET);
-}
-
-export async function getRecommendation(): Promise<RecommendationDetail> {
-  await delay();
-  return clone(RECOMMENDATION);
-}
-
-export async function getOptimization(): Promise<OptimizationResult> {
-  await delay();
-  return clone(OPTIMIZATION);
 }
 
 export async function getApprovals(): Promise<ApprovalsData> {

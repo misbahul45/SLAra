@@ -1,0 +1,119 @@
+{
+  "_readme": [
+    "SUMBER TUNGGAL angka statis di seluruh dashboard. Jangan tulis angka model",
+    "langsung di komponen/fixture — impor dari sini supaya satu tempat saja yang",
+    "perlu diubah saat model dilatih ulang.",
+    "",
+    "Aturan: setiap angka WAJIB punya `source`. Angka tanpa sumber tidak boleh",
+    "tampil sebagai fakta. Yang dihitung live oleh backend (confidence, eta,",
+    "dwell, routes, convergence_hv, pareto_stats) TIDAK ditaruh di sini — ambil",
+    "dari API supaya tidak pernah basi.",
+    "",
+    "`projected: true` menandai angka target/estimasi yang belum kita ukur; UI",
+    "wajib memberinya label 'projected', bukan menampilkannya sebagai hasil."
+  ],
+
+  "m1": {
+    "_label": "M1 — ETA (dual-quantile LightGBM + conformal)",
+    "_source": "docs/progress/ml/model-registry.md · notebook M1 v2 (7/7 PASS)",
+    "mae_p50_min": 4.44,
+    "coverage_p90_pct": 90.1,
+    "f1_critical": 0.896,
+    "recall_critical": 0.99,
+    "base_rate_critical_pct": 12.7,
+    "gap_ml_vs_rule_pts": 24.1,
+    "latency_p95_ms": 2.16,
+    "conformal_delta_p90_min": 0.83,
+    "threshold_safe_min_slack_min": 15,
+    "threshold_critical_max_slack_min": -30,
+    "model_version": "2.1.0-dual-quantile-conformal"
+  },
+
+  "m2": {
+    "_label": "M2 — Hub dwell forecast (dual-quantile LightGBM)",
+    "_source": "services/ai/configs/m2/coverage_confidence.yaml · notebook M2 (9/9 PASS)",
+    "coverage_p90_pct": 89.74,
+    "pinball_p50": 3.578,
+    "model_confidence_global": 0.9974,
+    "dwell_tolerance_min": 45,
+    "model_version": "m2_v1.0.0-lightgbm-quantile"
+  },
+
+  "m3": {
+    "_label": "M3 — Carbon (rule-based, EF IPCC/GLEC)",
+    "_source": "docs/models/ · rule-based, tanpa file model",
+    "type": "rule-based",
+    "latency_ms": 0.024
+  },
+
+  "m4": {
+    "_label": "M4 — Route optimization (NSGA-II, precomputed)",
+    "_source": "GET /internal/m4/routes (pareto_stats) · docs/models/evidence/M4_RESULTS.md",
+    "_note": "Chart & tabel WAJIB baca live dari endpoint. Nilai di sini hanya untuk teks naratif/fallback.",
+    "engine": "DEAP 1.4 NSGA-II",
+    "generations": 150,
+    "population": 120,
+    "pareto_solutions": 17,
+    "hypervolume": 0.664,
+    "runtime_s": 13.2,
+    "cs_m4": 0.996,
+    "scenario_count": 1,
+    "vs_baseline_balanced": {
+      "_note": "Satu skenario (jabodetabek_urban_sameday). Desain M4 §7.3 minta tiga sebelum digeneralisasi.",
+      "sla_risk_pct": -53.2,
+      "cost_pct": 7.0,
+      "co2_pct": 14.0
+    },
+    "baseline_distance_only_nn": {
+      "late_stops_p90": 4,
+      "total_stops": 16,
+      "risk_tier": "CRITICAL"
+    },
+    "objectives": ["SLA risk", "Cost", "CO₂"],
+    "constraints": ["driver hours", "vehicle capacity", "time windows"]
+  },
+
+  "m5": {
+    "_label": "M5 — Explainability (SHAP TreeExplainer)",
+    "_source": "services/ai/app/ml/m5.py · additivity check saat startup",
+    "explains": "m1_eta_v2_p90",
+    "top_n": 5
+  },
+
+  "m6": {
+    "_label": "M6 — Deterministic orchestration core (ADR-002)",
+    "_source": "services/agent/src/config.ts · verifikasi E2E 15 Jul (services/agent/README.md)",
+    "threshold": 0.7,
+    "weights": {
+      "conf_m1": 0.4,
+      "conf_m2": 0.15,
+      "cs_m4": 0.25,
+      "data_freshness": 0.1,
+      "audit_validity": 0.1
+    },
+    "escalation_rate_pct": 16.7,
+    "escalated_count": 2,
+    "decided_count": 12,
+    "healthy_band_pct": [5, 20],
+    "decide_latency_p50_ms": 34,
+    "latency_budget_ms": 3000,
+    "data_freshness": 0.92
+  },
+
+  "unmeasured": {
+    "_readme": [
+      "KPI yang TIDAK kita ukur. GET /kpi/summary mengembalikan null untuk ini,",
+      "jadi UI menampilkan '—' atau label 'projected'. JANGAN menaikkan salah satu",
+      "jadi fakta tanpa alat ukur di belakangnya.",
+      "",
+      "Angka Figma lama yang dihapus karena tanpa sumber (ditulis deskriptif, bukan",
+      "digit, supaya tidak lolos sebagai 'nilai' saat di-grep): OTD forecast, CO2",
+      "saved today, active-shipment count, auto-resolution rate, avg latency detik,",
+      "hypervolume versi lama, nomor generasi konvergensi lama, dan pasangan",
+      "before/after ETA & delay-risk. Nilai benar untuk yang MASIH kita pakai ada di",
+      "blok m1..m6 di atas, dan yang live diambil dari API."
+    ],
+    "otd_forecast_pct": null,
+    "co2_saved_today_kg": null
+  }
+}

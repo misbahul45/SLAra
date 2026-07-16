@@ -28,14 +28,20 @@ export interface TierCounts {
   CRITICAL: number;
 }
 
+/**
+ * Null means "we do not measure this", not "zero". The agent returns null for
+ * on_time_rate_pct and co2_saved_today_kg because nothing computes them yet, and
+ * for auto_execute_rate_pct / avg_decision_latency_ms until something is decided.
+ * Render null as "—", never as a number.
+ */
 export interface KpiSummary {
   generated_at: string;
   active_shipments: number;
   tier_counts: TierCounts;
-  on_time_rate_pct: number;
-  auto_execute_rate_pct: number;
-  co2_saved_today_kg: number;
-  avg_decision_latency_ms: number;
+  on_time_rate_pct: number | null;
+  auto_execute_rate_pct: number | null;
+  co2_saved_today_kg: number | null;
+  avg_decision_latency_ms: number | null;
 }
 
 // ── §A2  GET /shipments ─────────────────────────────────────────────────────────
@@ -476,8 +482,69 @@ export interface DecisionPerformanceData {
   bars: PerfBar[];
 }
 
+// ── §B  GET /internal/m4/routes (ai service, precomputed Pareto — ADR-004) ───────
+
+export interface ParetoStats {
+  generations: number;
+  population: number;
+  pareto_solutions: number;
+  hypervolume: number;
+  runtime_s: number;
+  engine: string;
+  seed: number;
+}
+
+export interface M4Candidate {
+  route_id: string;
+  label: string;
+  eta_p50_min: number;
+  eta_p90_min: number;
+  risk_tier: RiskTier;
+  late_share_p90: number;
+  cost_idr: number;
+  co2_kg: number;
+  distance_km: number;
+  sla_risk: number;
+  late_stops_p90: number;
+  geometry: LatLng[];
+  /** Percent deltas vs the distance-only NN baseline. */
+  vs_baseline: { cost_pct: number; sla_risk_pct: number; co2_pct: number };
+}
+
+export interface M4Baseline {
+  t50: number;
+  t90: number;
+  cost: number;
+  co2: number;
+  risk: number;
+  late: number;
+  risk_tier: RiskTier;
+  late_share_p90: number;
+}
+
+export interface M4Scenario {
+  id: string;
+  hub?: { id: string; name: string; lat: number; lng: number };
+  n_stops?: number;
+  vehicle?: string;
+  weather?: string;
+  max_tour_min?: number;
+}
+
+export interface M4RoutesResponse {
+  scenario: M4Scenario;
+  objectives: string[];
+  constraints: string[];
+  baseline_distance_only_nn: M4Baseline;
+  candidates: M4Candidate[];
+  pareto_stats: ParetoStats;
+  /** Hypervolume per generation snapshot — 51 points. Drives the convergence chart. */
+  convergence_hv: number[];
+  cs_m4: number;
+}
+
 export interface ExecutionKpiData {
-  kpis: DashboardKpi[];
+  /** No `kpis` here: the cards are built live from /kpi/summary (lib/kpi-cards.ts). */
   before_after: BeforeAfterRow[];
   distribution: DistributionBar[];
   summary: ImpactSummaryData;

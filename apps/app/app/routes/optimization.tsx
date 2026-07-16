@@ -1,6 +1,7 @@
 import { lazy, Suspense, useState } from "react";
 import type { Route } from "./+types/optimization";
-import { getOptimization } from "~/lib/data";
+import { getM4Routes } from "~/lib/data";
+import { toOptimizationResult } from "~/lib/m4-adapter";
 import { PageHeader } from "~/components/PageHeader";
 import { ClientOnly } from "~/components/ClientOnly";
 import { GaConvergenceChart } from "~/components/GaConvergenceChart";
@@ -14,7 +15,10 @@ export function meta(_: Route.MetaArgs) {
 }
 
 export async function loader(_: Route.LoaderArgs) {
-  return { result: await getOptimization() };
+  // Live from the ai service: pareto_stats, convergence_hv (51 pts), and the plan
+  // table all come from the real M4 run, adapted to the view's shape.
+  const m4 = await getM4Routes();
+  return { result: toOptimizationResult(m4) };
 }
 
 export default function Optimization({ loaderData }: Route.ComponentProps) {
@@ -43,7 +47,10 @@ export default function Optimization({ loaderData }: Route.ComponentProps) {
       <div className="grid gap-5 lg:grid-cols-3">
         <section className="space-y-2 lg:col-span-2">
           <h2 className="text-[22px] font-bold text-brand">GA Convergence</h2>
-          <p className="text-[14px] text-ink/70">Fitness evolution over generations</p>
+          <p className="text-[14px] text-ink/70">
+            Hypervolume per generation ({result.convergence.length} snapshots, live
+            from M4)
+          </p>
           <div className="glass-card p-4">
             <ClientOnly fallback={<ChartFallback />}>
               {() => <GaConvergenceChart data={result.convergence} />}
