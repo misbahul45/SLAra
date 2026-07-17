@@ -1,16 +1,16 @@
 # Graph Report - SLAra  (2026-07-17)
 
 ## Corpus Check
-- 177 files · ~14,269,218 words
+- 177 files · ~14,269,368 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1232 nodes · 1433 edges · 106 communities (88 shown, 18 thin omitted)
+- 1233 nodes · 1434 edges · 110 communities (90 shown, 20 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 3 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `ab2888b6`
+- Built from commit: `9f37d2a8`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -107,6 +107,10 @@
 - [[_COMMUNITY_dependencies|dependencies]]
 - [[_COMMUNITY_m3.py|m3.py]]
 - [[_COMMUNITY_slara-ai|slara-ai]]
+- [[_COMMUNITY_RouteCards.tsx|RouteCards.tsx]]
+- [[_COMMUNITY_approvals.tsx|approvals.tsx]]
+- [[_COMMUNITY_RouteMap.tsx|RouteMap.tsx]]
+- [[_COMMUNITY_MiniMap.tsx|MiniMap.tsx]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `compilerOptions` - 15 edges
@@ -139,7 +143,7 @@
 - **SLAra Microservices Mesh** — services_agent, services_data, services_ai, infra_kafka [EXTRACTED 1.00]
 - **Infrastructure Layer** — infra_mongodb, infra_neo4j, infra_redis, infra_qdrant, infra_kafka [EXTRACTED 1.00]
 
-## Communities (106 total, 18 thin omitted)
+## Communities (110 total, 20 thin omitted)
 
 ### Community 0 - "compilerOptions"
 Cohesion: 0.11
@@ -178,28 +182,28 @@ Cohesion: 0.08
 Nodes (24): BaseModel, FastAPI, Request, m1_eta(), m2_dwell(), m3_carbon(), m5_explain(), Endpoint internal M1-M5 — kontrak docs/contracts/rest/v1.md §B. (+16 more)
 
 ### Community 11 - "main.py"
-Cohesion: 0.09
-Nodes (22): DecisionPerformance(), MiniMapProps, ApprovalMetric, BulletTone, ConfidenceComponent, DashboardMap, Decision, DecisionPerformanceData (+14 more)
+Cohesion: 0.10
+Nodes (19): ApprovalMetric, BulletTone, ConfidenceComponent, DashboardMap, Decision, DecisionPerformanceData, DecisionStatus, ImpactBullet (+11 more)
 
 ### Community 13 - "AGENTS.md — SLAra Project Instructions"
 Cohesion: 0.08
 Nodes (23): Agent (TypeScript / Hono), AGENTS.md — SLAra Project Instructions, AI Agents Capability (untuk agent yg kerja di repo ini), AI (Python / FastAPI), Architecture Map, Build & Run Commands, Codebase Understanding — WAJIB baca `graphify-out/` dulu, Common Gotchas (+15 more)
 
 ### Community 17 - "__init__.py"
-Cohesion: 0.15
-Nodes (8): BeforeAfter(), DecisionDistributionChart(), ImpactSummary(), RANGES, RangeToggle(), BeforeAfterRow, DistributionBar, ImpactSummaryData
+Cohesion: 0.14
+Nodes (9): BeforeAfter(), DecisionDistributionChart(), DecisionPerformance(), ImpactSummary(), RANGES, RangeToggle(), BeforeAfterRow, DistributionBar (+1 more)
 
 ### Community 18 - "SLAra"
-Cohesion: 0.17
-Nodes (11): Arsitektur & Flow, Demo, Dokumentasi, Environment Variables, Instalasi & Setup, Lisensi, Run a single service on the host, Run everything via Docker (recommended) (+3 more)
+Cohesion: 0.15
+Nodes (12): Arsitektur & Flow, Demo, Dokumentasi, Environment Variables, Instalasi & Setup, Lisensi, Model Machine Learning, Run a single service on the host (+4 more)
 
 ### Community 19 - "Konvensi Kode"
 Cohesion: 0.06
 Nodes (34): 10. Roadmap (post-MVP), 11. Acceptance Criteria (untuk demo kompetisi), 1. Ringkasan Eksekutif, 2.1 Prediksi ETA, 2.2 Derivasi Risk Tier (deterministic, non-ML), 2.3 Mengapa Bukan Dua Model Terpisah, 2. Formulasi Matematis, 3.1 Pilihan Algoritma (+26 more)
 
 ### Community 21 - "ml"
-Cohesion: 0.15
-Nodes (8): ClientOnly(), GaConvergenceChart(), ParetoStats(), WeightTuningPanel(), GaPoint, LabeledValue, WeightTuning, RouteMap
+Cohesion: 0.16
+Nodes (7): GaConvergenceChart(), ParetoStats(), WeightTuningPanel(), GaPoint, LabeledValue, WeightTuning, RouteMap
 
 ### Community 22 - "Konvensi Kode"
 Cohesion: 0.05
@@ -262,8 +266,8 @@ Cohesion: 0.19
 Nodes (12): ApprovalIcon(), base, DashboardIcon(), FleetIcon(), IconProps, KpiIcon(), LogoMark(), RecommendationIcon() (+4 more)
 
 ### Community 37 - "EtaBand.tsx"
-Cohesion: 0.09
-Nodes (21): EtaBand(), EtaBandProps, FilterTabsProps, TierFilter, KpiItem, OperatorPanelProps, idr, RouteCardsProps (+13 more)
+Cohesion: 0.14
+Nodes (12): EtaBand(), EtaBandProps, FilterTabsProps, TierFilter, KpiItem, COLUMNS, ShipmentTableProps, TIER_BADGE_CLASS (+4 more)
 
 ### Community 38 - "Welcome to React Router!"
 Cohesion: 0.18
@@ -334,8 +338,8 @@ Cohesion: 0.14
 Nodes (14): 1. Penempatan deliverable, 2. Deviasi dari instruksi (semua disengaja, dengan alasan), 3. Hasil verifikasi (observasi nyata, bukan klaim), 4. Temuan infra (Step 4), 6. 🐞 BUG DITEMUKAN (belum diperbaiki — perlu keputusan), 7. Yang perlu diperhatikan berikutnya, D1 — Import path di-rewrite dari staging ke `app.*`, D2 — Python 3.14 → 3.12 (`.python-version` + `requires-python`) (+6 more)
 
 ### Community 70 - "fleet.tsx"
-Cohesion: 0.15
-Nodes (4): PageHeader(), VehicleTelemetryPanel(), VehicleTelemetry, MiniMap
+Cohesion: 0.20
+Nodes (4): ClientOnly(), VehicleTelemetryPanel(), VehicleTelemetry, MiniMap
 
 ### Community 71 - "Spec — M4 Route Optimization (NSGA-II, precomputed serving)"
 Cohesion: 0.17
@@ -346,8 +350,8 @@ Cohesion: 0.17
 Nodes (12): 1. Tanggung jawab, 2. Endpoint, 3.1 M5 menjelaskan **P90**, bukan P50, 3.2 M2 degraded-tolerant; M1 & M4 fail-fast, 3.3 `hour_sin`/`hour_cos` digabung jadi satu fitur tampilan, 3.4 Link M2 → M1 terjadi di **serving time**, dilakukan M6, 3.5 Latency di setiap response, 3. Keputusan teknis (+4 more)
 
 ### Community 73 - "SeverityPill.tsx"
-Cohesion: 0.21
-Nodes (8): ActiveRecommendationCard(), ApprovalQueue(), EventBanner(), SEVERITY_BG, SeverityPill(), ActiveRecommendation, RecoEvent, Severity
+Cohesion: 0.24
+Nodes (7): ActiveRecommendationCard(), EventBanner(), SEVERITY_BG, SeverityPill(), ActiveRecommendation, RecoEvent, Severity
 
 ### Community 74 - "approvals.tsx"
 Cohesion: 0.10
@@ -437,18 +441,26 @@ Nodes (3): Isi & penempatan (kalau dipasang manual), M2 Artifacts — Hub Dwell 
 Cohesion: 0.50
 Nodes (4): 8. Resource Requirements, Compute, Data, Dependencies (pip install)
 
+### Community 106 - "RouteCards.tsx"
+Cohesion: 0.27
+Nodes (5): OperatorPanelProps, idr, RouteCardsProps, TierBadge(), RouteOption
+
+### Community 108 - "RouteMap.tsx"
+Cohesion: 0.38
+Nodes (4): RouteMapProps, DestinationRef, HubRef, LatLng
+
 ## Knowledge Gaps
-- **685 isolated node(s):** `Demo`, `Tech Stack`, `Arsitektur & Flow`, `Struktur Folder`, `Run everything via Docker (recommended)` (+680 more)
+- **686 isolated node(s):** `Demo`, `Model Machine Learning`, `Arsitektur & Flow`, `Tech Stack`, `Struktur Folder` (+681 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **18 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **20 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `SLAra REST Contract — v1 · **FROZEN**` connect `A. Endpoint FE-facing (yang dipakai dashboard)` to `CHANGELOG.md`?**
-  _High betweenness centrality (0.004) - this node is a cross-community bridge._
-- **What connects `Demo`, `Tech Stack`, `Arsitektur & Flow` to the rest of the system?**
-  _698 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Why does `Spec — `ai` service serving layer (M1, M2, M3, M5)` connect `Spec — `ai` service serving layer (M1, M2, M3, M5)` to `ADR-004-m4-precomputed.md`?**
+  _High betweenness centrality (0.002) - this node is a cross-community bridge._
+- **What connects `Demo`, `Model Machine Learning`, `Arsitektur & Flow` to the rest of the system?**
+  _699 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `compilerOptions` be split into smaller, more focused modules?**
   _Cohesion score 0.1111111111111111 - nodes in this community are weakly interconnected._
 - **Should `package.json` be split into smaller, more focused modules?**

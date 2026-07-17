@@ -66,30 +66,40 @@
       "norm_label": "demo"
     },
     {
-      "label": "Tech Stack",
+      "label": "Model Machine Learning",
       "file_type": "document",
       "source_file": "Readme.md",
       "source_location": "L11",
       "_origin": "ast",
-      "id": "readme_tech_stack",
+      "id": "readme_model_machine_learning",
       "community": 18,
-      "norm_label": "tech stack"
+      "norm_label": "model machine learning"
     },
     {
       "label": "Arsitektur & Flow",
       "file_type": "document",
       "source_file": "Readme.md",
-      "source_location": "L24",
+      "source_location": "L25",
       "_origin": "ast",
       "id": "readme_arsitektur_flow",
       "community": 18,
       "norm_label": "arsitektur & flow"
     },
     {
+      "label": "Tech Stack",
+      "file_type": "document",
+      "source_file": "Readme.md",
+      "source_location": "L65",
+      "_origin": "ast",
+      "id": "readme_tech_stack",
+      "community": 18,
+      "norm_label": "tech stack"
+    },
+    {
       "label": "Struktur Folder",
       "file_type": "document",
       "source_file": "Readme.md",
-      "source_location": "L73",
+      "source_location": "L78",
       "_origin": "ast",
       "id": "readme_struktur_folder",
       "community": 18,
@@ -99,7 +109,7 @@
       "label": "Instalasi & Setup",
       "file_type": "document",
       "source_file": "Readme.md",
-      "source_location": "L111",
+      "source_location": "L116",
       "_origin": "ast",
       "id": "readme_instalasi_setup",
       "community": 18,
@@ -109,7 +119,7 @@
       "label": "Run everything via Docker (recommended)",
       "file_type": "document",
       "source_file": "Readme.md",
-      "source_location": "L119",
+      "source_location": "L124",
       "_origin": "ast",
       "id": "readme_run_everything_via_docker_recommended",
       "community": 18,
@@ -119,7 +129,7 @@
       "label": "Run a single service on the host",
       "file_type": "document",
       "source_file": "Readme.md",
-      "source_location": "L133",
+      "source_location": "L138",
       "_origin": "ast",
       "id": "readme_run_a_single_service_on_the_host",
       "community": 18,
@@ -129,7 +139,7 @@
       "label": "Environment Variables",
       "file_type": "document",
       "source_file": "Readme.md",
-      "source_location": "L157",
+      "source_location": "L162",
       "_origin": "ast",
       "id": "readme_environment_variables",
       "community": 18,
@@ -139,7 +149,7 @@
       "label": "Dokumentasi",
       "file_type": "document",
       "source_file": "Readme.md",
-      "source_location": "L182",
+      "source_location": "L187",
       "_origin": "ast",
       "id": "readme_dokumentasi",
       "community": 18,
@@ -149,7 +159,7 @@
       "label": "Lisensi",
       "file_type": "document",
       "source_file": "Readme.md",
-      "source_location": "L192",
+      "source_location": "L197",
       "_origin": "ast",
       "id": "readme_lisensi",
       "community": 18,
@@ -351,7 +361,7 @@
       "source_file": "apps/app/app/components/ApprovalQueue.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 73,
+      "community": 107,
       "norm_label": "approvalqueue.tsx",
       "id": "apps_app_app_components_approvalqueue"
     },
@@ -361,7 +371,7 @@
       "source_file": "apps/app/app/components/ApprovalQueue.tsx",
       "source_location": "L7",
       "_origin": "ast",
-      "community": 73,
+      "community": 107,
       "norm_label": "approvalqueue()",
       "id": "apps_app_app_components_approvalqueue_approvalqueue"
     },
@@ -391,7 +401,7 @@
       "source_file": "apps/app/app/components/ClientOnly.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 21,
+      "community": 70,
       "norm_label": "clientonly.tsx",
       "id": "apps_app_app_components_clientonly"
     },
@@ -401,7 +411,7 @@
       "source_file": "apps/app/app/components/ClientOnly.tsx",
       "source_location": "L7",
       "_origin": "ast",
-      "community": 21,
+      "community": 70,
       "norm_label": "clientonly()",
       "id": "apps_app_app_components_clientonly_clientonly"
     },
@@ -701,7 +711,7 @@
       "source_file": "apps/app/app/components/DecisionPerformance.tsx",
       "source_location": "L23",
       "_origin": "ast",
-      "community": 11,
+      "community": 17,
       "norm_label": "decisionperformance()",
       "id": "apps_app_app_components_decisionperformance_decisionperformance"
     },
@@ -891,7 +901,7 @@
       "source_file": "apps/app/app/components/MiniMap.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 11,
+      "community": 109,
       "norm_label": "minimap.tsx",
       "id": "apps_app_app_components_minimap"
     },
@@ -901,7 +911,7 @@
       "source_file": "apps/app/app/components/MiniMap.tsx",
       "source_location": "L7",
       "_origin": "ast",
-      "community": 11,
+      "community": 109,
       "norm_label": "minimapprops",
       "id": "apps_app_app_components_minimap_minimapprops"
     },
@@ -911,7 +921,7 @@
       "source_file": "apps/app/app/components/MiniMap.tsx",
       "source_location": "L13",
       "_origin": "ast",
-      "community": 11,
+      "community": 109,
       "norm_label": "minimap()",
       "id": "apps_app_app_components_minimap_minimap"
     },
@@ -971,7 +981,7 @@
       "source_file": "apps/app/app/components/OperatorPanel.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 37,
+      "community": 106,
       "norm_label": "operatorpanel.tsx",
       "id": "apps_app_app_components_operatorpanel"
     },
@@ -981,7 +991,7 @@
       "source_file": "apps/app/app/components/OperatorPanel.tsx",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 37,
+      "community": 106,
       "norm_label": "operatorpanelprops",
       "id": "apps_app_app_components_operatorpanel_operatorpanelprops"
     },
@@ -991,7 +1001,7 @@
       "source_file": "apps/app/app/components/OperatorPanel.tsx",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 37,
+      "community": 106,
       "norm_label": "operatorpanel()",
       "id": "apps_app_app_components_operatorpanel_operatorpanel"
     },
@@ -1001,7 +1011,7 @@
       "source_file": "apps/app/app/components/PageHeader.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 70,
+      "community": 107,
       "norm_label": "pageheader.tsx",
       "id": "apps_app_app_components_pageheader"
     },
@@ -1011,7 +1021,7 @@
       "source_file": "apps/app/app/components/PageHeader.tsx",
       "source_location": "L6",
       "_origin": "ast",
-      "community": 70,
+      "community": 107,
       "norm_label": "pageheader()",
       "id": "apps_app_app_components_pageheader_pageheader"
     },
@@ -1231,7 +1241,7 @@
       "source_file": "apps/app/app/components/RouteCards.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 37,
+      "community": 106,
       "norm_label": "routecards.tsx",
       "id": "apps_app_app_components_routecards"
     },
@@ -1241,7 +1251,7 @@
       "source_file": "apps/app/app/components/RouteCards.tsx",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 37,
+      "community": 106,
       "norm_label": "idr",
       "id": "apps_app_app_components_routecards_idr"
     },
@@ -1251,7 +1261,7 @@
       "source_file": "apps/app/app/components/RouteCards.tsx",
       "source_location": "L10",
       "_origin": "ast",
-      "community": 37,
+      "community": 106,
       "norm_label": "routecardsprops",
       "id": "apps_app_app_components_routecards_routecardsprops"
     },
@@ -1261,7 +1271,7 @@
       "source_file": "apps/app/app/components/RouteCards.tsx",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 37,
+      "community": 106,
       "norm_label": "routecards()",
       "id": "apps_app_app_components_routecards_routecards"
     },
@@ -1271,7 +1281,7 @@
       "source_file": "apps/app/app/components/RouteCards.tsx",
       "source_location": "L70",
       "_origin": "ast",
-      "community": 37,
+      "community": 106,
       "norm_label": "metricrow()",
       "id": "apps_app_app_components_routecards_metricrow"
     },
@@ -1281,7 +1291,7 @@
       "source_file": "apps/app/app/components/RouteMap.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 37,
+      "community": 108,
       "norm_label": "routemap.tsx",
       "id": "apps_app_app_components_routemap"
     },
@@ -1291,7 +1301,7 @@
       "source_file": "apps/app/app/components/RouteMap.tsx",
       "source_location": "L18",
       "_origin": "ast",
-      "community": 37,
+      "community": 108,
       "norm_label": "routemapprops",
       "id": "apps_app_app_components_routemap_routemapprops"
     },
@@ -1301,7 +1311,7 @@
       "source_file": "apps/app/app/components/RouteMap.tsx",
       "source_location": "L28",
       "_origin": "ast",
-      "community": 37,
+      "community": 108,
       "norm_label": "fitbounds()",
       "id": "apps_app_app_components_routemap_fitbounds"
     },
@@ -1311,7 +1321,7 @@
       "source_file": "apps/app/app/components/RouteMap.tsx",
       "source_location": "L38",
       "_origin": "ast",
-      "community": 37,
+      "community": 108,
       "norm_label": "routemap()",
       "id": "apps_app_app_components_routemap_routemap"
     },
@@ -1431,7 +1441,7 @@
       "source_file": "apps/app/app/components/TierBadge.tsx",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 37,
+      "community": 106,
       "norm_label": "tierbadge()",
       "id": "apps_app_app_components_tierbadge_tierbadge"
     },
@@ -1831,7 +1841,7 @@
       "source_file": "apps/app/app/lib/data.ts",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 70,
+      "community": 107,
       "norm_label": "data.ts",
       "id": "apps_app_app_lib_data"
     },
@@ -2181,7 +2191,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L21",
       "_origin": "ast",
-      "community": 37,
+      "community": 108,
       "norm_label": "latlng",
       "id": "apps_app_app_lib_types_latlng"
     },
@@ -2211,7 +2221,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L43",
       "_origin": "ast",
-      "community": 37,
+      "community": 108,
       "norm_label": "hubref",
       "id": "apps_app_app_lib_types_hubref"
     },
@@ -2221,7 +2231,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L50",
       "_origin": "ast",
-      "community": 37,
+      "community": 108,
       "norm_label": "destinationref",
       "id": "apps_app_app_lib_types_destinationref"
     },
@@ -2281,7 +2291,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L102",
       "_origin": "ast",
-      "community": 37,
+      "community": 106,
       "norm_label": "routeoption",
       "id": "apps_app_app_lib_types_routeoption"
     },
@@ -2431,7 +2441,7 @@
       "source_file": "apps/app/app/lib/types.ts",
       "source_location": "L223",
       "_origin": "ast",
-      "community": 11,
+      "community": 109,
       "norm_label": "mapmarker",
       "id": "apps_app_app_lib_types_mapmarker"
     },
@@ -2811,7 +2821,7 @@
       "source_file": "apps/app/app/routes/approvals.tsx",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 70,
+      "community": 107,
       "norm_label": "approvals.tsx",
       "id": "apps_app_app_routes_approvals"
     },
@@ -2821,7 +2831,7 @@
       "source_file": "apps/app/app/routes/approvals.tsx",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 70,
+      "community": 107,
       "norm_label": "meta()",
       "id": "apps_app_app_routes_approvals_meta"
     },
@@ -2831,7 +2841,7 @@
       "source_file": "apps/app/app/routes/approvals.tsx",
       "source_location": "L12",
       "_origin": "ast",
-      "community": 70,
+      "community": 107,
       "norm_label": "loader()",
       "id": "apps_app_app_routes_approvals_loader"
     },
@@ -2841,7 +2851,7 @@
       "source_file": "apps/app/app/routes/approvals.tsx",
       "source_location": "L16",
       "_origin": "ast",
-      "community": 70,
+      "community": 107,
       "norm_label": "approvals()",
       "id": "apps_app_app_routes_approvals_approvals"
     },
@@ -12384,7 +12394,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "Readme.md",
-      "source_location": "L24",
+      "source_location": "L25",
       "weight": 1.0,
       "source": "readme_slara",
       "target": "readme_arsitektur_flow",
@@ -12404,7 +12414,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "Readme.md",
-      "source_location": "L182",
+      "source_location": "L187",
       "weight": 1.0,
       "source": "readme_slara",
       "target": "readme_dokumentasi",
@@ -12414,7 +12424,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "Readme.md",
-      "source_location": "L157",
+      "source_location": "L162",
       "weight": 1.0,
       "source": "readme_slara",
       "target": "readme_environment_variables",
@@ -12424,7 +12434,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "Readme.md",
-      "source_location": "L111",
+      "source_location": "L116",
       "weight": 1.0,
       "source": "readme_slara",
       "target": "readme_instalasi_setup",
@@ -12434,7 +12444,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "Readme.md",
-      "source_location": "L192",
+      "source_location": "L197",
       "weight": 1.0,
       "source": "readme_slara",
       "target": "readme_lisensi",
@@ -12444,7 +12454,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "Readme.md",
-      "source_location": "L73",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "readme_slara",
+      "target": "readme_model_machine_learning",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Readme.md",
+      "source_location": "L78",
       "weight": 1.0,
       "source": "readme_slara",
       "target": "readme_struktur_folder",
@@ -12454,7 +12474,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "Readme.md",
-      "source_location": "L11",
+      "source_location": "L65",
       "weight": 1.0,
       "source": "readme_slara",
       "target": "readme_tech_stack",
@@ -12464,7 +12484,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "Readme.md",
-      "source_location": "L133",
+      "source_location": "L138",
       "weight": 1.0,
       "source": "readme_instalasi_setup",
       "target": "readme_run_a_single_service_on_the_host",
@@ -12474,7 +12494,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "Readme.md",
-      "source_location": "L119",
+      "source_location": "L124",
       "weight": 1.0,
       "source": "readme_instalasi_setup",
       "target": "readme_run_everything_via_docker_recommended",
@@ -27052,5 +27072,5 @@
       "source_file": "infra/docker-compose.yml"
     }
   ],
-  "built_at_commit": "ab2888b677284ff3a02c4e994f966f8d02e9da19"
+  "built_at_commit": "9f37d2a82d4a4cef4407f95b1e73070521717402"
 }

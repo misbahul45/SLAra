@@ -1,16 +1,16 @@
-# Graph Report - SLAra  (2026-07-15)
+# Graph Report - SLAra  (2026-07-17)
 
 ## Corpus Check
-- 174 files · ~14,134,803 words
+- 177 files · ~14,269,218 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1238 nodes · 1439 edges · 106 communities (87 shown, 19 thin omitted)
+- 1232 nodes · 1433 edges · 106 communities (88 shown, 18 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 3 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `42e95695`
+- Built from commit: `ab2888b6`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -139,7 +139,7 @@
 - **SLAra Microservices Mesh** — services_agent, services_data, services_ai, infra_kafka [EXTRACTED 1.00]
 - **Infrastructure Layer** — infra_mongodb, infra_neo4j, infra_redis, infra_qdrant, infra_kafka [EXTRACTED 1.00]
 
-## Communities (106 total, 19 thin omitted)
+## Communities (106 total, 18 thin omitted)
 
 ### Community 0 - "compilerOptions"
 Cohesion: 0.11
@@ -178,36 +178,36 @@ Cohesion: 0.08
 Nodes (24): BaseModel, FastAPI, Request, m1_eta(), m2_dwell(), m3_carbon(), m5_explain(), Endpoint internal M1-M5 — kontrak docs/contracts/rest/v1.md §B. (+16 more)
 
 ### Community 11 - "main.py"
-Cohesion: 0.07
-Nodes (27): AgentNetwork(), STATUS_COLOR, STATUS_LABEL, PlanComparison(), TONE_TEXT, AgentNode, AgentStatus, ApprovalMetric (+19 more)
+Cohesion: 0.09
+Nodes (22): DecisionPerformance(), MiniMapProps, ApprovalMetric, BulletTone, ConfidenceComponent, DashboardMap, Decision, DecisionPerformanceData (+14 more)
 
 ### Community 13 - "AGENTS.md — SLAra Project Instructions"
 Cohesion: 0.08
 Nodes (23): Agent (TypeScript / Hono), AGENTS.md — SLAra Project Instructions, AI Agents Capability (untuk agent yg kerja di repo ini), AI (Python / FastAPI), Architecture Map, Build & Run Commands, Codebase Understanding — WAJIB baca `graphify-out/` dulu, Common Gotchas (+15 more)
 
 ### Community 17 - "__init__.py"
-Cohesion: 0.11
-Nodes (11): BeforeAfter(), DecisionDistributionChart(), DecisionPerformance(), ImpactSummary(), RANGES, RangeToggle(), BeforeAfterRow, DecisionPerformanceData (+3 more)
+Cohesion: 0.15
+Nodes (8): BeforeAfter(), DecisionDistributionChart(), ImpactSummary(), RANGES, RangeToggle(), BeforeAfterRow, DistributionBar, ImpactSummaryData
 
 ### Community 18 - "SLAra"
-Cohesion: 0.11
-Nodes (17): Agent — Hono + LangGraph, AI — FastAPI, Alur Komunikasi, Data — Go, Dokumentasi, Gateway — Nginx, Getting Started, Jalankan 1 service aja (dev mode) (+9 more)
+Cohesion: 0.17
+Nodes (11): Arsitektur & Flow, Demo, Dokumentasi, Environment Variables, Instalasi & Setup, Lisensi, Run a single service on the host, Run everything via Docker (recommended) (+3 more)
 
 ### Community 19 - "Konvensi Kode"
 Cohesion: 0.06
 Nodes (34): 10. Roadmap (post-MVP), 11. Acceptance Criteria (untuk demo kompetisi), 1. Ringkasan Eksekutif, 2.1 Prediksi ETA, 2.2 Derivasi Risk Tier (deterministic, non-ML), 2.3 Mengapa Bukan Dua Model Terpisah, 2. Formulasi Matematis, 3.1 Pilihan Algoritma (+26 more)
 
 ### Community 21 - "ml"
-Cohesion: 0.11
-Nodes (12): GaConvergenceChart(), ParetoStats(), WeightTuningPanel(), DELAY_TONE, HEAD, ParetoTable(), TAG_CLASS, GaPoint (+4 more)
+Cohesion: 0.15
+Nodes (8): ClientOnly(), GaConvergenceChart(), ParetoStats(), WeightTuningPanel(), GaPoint, LabeledValue, WeightTuning, RouteMap
 
 ### Community 22 - "Konvensi Kode"
 Cohesion: 0.05
 Nodes (40): 10. Risiko & Mitigasi, 11. Acceptance Criteria (untuk demo kompetisi), 1. Ringkasan Eksekutif, 2.1 Problem Statement, 2.2 Tiga Objective (Final), 2.3 Constraint (Bukan Objective), 2.4 Mengapa 3 Objective (Bukan 4 atau 5), 2. Formulasi Matematis (+32 more)
 
 ### Community 23 - "main.go"
-Cohesion: 0.07
-Nodes (47): KpiItem, ApiError, decide(), getApprovals(), getDashboard(), getExecutionKpi(), getFleet(), getKpi() (+39 more)
+Cohesion: 0.08
+Nodes (45): ApiError, decide(), getApprovals(), getDashboard(), getExecutionKpi(), getFleet(), getKpi(), getOptimization() (+37 more)
 
 ### Community 24 - "init_env.py"
 Cohesion: 0.12
@@ -246,12 +246,12 @@ Cohesion: 0.07
 Nodes (28): 0. Ringkasan Eksekutif (baca ini kalau cuma punya 2 menit), 1. Baseline Fakta — Apa yang Benar-Benar Ada Sekarang, 2. Temuan Kritis dari Data (dengan bukti, bukan opini), 3. Revised Pipeline — Urutan Eksekusi Optimal, 4. Apa yang TIDAK Perlu Dikerjakan (penghematan eksplisit), 5.1 Prinsip yang dipertahankan (dari keputusan sesi proposal), 5.2 State schema — field names PERSIS dari artefak yang ada, 5.3 Status computability formula confidence — HARI INI (+20 more)
 
 ### Community 33 - "5. M4 — Route Optimization (P0, NSGA-II)"
-Cohesion: 0.29
-Nodes (7): 3 Objective Function, 5. M4 — Route Optimization (P0, NSGA-II), Acceptance Criteria M4, Constraint (Penalty Function, Bukan Objective), Multi-Skenario Validation (Wajib, Bukan Cherry-Picked), Output Files M4, Spec Singkat
+Cohesion: 0.14
+Nodes (14): 3 Objective Function, 5. M4 — Route Optimization (P0, NSGA-II), Acceptance Criteria M4, Constraint (Penalty Function, Bukan Objective), FASE M4.1 — Validasi algoritma di Solomon Benchmark, FASE M4.2 — Tuning GA parameters (grid search), FASE M4.3 — Implementasi Chromosome + Decoder, FASE M4.4 — Operator Genetik (+6 more)
 
 ### Community 34 - "6. M6 — Multi-Agent Orchestration (P1, LangGraph)"
-Cohesion: 0.14
-Nodes (14): 6 Agent Nodes, 6. M6 — Multi-Agent Orchestration (P1, LangGraph), Acceptance Criteria M6, Confidence Aggregation Formula, FASE M6.1 — Define LangGraph state schema + 6 agent nodes, FASE M6.2 — Implement confidence aggregation formula, FASE M6.3 — Manual weight calibration (BA Orwin) + dokumentasi asumsi, FASE M6.4 — Sensitivity analysis (variasi bobot ±10%, cek perubahan decision) (+6 more)
+Cohesion: 0.29
+Nodes (7): 6 Agent Nodes, 6. M6 — Multi-Agent Orchestration (P1, LangGraph), Acceptance Criteria M6, Confidence Aggregation Formula, Output Files M6, Spec Singkat, Sub-component Confidence Definitions
 
 ### Community 35 - "2. M3 — Carbon Emission Estimator (P0, Rule-Based)"
 Cohesion: 0.14
@@ -262,8 +262,8 @@ Cohesion: 0.19
 Nodes (12): ApprovalIcon(), base, DashboardIcon(), FleetIcon(), IconProps, KpiIcon(), LogoMark(), RecommendationIcon() (+4 more)
 
 ### Community 37 - "EtaBand.tsx"
-Cohesion: 0.06
-Nodes (27): AgentReasoningTrace(), ConfidenceScorePanel(), EtaBand(), EtaBandProps, FilterTabsProps, TierFilter, OperatorPanelProps, idr (+19 more)
+Cohesion: 0.09
+Nodes (21): EtaBand(), EtaBandProps, FilterTabsProps, TierFilter, KpiItem, OperatorPanelProps, idr, RouteCardsProps (+13 more)
 
 ### Community 38 - "Welcome to React Router!"
 Cohesion: 0.18
@@ -278,8 +278,8 @@ Cohesion: 0.20
 Nodes (9): Data Mode, Declarative Mode, Framework Mode, Identify the Mode, Mode Migration Doc Index, React Router, RSC Framework and RSC Data Modes, Skill References (+1 more)
 
 ### Community 41 - "ConfidencePanel.tsx"
-Cohesion: 0.08
-Nodes (26): Action, ApprovalDetailPanel(), ConfidenceBreakdown(), ORDER, arc(), ConfidencePanel(), Gauge(), humanize() (+18 more)
+Cohesion: 0.07
+Nodes (27): Action, ApprovalDetailPanel(), ConfidenceBreakdown(), ORDER, arc(), ConfidencePanel(), Gauge(), humanize() (+19 more)
 
 ### Community 42 - "RouteCards.tsx"
 Cohesion: 0.08
@@ -334,8 +334,8 @@ Cohesion: 0.14
 Nodes (14): 1. Penempatan deliverable, 2. Deviasi dari instruksi (semua disengaja, dengan alasan), 3. Hasil verifikasi (observasi nyata, bukan klaim), 4. Temuan infra (Step 4), 6. 🐞 BUG DITEMUKAN (belum diperbaiki — perlu keputusan), 7. Yang perlu diperhatikan berikutnya, D1 — Import path di-rewrite dari staging ke `app.*`, D2 — Python 3.14 → 3.12 (`.python-version` + `requires-python`) (+6 more)
 
 ### Community 70 - "fleet.tsx"
-Cohesion: 0.20
-Nodes (4): ClientOnly(), VehicleTelemetryPanel(), VehicleTelemetry, MiniMap
+Cohesion: 0.15
+Nodes (4): PageHeader(), VehicleTelemetryPanel(), VehicleTelemetry, MiniMap
 
 ### Community 71 - "Spec — M4 Route Optimization (NSGA-II, precomputed serving)"
 Cohesion: 0.17
@@ -346,12 +346,12 @@ Cohesion: 0.17
 Nodes (12): 1. Tanggung jawab, 2. Endpoint, 3.1 M5 menjelaskan **P90**, bukan P50, 3.2 M2 degraded-tolerant; M1 & M4 fail-fast, 3.3 `hour_sin`/`hour_cos` digabung jadi satu fitur tampilan, 3.4 Link M2 → M1 terjadi di **serving time**, dilakukan M6, 3.5 Latency di setiap response, 3. Keputusan teknis (+4 more)
 
 ### Community 73 - "SeverityPill.tsx"
-Cohesion: 0.24
-Nodes (7): ActiveRecommendationCard(), EventBanner(), SEVERITY_BG, SeverityPill(), ActiveRecommendation, RecoEvent, Severity
+Cohesion: 0.21
+Nodes (8): ActiveRecommendationCard(), ApprovalQueue(), EventBanner(), SEVERITY_BG, SeverityPill(), ActiveRecommendation, RecoEvent, Severity
 
 ### Community 74 - "approvals.tsx"
-Cohesion: 0.24
-Nodes (3): ApprovalQueue(), PageHeader(), ApprovalDetail
+Cohesion: 0.10
+Nodes (13): AgentNetwork(), STATUS_COLOR, STATUS_LABEL, AgentReasoningTrace(), ConfidenceScorePanel(), ShapChart(), AgentNode, AgentStatus (+5 more)
 
 ### Community 76 - "A. Endpoint FE-facing (yang dipakai dashboard)"
 Cohesion: 0.22
@@ -390,8 +390,8 @@ Cohesion: 0.29
 Nodes (7): 4. M5 — SHAP Explainability (P2, On-Demand), Acceptance Criteria M5, Integration M1 + M5 Flow, Kenapa Setelah M1 Final, Output Files M5, Pipeline M5, Spec Singkat
 
 ### Community 85 - "Pipeline M4"
-Cohesion: 0.29
-Nodes (7): FASE M4.1 — Validasi algoritma di Solomon Benchmark, FASE M4.2 — Tuning GA parameters (grid search), FASE M4.3 — Implementasi Chromosome + Decoder, FASE M4.4 — Operator Genetik, FASE M4.5 — Time-Boxed Execution, FASE M4.6 — Warm-Start (Reuse Previous Solution), Pipeline M4
+Cohesion: 0.13
+Nodes (10): DELAY_TONE, HEAD, ParetoTable(), TAG_CLASS, PlanComparison(), TONE_TEXT, MetricTone, ParetoPlan (+2 more)
 
 ### Community 86 - "Progress Tracker — `ai` service"
 Cohesion: 0.29
@@ -425,6 +425,10 @@ Nodes (5): Acceptance (plan Phase 2), Catatan jujur (WAJIB masuk narasi/spec), H
 Cohesion: 0.40
 Nodes (5): 10. Next Action Checklist, Final Integration (Minggu 4), Segera (Minggu 1), Setelah M2 Done (Minggu 2), Setelah M4 Tuned (Minggu 3)
 
+### Community 95 - "MiniMap.tsx"
+Cohesion: 0.29
+Nodes (7): FASE M6.1 — Define LangGraph state schema + 6 agent nodes, FASE M6.2 — Implement confidence aggregation formula, FASE M6.3 — Manual weight calibration (BA Orwin) + dokumentasi asumsi, FASE M6.4 — Sensitivity analysis (variasi bobot ±10%, cek perubahan decision), FASE M6.5 — Human-in-the-loop escalation message schema, FASE M6.6 — Audit trail logging (setiap transisi node di-checkpoint), Pipeline M6
+
 ### Community 96 - "M2 Artifacts — Hub Dwell Forecast (reproduced 15 Jul 2026)"
 Cohesion: 0.50
 Nodes (3): Isi & penempatan (kalau dipasang manual), M2 Artifacts — Hub Dwell Forecast (reproduced 15 Jul 2026), Validasi vs run asli temen
@@ -434,15 +438,17 @@ Cohesion: 0.50
 Nodes (4): 8. Resource Requirements, Compute, Data, Dependencies (pip install)
 
 ## Knowledge Gaps
-- **689 isolated node(s):** `$schema`, `plugin`, `@opencode-ai/plugin`, `STATUS_COLOR`, `STATUS_LABEL` (+684 more)
+- **685 isolated node(s):** `Demo`, `Tech Stack`, `Arsitektur & Flow`, `Struktur Folder`, `Run everything via Docker (recommended)` (+680 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **19 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **18 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **What connects `$schema`, `plugin`, `@opencode-ai/plugin` to the rest of the system?**
-  _702 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Why does `SLAra REST Contract — v1 · **FROZEN**` connect `A. Endpoint FE-facing (yang dipakai dashboard)` to `CHANGELOG.md`?**
+  _High betweenness centrality (0.004) - this node is a cross-community bridge._
+- **What connects `Demo`, `Tech Stack`, `Arsitektur & Flow` to the rest of the system?**
+  _698 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `compilerOptions` be split into smaller, more focused modules?**
   _Cohesion score 0.1111111111111111 - nodes in this community are weakly interconnected._
 - **Should `package.json` be split into smaller, more focused modules?**
@@ -453,5 +459,3 @@ _Questions this graph is uniquely positioned to answer:_
   _Cohesion score 0.09523809523809523 - nodes in this community are weakly interconnected._
 - **Should `dependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.05405405405405406 - nodes in this community are weakly interconnected._
-- **Should `home.tsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.11904761904761904 - nodes in this community are weakly interconnected._
