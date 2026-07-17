@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 
 // Live clock. Starts null so SSR and first client render match (no hydration
-// mismatch), then ticks each second on the client.
+// mismatch), then ticks each second on the client. Rendered in Asia/Jakarta so
+// the "WIB · UTC+7" label stays true on any viewer's machine.
 
-function pad(n: number): string {
-  return n.toString().padStart(2, "0");
-}
+const WIB = new Intl.DateTimeFormat("id-ID", {
+  timeZone: "Asia/Jakarta",
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+  hourCycle: "h23",
+});
 
 export function Clock() {
   const [now, setNow] = useState<Date | null>(null);
@@ -16,9 +21,7 @@ export function Clock() {
     return () => clearInterval(id);
   }, []);
 
-  const time = now
-    ? `${pad(now.getHours())}.${pad(now.getMinutes())}.${pad(now.getSeconds())}`
-    : "--.--.--";
+  const time = now ? WIB.format(now).replaceAll(":", ".") : "--.--.--";
 
   return (
     <div className="text-right">

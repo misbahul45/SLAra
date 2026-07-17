@@ -66,6 +66,11 @@ export function ConfidenceBreakdown({ breakdown }: { breakdown: Breakdown }) {
           Σ = {total.toFixed(2)}
         </span>
       </div>
+      {/* One-line gloss so the arithmetic below reads for non-technical judges too. */}
+      <p className="mt-1 text-[11px] leading-snug text-muted">
+        Five weighted checks, summed — this total is the score the 0.70
+        auto-execute gate reads. No single model can pass the gate alone.
+      </p>
       <ul className="mt-2 space-y-2">
         {ORDER.map((key) => {
           const c = breakdown[key];

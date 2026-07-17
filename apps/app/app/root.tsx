@@ -8,8 +8,7 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
-import { ToastProvider } from "~/components/toast";
-import "leaflet/dist/leaflet.css";
+import "maplibre-gl/dist/maplibre-gl.css";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
@@ -44,11 +43,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return (
-    <ToastProvider>
-      <Outlet />
-    </ToastProvider>
-  );
+  return <Outlet />;
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 
-// Renders children only after mount, so client-only libraries (leaflet) never run
+// Renders children only after mount, so client-only libraries (maplibre-gl) never run
 // during SSR. `children` is a function so the element isn't even constructed on the
 // server; SSR and first client render both show `fallback` → no hydration mismatch.
 

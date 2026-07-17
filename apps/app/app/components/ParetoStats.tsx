@@ -23,11 +23,13 @@ export function ParetoStats({ stats }: { stats: LabeledValue[] }) {
 export function WeightTuningPanel({ weights }: { weights: WeightTuning[] }) {
   return (
     <div className="glass-card p-4">
+      {/* "Selection Weights", not "Weight Tuning": nothing here is user-tunable,
+          and a title that promises a control the page doesn't have erodes trust. */}
       <div className="text-[13px] font-bold uppercase tracking-wide text-brand">
-        Weight Tuning
+        Selection Weights
       </div>
-      <div className="text-[12px] text-ink/60">
-        post-Pareto plan selection weights
+      <div className="text-[12px] text-ink/70">
+        how the agent picks one plan from the Pareto set — fixed, not tunable
       </div>
       <div className="mt-3 space-y-3">
         {weights.map((w) => (

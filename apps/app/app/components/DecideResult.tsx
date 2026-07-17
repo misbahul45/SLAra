@@ -114,6 +114,11 @@ function EtaPanel({ d }: { d: DecideResponse }) {
           domainMax={eta.p90_min * 1.15}
           tier={eta.risk_tier}
         />
+        {/* Gloss for non-technical readers; the P50/P90 terms stay for the technical ones. */}
+        <p className="mt-1.5 text-[11px] leading-snug text-muted">
+          P50 = typical arrival · P90 = 9 in 10 arrivals land by this time. A
+          wider band means the model is less certain.
+        </p>
       </div>
 
       <dl className="mt-3 grid grid-cols-3 gap-2 text-[12px]">
@@ -223,7 +228,7 @@ function RoutesTable({ d }: { d: DecideResponse }) {
           Pareto plan comparison (M4)
         </span>
         <span className="text-[11px] text-muted">
-          tour-level metrics · precomputed
+          tour-level metrics · precomputed — not this shipment's live risk
         </span>
       </div>
 
@@ -262,7 +267,7 @@ function RoutesTable({ d }: { d: DecideResponse }) {
                       )}
                       <span className="text-ink">{r.label}</span>
                       {selected && (
-                        <span className="rounded-full bg-ink px-1.5 py-0.5 text-[10px] font-bold text-white">
+                        <span className="rounded-full bg-ink px-1.5 py-0.5 text-[11px] font-bold text-white">
                           SELECTED
                         </span>
                       )}
@@ -294,6 +299,10 @@ function RoutesTable({ d }: { d: DecideResponse }) {
           </tbody>
         </table>
       </div>
+      <p className="mt-2 text-[11px] leading-snug text-muted">
+        P50/P90 = median / 90th-percentile tour duration in minutes. Late @P90 =
+        share of stops predicted late in the worst reasonable case.
+      </p>
     </div>
   );
 }

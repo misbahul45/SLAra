@@ -8,7 +8,9 @@
   --color-ink: #01304a; /* deep navy — headings, numbers, body, bar fills */
   --color-accent: #780001; /* maroon — process steps, primary CTA */
   --color-danger: #c00000; /* HIGH / critical red */
-  --color-muted: #6f86a0; /* muted gray-blue text */
+  /* Muted gray-blue text. Darkened from the Figma #6f86a0 (≈3.7:1 on white —
+     fails WCAG AA 4.5:1) to ≈5.1:1, since it's used at 11–12px. */
+  --color-muted: #5b6f88;
 
   /* semantic tiers (refined per page as needed) */
   --color-safe: #2f9e6b;

@@ -1,49 +1,37 @@
-import { MapContainer, TileLayer, CircleMarker, Tooltip } from "react-leaflet";
+import { useMemo } from "react";
+import Map, { Marker } from "react-map-gl/maplibre";
+import { basemapStyle } from "~/lib/basemap";
 import type { MapMarker } from "~/lib/types";
 
-// Client-only (leaflet touches `window`); loaded via React.lazy. A lightweight map for
-// the dashboard fleet panel and reused on the Live Fleet Map page.
+// Client-only (maplibre-gl touches `window`); loaded via React.lazy. A lightweight
+// map for the dashboard fleet panel and reused on the Live Fleet Map page.
 
 interface MiniMapProps {
-  center: [number, number];
+  center: [number, number]; // [lat, lng]
   zoom?: number;
   markers?: MapMarker[];
 }
 
-export default function MiniMap({
-  center,
-  zoom = 12,
-  markers = [],
-}: MiniMapProps) {
+export default function MiniMap({ center, zoom = 12, markers = [] }: MiniMapProps) {
+  const mapStyle = useMemo(() => basemapStyle(), []);
   return (
-    <MapContainer
-      center={center}
-      zoom={zoom}
-      className="h-full w-full"
-      style={{ background: "#eef1f6" }}
+    <Map
+      initialViewState={{ longitude: center[1], latitude: center[0], zoom }}
+      mapStyle={mapStyle}
+      style={{ width: "100%", height: "100%" }}
+      attributionControl={{ compact: true }}
     >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      {markers.map((m) => {
-        const color = m.color ?? "#780001";
-        return (
-          <CircleMarker
-            key={`${m.lat},${m.lng}`}
-            center={[m.lat, m.lng]}
-            radius={9}
-            pathOptions={{
-              color,
-              fillColor: color,
-              fillOpacity: 1,
-              weight: 2,
-            }}
-          >
-            {m.label && <Tooltip>{m.label}</Tooltip>}
-          </CircleMarker>
-        );
-      })}
-    </MapContainer>
+      {markers.map((m, i) => (
+        // Index key: two vehicles can share a coordinate, and the list is
+        // replaced wholesale on each load (never reordered in place).
+        <Marker key={i} longitude={m.lng} latitude={m.lat} anchor="center">
+          <span
+            title={m.label}
+            className="block h-4 w-4 rounded-full border-2 border-white shadow"
+            style={{ background: m.color ?? "#780001" }}
+          />
+        </Marker>
+      ))}
+    </Map>
   );
 }

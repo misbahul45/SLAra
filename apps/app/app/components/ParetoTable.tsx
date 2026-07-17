@@ -1,12 +1,13 @@
 import type { MetricTone, ParetoPlan } from "~/lib/types";
 
-// Pareto plan comparison table (Figma 6-25): 4 plans with tags + score bars.
+// Pareto plan comparison table (Figma 6-25): plans with tags + score bars.
 
+// Keys match the live M4 candidate labels (Balanced/Fastest/Greenest, uppercased
+// by m4-adapter). BALANCED is the knee-point pick the agent proposes.
 const TAG_CLASS: Record<string, string> = {
-  CURRENT: "bg-ink text-white",
+  BALANCED: "bg-safe text-white",
   FASTEST: "bg-warning text-white",
-  RECOMMENDED: "bg-safe text-white",
-  "LOW CARBON": "bg-[#2f9fb0] text-white",
+  GREENEST: "bg-[#2f9fb0] text-white",
 };
 
 const DELAY_TONE: Record<MetricTone, string> = {
@@ -15,7 +16,9 @@ const DELAY_TONE: Record<MetricTone, string> = {
   neutral: "text-ink",
 };
 
-const HEAD = ["Plan", "Route via", "ETA", "Delay Risk", "Fuel", "CO₂", "Score", "Tag"];
+// "Cost", not "Fuel": the cell renders cost_idr — the tour's total cost, of which
+// fuel is only one part. The old Figma header mislabeled it.
+const HEAD = ["Plan", "Route via", "ETA", "Delay Risk", "Cost", "CO₂", "Score", "Tag"];
 
 function ScoreCell({ score }: { score: number }) {
   return (
@@ -57,16 +60,24 @@ export function ParetoTable({
             const selected = p.route_id === selectedId;
             return (
             <tr
-              key={p.plan}
+              key={p.route_id}
               onClick={onSelect ? () => onSelect(p.route_id) : undefined}
+              // Keyboard path for the map↔table sync: rows are real interactive
+              // targets, so they must be focusable and react to Enter/Space.
+              tabIndex={onSelect ? 0 : undefined}
+              aria-selected={onSelect ? selected : undefined}
+              onKeyDown={
+                onSelect
+                  ? (e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        onSelect(p.route_id);
+                      }
+                    }
+                  : undefined
+              }
               className={`border-t border-brand/20 ${onSelect ? "cursor-pointer" : ""} ${
-                selected
-                  ? "bg-accent/10"
-                  : p.tag === "RECOMMENDED"
-                    ? "bg-safe/5"
-                    : onSelect
-                      ? "hover:bg-brand/5"
-                      : ""
+                selected ? "bg-accent/10" : onSelect ? "hover:bg-brand/5" : ""
               }`}
             >
               <td className="whitespace-nowrap px-4 py-3 font-bold text-ink">
