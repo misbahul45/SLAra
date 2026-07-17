@@ -70,12 +70,12 @@
     "semantic_hash": "e1f41a34b3cd38a7d6b7dee58d6cd251"
   },
   "AGENTS.md": {
-    "mtime": 1784127527.96515,
+    "mtime": 1784304454.1188207,
     "ast_hash": "7f1c01cb74bbc7914fdf289e610effbf",
     "semantic_hash": ""
   },
   "Readme.md": {
-    "mtime": 1784127527.96515,
+    "mtime": 1784304454.1188207,
     "ast_hash": "46ce6e18cd0b864d8b2bc0fb09b08ce6",
     "semantic_hash": ""
   },
@@ -110,7 +110,7 @@
     "semantic_hash": ""
   },
   "claude.md": {
-    "mtime": 1784127527.9781513,
+    "mtime": 1784304454.1198208,
     "ast_hash": "81df654c62c0de8d62d6585bfbe7501d",
     "semantic_hash": ""
   },
@@ -120,7 +120,7 @@
     "semantic_hash": ""
   },
   "infra/docker-compose.yml": {
-    "mtime": 1784127528.0151548,
+    "mtime": 1784304454.1408243,
     "ast_hash": "045cd7df2808a05ee77d575dab08ff4f",
     "semantic_hash": ""
   },
@@ -595,12 +595,12 @@
     "semantic_hash": ""
   },
   "infra/docker-compose.dev.yml": {
-    "mtime": 1784127528.0151548,
+    "mtime": 1784304454.1408243,
     "ast_hash": "11f112b1efedb3c60f611622be3b7372",
     "semantic_hash": ""
   },
   "infra/docker-compose.prod.yml": {
-    "mtime": 1784127528.0151548,
+    "mtime": 1784304454.1408243,
     "ast_hash": "32b4902415f1e8e7b5fd1c981995188c",
     "semantic_hash": ""
   },
@@ -635,7 +635,7 @@
     "semantic_hash": ""
   },
   "infra/README.md": {
-    "mtime": 1784127528.0141547,
+    "mtime": 1784304454.1408243,
     "ast_hash": "ea6d7b00dd89e636baa293d4b59e1c82",
     "semantic_hash": ""
   },
@@ -655,7 +655,7 @@
     "semantic_hash": ""
   },
   "docs/architecture/adr/0003-gateway-dev-mode-strategy.md": {
-    "mtime": 1784127527.9801517,
+    "mtime": 1784304454.1198208,
     "ast_hash": "219c6989b2aa4b5c1f0dbe2fc26bcf37",
     "semantic_hash": ""
   },
@@ -665,7 +665,7 @@
     "semantic_hash": ""
   },
   "docs/architecture/diagrams/service-routing.md": {
-    "mtime": 1784127527.9811516,
+    "mtime": 1784304454.120821,
     "ast_hash": "d364c1372baa37e2b134758870795031",
     "semantic_hash": ""
   },
@@ -675,22 +675,22 @@
     "semantic_hash": ""
   },
   "docs/progress/plan/sprint-2026-07-b.md": {
-    "mtime": 1784127527.9841518,
+    "mtime": 1784304454.1218212,
     "ast_hash": "95e87ed6548ea1122ec62397b5e30708",
     "semantic_hash": ""
   },
   "docs/runbooks/docker-infrastructure-audit.md": {
-    "mtime": 1784127527.9841518,
+    "mtime": 1784304454.1228213,
     "ast_hash": "c3c2ca1b2c11cdb8b076a940dd2e6286",
     "semantic_hash": ""
   },
   "docs/runbooks/docker-infrastructure-remediation.md": {
-    "mtime": 1784127527.985152,
+    "mtime": 1784304454.1228213,
     "ast_hash": "060b5ee92b10380b158997f606371237",
     "semantic_hash": ""
   },
   "docs/runbooks/health-check-runbook.md": {
-    "mtime": 1784127527.985152,
+    "mtime": 1784304454.1228213,
     "ast_hash": "f8c7703f5e05d03a3d2de68ead0b3bb0",
     "semantic_hash": ""
   },
@@ -700,7 +700,7 @@
     "semantic_hash": ""
   },
   "docs/specifications/platform/SPEC-001-docker-dev-startup-health.md": {
-    "mtime": 1784127527.9861522,
+    "mtime": 1784304454.1228213,
     "ast_hash": "4f0ecfb4faafe20984e319e968474415",
     "semantic_hash": ""
   },
@@ -815,7 +815,7 @@
     "semantic_hash": ""
   },
   "docs/architecture/adr/ADR-001-demo-transport.md": {
-    "mtime": 1784127527.9801517,
+    "mtime": 1784304454.1198208,
     "ast_hash": "6ef6dde4b7bd8d557bd6629d109fad36",
     "semantic_hash": ""
   },
@@ -870,7 +870,7 @@
     "semantic_hash": ""
   },
   "docs/progress/plan/SLARA_IMPLEMENTATION_PLAN.md": {
-    "mtime": 1784127527.9841518,
+    "mtime": 1784304454.1218212,
     "ast_hash": "092e739f303d5e5a668ffbc6d8924de3",
     "semantic_hash": ""
   },
