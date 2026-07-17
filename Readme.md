@@ -38,13 +38,13 @@ flowchart TD
     GW -->|proxy_pass| AI
     FE -.->|dev: Vite proxy /internal| AI
 
-    AG -->|POST /internal/m2/dwell| AI
-    AG -->|POST /internal/m1/eta| AI
-    AG -->|POST /internal/m3/carbon| AI
-    AG -->|GET  /internal/m4/routes| AI
-    AG -->|POST /internal/m5/explain (non-SAFE only)| AI
+    AG -->|"POST /internal/m2/dwell"| AI
+    AG -->|"POST /internal/m1/eta"| AI
+    AG -->|"POST /internal/m3/carbon"| AI
+    AG -->|"GET /internal/m4/routes"| AI
+    AG -->|"POST /internal/m5/explain (non-SAFE only)"| AI
 
-    subgraph M6 pipeline ["agent decide.ts — one shipment"]
+    subgraph M6P["agent decide.ts — one shipment"]
       N2["M2 dwell"] --> N1["M1 ETA (inject dwell)"]
       N1 --> N3["M3 carbon"]
       N3 --> N4["M4 routes"]
@@ -57,10 +57,10 @@ flowchart TD
       N8 -->|no| A2["ESCALATE"]
     end
 
-    AG --- M6 pipeline
+    AG --- M6P
 ```
 
-Each model call goes over HTTP through `services/agent/src/clients/ai.ts` (endpoints listed in the model table above). The gateway routes `/api/v1` to the agent, `/internal` to the AI service, and everything else to the dashboard.
+Each model call goes over HTTP through `services/agent/src/clients/ai.ts` (endpoints listed in the model table above). The gateway routes `/api/v1` to the agent (path preserved), `/internal` to the AI service, and everything else to the dashboard; it also exposes path-stripped debug prefixes `/api/agent/`, `/api/data/`, `/api/ai/` straight to each service.
 
 ## Tech Stack
 
@@ -71,7 +71,7 @@ Each model call goes over HTTP through `services/agent/src/clients/ai.ts` (endpo
 | **services/ai** | Python 3.12 | FastAPI + Uvicorn, LightGBM, SHAP | `app/main.py` (port 8000) | Serves models M1–M5 via `/internal/*` |
 | **services/data** | Go 1.25 | Gin (`gin-gonic/gin`) | `cmd/api/main.go` (port 8081) | Scaffold: `/health` only; domain entities defined in `internal/database/entities` |
 | **services/gateway** | — | Nginx (`nginx:alpine`) | `services/gateway/nginx.conf` | Reverse proxy: `/api/v1` → agent, `/internal` → ai, `/` → app |
-| **infra** | — | Docker Compose (base + dev + prod overrides) | `infra/docker-compose*.yml` | Orchestrates the 4 services + mongo/neo4j/redis/qdrant/kafka |
+| **infra** | — | Docker Compose (base + dev + prod overrides) | `infra/docker-compose*.yml` | Orchestrates the 5 services above + mongo/neo4j/redis/qdrant/kafka |
 
 Supporting infrastructure declared in `infra/docker-compose.yml` (not in the live demo path): MongoDB `mongo:latest`, Neo4j `neo4j:latest`, Redis `redis:alpine`, Qdrant `qdrant/qdrant:latest`, and Kafka (KRaft, `apache/kafka:latest`, advertised listener `kafka:9092`).
 
@@ -88,6 +88,7 @@ SLAra/
 │   │   ├── src/domain/confidence.ts
 │   │   ├── src/clients/ai.ts
 │   │   ├── src/routes/shipments.ts
+│   │   ├── tests/confidence.test.ts
 │   │   └── data/{shipments,shipment_routes}.json
 │   ├── data/                  # Go + Gin scaffold (port 8081)
 │   │   ├── cmd/api/main.go
@@ -95,17 +96,18 @@ SLAra/
 │   ├── ai/                    # FastAPI ML service (Python 3.12, uv)
 │   │   ├── app/{main,schemas}.py, app/api/internal.py, app/core/artifacts.py
 │   │   ├── app/ml/{m1,m2,m3,m5}.py
-│   │   ├── models/{m1,m2}/    # LightGBM boosters (mounted volume, gitignored)
+│   │   ├── models/{m1,m2}/    # LightGBM boosters (tracked in git; .dockerignore'd, mounted as volume)
 │   │   ├── configs/{m1,m2}/   # thresholds, target encoding, coverage
 │   │   ├── data/              # pareto_routes_*.json (M4), hub_telemetry.json
 │   │   ├── experiments/        # m4_nsga2*.py — evidence only, NOT runtime
 │   │   └── tests/             # golden M1 + M5 additivity
 │   └── gateway/                # nginx.conf (+ nginx.dev.conf)
 ├── infra/
-│   ├── docker-compose.yml      # base: 4 services + mongo/neo4j/redis/qdrant/kafka
+│   ├── docker-compose.yml      # base: 5 services + mongo/neo4j/redis/qdrant/kafka
 │   ├── docker-compose.dev.yml  # dev overrides (Dockerfile.dev, hot-reload watch)
-│   └── docker-compose.prod.yml # prod overrides (restart policy)
-├── docs/                       # architecture/adr, specifications, contracts, progress, api/bruno, models
+│   ├── docker-compose.prod.yml # prod overrides (restart policy)
+│   └── check-health.sh         # curl-based health sweep across services
+├── docs/                       # architecture/adr, specifications, contracts, progress, runbooks, api/bruno, models
 ├── graphify-out/               # generated codebase graph (read before manual exploration)
 ├── AGENTS.md                   # team convention/policy guide
 ├── claude.md                   # current-state notes + verified run commands
@@ -157,32 +159,26 @@ pnpm install && pnpm dev          # react-router dev → :5173
 pnpm typecheck                   # react-router typegen && tsc
 ```
 
-> The `data` and `ai` services must be reachable from the agent: the agent reads `AI_BASE_URL` (default `http://localhost:8000`). The AI `models/` directory is mounted as a volume, so drop LightGBM booster files into `services/ai/models/{m1,m2}/` — no image rebuild needed.
+> The agent only calls the `ai` service (via `AI_BASE_URL`, default `http://localhost:8000`) — start `ai` first and wait for its "Startup selesai" log. The `data` service is not on the decision path. In Docker, the AI `models/` directory is mounted as a volume, so drop LightGBM booster files into `services/ai/models/{m1,m2}/` — no image rebuild needed.
 
 ## Environment Variables
 
-All variables live in the root `.env` (template: `.env.example`), consumed by every service via `env_file`. No secrets are committed.
+Compose injects the root `.env` (template: `.env.example`) into every service via `env_file`. The dashboard additionally has its own dev template at `apps/app/.env.example` (copy to `.env.development`, gitignored). No secrets are committed.
+
+Variables actually read by code today:
 
 | Variable | Used by | Description |
 |---|---|---|
+| `AI_BASE_URL` | agent | Base URL of the ai service (default `http://localhost:8000`) |
+| `PORT` | agent | Agent listen port (default `3000`) |
+| `MODEL_DIR` | ai | Model artifact dir; Compose sets `/app/models` and mounts `services/ai/models/` there read-only |
+| `VITE_USE_MOCK` | app | `false` → shipments/KPI/decide/resolve hit the live agent; any other value → fixtures (offline demo) |
+| `VITE_API_BASE` | app (SSR) | Absolute agent base for server-side fetches (default `http://localhost:3000/api/v1`). `VITE_API_BASE_URL` is the legacy name, still honoured |
+| `VITE_API_BASE_BROWSER` | app (browser) | Browser-side base (default `/api/v1`, same-origin through the Vite proxy in dev / the gateway in prod) |
+| `VITE_AI_BASE` | app (SSR) | ai-service base for Route Optimization / M4 (default `http://localhost:8000`) |
 | `NODE_ENV` | agent, app | Runtime mode (`development` / `production`) |
-| `GATEWAY_PORT` | gateway | Host port for Nginx (default `80`) |
-| `AGENT_PORT` | agent | Host port for the agent API (default `3000`) |
-| `DATA_PORT` | data | Host port for the Go API (default `8081`) |
-| `AI_PORT` | ai | Host port for the AI service (default `8000`) |
-| `APP_PORT` | app | Host port for the dashboard dev server (default `5173`) |
-| `MONGO_URI` | data | MongoDB connection string (e.g. `mongodb://mongodb:27017`) |
-| `MONGO_DB` | data | MongoDB database name |
-| `NEO4J_AUTH` | data, neo4j | `user/password` for Neo4j |
-| `NEO4J_URI` | data | Neo4j bolt URI (e.g. `bolt://neo4j:7687`) |
-| `NEO4J_USER` | data | Neo4j username |
-| `NEO4J_PASSWORD` | data | Neo4j password |
-| `REDIS_URL` | agent, data, ai | Redis connection URL (e.g. `redis://redis:6379`) |
-| `QDRANT_URL` | agent | Qdrant URL (e.g. `http://qdrant:6333`) |
-| `KAFKA_BROKERS` | agent, data, ai | Kafka bootstrap brokers (e.g. `kafka:9092`) |
-| `VITE_API_BASE_URL` | app | Gateway base URL the dashboard calls (e.g. `http://localhost/api`) |
 
-Runtime-specific vars (not in `.env.example`): the agent honors `AI_BASE_URL` and `PORT`; the ai container sets `MODEL_DIR=/app/models`.
+Declared in `.env.example` for the not-yet-wired platform services (consumed by nothing on the live path, see ADR-003): `MONGO_URI`, `MONGO_DB`, `NEO4J_AUTH`/`NEO4J_URI`/`NEO4J_USER`/`NEO4J_PASSWORD` (the `NEO4J_AUTH` pair is read by the Neo4j container itself), `REDIS_URL`, `QDRANT_URL`, `KAFKA_BROKERS`. The `GATEWAY_PORT`/`AGENT_PORT`/`DATA_PORT`/`AI_PORT`/`APP_PORT` variables are also declared, but Compose currently hardcodes the host ports (`80`, `3000`, `8081`, `8000`, `5173`) — changing them in `.env` has no effect.
 
 ## Dokumentasi
 
