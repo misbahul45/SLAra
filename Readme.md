@@ -1,25 +1,26 @@
 # SLAra
 
-SLAra is a logistics AI-orchestration platform. A React dashboard fronts an **Agent** service (Hono) that runs a deterministic decision core (codename **M6**) fanning out to an **AI** service (FastAPI) serving five machine-learning models (ETA, hub dwell, carbon, precomputed route optimization, and SHAP explainability). A Go **Data** service and an Nginx **Gateway** round out the runtime; the supporting data stores (MongoDB, Neo4j, Redis, Qdrant, Kafka) are provisioned in `infra/` but are **not** part of the demo decision path (see ADR-003).
+SLAra is a logistics AI-orchestration platform. A deterministic decision core (codename **M6**), running inside a Hono **Agent** service, takes a shipment, calls out to five machine-learning models for its ETA, hub dwell, carbon, and routing figures, aggregates their confidence, and decides in real time whether the shipment can be auto-executed or needs to be escalated to a human dispatcher. A React dashboard sits on top for operators, a Go service owns the domain entities, and Nginx is the single gateway in front of everything.
 
-> This README describes the **code that actually exists today**. The repository is mid-build: the `ai` service and the `agent` M6 core are real and serving; the `data` service is currently a Gin scaffold exposing only `/health`; and the downstream data stores are declared in Compose but not yet wired into the live flow. For the full convention/policy guide, see [`AGENTS.md`](./AGENTS.md) and the current-state notes in [`claude.md`](./claude.md).
+> **Code status.** This README describes the code that runs today, not a roadmap. The `ai` service and the `agent` M6 core are real and serving traffic. The `data` service is currently a Gin scaffold exposing only `/health`. The downstream data stores are declared in Compose but are not yet wired into the live decision path (see ADR-003). For conventions and policy, see [`AGENTS.md`](./AGENTS.md); for current-state notes and verified run commands, see [`claude.md`](./claude.md).
 
 ## Demo
 
 [![Demo Video](https://img.youtube.com/vi/ctc_AI-mbu0/0.jpg)](https://www.youtube.com/watch?v=ctc_AI-mbu0)
 
-## Tech Stack
+## Model Machine Learning
 
-| Service | Language | Framework / Runtime | Entry point | Real responsibility (verified) |
-|---|---|---|---|---|
-| **apps/app** | TypeScript | React Router v8 (framework mode), React 19, Tailwind v4, Vite 8, MapLibre GL | `react-router dev` / `build` (`apps/app/package.json`) | Dashboard UI; consumes `/api/v1` (agent) and `/internal/m4/routes` (ai) |
-| **services/agent** | TypeScript (Node 22) | Hono + `tsx`, `@hono/node-server` | `src/index.ts` (port 3000) | M6 deterministic orchestration core; owns 4 FE-facing endpoints; calls ai service |
-| **services/ai** | Python 3.12 | FastAPI + Uvicorn, LightGBM, SHAP | `app/main.py` (port 8000) | Serves models M1–M5 via `/internal/*` |
-| **services/data** | Go 1.25 | Gin (`gin-gonic/gin`) | `cmd/api/main.go` (port 8081) | Scaffold: `/health` only; domain entities defined in `internal/database/entities` |
-| **services/gateway** | — | Nginx (`nginx:alpine`) | `services/gateway/nginx.conf` | Reverse proxy: `/api/v1` → agent, `/internal` → ai, `/` → app |
-| **infra** | — | Docker Compose (base + dev + prod overrides) | `infra/docker-compose*.yml` | Orchestrates the 4 services + mongo/neo4j/redis/qdrant/kafka |
+Five models drive every shipment decision. All of them are served from `services/ai` (FastAPI + Uvicorn) and called one at a time by the M6 pipeline in the agent.
 
-Supporting infrastructure declared in `infra/docker-compose.yml` (not in the live demo path): MongoDB `mongo:latest`, Neo4j `neo4j:latest`, Redis `redis:alpine`, Qdrant `qdrant/qdrant:latest`, and Kafka (KRaft, `apache/kafka:latest`, advertised listener `kafka:9092`).
+| Model | Task | Method | Failure behavior |
+|---|---|---|---|
+| **M1 — ETA** | Dual-quantile (P10/P90) time-of-arrival estimate, plus a risk tier and a confidence score (`conf_m1`) | LightGBM, two quantile boosters | Fail-fast at AI startup; a runtime failure forces M6 to `ESCALATE` |
+| **M2 — Hub Dwell** | Dual-quantile estimate of time spent at a hub, fed into M1 as an input feature | LightGBM, two quantile boosters | Degraded-tolerant: falls back to the historical median with confidence reduced |
+| **M3 — Carbon** | Emission estimate for the shipment | Rule-based, GLEC / ISO 14083 emission factors | Non-fatal, skipped on failure |
+| **M4 — Route Optimization** | Pareto-optimal route candidates for a given urban scenario | Precomputed offline via NSGA-II (`services/ai/experiments/m4_nsga2*.py` is evidence of the offline run, not part of the runtime) | Fail-fast at AI startup; an unknown scenario returns 404; a runtime failure forces `ESCALATE` |
+| **M5 — Explainability** | SHAP explanation for the M1 decision, called only when the risk tier is non-SAFE | SHAP `TreeExplainer` on the M1 P90 booster | Additivity is checked at startup and reported in `/health`; non-fatal at runtime |
+
+M6 (`services/agent/src/orchestration/decide.ts`) runs all five in a fixed order per shipment: **M2** → **M1** (with the M2 dwell injected as a feature) → **M3** → **M4** → **M5** conditionally → confidence aggregation → a branch into `AUTO_EXECUTE` (confidence ≥ 0.70) or `ESCALATE`. The LightGBM boosters and SHAP explainer live in `services/ai/models/{m1,m2}/`, mounted read-only as a volume so new artifacts can be dropped in without an image rebuild; `numpy` is pinned `<2.5` for the SHAP/numba constraint.
 
 ## Arsitektur & Flow
 
@@ -59,16 +60,20 @@ flowchart TD
     AG --- M6 pipeline
 ```
 
-The Agent (`services/agent/src/orchestration/decide.ts`) is the decision core. For each shipment it runs a fixed node pipeline: **M2** (hub dwell) → **M1** (ETA, with the M2 dwell injected as a feature) → **M3** (carbon) → **M4** (route candidates) → conditional **M5** (SHAP explanation, only when the tier is non-SAFE) → confidence aggregation → branch into `AUTO_EXECUTE` (`confidence >= 0.70`) or `ESCALATE`. Failure cascade (verified in `decide.ts`): M1/M4 down forces `ESCALATE`; M2 down falls back to baked dwell with reduced confidence; M3/M5 down are non-fatal.
+Each model call goes over HTTP through `services/agent/src/clients/ai.ts` (endpoints listed in the model table above). The gateway routes `/api/v1` to the agent, `/internal` to the AI service, and everything else to the dashboard.
 
-Each model call hits the AI service over HTTP (`services/agent/src/clients/ai.ts`):
-- `POST /internal/m1/eta` — ETA dual-quantile (LightGBM), risk tier + `conf_m1`
-- `POST /internal/m2/dwell` — hub dwell dual-quantile; **degraded-tolerant** (serves historical median if artifacts missing)
-- `POST /internal/m3/carbon` — rule-based GLEC/ISO 14083 emission factor
-- `GET  /internal/m4/routes?scenario=…` — **precomputed** Pareto route set (`data/pareto_routes_jabodetabek_urban.json`); unknown scenario → 404
-- `POST /internal/m5/explain` — SHAP `TreeExplainer` on the M1 P90 booster (`app/ml/m5.py`)
+## Tech Stack
 
-Models M1 and M4 are **fail-fast** at AI startup (`app/core/artifacts.py`); M2 is degraded-tolerant; M5 additivity is checked at startup and reported in `/health`. The AI `models/` directory is mounted read-only into the container (excluded from the image by `.dockerignore`).
+| Service | Language | Framework / Runtime | Entry point | Real responsibility (verified) |
+|---|---|---|---|---|
+| **apps/app** | TypeScript | React Router v8 (framework mode), React 19, Tailwind v4, Vite 8, MapLibre GL | `react-router dev` / `build` (`apps/app/package.json`) | Dashboard UI; consumes `/api/v1` (agent) and `/internal/m4/routes` (ai) |
+| **services/agent** | TypeScript (Node 22) | Hono + `tsx`, `@hono/node-server` | `src/index.ts` (port 3000) | M6 deterministic orchestration core; owns 4 FE-facing endpoints; calls ai service |
+| **services/ai** | Python 3.12 | FastAPI + Uvicorn, LightGBM, SHAP | `app/main.py` (port 8000) | Serves models M1–M5 via `/internal/*` |
+| **services/data** | Go 1.25 | Gin (`gin-gonic/gin`) | `cmd/api/main.go` (port 8081) | Scaffold: `/health` only; domain entities defined in `internal/database/entities` |
+| **services/gateway** | — | Nginx (`nginx:alpine`) | `services/gateway/nginx.conf` | Reverse proxy: `/api/v1` → agent, `/internal` → ai, `/` → app |
+| **infra** | — | Docker Compose (base + dev + prod overrides) | `infra/docker-compose*.yml` | Orchestrates the 4 services + mongo/neo4j/redis/qdrant/kafka |
+
+Supporting infrastructure declared in `infra/docker-compose.yml` (not in the live demo path): MongoDB `mongo:latest`, Neo4j `neo4j:latest`, Redis `redis:alpine`, Qdrant `qdrant/qdrant:latest`, and Kafka (KRaft, `apache/kafka:latest`, advertised listener `kafka:9092`).
 
 ## Struktur Folder
 
@@ -95,7 +100,7 @@ SLAra/
 │   │   ├── data/              # pareto_routes_*.json (M4), hub_telemetry.json
 │   │   ├── experiments/        # m4_nsga2*.py — evidence only, NOT runtime
 │   │   └── tests/             # golden M1 + M5 additivity
-│   └── gateway/               # nginx.conf (+ nginx.dev.conf)
+│   └── gateway/                # nginx.conf (+ nginx.dev.conf)
 ├── infra/
 │   ├── docker-compose.yml      # base: 4 services + mongo/neo4j/redis/qdrant/kafka
 │   ├── docker-compose.dev.yml  # dev overrides (Dockerfile.dev, hot-reload watch)
@@ -152,7 +157,7 @@ pnpm install && pnpm dev          # react-router dev → :5173
 pnpm typecheck                   # react-router typegen && tsc
 ```
 
-> The `data` and `ai` services must be reachable from the agent: the agent reads `AI_BASE_URL` (default `http://localhost:8000`). The AI `models/` directory is mounted as a volume, so drop LightGBM booster files into `services/ai/models/{m1,m2}/` — no image rebuild needed. `numpy` is pinned `<2.5` on purpose (SHAP/numba constraint).
+> The `data` and `ai` services must be reachable from the agent: the agent reads `AI_BASE_URL` (default `http://localhost:8000`). The AI `models/` directory is mounted as a volume, so drop LightGBM booster files into `services/ai/models/{m1,m2}/` — no image rebuild needed.
 
 ## Environment Variables
 
