@@ -29,17 +29,21 @@ Status M6 orchestration di `services/agent`. Wajib di-update setiap status berub
 | Unit test `confidence.test.ts` | ✅ DONE | 2026-07-16 | **6 pass, 0 fail** |
 | Bruno collection | ✅ DONE | 2026-07-16 | `docs/api/bruno/agent/` (5 request) |
 
-## Verifikasi E2E (2026-07-16, host — agent :3000 + ai :8000)
+## Verifikasi E2E (2026-07-17, host — agent :3000 + ai :8000)
+
+> Re-verifikasi setelah **sinkron `distance_km` → jarak jalan OSRM** (17 Jul) dan
+> **`routes[].geometry` per-shipment** (fix §A3, `data/shipment_routes.json`).
+> Angka 16 Jul (0.864/0.686) diarsipkan di git + PHASE3-4 report.
 
 | Gate | Hasil |
 |---|---|
 | `/health` ai | m1 ✅ · m2 FULL ✅ · m4 ✅ · m5 additivity ✅ |
 | `GET /shipments` enrichment | 12/12 eta+tier terisi |
-| decide SHP-00400 | AUTO_EXECUTE · **0.864** · shap null · ~40 ms |
-| decide SHP-00403 | ESCALATE · **0.686** · `deadline_pressure` · 5 SHAP · ~400 ms |
-| Σ(value×weight) == confidence | PERSIS di kedua skenario |
-| Escalation rate 12 shipment | **2/12 = 16.7%** (band 5–20% ✓) |
-| resolve APPROVE 00403 | decision_status → APPROVED, executed_route_id R-B |
+| decide SHP-00400 | AUTO_EXECUTE · **0.810** · shap null |
+| decide SHP-00403 | ESCALATE · **0.646** · `deadline_pressure` · 5 SHAP |
+| decide SHP-00408 | ESCALATE · **0.638** · `deadline_pressure` · 5 SHAP |
+| geometry endpoints == hub/destination shipment | ✅ 3 sampel (00400/00406/00411), unik per shipment |
+| Escalation rate 12 shipment | **2/12 = 16.7%** (band 5–20% ✓, tak berubah oleh koreksi jarak) |
 | `npm test` | 6 pass, 0 fail |
 
 ## Catatan integrasi

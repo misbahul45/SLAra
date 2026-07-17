@@ -160,25 +160,27 @@ congested > normal (**+13.04 mnt / +81%**) → bukti FULL. Di DEGRADED kedua kon
 
 - **Status:** ✅ · di-serve **precomputed** ([ADR-004](../../architecture/adr/ADR-004-m4-precomputed.md))
 - **Bukti:** [`docs/models/evidence/M4_RESULTS.md`](../../models/evidence/M4_RESULTS.md) ·
-  engine: `services/ai/experiments/m4_nsga2.py` · spec: [`../ai/m4-route-optimization.md`](../../specifications/ai/m4-route-optimization.md)
-- **Konfigurasi:** DEAP 1.4 NSGA-II · pop 120 · 150 generasi · seed 42 · **runtime 13.2 s**
+  engine: `services/ai/experiments/m4_nsga2_osrm.py` (jarak jalan OSRM; `m4_nsga2.py` = versi haversine lama) ·
+  spec: [`../ai/m4-route-optimization.md`](../../specifications/ai/m4-route-optimization.md)
+- **Konfigurasi:** DEAP 1.4 NSGA-II · pop 120 · 150 generasi · seed 42 · **runtime 9.5 s**
+- **Jarak antar-stop:** **OSRM `/table` (jarak jalan nyata)**, Balanced = knee Pareto (min Chebyshev)
 - **Skenario:** `jabodetabek_urban_sameday` (Hub Cibitung, 16 stop, VAN 600 kg)
 
 ### Hasil — kandidat **Balanced (R-B)** vs baseline nearest-neighbor
 
 | Metrik | Nilai |
 |---|---|
-| **SLA-risk** | **−53.2%** |
-| **Cost** | **+7.0%** |
-| **CO₂** | **+14.0%** |
+| **SLA-risk** | **−48.2%** |
+| **Cost** | **+8.6%** |
+| **CO₂** | **+11.8%** |
 | Tier | CRITICAL → **WARNING** |
-| Late@P90 | 4/16 → **2/16** |
-| **`cs_m4`** | **0.996** |
-| Solusi Pareto | **17** |
-| Hypervolume | **0.664** |
+| Late@P90 | 6/16 → **3/16** |
+| **`cs_m4`** | **0.856** |
+| Solusi Pareto | **12** |
+| Hypervolume | **0.527** |
 
-**Acceptance ✅** — ≥15% reduction di ≥1 objective (SLA-risk −53.2%) tanpa memburuk >15% di lainnya
-(cost +7.0%, CO₂ +14.0%).
+**Acceptance ✅** — ≥15% reduction di ≥1 objective (SLA-risk −48.2%) tanpa memburuk >15% di lainnya
+(cost +8.6%, CO₂ +11.8%).
 
 **Batas:** angka dari **satu skenario**; desain M4 §7.3 mensyaratkan 3 skenario supaya klaim tidak
 cherry-picked → belum boleh digeneralisasi. `cs_m4` masuk confidence M6 dengan bobot **0.25**.

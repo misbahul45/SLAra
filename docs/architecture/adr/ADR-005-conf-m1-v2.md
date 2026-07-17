@@ -74,6 +74,13 @@ Semua konstanta terpusat di `services/agent/src/config.ts`
   (deadline buta), lalu angka 0.864/0.686 muncul konsisten dengan rekaman sandbox
   di `services/agent/README.md` — bukan sebaliknya.
 
+> **Addendum 17 Jul 2026:** setelah `distance_km` fixture disinkronkan ke jarak jalan
+> nyata OSRM (drift s.d. +4.1 km), confidence bergeser: 00400 → **0.810**, 00403 →
+> **0.646**, 00408 → **0.638**. **Escalation rate tetap 2/12 = 16.7%** dan yang
+> tereskalasi tetap 00403 & 00408 — kalibrasi formula bertahan pada input yang lebih
+> jujur, menguatkan klaim "bukan tuning ke angka target". Angka aktual: spec
+> m6-orchestration §6.
+
 ## Alternatif yang ditolak
 
 - **Naikkan threshold di atas 0.70** supaya eskalasi terpicu: menyembunyikan

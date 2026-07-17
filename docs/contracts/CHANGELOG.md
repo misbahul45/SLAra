@@ -7,6 +7,64 @@ Breaking change **wajib** disertai ADR di `docs/architecture/adr/`.
 
 ---
 
+## [Unreleased] — 2026-07-16 · M4 jarak jalan OSRM + `road_geometry` (additive, **bukan breaking**)
+
+Dua perubahan terkait pada `GET /internal/m4/routes` (payload precomputed):
+
+**(a) Basis jarak → jarak jalan nyata.** Matriks jarak antar-stop M4 kini dari **OSRM `/table`**
+(sebelumnya haversine×1.3, faktor detour konstan yang meleset ~1.5–1.9× di urban). NSGA-II
+di-re-run pada jarak nyata → `distance_km`, `cost_idr`, `co2_kg`, `eta_*`, `sla_risk`, tier,
+dan `stop_order` **berubah nilainya**. Bentuk/skema **tidak** berubah (field & tipe sama).
+Balanced kini dipilih sebagai **knee Pareto** (min Chebyshev), konsisten dgn deskripsi lama.
+Deadline skenario di-rescale ×1.257 ke basis-waktu jarak-jalan (jika tidak, semua stop telat →
+semua CRITICAL). Headline baru: SLA-risk **−48.2%** / cost +8.6% / CO₂ +11.8% (dulu −53.2% /
++7.0% / +14.0%). Generator: `experiments/m4_nsga2_osrm.py`. Detail: [ADR-004](../architecture/adr/ADR-004-m4-precomputed.md) §Revisi.
+
+**(b) Field baru `road_geometry`.** Polyline yang mengikuti jalan (snap OSRM `route`,
+`overview=simplified`). Sebelumnya peta menarik garis lurus antar stop (`geometry`) sehingga
+memotong gedung/sungai. **Additive**: `geometry` tetap ada (titik stop, untuk marker); konsumen
+lama abaikan field baru → tidak breaking.
+
+### Added
+- **`candidates[].road_geometry`** — array `[lat, lng]` mengikuti jaringan jalan, di-*precompute*
+  build-time ke `services/ai/data/pareto_routes_*.json`. Tidak ada OSRM saat runtime (konsisten
+  [ADR-004](../architecture/adr/ADR-004-m4-precomputed.md)). Dokumentasi: `rest/v1.md` §A3 + §B-bis.
+  Regenerasi: `services/ai/scripts/snap_routes_to_roads.py`.
+- **`distance_source`** di root payload = `"OSRM /table driving …"` (evidence).
+- FE: `M4Candidate.road_geometry` & `RouteOption.road_geometry` (opsional). `RouteMap`
+  menggambar `road_geometry ?? geometry` (**fail-soft** — garis lurus kalau field absen).
+
+### Changed
+- Nilai numerik semua kandidat M4 (lihat butir (a)). Konsumen yang meng-hardcode angka lama
+  (mis. dok/naskah video) harus diperbarui — sudah dilakukan di ADR-004, M4_RESULTS, model-registry, spec.
+
+### Fixed — `/decide` `routes[].geometry` jadi per-shipment (memulihkan niat §A3)
+Audit 16 Jul 2026: `/decide` me-reuse **geometri tur M4** (Hub Cibitung, 18 titik) untuk `routes[].geometry`
+semua shipment → garis identik utk 12 shipment dan tidak nyambung dgn marker origin/destination
+(3 hub berbeda, 12 destinasi berbeda). Padahal contoh §A3 (FROZEN) jelas per-shipment
+origin→destination. Sekarang:
+- `routes[].geometry` = **jalur jalan shipment itu sendiri** (OSRM `route` `alternatives=3`,
+  precomputed build-time → `services/agent/data/shipment_routes.json`, dimuat saat startup —
+  tanpa OSRM runtime). Kandidat ke-i memakai alternatif ke-min(i, n−1); OSRM sering hanya punya
+  1–2 alternatif intra-kota → kandidat bisa berbagi jalur (jujur: pembeda kandidat adalah metrik plan).
+- **Fail-soft**: entri absen → garis lurus `[origin, destination]`.
+- **Metrik** `routes[]` tetap level-plan M4 (tidak berubah; semantik ganda ini didokumentasikan
+  di spec m6-orchestration §5). Regenerasi: `node scripts/snap-shipment-routes.mjs` (services/agent).
+- Geometri tur M4 (termasuk `road_geometry`) tetap tersedia via `GET /internal/m4/routes`
+  utk halaman Route Optimization — tidak lagi bocor ke `/decide`.
+
+### Changed — fixture `distance_km` sinkron ke jarak jalan OSRM (17 Jul 2026)
+`services/agent/data/shipments.json` `distance_km` (feed fitur M1 + M3) sebelumnya nilai
+karangan yang drift dari jarak jalan nyata (s.d. +4.1 km; dua shipment justru lebih pendek).
+Disinkronkan ke `osrm_distance_km[0]` dari `shipment_routes.json` (sumber tunggal, konsisten
+dgn M4 yang kini road-based). **Efek terverifikasi E2E 17 Jul:** confidence bergeser
+(00400 0.864→0.810 · 00403 0.686→0.646), **escalation rate tetap 2/12 = 16.7%** (band 5–20% ✓),
+yang tereskalasi tetap 00403 & 00408. Dokumen angka: spec m6-orchestration §6, agent/tracker,
+addendum ADR-005 & PHASE3-4 report. FE mock (`apps/app/app/mocks/`) TIDAK disentuh — dunia
+fiksi Surabaya dari contoh §A3 yang endpoint geometry-nya sudah konsisten dgn marker-nya sendiri.
+
+---
+
 ## [Unreleased] — 2026-07-16 · §A3 `/decide` diperluas (additive, **bukan breaking**)
 
 M6 diimplementasikan di `agent` (Phase 3). Response `POST /shipments/{id}/decide`

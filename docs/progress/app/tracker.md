@@ -32,6 +32,10 @@ Status wiring FE. Wajib di-update setiap status berubah (AGENTS.md §Konvensi Um
 
 ## Screenshot bukti (`docs/progress/screenshots/`)
 
+> ⚠️ **Semua screenshot = state 16 Jul 2026 (historis).** Per 17 Jul angka bergeser
+> (sinkron `distance_km` → jarak jalan OSRM: 00400 0.810 · 00403 0.646; M4 angka
+> road-based; peta MapLibre + rute ikut jalan). **Rekam ulang sebelum dipakai di video.**
+
 | File | State |
 |---|---|
 | `01-auto-execute-SHP-2026-00400.png` | AUTO_EXECUTE hijau, 0.864, SHAP "not required" |

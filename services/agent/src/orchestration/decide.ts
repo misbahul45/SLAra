@@ -12,7 +12,7 @@
 import { CONFIG, type ComponentKey } from "../config.js";
 import { ai, type M2Out, type M4Out } from "../clients/ai.js";
 import { aggregate, confM1, confM2, primaryDriver, round3, type Breakdown } from "../domain/confidence.js";
-import type { Shipment } from "../state.js";
+import { shipmentRoutes, type Shipment } from "../state.js";
 
 const TIER_RANK = { SAFE: 0, WARNING: 1, CRITICAL: 2 } as const;
 type Tier = keyof typeof TIER_RANK;
@@ -66,16 +66,23 @@ export async function decide(s: Shipment) {
   let m4: M4Out;
   try { m4 = await ai.m4(); }
   catch { return forcedEscalate(s, "M4_UNAVAILABLE", t0); }
-  // routes[] = perbandingan LEVEL-PLAN apa adanya dari skenario optimasi M4
-  // (sesuai desain "Pareto Plan Comparison"). Efek live M2/M1 utk shipment ini
-  // tampil di blok eta + confidence + hub — BUKAN di metrik plan (hindari
-  // pencampuran semantik per-shipment vs per-tur).
-  const routes = m4.candidates.map(c => ({
+  // routes[] = METRIK level-plan apa adanya dari skenario optimasi M4 (sesuai desain
+  // "Pareto Plan Comparison"); efek live M2/M1 utk shipment ini tampil di blok
+  // eta + confidence + hub. GEOMETRY sebaliknya per-shipment sesuai kontrak §A3:
+  // jalur jalan origin→destination shipment INI (OSRM, precomputed via
+  // scripts/snap-shipment-routes.mjs) — bukan geometri tur M4, yg endpoint-nya
+  // Hub Cibitung dan identik utk semua shipment. Kandidat ke-i memakai alternatif
+  // OSRM ke-min(i, n-1); fallback garis lurus kalau data absen (fail-soft).
+  const alts = shipmentRoutes[s.shipment_id]?.alternatives ?? [];
+  const straight: [number, number][] = [
+    [s.origin_hub.lat, s.origin_hub.lng], [s.destination.lat, s.destination.lng]];
+  const routes = m4.candidates.map((c, i) => ({
     route_id: c.route_id, label: c.label,
     eta_p50_min: c.eta_p50_min, eta_p90_min: c.eta_p90_min,
     risk_tier: c.risk_tier as Tier, late_share_p90: (c as any).late_share_p90 ?? null,
     cost_idr: c.cost_idr, co2_kg: c.co2_kg, distance_km: c.distance_km,
-    tour_sla_risk: c.sla_risk, geometry: c.geometry,
+    tour_sla_risk: c.sla_risk,
+    geometry: alts.length ? alts[Math.min(i, alts.length - 1)] : straight,
   }));
   const selected = [...routes].sort((a, b) =>
     TIER_RANK[a.risk_tier as Tier] - TIER_RANK[b.risk_tier as Tier]

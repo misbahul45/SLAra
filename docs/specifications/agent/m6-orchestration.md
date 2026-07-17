@@ -107,19 +107,25 @@ Kontrak §A3 (`docs/contracts/rest/v1.md`). Pemetaan ke elemen UI Phase 4 ada di
 | `primary_uncertainty_driver` | null saat AUTO_EXECUTE |
 | `eta` | `{p50_min, p90_min, risk_tier, slack_p90_min, co2_kg, dwell_source}`; null saat M1 down |
 | `hub` | `{hub_id, dwell_p50_min, dwell_p90_min, queue, dwell_above_threshold}`; null saat M2 degraded |
-| `routes[]` + `selected_route_id` | metrik **level-plan** tur M4, bukan per-shipment |
+| `routes[]` + `selected_route_id` | **metrik** = level-plan tur M4 (bukan per-shipment); **`geometry`** = jalur jalan **per-shipment** origin→destination (OSRM precomputed, `data/shipment_routes.json`, kandidat ke-i → alternatif ke-min(i,n−1); fallback garis lurus) — sesuai kontrak §A3 |
 | `shap_top5` | 5 item saat non-SAFE; null saat SAFE |
 | `explanation` | kalimat human-readable |
 | `degraded` | daftar model terdegradasi \| null |
 | `latency_ms` | latency M6 end-to-end (ukur agent) |
 
-## 6. Verifikasi (2026-07-16, host)
+## 6. Verifikasi (2026-07-17, host — setelah sinkron `distance_km` → jarak jalan OSRM)
 
-| Skenario | decision | confidence | driver | shap | latency |
-|---|---|---|---|---|---|
-| SHP-2026-00400 | AUTO_EXECUTE | **0.864** | — | null | ~40 ms |
-| SHP-2026-00403 | ESCALATE | **0.686** | `deadline_pressure` | 5 item | ~400 ms (jalur SHAP) |
+> `data/shipments.json` `distance_km` disinkronkan ke jarak jalan nyata OSRM pada 17 Jul 2026
+> (sebelumnya nilai karangan fixture; drift s.d. +4.1 km). Fitur M1 berubah → confidence bergeser.
+> Angka verifikasi 16 Jul (0.864/0.686) diarsipkan di git & PHASE3-4 report.
 
-- Σ(value × weight) == confidence **PERSIS** di kedua skenario.
-- Escalation rate 12 shipment: **2/12 = 16.7%** (band 5–20% ✓).
+| Skenario | decision | confidence | driver | shap |
+|---|---|---|---|---|
+| SHP-2026-00400 | AUTO_EXECUTE | **0.810** | — | null |
+| SHP-2026-00403 | ESCALATE | **0.646** | `deadline_pressure` | 5 item |
+| SHP-2026-00408 | ESCALATE | **0.638** | `deadline_pressure` | 5 item |
+
+- Escalation rate 12 shipment: **2/12 = 16.7%** (band 5–20% ✓) — **tidak berubah** oleh koreksi
+  jarak; yang tereskalasi tetap 00403 & 00408 (konsisten ADR-005).
+- Σ(value × weight) == confidence (invarian formula; teruji unit test).
 - Unit test `tests/confidence.test.ts`: **6 pass, 0 fail**.

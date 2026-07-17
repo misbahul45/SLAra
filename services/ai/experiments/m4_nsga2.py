@@ -1,4 +1,8 @@
 # ==========================================================
+# ⚠️ SUPERSEDED (16 Jul 2026) oleh `m4_nsga2_osrm.py` yang memakai jarak jalan NYATA
+#    (OSRM /table) sebagai matriks jarak. File ini memakai haversine×1.3 (faktor detour
+#    konstan) dan dipertahankan sebagai EVIDENCE historis saja — JANGAN dipakai regen.
+# ==========================================================
 # M4 — Route Optimization (NSGA-II / DEAP)
 # Skenario: urban same-day Jabodetabek (hub Cibitung), 20 stops
 # Objectives (min): cost_idr · sla_risk (via M1 v2 P90) · co2_kg (M3 rule)

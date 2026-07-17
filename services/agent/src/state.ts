@@ -19,6 +19,15 @@ const here = dirname(fileURLToPath(import.meta.url));
 export const shipments: Shipment[] = JSON.parse(readFileSync(join(here, "..", "data", "shipments.json"), "utf-8"));
 export const byId = new Map(shipments.map(s => [s.shipment_id, s]));
 
+/** Jalur jalan per-shipment origin→destination (OSRM, precomputed build-time via
+ *  scripts/snap-shipment-routes.mjs) — dipakai /decide utk routes[].geometry sesuai
+ *  kontrak §A3. Fail-soft: file absen → {} dan decide fallback ke garis lurus. */
+export const shipmentRoutes: Record<string, { alternatives: [number, number][][] }> = (() => {
+  try {
+    return JSON.parse(readFileSync(join(here, "..", "data", "shipment_routes.json"), "utf-8")).routes;
+  } catch { return {}; }
+})();
+
 let enriched = false;
 /** Isi eta/tier list view dari model NYATA (M2 dwell -> M1) — lazy sekali. */
 export async function enrich(): Promise<void> {

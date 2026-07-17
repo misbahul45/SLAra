@@ -84,9 +84,10 @@ wajib dipertimbangkan — bukan menambal NSGA-II.
 
 Penting untuk QnA, karena ini titik yang paling mudah disalahpahami:
 
-- **Jadwal P50** — dari physics core yang konsisten dengan generator M1 (jarak/kecepatan-adjusted
+- **Jarak antar-stop** — **OSRM `/table` (jarak jalan nyata)** feed ke physics core.
+- **Jadwal P50** — dari physics core yang konsisten dengan generator M1 (jarak-jalan/kecepatan-adjusted
   traffic & cuaca).
-- **Band ketidakpastian P90 per-leg** — dari **rasio P90/P50 M1 v2** (batch 420 pasangan, sudah
+- **Band ketidakpastian P90 per-leg** — dari **rasio P90/P50 M1 v2** (batch 272 pasangan, sudah
   termasuk conformal δ).
 
 Jadi klaim **"SLA-risk via M1" = true**: M1 menyumbang **interval terkalibrasi** yang mengubah
@@ -102,27 +103,31 @@ Jadi klaim **"SLA-risk via M1" = true**: M1 menyumbang **interval terkalibrasi**
 | Seed | 42 |
 | **Runtime** | **13.2 s** (CPU sandbox) |
 | Skenario | `jabodetabek_urban_sameday` — Hub Cibitung (`HUB-CGK-02`), 16 stop, VAN 600 kg, hujan ringan, tour ≤ 480 m |
-| Deadline | berstruktur: 30% ketat (150–240 m) / 70% longgar (260–470 m) |
+| Deadline | berstruktur (30% ketat / 70% longgar), di-rescale ×1.257 ke basis-waktu jarak-jalan OSRM |
+| Jarak | **OSRM `/table` (jarak jalan nyata)** — bukan haversine×1.3 |
 | Handling | 3.5 m/stop |
 
 ## 4. Hasil vs baseline
 
 Baseline: **nearest-neighbor distance-only** — praktik umum dispatch, bukan strawman.
 
+Jarak antar-stop = **OSRM `/table` (jarak jalan nyata)**; Balanced = **knee Pareto** (min Chebyshev).
+Angka lama berbasis haversine×1.3 diarsipkan di git (lihat ADR-004 §Revisi 16 Jul 2026).
+
 | Plan | t50 | Cost | SLA-risk | CO₂ | Tier | Late@P90 |
 |---|---|---|---|---|---|---|
-| Baseline NN | 322m | 599k | 0.183 | 15.91 kg | CRITICAL | 4/16 |
-| R-A Fastest | 306m (−16m) | +0.9% | −5.3% | +0.9% | CRITICAL | 4 |
-| **R-B Balanced (Recommended)** | 327m | **+7.0%** | **−53.2%** | **+14.0%** | **WARNING** | **2** |
-| R-C Greenest | 312m | −5.4% | +17.6% | −4.8% | CRITICAL | 5 |
+| Baseline NN | 405m | 806k | 0.245 | 25.14 kg | CRITICAL | 6/16 |
+| R-A Fastest | 386m (−19m) | −5.8% | −29.9% | −4.6% | CRITICAL | 5 |
+| **R-B Balanced (Recommended)** | 420m | **+8.6%** | **−48.2%** | **+11.8%** | **WARNING** | **3** |
+| R-C Greenest | 389m | +0.1% | −32.8% | +0.6% | CRITICAL | 4 |
 
-**Kualitas front:** 17 solusi Pareto · **HV 0.664** · **`cs_m4` = 0.996**
+**Kualitas front:** 12 solusi Pareto · **HV 0.527** · **`cs_m4` = 0.856**
 (0.5·stabilitas-konvergensi + 0.5·feasibility-rate → masuk formula confidence M6, bobot 0.25).
 
 **Acceptance Phase 2 ✅** — reduksi ≥15% di ≥1 objective tanpa memburuk >15% di objective lain:
-SLA-risk **−53.2%**, cost **+7.0%** (<15%), CO₂ **+14.0%** (<15%).
+SLA-risk **−48.2%**, cost **+8.6%** (<15%), CO₂ **+11.8%** (<15%).
 
-Cara membaca R-B: menukar **+7% biaya** dengan **separuh risiko SLA** (late@P90 dari 4/16 → 2/16,
+Cara membaca R-B: menukar **+8.6% biaya** dengan **hampir separuh risiko SLA** (late@P90 dari 6/16 → 3/16,
 tier CRITICAL → WARNING). Itu trade-off yang akan diambil dispatcher mana pun — dan justru itu poinnya:
 baseline tidak pernah menawarkan pilihan ini karena ia hanya melihat jarak.
 
@@ -149,9 +154,10 @@ Response memuat `candidates[]` (+ geometry), `cs_m4`, convergence HV series (unt
 4. **Tier level-tour ≠ tier per-shipment M1** — M4: SAFE <5% stop telat@P90 · WARNING 5–20% ·
    CRITICAL >20%. Jangan dicampur di UI copy.
 5. **Klaim reduction baru dari SATU skenario.** Desain M4 §7.3 mensyaratkan pengukuran di **3
-   skenario** supaya klaim tidak *cherry-picked*. Per 15 Jul 2026 baru ada satu (urban). Jadi angka
-   −53.2% valid **untuk skenario ini**, dan belum boleh digeneralisasi jadi "M4 mengurangi SLA-risk
-   53% secara umum". Dua skenario sisanya (mis. sub-urban, mixed-fleet) = backlog final.
+   skenario** supaya klaim tidak *cherry-picked*. Per 16 Jul 2026 baru ada satu (urban). Jadi angka
+   −48.2% (re-run jarak OSRM; dulu −53.2% versi haversine) valid **untuk skenario ini**, dan belum
+   boleh digeneralisasi jadi "M4 mengurangi SLA-risk 48% secara umum". Dua skenario sisanya
+   (mis. sub-urban, mixed-fleet) = backlog final.
 
 ## 7. Jalur ke real-time
 

@@ -22,7 +22,8 @@ export interface M2Out { hub_id: string; dwell_p50_minutes: number; dwell_p90_mi
 export interface M3Out { co2_kg: number; }
 export interface M4Candidate { route_id: string; label: string; eta_p50_min: number; eta_p90_min: number;
   risk_tier: string; cost_idr: number; co2_kg: number; distance_km: number; sla_risk: number;
-  geometry: [number, number][]; stop_arrivals: { stop_idx: number; arrival_p50_min: number; arrival_p90_min: number }[];
+  geometry: [number, number][]; road_geometry?: [number, number][];
+  stop_arrivals: { stop_idx: number; arrival_p50_min: number; arrival_p90_min: number }[];
   vs_baseline: Record<string, number>; }
 export interface M4Out { candidates: M4Candidate[]; cs_m4: number;
   scenario: { stops: { idx: number; deadline_min: number }[] };

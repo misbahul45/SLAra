@@ -48,18 +48,42 @@ yang menulis `POST /internal/m4/routes`. Tercatat di `docs/contracts/rest/v1.md`
 
 Baseline pembanding: **nearest-neighbor distance-only** (praktik umum dispatch).
 
+Baseline pembanding: **nearest-neighbor distance-only** (praktik umum dispatch).
+Jarak antar-stop = **jarak jalan nyata OSRM `/table`** (bukan haversine×1.3 — lihat catatan
+revisi di bawah). Balanced = **knee Pareto** (min Chebyshev pada 3 objektif ter-normalisasi).
+
 | Plan | t50 | Cost | SLA-risk | CO₂ | Tier | Late@P90 |
 |---|---|---|---|---|---|---|
-| Baseline NN | 322m | 599k | 0.183 | 15.91 kg | CRITICAL | 4/16 |
-| R-A Fastest | 306m (−16m) | +0.9% | −5.3% | +0.9% | CRITICAL | 4 |
-| **R-B Balanced (Recommended)** | 327m | **+7.0%** | **−53.2%** | **+14.0%** | **WARNING** | **2** |
-| R-C Greenest | 312m | −5.4% | +17.6% | −4.8% | CRITICAL | 5 |
+| Baseline NN | 405m | 806k | 0.245 | 25.14 kg | CRITICAL | 6/16 |
+| R-A Fastest | 386m (−19m) | −5.8% | −29.9% | −4.6% | CRITICAL | 5 |
+| **R-B Balanced (Recommended)** | 420m | **+8.6%** | **−48.2%** | **+11.8%** | **WARNING** | **3** |
+| R-C Greenest | 389m | +0.1% | −32.8% | +0.6% | CRITICAL | 4 |
 
 **Acceptance Phase 2 terpenuhi:** reduksi ≥15% di ≥1 objective tanpa memburuk >15% di objective lain
-→ Balanced: SLA-risk **−53.2%** (≥15% ✅), cost **+7.0%** (<15% ✅), CO₂ **+14.0%** (<15% ✅).
+→ Balanced: SLA-risk **−48.2%** (≥15% ✅), cost **+8.6%** (<15% ✅), CO₂ **+11.8%** (<15% ✅).
 
-**Untuk M6:** `cs_m4 = 0.996` (0.5·stabilitas-konvergensi + 0.5·feasibility-rate) masuk formula
+**Untuk M6:** `cs_m4 = 0.856` (0.5·stabilitas-konvergensi + 0.5·feasibility-rate) masuk formula
 confidence dengan bobot **0.25**.
+
+### Revisi 16 Jul 2026 — jarak jalan nyata (OSRM) + `road_geometry`
+
+Versi awal M4 memakai jarak **haversine × 1.3** (faktor detour konstan) sebagai matriks
+jarak antar-stop. Untuk area urban Jabodetabek aproksimasi ini meleset besar (satu leg
+uji: jalan nyata 18 km vs estimasi 9 km, 1.9×) — urutan "optimal" pun bisa keliru, dan
+garis di peta memotong gedung. Sekarang:
+
+- **Matriks jarak = OSRM `/table` (jarak jalan nyata).** Optimizer NSGA-II bekerja pada
+  jarak sebenarnya → cost/CO₂/ETA berbasis jalan. Generator: `experiments/m4_nsga2_osrm.py`.
+- **`road_geometry`** (polyline snap OSRM `route`) ditambahkan per kandidat untuk render peta
+  yang mengikuti jalan; `geometry` lama (titik stop) tetap untuk marker. Skrip:
+  `scripts/snap_routes_to_roads.py`.
+- **Deadline di-rescale ×1.257** ke basis-waktu jarak-jalan (tour ~25% lebih lama di jalan
+  nyata) supaya feasibility realistis — tanpa ini semua stop telat → semua CRITICAL.
+- **Masih precomputed** (keputusan ADR ini tak berubah): OSRM dipanggil **build-time**, hasil
+  disimpan ke JSON; **tidak ada** panggilan OSRM saat runtime.
+
+> Angka lama (haversine): Baseline 322m/599k/0.183; Balanced +7.0%/−53.2%/+14.0%. Diarsipkan
+> di riwayat git; tabel di atas adalah yang **normatif** sekarang.
 
 ## Batas precomputed (jujur — WAJIB dipahami sebelum dipakai/dinarasikan)
 
@@ -83,7 +107,7 @@ dengan failure cascade design.
 
 | Alternatif | Alasan ditolak |
 |---|---|
-| Jalankan NSGA-II in-request apa adanya | 13.2 s vs anggaran ~2 s. Demo menggantung. |
-| Turunkan pop/generasi sampai muat ~2 s | Menurunkan kualitas Pareto → merusak klaim utama (−53.2% SLA-risk). Mengorbankan hasil demi teater real-time. |
+| Jalankan NSGA-II in-request apa adanya | ~9.5 s vs anggaran ~2 s. Demo menggantung. |
+| Turunkan pop/generasi sampai muat ~2 s | Menurunkan kualitas Pareto → merusak klaim utama (−48.2% SLA-risk). Mengorbankan hasil demi teater real-time. |
 | Ganti ke heuristik cepat (greedy/NN) | Membuang justru kontribusi paling kuat; baseline NN adalah **pembanding** yang kita kalahkan. |
 | Precompute banyak skenario | Waktu tidak cukup; demo hanya butuh satu. Batas #1 diterima sadar. |

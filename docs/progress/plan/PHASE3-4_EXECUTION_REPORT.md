@@ -27,6 +27,12 @@
 `services/agent/README.md` (dwell P90 95.68 vs 95.7; 0.864/0.686), jadi ini **restorasi perilaku**,
 bukan tuning ke gate.
 
+> **Addendum 17 Jul 2026:** angka 2e/2f/2g di atas adalah rekaman historis 16 Jul. Setelah
+> `distance_km` fixture disinkronkan ke jarak jalan nyata OSRM (17 Jul), angka aktual:
+> 00400 AUTO 0.810 · 00403 ESCALATE 0.646 · 00408 ESCALATE 0.638 · escalation **tetap 2/12 = 16.7%**.
+> Screenshot §e (0.864/0.686) juga historis — rekam ulang bila dipakai di video. Angka normatif:
+> spec m6-orchestration §6 + agent/tracker.
+
 ## (b) File FE yang diubah (22)
 
 **Data layer:** `lib/data.ts`, `lib/api.ts`, `lib/types.ts`, `lib/mock.ts`, `vite.config.ts`
@@ -73,7 +79,7 @@ bukan tuning ke gate.
 
 **Untuk narasi video:**
 - **M2 model_confidence sekarang serving 0.9974/0.9986 yang benar** — rekaman lama dengan 0.95 sudah usang.
-- Angka M4 (−53.2% dll.) dari **satu skenario** (`jabodetabek_urban_sameday`); UI + optimizer note
+- Angka M4 (−48.2% dll., jarak jalan OSRM) dari **satu skenario** (`jabodetabek_urban_sameday`); UI + optimizer note
   sudah menyatakan itu eksplisit sesuai aturan kejujuran demo (ADR-004, desain M4 §7.3).
 
 ## (e) Screenshot bukti (`docs/progress/screenshots/`)
