@@ -11,6 +11,8 @@ import { PageHeader } from "~/components/PageHeader";
 import { DecideResult } from "~/components/DecideResult";
 import { TierBadge } from "~/components/TierBadge";
 
+export { RouteErrorBoundary as ErrorBoundary } from "~/components/RouteError";
+
 // Human-in-the-loop queue, live against the agent. A shipment lands here when
 // /decide returns ESCALATE (the agent sets decision_status = ESCALATED); Approve /
 // Reject call POST /shipments/:id/resolve with the operator's chosen route.
@@ -88,8 +90,8 @@ export default function Approvals({ loaderData }: Route.ComponentProps) {
   return (
     <div className="mx-auto max-w-[1500px]">
       <PageHeader
-        title="Human-in-the-Loop"
-        subtitle="Approval queue — escalations from M6 (confidence < 0.70)"
+        title="Human Approval"
+        subtitle="Human-in-the-loop queue — decisions M6 was not confident enough to auto-execute (confidence < 0.70)"
       />
 
       <div className="grid gap-5 lg:grid-cols-3">

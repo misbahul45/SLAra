@@ -2,13 +2,15 @@ import type { Route } from "./+types/impact";
 import { getExecutionKpi, getKpi } from "~/lib/data";
 import { buildKpiCards } from "~/lib/kpi-cards";
 import { PageHeader } from "~/components/PageHeader";
-import { RangeToggle } from "~/components/RangeToggle";
 import { DashboardKpis } from "~/components/DashboardKpis";
 import { BeforeAfter } from "~/components/BeforeAfter";
 import { ClientOnly } from "~/components/ClientOnly";
 import { DecisionDistributionChart } from "~/components/DecisionDistributionChart";
 import { ImpactSummary } from "~/components/ImpactSummary";
 import { DecisionPerformance } from "~/components/DecisionPerformance";
+import { ChartFallback } from "~/components/Fallbacks";
+
+export { RouteErrorBoundary as ErrorBoundary } from "~/components/RouteError";
 
 export function meta(_: Route.MetaArgs) {
   return [{ title: "SLAra — Execution & KPI" }];
@@ -26,10 +28,11 @@ export default function Impact({ loaderData }: Route.ComponentProps) {
 
   return (
     <div className="mx-auto max-w-[1500px] space-y-5">
+      {/* RangeToggle (Today/7d/30d) removed: it was a visual-only mock control —
+          a decorative filter on a partially-live page would misrepresent the data. */}
       <PageHeader
-        title="Business Impact & Sustainability"
-        subtitle="GHG Protocol Scope 1 + Scope 3 Category 4"
-        right={<RangeToggle />}
+        title="Execution & KPI"
+        subtitle="Business impact & sustainability — GHG Protocol Scope 1 + Scope 3 Category 4"
       />
 
       <DashboardKpis kpis={buildKpiCards(kpi)} columns={4} />
@@ -51,7 +54,7 @@ export default function Impact({ loaderData }: Route.ComponentProps) {
           </h2>
           <p className="text-[14px] text-ink/70">Last 24h · all events processed</p>
           <div className="glass-card p-4">
-            <ClientOnly fallback={<ChartFallback />}>
+            <ClientOnly fallback={<ChartFallback height={280} />}>
               {() => <DecisionDistributionChart data={data.distribution} />}
             </ClientOnly>
           </div>
@@ -92,14 +95,6 @@ export default function Impact({ loaderData }: Route.ComponentProps) {
           <DecisionPerformance perf={data.performance} />
         </section>
       </div>
-    </div>
-  );
-}
-
-function ChartFallback() {
-  return (
-    <div className="flex h-[280px] items-center justify-center text-sm text-brand">
-      Loading chart…
     </div>
   );
 }

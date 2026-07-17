@@ -17,7 +17,7 @@ export type Decision = "AUTO_EXECUTE" | "ESCALATE";
 export type ResolveAction = "APPROVE" | "REJECT";
 export type ShapDirection = "increases_eta" | "decreases_eta";
 
-/** `[lat, lng]` order (Leaflet-native), per contract §A3. */
+/** `[lat, lng]` order, per contract §A3 (RouteMap converts to GeoJSON [lng, lat]). */
 export type LatLng = [number, number];
 
 // ── §A1  GET /kpi/summary ──────────────────────────────────────────────────────
@@ -121,6 +121,8 @@ export interface RouteOption {
   co2_kg: number;
   distance_km: number;
   geometry: LatLng[];
+  /** Road-snapped polyline for drawing the route line. Falls back to `geometry` if absent. */
+  road_geometry?: LatLng[];
   /** Share of tour stops arriving late at P90. Null when the scenario omits it. */
   late_share_p90?: number | null;
   /** SLA risk of the whole tour (drives selection order). */
@@ -297,83 +299,16 @@ export interface FleetData {
   markers: MapMarker[];
 }
 
-// ── AI Recommendation Detail page ────────────────────────────────────────────
+// ── Shared view-model helpers ────────────────────────────────────────────────
 
-export interface RecoEvent {
-  event_id: string;
-  title: string;
-  severity: Severity;
-  affected: number;
-  detected_at: string;
-}
-
-/** "down" = improvement (green), "up" = increase/worse (amber), "neutral" = gray. */
+/** "down" = improvement (green), "up" = increase/worse (red), "neutral" = ink. */
 export type MetricTone = "up" | "down" | "neutral";
-
-export interface PlanMetric {
-  label: string;
-  value: string;
-  delta?: string;
-  tone?: MetricTone;
-}
-
-export interface PlanCard {
-  tag: string;
-  route: string;
-  metrics: PlanMetric[];
-  score?: number;
-  variant: "current" | "recommended";
-}
-
-export type AgentStatus = "completed" | "active" | "pending";
-
-export interface AgentNode {
-  key: string;
-  name: string;
-  confidence: number;
-  status: AgentStatus;
-}
-
-export interface ShapImportance {
-  feature: string;
-  value: number;
-}
-
-export interface ConfidenceScore {
-  aggregate_pct: number;
-  threshold_pct: number;
-  passed: boolean;
-  shap: ShapImportance[];
-}
-
-export interface AgentTraceItem {
-  key: string;
-  name: string;
-  latency_ms: number;
-  confidence: number;
-  reasoning: string;
-  top_shap?: string;
-}
 
 export interface RouteView {
   origin: HubRef;
   destination: DestinationRef;
   routes: RouteOption[];
   selected_route_id: string;
-}
-
-export interface RecommendationDetail {
-  event: RecoEvent;
-  current_plan: PlanCard;
-  ai_plan: PlanCard;
-  agents: AgentNode[];
-  confidence: ConfidenceScore;
-  trace: AgentTraceItem[];
-  route_view: RouteView;
-  /** Signed SHAP impacts (minutes) explaining the recommended route's ETA (M5). */
-  eta_shap: ShapFeature[];
-  /** Short label of the recommended plan, e.g. "Plan C". */
-  recommended_plan: string;
 }
 
 // ── Route Optimization page (NSGA-II) ────────────────────────────────────────
@@ -415,31 +350,6 @@ export interface OptimizationResult {
   plans: ParetoPlan[];
   note: string;
   route_view: RouteView;
-}
-
-// ── Human Approval page ──────────────────────────────────────────────────────
-
-export interface ApprovalMetric {
-  label: string;
-  value: string;
-}
-
-export interface ApprovalDetail {
-  approval_id: string;
-  severity: Severity;
-  title: string;
-  shipments: number;
-  ai_confidence: number;
-  escalation_reason: string;
-  recommendation: string;
-  metrics: ApprovalMetric[];
-  timeline: string[];
-  /** 5-component decision confidence (value × weight), same shape as the contract. */
-  confidence_breakdown: ConfidenceBreakdown;
-}
-
-export interface ApprovalsData {
-  items: ApprovalDetail[];
 }
 
 // ── Execution & KPI page ─────────────────────────────────────────────────────
@@ -507,6 +417,8 @@ export interface M4Candidate {
   sla_risk: number;
   late_stops_p90: number;
   geometry: LatLng[];
+  /** Road-snapped tour polyline (OSRM, precomputed). Absent → FE falls back to `geometry`. */
+  road_geometry?: LatLng[];
   /** Percent deltas vs the distance-only NN baseline. */
   vs_baseline: { cost_pct: number; sla_risk_pct: number; co2_pct: number };
 }

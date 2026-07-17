@@ -16,13 +16,13 @@ export function buildKpiCards(kpi: KpiSummary): DashboardKpi[] {
   return [
     {
       icon: "box",
-      label: "Active Shipment",
+      label: "Active Shipments",
       value: String(kpi.active_shipments),
       delta: "live from agent",
     },
     {
       icon: "warning",
-      label: "At-Risk Shipment",
+      label: "At-Risk Shipments",
       value: String(atRisk),
       delta: `${kpi.tier_counts.CRITICAL} critical · ${kpi.tier_counts.WARNING} warning`,
     },

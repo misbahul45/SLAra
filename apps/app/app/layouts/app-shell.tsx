@@ -20,8 +20,10 @@ interface NavItem {
   end?: boolean;
 }
 
+// Labels must match each page's H1 (or its key phrase) — a nav item that says one
+// thing and lands on a page titled another costs the reader orientation.
 const NAV: NavItem[] = [
-  { to: "/", label: "Dashboard", Icon: DashboardIcon, end: true },
+  { to: "/", label: "Control Tower", Icon: DashboardIcon, end: true },
   { to: "/fleet", label: "Live Fleet Map", Icon: FleetIcon },
   { to: "/recommendation", label: "AI Recommendation", Icon: RecommendationIcon },
   { to: "/optimization", label: "Route Optimization", Icon: RouteIcon },

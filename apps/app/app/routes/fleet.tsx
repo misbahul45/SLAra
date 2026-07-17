@@ -4,6 +4,9 @@ import { getFleet } from "~/lib/data";
 import { PageHeader } from "~/components/PageHeader";
 import { ClientOnly } from "~/components/ClientOnly";
 import { VehicleTelemetryPanel } from "~/components/VehicleTelemetryPanel";
+import { MapFallback } from "~/components/Fallbacks";
+
+export { RouteErrorBoundary as ErrorBoundary } from "~/components/RouteError";
 
 const MiniMap = lazy(() => import("~/components/MiniMap"));
 
@@ -45,14 +48,6 @@ export default function Fleet({ loaderData }: Route.ComponentProps) {
           <VehicleTelemetryPanel v={fleet.selected} />
         </div>
       </div>
-    </div>
-  );
-}
-
-function MapFallback() {
-  return (
-    <div className="flex h-full items-center justify-center bg-white/40 text-sm text-brand">
-      Loading map…
     </div>
   );
 }

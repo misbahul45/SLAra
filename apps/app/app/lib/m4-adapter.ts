@@ -51,10 +51,16 @@ export function toOptimizationResult(m4: M4RoutesResponse): OptimizationResult {
     { label: "CO₂ objective", value: 1.0 },
   ];
 
+  // Stop count comes from the scenario, not a constant — scenario #2 and #3
+  // (design §7.3) will not have 16 stops.
+  const nStops = m4.scenario.n_stops;
+
   const plans: ParetoPlan[] = m4.candidates.map((c) => ({
     route_id: c.route_id,
     plan: c.label,
-    route_via: `${c.distance_km.toFixed(1)} km · ${c.late_stops_p90}/16 late @P90`,
+    route_via: `${c.distance_km.toFixed(1)} km · ${c.late_stops_p90}${
+      nStops ? `/${nStops}` : ""
+    } stops late @P90`,
     eta: `${c.eta_p50_min}m`,
     delay_risk: `${Math.round(c.late_share_p90 * 100)}%`,
     delay_tone:
@@ -88,18 +94,24 @@ export function toOptimizationResult(m4: M4RoutesResponse): OptimizationResult {
       co2_kg: c.co2_kg,
       distance_km: c.distance_km,
       geometry: c.geometry,
+      road_geometry: c.road_geometry,
     })),
   };
 
+  // Dual-audience wording: keep the engineering terms (evidence for technical
+  // judges) but gloss each one inline so a non-technical reader can follow.
   const bal = m4.candidates.find((c) => c.label === "Balanced");
   const vb = bal?.vs_baseline;
   const note = vb
-    ? `Balanced dipilih di knee Pareto (min Chebyshev). Vs baseline distance-only NN: `
-      + `SLA risk ${vb.sla_risk_pct}%, cost +${vb.cost_pct}%, CO₂ +${vb.co2_pct}%. `
-      + `${p.engine}, ${p.generations} generasi, populasi ${p.population}, ${p.pareto_solutions} solusi Pareto, `
-      + `hypervolume ${p.hypervolume.toFixed(3)}, runtime ${p.runtime_s}s. `
-      + `Precomputed (ADR-004) — SATU skenario (${m4.scenario.id}); tidak beradaptasi ke traffic/cuaca live.`
-    : `Precomputed Pareto (ADR-004), skenario ${m4.scenario.id}.`;
+    ? `Balanced sits at the knee of the Pareto front — the best-compromise point `
+      + `(minimum Chebyshev distance to the ideal). Vs the distance-only baseline: `
+      + `SLA risk ${vb.sla_risk_pct}%, cost +${vb.cost_pct}%, CO₂ +${vb.co2_pct}% — `
+      + `lower risk is paid for with cost and carbon; there is no free win. `
+      + `${p.engine}: ${p.generations} generations, population ${p.population}, `
+      + `${p.pareto_solutions} Pareto solutions, hypervolume ${p.hypervolume.toFixed(3)}, `
+      + `runtime ${p.runtime_s}s. Precomputed (ADR-004) for ONE scenario `
+      + `(${m4.scenario.id}) — it does not adapt to live traffic or weather.`
+    : `Precomputed Pareto (ADR-004), scenario ${m4.scenario.id}.`;
 
   return {
     objectives: OBJECTIVE_LABELS,

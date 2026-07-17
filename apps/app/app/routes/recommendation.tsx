@@ -6,6 +6,9 @@ import { PageHeader } from "~/components/PageHeader";
 import { DecideResult } from "~/components/DecideResult";
 import { ClientOnly } from "~/components/ClientOnly";
 import { TierBadge } from "~/components/TierBadge";
+import { MapFallback } from "~/components/Fallbacks";
+
+export { RouteErrorBoundary as ErrorBoundary } from "~/components/RouteError";
 
 const RouteMap = lazy(() => import("~/components/RouteMap"));
 
@@ -35,6 +38,16 @@ export default function Recommendation({ loaderData }: Route.ComponentProps) {
     (s: Shipment) => s.shipment_id === selectedId,
   );
 
+  // Changing the dropdown without re-deciding must clear the old result — otherwise
+  // the map would draw the previous shipment's routes against the new shipment's
+  // origin/destination markers.
+  function selectShipment(id: string) {
+    setSelectedId(id);
+    setResult(null);
+    setRouteId(null);
+    setError(null);
+  }
+
   async function runDecide(id: string) {
     setSelectedId(id);
     setPending(true);
@@ -54,10 +67,11 @@ export default function Recommendation({ loaderData }: Route.ComponentProps) {
   return (
     <div className="mx-auto max-w-[1500px] space-y-5">
       <PageHeader
-        title="AI Recommendation Detail"
+        title="AI Recommendation"
         // ADR-002: M6 is a deterministic orchestration core. LangGraph is deferred,
-        // so the page must not claim it.
-        subtitle="M6 deterministic orchestration — M2 → M1 → M3 → M4 → M5"
+        // so the page must not claim it. Each model is glossed so the pipeline reads
+        // for non-technical judges too.
+        subtitle="M6 deterministic pipeline — M2 hub dwell → M1 ETA → M3 carbon → M4 routes → M5 explanation"
       />
 
       <section className="glass-card p-4">
@@ -69,7 +83,7 @@ export default function Recommendation({ loaderData }: Route.ComponentProps) {
             <select
               className="mt-1 w-full rounded-[10px] border-2 border-brand/40 bg-white p-2 text-[14px] text-ink"
               value={selectedId}
-              onChange={(e) => setSelectedId(e.target.value)}
+              onChange={(e) => selectShipment(e.target.value)}
             >
               {shipments.map((s: Shipment) => (
                 <option key={s.shipment_id} value={s.shipment_id}>
@@ -177,14 +191,6 @@ function DecidePending() {
           explain…
         </span>
       </div>
-    </div>
-  );
-}
-
-function MapFallback() {
-  return (
-    <div className="flex h-full items-center justify-center bg-white/40 text-sm text-brand">
-      Loading map…
     </div>
   );
 }

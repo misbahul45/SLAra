@@ -1,19 +1,19 @@
-import { useEffect } from "react";
-import {
-  MapContainer,
-  TileLayer,
-  Polyline,
-  CircleMarker,
-  Tooltip,
-  useMap,
-} from "react-leaflet";
-import L from "leaflet";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import Map, {
+  Layer,
+  Marker,
+  Source,
+  type MapLayerMouseEvent,
+  type MapRef,
+} from "react-map-gl/maplibre";
+import type { FeatureCollection, LineString } from "geojson";
+import { basemapStyle } from "~/lib/basemap";
 import type { RouteOption, HubRef, DestinationRef, LatLng } from "~/lib/types";
 import { TIER_HEX } from "~/lib/tier";
 
-// Client-only (leaflet touches `window`): loaded via React.lazy from View B, and only
-// rendered inside the decide-result block which never exists during SSR. Default export
-// so the dynamic import resolves cleanly.
+// Client-only (maplibre-gl touches `window`): loaded via React.lazy inside
+// <ClientOnly>, so it never runs during SSR. Default export so the dynamic
+// import resolves cleanly.
 
 interface RouteMapProps {
   routes: RouteOption[];
@@ -25,15 +25,9 @@ interface RouteMapProps {
   colorMode?: "tier" | "selection";
 }
 
-function FitBounds({ positions }: { positions: LatLng[] }) {
-  const map = useMap();
-  useEffect(() => {
-    if (positions.length > 0) {
-      map.fitBounds(L.latLngBounds(positions), { padding: [30, 30] });
-    }
-  }, [map, positions]);
-  return null;
-}
+// Draw the route line from the road-snapped polyline; fall back to the straight
+// stop geometry when a scenario has no road_geometry yet.
+const lineOf = (r: RouteOption): LatLng[] => r.road_geometry ?? r.geometry;
 
 export default function RouteMap({
   routes,
@@ -43,28 +37,25 @@ export default function RouteMap({
   onSelect,
   colorMode = "tier",
 }: RouteMapProps) {
-  const allPoints: LatLng[] = routes.flatMap((r) => r.geometry);
-  // Draw the selected route last so its thicker line sits on top.
-  const ordered = [...routes].sort(
-    (a, b) =>
-      Number(a.route_id === selectedRouteId) -
-      Number(b.route_id === selectedRouteId),
+  const mapStyle = useMemo(() => basemapStyle(), []);
+  const [map, setMap] = useState<MapRef | null>(null);
+  const [loaded, setLoaded] = useState(false);
+
+  const allPoints: LatLng[] = useMemo(() => routes.flatMap(lineOf), [routes]);
+
+  // Honesty chip: OSRM sering hanya punya 1–2 jalur masuk akal utk satu leg, jadi
+  // beberapa kandidat bisa berbagi jalur jalan yang sama. Saat itu terjadi, katakan —
+  // jangan biarkan 3 garis bertumpuk terbaca sebagai "3 rute jalanan berbeda".
+  const uniquePaths = useMemo(
+    () => new Set(routes.map((r) => JSON.stringify(lineOf(r)))).size,
+    [routes],
   );
 
-  return (
-    <MapContainer
-      center={[origin.lat, origin.lng]}
-      zoom={12}
-      className="h-full w-full"
-      style={{ background: "#eef1f6" }}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <FitBounds positions={allPoints} />
-
-      {ordered.map((r) => {
+  // One LineString feature per route; styling is data-driven from properties.
+  const data: FeatureCollection<LineString> = useMemo(
+    () => ({
+      type: "FeatureCollection",
+      features: routes.map((r) => {
         const selected = r.route_id === selectedRouteId;
         const color =
           colorMode === "selection"
@@ -72,45 +63,109 @@ export default function RouteMap({
               ? "#780001"
               : "#669bbb"
             : TIER_HEX[r.risk_tier];
-        return (
-          <Polyline
-            key={r.route_id}
-            positions={r.geometry}
-            pathOptions={{
-              color,
-              weight: selected ? 6 : 3,
-              opacity: selected ? 1 : 0.45,
-            }}
-            eventHandlers={{ click: () => onSelect(r.route_id) }}
-          />
-        );
-      })}
+        return {
+          type: "Feature",
+          properties: { route_id: r.route_id, selected, color },
+          geometry: {
+            type: "LineString",
+            // GeoJSON is [lng, lat]; our LatLng is [lat, lng].
+            coordinates: lineOf(r).map(([lat, lng]) => [lng, lat]),
+          },
+        };
+      }),
+    }),
+    [routes, selectedRouteId, colorMode],
+  );
 
-      <CircleMarker
-        center={[origin.lat, origin.lng]}
-        radius={7}
-        pathOptions={{
-          color: "#ffffff",
-          fillColor: "#01304a",
-          fillOpacity: 1,
-          weight: 2,
-        }}
-      >
-        <Tooltip>{origin.name}</Tooltip>
-      </CircleMarker>
+  const fit = useCallback(() => {
+    if (!map || allPoints.length === 0) return;
+    const lats = allPoints.map((p) => p[0]);
+    const lngs = allPoints.map((p) => p[1]);
+    map.fitBounds(
+      [
+        [Math.min(...lngs), Math.min(...lats)],
+        [Math.max(...lngs), Math.max(...lats)],
+      ],
+      { padding: 36, duration: 0 },
+    );
+  }, [map, allPoints]);
 
-      <CircleMarker
-        center={[destination.lat, destination.lng]}
-        radius={7}
-        pathOptions={{
-          color: "#ffffff",
-          fillColor: "#780001",
-          fillOpacity: 1,
-          weight: 2,
-        }}
-      >
-        <Tooltip>{destination.label}</Tooltip>
-      </CircleMarker>
-    </MapContainer>
+  useEffect(() => {
+    if (loaded) fit();
+  }, [loaded, fit]);
+
+  const handleClick = useCallback(
+    (e: MapLayerMouseEvent) => {
+      const id = e.features?.[0]?.properties?.route_id;
+      if (typeof id === "string") onSelect(id);
+    },
+    [onSelect],
+  );
+
+  const [hovering, setHovering] = useState(false);
+
+  return (
+    <Map
+      ref={setMap}
+      initialViewState={{ longitude: origin.lng, latitude: origin.lat, zoom: 11 }}
+      mapStyle={mapStyle}
+      style={{ width: "100%", height: "100%" }}
+      attributionControl={{ compact: true }}
+      interactiveLayerIds={["routes-hit"]}
+      onLoad={() => setLoaded(true)}
+      onClick={handleClick}
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+      cursor={hovering ? "pointer" : "grab"}
+    >
+      <Source id="routes" type="geojson" data={data}>
+        {/* Wide invisible hit target for easier clicking. */}
+        <Layer
+          id="routes-hit"
+          type="line"
+          layout={{ "line-cap": "round", "line-join": "round" }}
+          paint={{ "line-color": "#000000", "line-width": 16, "line-opacity": 0 }}
+        />
+        {/* Non-selected routes underneath. */}
+        <Layer
+          id="routes-base"
+          type="line"
+          filter={["!", ["get", "selected"]]}
+          layout={{ "line-cap": "round", "line-join": "round" }}
+          paint={{
+            "line-color": ["get", "color"],
+            "line-width": 3,
+            "line-opacity": 0.45,
+          }}
+        />
+        {/* Selected route on top, thicker and opaque. */}
+        <Layer
+          id="routes-selected"
+          type="line"
+          filter={["get", "selected"]}
+          layout={{ "line-cap": "round", "line-join": "round" }}
+          paint={{
+            "line-color": ["get", "color"],
+            "line-width": 6,
+            "line-opacity": 1,
+          }}
+        />
+      </Source>
+
+      <Marker longitude={origin.lng} latitude={origin.lat} anchor="center">
+        <span title={origin.name} className="block h-3.5 w-3.5 rounded-full border-2 border-white bg-ink shadow" />
+      </Marker>
+      <Marker longitude={destination.lng} latitude={destination.lat} anchor="center">
+        <span title={destination.label} className="block h-3.5 w-3.5 rounded-full border-2 border-white bg-accent shadow" />
+      </Marker>
+
+      {uniquePaths < routes.length && (
+        <div className="pointer-events-none absolute bottom-2 left-2 rounded-md bg-white/85 px-2 py-1 text-[11px] font-medium text-ink shadow backdrop-blur">
+          {uniquePaths === 1
+            ? `${routes.length} candidates share 1 road path — plans differ by metrics, not streets`
+            : `${routes.length} candidates on ${uniquePaths} road paths — overlapping plans differ by metrics`}
+        </div>
+      )}
+    </Map>
   );
 }

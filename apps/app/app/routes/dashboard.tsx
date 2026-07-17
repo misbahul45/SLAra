@@ -9,11 +9,14 @@ import { DashboardKpis } from "~/components/DashboardKpis";
 import { EventFeed } from "~/components/EventFeed";
 import { ActiveRecommendationCard } from "~/components/ActiveRecommendationCard";
 import { ClientOnly } from "~/components/ClientOnly";
+import { MapFallback } from "~/components/Fallbacks";
+
+export { RouteErrorBoundary as ErrorBoundary } from "~/components/RouteError";
 
 const MiniMap = lazy(() => import("~/components/MiniMap"));
 
 export function meta(_: Route.MetaArgs) {
-  return [{ title: "SLAra — Dashboard" }];
+  return [{ title: "SLAra — Control Tower" }];
 }
 
 export async function loader(_: Route.LoaderArgs) {
@@ -29,7 +32,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
   return (
     <div className="mx-auto max-w-[1500px] space-y-5">
       <PageHeader
-        title="AI Logistic Control Tower"
+        title="AI Logistics Control Tower"
         subtitle="Jabodetabek Region"
         right={<Clock />}
       />
@@ -48,8 +51,8 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
             Fleet Intelligence Panel
           </h2>
           <p className="text-[14px] text-ink/70">
-            All trucks are monitored lightly. AI performs deep analysis only for
-            affected or high-risk trucks.
+            Lightweight monitoring for every truck — the AI runs deep analysis
+            only on affected or high-risk trucks.
           </p>
           <div className="glass-card h-[420px] p-0">
             <div className="h-full w-full overflow-hidden rounded-[21px]">
@@ -75,14 +78,6 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
           <ActiveRecommendationCard rec={data.recommendation} />
         </section>
       </div>
-    </div>
-  );
-}
-
-function MapFallback() {
-  return (
-    <div className="flex h-full items-center justify-center bg-white/40 text-sm text-brand">
-      Loading map…
     </div>
   );
 }

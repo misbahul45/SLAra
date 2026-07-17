@@ -3,12 +3,12 @@
 // the real FastAPI backend exists. Selected by VITE_USE_MOCK in data.ts.
 
 import type {
-  ApprovalsData,
   DashboardData,
   DecideResponse,
   ExecutionKpiData,
   FleetData,
   KpiSummary,
+  M4RoutesResponse,
   ResolveRequest,
   ResolveResponse,
   Shipment,
@@ -22,8 +22,8 @@ import decide00400 from "~/mocks/decide-00400.json";
 import decide00403 from "~/mocks/decide-00403.json";
 import dashboardJson from "~/mocks/dashboard.json";
 import fleetJson from "~/mocks/fleet.json";
-import approvalsJson from "~/mocks/approvals.json";
 import executionJson from "~/mocks/execution.json";
+import m4RoutesJson from "~/mocks/m4-routes.json";
 
 // JSON imports widen literal unions (e.g. "SAFE" → string), so re-assert through
 // `unknown` to the contract types. The fixtures are authored to match the contract.
@@ -35,8 +35,10 @@ const DECIDE_AUTO = decide00400 as unknown as DecideResponse;
 const DECIDE_ESCALATE = decide00403 as unknown as DecideResponse;
 const DASHBOARD = dashboardJson as unknown as DashboardData;
 const FLEET = fleetJson as unknown as FleetData;
-const APPROVALS = approvalsJson as unknown as ApprovalsData;
 const EXECUTION = executionJson as unknown as ExecutionKpiData;
+// Snapshot of services/ai/data/pareto_routes_jabodetabek_urban.json so the Route
+// Optimization view survives VITE_USE_MOCK=true (offline demo) without ai:8000.
+const M4_ROUTES = m4RoutesJson as unknown as M4RoutesResponse;
 
 /** Simulated network latency, 800–2000 ms (per SLARA_FRONTEND_PLAN §3). */
 function delay(): Promise<void> {
@@ -64,9 +66,13 @@ export async function getFleet(): Promise<FleetData> {
   return clone(FLEET);
 }
 
-export async function getApprovals(): Promise<ApprovalsData> {
+export async function getM4Routes(
+  _scenario?: string,
+): Promise<M4RoutesResponse> {
   await delay();
-  return clone(APPROVALS);
+  // Single-scenario snapshot (ADR-004) — the scenario arg is accepted for
+  // signature parity with api.getM4Routes but there is only one fixture.
+  return clone(M4_ROUTES);
 }
 
 export async function getExecutionKpi(): Promise<ExecutionKpiData> {

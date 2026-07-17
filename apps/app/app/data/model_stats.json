@@ -53,19 +53,19 @@
     "engine": "DEAP 1.4 NSGA-II",
     "generations": 150,
     "population": 120,
-    "pareto_solutions": 17,
-    "hypervolume": 0.664,
-    "runtime_s": 13.2,
-    "cs_m4": 0.996,
+    "pareto_solutions": 12,
+    "hypervolume": 0.5275,
+    "runtime_s": 9.5,
+    "cs_m4": 0.856,
     "scenario_count": 1,
     "vs_baseline_balanced": {
-      "_note": "Satu skenario (jabodetabek_urban_sameday). Desain M4 §7.3 minta tiga sebelum digeneralisasi.",
-      "sla_risk_pct": -53.2,
-      "cost_pct": 7.0,
-      "co2_pct": 14.0
+      "_note": "Satu skenario (jabodetabek_urban_sameday), jarak OSRM road-network (re-run 16 Jul). Desain M4 §7.3 minta tiga sebelum digeneralisasi.",
+      "sla_risk_pct": -48.2,
+      "cost_pct": 8.6,
+      "co2_pct": 11.8
     },
     "baseline_distance_only_nn": {
-      "late_stops_p90": 4,
+      "late_stops_p90": 6,
       "total_stops": 16,
       "risk_tier": "CRITICAL"
     },

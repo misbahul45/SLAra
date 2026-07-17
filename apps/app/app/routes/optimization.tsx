@@ -7,6 +7,9 @@ import { ClientOnly } from "~/components/ClientOnly";
 import { GaConvergenceChart } from "~/components/GaConvergenceChart";
 import { ParetoStats, WeightTuningPanel } from "~/components/ParetoStats";
 import { ParetoTable } from "~/components/ParetoTable";
+import { ChartFallback, MapFallback } from "~/components/Fallbacks";
+
+export { RouteErrorBoundary as ErrorBoundary } from "~/components/RouteError";
 
 const RouteMap = lazy(() => import("~/components/RouteMap"));
 
@@ -29,8 +32,8 @@ export default function Optimization({ loaderData }: Route.ComponentProps) {
   return (
     <div className="mx-auto max-w-[1500px] space-y-5">
       <PageHeader
-        title="Route Optimization Result"
-        subtitle="NSGA-II Genetic Algorithm"
+        title="Route Optimization"
+        subtitle="NSGA-II genetic algorithm — multi-objective Pareto search over SLA risk, cost, and CO₂"
       />
 
       <div className="space-y-1 text-[14px]">
@@ -49,7 +52,8 @@ export default function Optimization({ loaderData }: Route.ComponentProps) {
           <h2 className="text-[22px] font-bold text-brand">GA Convergence</h2>
           <p className="text-[14px] text-ink/70">
             Hypervolume per generation ({result.convergence.length} snapshots, live
-            from M4)
+            from M4) — higher means the whole set of trade-offs improved; the
+            plateau is the search converging
           </p>
           <div className="glass-card p-4">
             <ClientOnly fallback={<ChartFallback />}>
@@ -69,7 +73,9 @@ export default function Optimization({ loaderData }: Route.ComponentProps) {
           Pareto Plan Comparison
         </h2>
         <p className="text-[14px] text-ink/70">
-          Click a route on the map or a table row — the two stay in sync
+          Click a route on the map or a table row — the two stay in sync. Every
+          plan here is Pareto-optimal: better on one objective, worse on another —
+          there is no free win.
         </p>
         <div className="grid gap-4 lg:grid-cols-5">
           <div className="glass-card h-[360px] p-0 lg:col-span-2">
@@ -96,34 +102,20 @@ export default function Optimization({ loaderData }: Route.ComponentProps) {
               selectedId={selectedRouteId}
               onSelect={setSelectedRouteId}
             />
+            <p className="mt-2 text-[12px] text-muted">
+              Score = 100 × (1 − tour SLA risk) — higher is more reliable. Delay
+              Risk = share of the tour's stops predicted late at P90.
+            </p>
           </div>
         </div>
       </section>
 
       <div className="glass-card border-accent/50 p-5">
-        <div className="flex items-center gap-2 text-[15px] font-bold text-accent">
-          <span aria-hidden="true">⚙️</span> Optimizer Note
-        </div>
+        <div className="text-[15px] font-bold text-accent">Optimizer Note</div>
         <p className="mt-2 text-[14px] leading-relaxed text-ink/80">
           {result.note}
         </p>
       </div>
-    </div>
-  );
-}
-
-function ChartFallback() {
-  return (
-    <div className="flex h-[300px] items-center justify-center text-sm text-brand">
-      Loading chart…
-    </div>
-  );
-}
-
-function MapFallback() {
-  return (
-    <div className="flex h-full items-center justify-center bg-white/40 text-sm text-brand">
-      Loading map…
     </div>
   );
 }

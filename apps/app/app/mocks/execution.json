@@ -16,31 +16,31 @@
   "before_after": [
     {
       "label": "Tour SLA Risk",
-      "before": 18.3,
-      "after": 8.6,
-      "before_display": "18.3%",
-      "after_display": "8.6%"
+      "before": 24.5,
+      "after": 12.7,
+      "before_display": "24.5%",
+      "after_display": "12.7%"
     },
     {
       "label": "Late stops @P90",
-      "before": 4,
-      "after": 2,
-      "before_display": "4 / 16",
-      "after_display": "2 / 16"
+      "before": 6,
+      "after": 3,
+      "before_display": "6 / 16",
+      "after_display": "3 / 16"
     },
     {
       "label": "Cost (k IDR)",
-      "before": 599,
-      "after": 641,
-      "before_display": "Rp 599k",
-      "after_display": "Rp 641k"
+      "before": 807,
+      "after": 876,
+      "before_display": "Rp 807k",
+      "after_display": "Rp 876k"
     },
     {
       "label": "CO₂ (kg)",
-      "before": 15.9,
-      "after": 18.1,
-      "before_display": "15.9 kg",
-      "after_display": "18.1 kg"
+      "before": 25.1,
+      "after": 28.1,
+      "before_display": "25.1 kg",
+      "after_display": "28.1 kg"
     }
   ],
   "distribution": [
@@ -50,17 +50,17 @@
     { "label": "Failed", "value": 0 }
   ],
   "summary": {
-    "headline": "M4 Balanced vs distance-only NN baseline — trade-off yang jujur, bukan kemenangan gratis:",
+    "headline": "M4 Balanced vs distance-only NN baseline — an honest trade-off, not a free win:",
     "bullets": [
-      { "tone": "good", "text": "Tour SLA risk turun 53.2% (0.183 → 0.086); stop telat @P90 4/16 → 2/16" },
-      { "tone": "up", "text": "Cost naik 7.0% (Rp 599k → Rp 641k) — ini harga dari penurunan risiko" },
-      { "tone": "up", "text": "CO₂ naik 14.0% (15.9 → 18.1 kg): rute lebih andal, bukan lebih pendek" },
-      { "tone": "good", "text": "Escalation rate 16.7% (2/12), di dalam band sehat 5–20%" }
+      { "tone": "good", "text": "Tour SLA risk down 48.2% (0.245 → 0.127); late stops @P90 cut from 6/16 to 3/16" },
+      { "tone": "up", "text": "Cost up 8.6% (Rp 807k → Rp 876k) — the price paid for the risk reduction" },
+      { "tone": "up", "text": "CO₂ up 11.8% (25.1 → 28.1 kg): the route is more reliable, not shorter" },
+      { "tone": "good", "text": "Escalation rate 16.7% (2/12), inside the 5–20% healthy band" }
     ],
-    "footnote": "Sumber: GET /internal/m4/routes (precomputed Pareto, ADR-004) — satu skenario, tur 16 stop. M4 tidak beradaptasi ke traffic/cuaca live; risiko live per-shipment ada di blok eta pada /decide."
+    "footnote": "Source: GET /internal/m4/routes (precomputed Pareto, ADR-004; OSRM road distances) — one scenario, 16-stop tour. M4 does not adapt to live traffic/weather; live per-shipment risk comes from the eta block of /decide."
   },
   "sustainability": [
-    { "label": "CO₂ VS BASELINE (TUR M4 BALANCED)", "value": "+14.0% (15.9 → 18.1 kg)" },
+    { "label": "CO₂ VS BASELINE (M4 BALANCED TOUR)", "value": "+11.8% (25.1 → 28.1 kg)" },
     { "label": "CALCULATION METHOD", "value": "M3 rule-based · EF IPCC/GLEC" },
     { "label": "REPORTING STANDARD", "value": "GHG Protocol Corporate" },
     { "label": "SCOPE COVERAGE", "value": "Scope 1 + Scope 3 Cat. 4" }
@@ -69,7 +69,7 @@
     "auto_resolution": {
       "label": "Escalation Rate",
       "value_pct": 16.7,
-      "display": "16.7% (2/12) · band sehat 5–20%"
+      "display": "16.7% (2/12) · healthy band 5–20%"
     },
     "percentiles": [
       { "label": "decide p50", "value": "34 ms" },

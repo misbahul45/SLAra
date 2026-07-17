@@ -4,10 +4,13 @@ import type { RiskTier } from "./types";
 // widths in EtaBand); the class map is for Tailwind — full literal strings so the
 // JIT can see them (dynamically-built class names would be purged).
 
+// MUST stay in sync with the @theme tokens in app.css (--color-safe/-warning/
+// -critical) — badges use the Tailwind classes, maps/EtaBand use these hex values,
+// and the same tier has to read as the same color in both.
 export const TIER_HEX: Record<RiskTier, string> = {
-  SAFE: "#2fbf71",
-  WARNING: "#f5a623",
-  CRITICAL: "#e5484d",
+  SAFE: "#2f9e6b",
+  WARNING: "#e0a83a",
+  CRITICAL: "#c00000",
 };
 
 export const TIER_BADGE_CLASS: Record<RiskTier, string> = {

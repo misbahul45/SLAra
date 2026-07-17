@@ -3,23 +3,73 @@
     "shipment_id": "SHP-1021",
     "status": "Reroute Recommended",
     "rows": [
-      { "label": "DRIVER", "value": "Zahid Ibrahim" },
-      { "label": "VEHICLE", "value": "B-1247-XV • Electric Van (CDD < 1.5t)" },
-      { "label": "SLA TIER", "value": "🏅 Gold / Same Day", "accent": "gold" },
-      { "label": "ORIGIN", "value": "Hub Cibitung - Dock A" },
-      { "label": "DESTINATION", "value": "Bekasi Selatan - Zone B" },
-      { "label": "WEIGHT x VOLUME", "value": "142 kg • 0.8 m³" }
+      {
+        "label": "DRIVER",
+        "value": "Zahid Ibrahim"
+      },
+      {
+        "label": "VEHICLE",
+        "value": "B-1247-XV · Electric Van (CDD < 1.5t)"
+      },
+      {
+        "label": "SLA TIER",
+        "value": "Gold / Same Day",
+        "accent": "gold"
+      },
+      {
+        "label": "ORIGIN",
+        "value": "Hub Cibitung - Dock A"
+      },
+      {
+        "label": "DESTINATION",
+        "value": "Bekasi Selatan - Zone B"
+      },
+      {
+        "label": "WEIGHT & VOLUME",
+        "value": "142 kg · 0.8 m³"
+      }
     ],
     "bars": [
-      { "label": "Current ETA", "display": "78 min", "bar_pct": 64 },
-      { "label": "Delay Risk", "display": "72 %", "bar_pct": 72 }
+      {
+        "label": "Current ETA",
+        "display": "78 min",
+        "bar_pct": 64
+      },
+      {
+        "label": "Delay Risk",
+        "display": "72 %",
+        "bar_pct": 72
+      }
     ],
-    "map_center": [-6.28, 107.02]
+    "map_center": [
+      -6.28,
+      107.02
+    ]
   },
   "markers": [
-    { "lat": -6.28, "lng": 107.02, "label": "B-1247-XV · SHP-1021", "color": "#780001" },
-    { "lat": -6.241, "lng": 106.995, "label": "B-1180-KM · SHP-1044", "color": "#01304a" },
-    { "lat": -6.305, "lng": 106.975, "label": "B-2455-QP · SHP-1058", "color": "#01304a" },
-    { "lat": -6.223, "lng": 107.058, "label": "B-9012-ZH · SHP-1063", "color": "#01304a" }
+    {
+      "lat": -6.28,
+      "lng": 107.02,
+      "label": "B-1247-XV · SHP-1021",
+      "color": "#780001"
+    },
+    {
+      "lat": -6.241,
+      "lng": 106.995,
+      "label": "B-1180-KM · SHP-1044",
+      "color": "#01304a"
+    },
+    {
+      "lat": -6.305,
+      "lng": 106.975,
+      "label": "B-2455-QP · SHP-1058",
+      "color": "#01304a"
+    },
+    {
+      "lat": -6.223,
+      "lng": 107.058,
+      "label": "B-9012-ZH · SHP-1063",
+      "color": "#01304a"
+    }
   ]
 }

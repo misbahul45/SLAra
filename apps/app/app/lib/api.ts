@@ -4,7 +4,6 @@
 
 import type {
   ApiErrorBody,
-  ApprovalsData,
   DashboardData,
   DecideResponse,
   ExecutionKpiData,
@@ -102,10 +101,6 @@ export function getDashboard(): Promise<DashboardData> {
 
 export function getFleet(): Promise<FleetData> {
   return request<FleetData>("/fleet/telemetry");
-}
-
-export function getApprovals(): Promise<ApprovalsData> {
-  return request<ApprovalsData>("/approvals");
 }
 
 export function getExecutionKpi(): Promise<ExecutionKpiData> {
